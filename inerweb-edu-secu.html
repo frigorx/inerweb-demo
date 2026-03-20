@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>inerWeb Édu – Sécu – Audit Local</title>
+  <style>
+/**
+ * INERWEB ÉDU SÉCU — VERSION COMPLÈTE v5.2
+ * Avec vitrine ÉQUATIO (taxe apprentissage, stages)
+ */
+:root{
+  --navy: #0f2d52;
+  --navy-mid: #1a4a6e;
+  --orange: #e8914a;
+  --orange-hover: #d47a35;
+  --orange-warm: #fdf6ef;
+  --orange-glow: rgba(232, 145, 74, 0.35);
+  --turquoise: #2aafaf;
+  --turquoise-light: #eef8f7;
+  --mint: #d4f0e8;
+  --mint-deep: #b8e6d8;
+  --mint-border: #7ecfbf;
+  --bg: #faf7f2;
+  --bg-end: #f0ebe3;
+  --card: #ffffff;
+  --text: #2c3e50;
+  --text-strong: #0f2d52;
+  --muted: #5a7080;
+  --line: #ece4da;
+  --accent: #e8914a;
+  --ok: #27ae60;
+  --warn: #e8914a;
+  --bad: #e74c3c;
+  --radius: 22px;
+  --radius-sm: 14px;
+  --radius-pill: 999px;
+  --shadow: 0 4px 16px rgba(15, 45, 82, 0.07), 0 1px 3px rgba(232, 145, 74, 0.05);
+  --shadow-orange: 0 4px 18px rgba(232, 145, 74, 0.35);
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font);
+  background:linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
+  background-attachment:fixed;
+  color:var(--text);
+  transition: margin-right .35s cubic-bezier(.4,0,.2,1);
+}
+body.vitrine-active{
+  margin-right:280px;
+}
+
+.topbar{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 16px;
+  background:linear-gradient(135deg, var(--navy), var(--navy-mid), var(--turquoise));
+  border-bottom:4px solid var(--orange);
+  border-radius:0 0 0 40px;
+  box-shadow:0 4px 20px rgba(15, 45, 82, 0.15);
+}
+.brand{display:flex; gap:10px; align-items:center}
+.brand__mark{
+  width:46px; height:46px; border-radius:var(--radius-sm);
+  display:grid; place-items:center;
+  background:rgba(255,255,255,0.95);
+  font-weight:900;
+  font-size:11px;
+  color:var(--orange);
+  box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+.brand__title{font-weight:900; font-size:14px; color:#fff; letter-spacing:1px}
+.brand__subtitle{font-size:12px; color:rgba(255,255,255,0.85)}
+
+.layout{
+  max-width:1200px;
+  margin:16px auto 0;
+  padding:0 16px;
+  display:grid;
+  grid-template-columns:280px 1fr;
+  gap:14px;
+}
+.sidebar{
+  position:sticky; top:84px;
+  height:fit-content;
+}
+.nav{
+  background:linear-gradient(135deg, var(--mint), var(--mint-deep));
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:10px;
+}
+.nav__item{
+  display:block;
+  padding:10px 12px;
+  border-radius:var(--radius-pill);
+  text-decoration:none;
+  color:var(--navy);
+  border:2px solid transparent;
+  font-weight:700;
+  background:#fff;
+  margin:4px 0;
+  transition:all 0.25s;
+  cursor:pointer;
+}
+.nav__item:hover{background:var(--orange-warm);color:var(--orange)}
+.nav__item.is-active{
+  background:var(--orange);
+  color:#fff;
+  border-color:var(--orange);
+  box-shadow:var(--shadow-orange);
+}
+.nav__sep{height:1px;background:rgba(126,207,191,0.5);margin:10px 0}
+
+.sidebar__hint{
+  margin-top:12px;
+  background:var(--orange-warm);
+  border:1px solid var(--line);
+  border-left:4px solid var(--orange);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:12px;
+}
+.hint__title{font-weight:900;font-size:13px;margin:0 0 6px;color:var(--orange)}
+.hint__text{font-size:12px;color:var(--muted);line-height:1.35}
+
+.content{min-height:70vh}
+.footer{
+  padding:18px 16px;
+  background:linear-gradient(135deg, var(--navy), var(--navy-mid));
+  border-top:3px solid var(--orange);
+  border-radius:24px 0 0 0;
+  margin-top:20px;
+}
+.footer__inner{
+  max-width:1200px;
+  margin:0 auto;
+  color:rgba(255,255,255,0.85);
+  font-size:12px;
+}
+
+/* Components */
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-left:5px solid var(--orange);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:16px;
+}
+.card h2{margin:0 0 6px;font-size:18px;color:var(--orange)}
+.card h3{margin:0 0 8px;font-size:14px;color:var(--navy)}
+.card p{margin:0 0 12px;color:var(--muted);font-size:13px}
+
+.grid{display:grid; grid-template-columns:repeat(12,1fr); gap:12px}
+.col-12{grid-column:span 12}
+.col-6{grid-column:span 6}
+.col-4{grid-column:span 4}
+.col-3{grid-column:span 3}
+
+label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+input,select,textarea{
+  width:100%;
+  padding:10px 12px;
+  border-radius:var(--radius-sm);
+  border:2px solid var(--line);
+  background:#fff;
+  font:inherit;
+  outline:none;
+  transition:all 0.25s;
+}
+textarea{min-height:90px; resize:vertical}
+input:focus,select:focus,textarea:focus{
+  border-color:var(--orange);
+  box-shadow:0 0 0 4px var(--orange-glow), inset 0 2px 4px rgba(0,0,0,0.03);
+}
+.row{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.hr{height:1px;background:var(--line);margin:14px 0}
+
+.btn{
+  border:none;
+  border-radius:var(--radius-pill);
+  padding:10px 16px;
+  font-weight:700;
+  cursor:pointer;
+  display:inline-flex; gap:8px; align-items:center;
+  transition:all 0.25s;
+  font-size:14px;
+}
+.btn--primary{background:var(--orange); color:#fff; box-shadow:var(--shadow-orange)}
+.btn--blue{background:var(--navy); color:#fff}
+.btn--ghost{background:#fff; border:2px solid var(--line); color:var(--text)}
+.btn--ghost:hover{background:var(--orange-warm);border-color:var(--orange);color:var(--orange)}
+.btn--primary:hover{background:var(--orange-hover)}
+.btn--blue:hover{background:var(--navy-mid)}
+
+.chip{
+  font-size:12px;
+  padding:6px 12px;
+  border-radius:var(--radius-pill);
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--muted);
+}
+.badge{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; color:var(--muted);
+  border:1px solid var(--line);
+  background:#fff;
+  padding:8px 12px;
+  border-radius:var(--radius-pill);
+}
+.dot{width:10px;height:10px;border-radius:var(--radius-pill);background:var(--muted)}
+.dot.ok{background:var(--ok)}
+.dot.warn{background:var(--warn)}
+.dot.bad{background:var(--bad)}
+
+.kpi{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px}
+.kpi__box{
+  border:1px solid var(--line);
+  border-left:4px solid var(--turquoise);
+  border-radius:var(--radius-sm);
+  padding:12px;
+  background:#fff;
+}
+.kpi__box b{display:block;font-size:14px;margin-bottom:4px;color:var(--navy)}
+.kpi__box span{font-size:12px;color:var(--muted)}
+
+ul.list{margin:0; padding-left:18px}
+ul.list li{margin:6px 0; font-size:13px}
+
+.muted{color:var(--muted)}
+
+/* ================================================
+   VITRINE ÉQUATIO — Panneau latéral rétractable
+   ================================================ */
+.iw-vitrine {
+  position: fixed;
+  top: 0; right: 0;
+  width: 280px;
+  height: 100vh;
+  background: linear-gradient(180deg, var(--mint) 0%, var(--mint-deep) 100%);
+  border-left: 3px solid var(--orange);
+  box-shadow: -4px 0 20px rgba(15,45,82,.08);
+  z-index: 900;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.4,0,.2,1);
+  overflow: visible;
+}
+.iw-vitrine.open {
+  transform: translateX(0);
+}
+
+/* Header vitrine */
+.iw-vitrine-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .7rem .8rem;
+  background: var(--navy);
+  color: white;
+  flex-shrink: 0;
+  border-bottom: 3px solid var(--orange);
+}
+.iw-vitrine-titre {
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Poignée de tiroir — bord gauche du panneau */
+.iw-vitrine-handle {
+  position: absolute;
+  left: -22px; top: 50%;
+  transform: translateY(-50%);
+  width: 22px; height: 60px;
+  background: var(--orange);
+  border-radius: 10px 0 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  box-shadow: -3px 0 8px rgba(0,0,0,.1);
+  transition: all .25s;
+  z-index: 901;
+}
+.iw-vitrine-handle:hover {
+  width: 28px; left: -28px;
+  background: linear-gradient(135deg, var(--orange), #d07a3a);
+  box-shadow: -4px 0 12px rgba(232,145,74,.3);
+}
+
+/* Corps scrollable */
+.iw-vitrine-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: .6rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.iw-vitrine-body::-webkit-scrollbar { width: 4px; }
+.iw-vitrine-body::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 4px; }
+
+/* Onglet latéral (quand vitrine fermée) */
+.iw-vitrine-tab {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 899;
+  background: var(--navy);
+  color: white;
+  width: 38px;
+  padding: .8rem .4rem;
+  border-radius: 12px 0 0 12px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.1rem;
+  box-shadow: -3px 0 12px rgba(15,45,82,.15);
+  border-left: 3px solid var(--orange);
+  transition: all .25s;
+  writing-mode: vertical-lr;
+}
+.iw-vitrine-tab:hover {
+  width: 44px;
+  background: linear-gradient(135deg, var(--navy), #1a4a6e);
+  box-shadow: -4px 0 18px rgba(232,145,74,.2);
+}
+.iw-vitrine-tab.hidden { display: none; }
+
+/* Cartes vitrine */
+.iw-v-card {
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(42,175,175,.12);
+  border-radius: 14px;
+  padding: .7rem .8rem;
+  transition: all .25s;
+}
+.iw-v-card:hover {
+  background: rgba(255,255,255,.98);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+.iw-v-card-titre {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: .3rem;
+}
+.iw-v-card-texte {
+  font-size: 12px;
+  color: #3a6b60;
+  line-height: 1.45;
+  margin: 0 0 .3rem 0;
+}
+.iw-v-small { font-size: 11px; color: #5a8a7a; }
+
+.iw-v-btn {
+  display: inline-block;
+  background: var(--orange);
+  color: white;
+  border: none;
+  padding: .35rem .8rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: .4rem;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(232,145,74,.2);
+  transition: all .25s;
+}
+.iw-v-btn:hover {
+  background: var(--orange-hover);
+  transform: translateY(-1px);
+  color: white;
+  text-decoration: none;
+}
+
+/* Cards highlights */
+.iw-v-taxe { border-left: 4px solid var(--orange); }
+.iw-v-stages { border-left: 4px solid var(--turquoise); }
+.iw-v-contact { border-left: 4px solid var(--navy); }
+
+/* Logo ÉQUATIO dans vitrine */
+.equatio-logo {
+  background: white;
+  border-radius: 10px;
+  padding: 8px 12px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.equatio-logo svg {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 980px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:relative; top:auto}
+  .col-6,.col-4,.col-3{grid-column:span 12}
+  .kpi{grid-template-columns:1fr}
+  body.vitrine-active { margin-right: 0; }
+  .iw-vitrine { width: 85vw; max-width: 300px; }
+}
+
+/* Print */
+@media print{
+  .topbar, .sidebar, .footer, .no-print, .iw-vitrine, .iw-vitrine-tab{display:none !important}
+  body{background:#fff; margin-right:0 !important}
+  .layout{max-width:none;margin:0;padding:0;display:block}
+  .card{box-shadow:none;border-left:3px solid var(--orange)}
+}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar__left">
+    <div class="brand">
+      <div class="brand__mark" aria-hidden="true">❄️ Édu</div>
+      <div class="brand__text">
+        <div class="brand__title">inerWeb Édu – Sécu</div>
+        <div class="brand__subtitle">Audit local simplifié (incendie / évacuation)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topbar__right">
+    <span class="chip" id="chipStatus" style="background:rgba(0,0,0,0.18);color:rgba(255,255,255,0.9);border:none">Prêt</span>
+    <button class="btn btn--ghost" id="btnPrintTop" style="background:rgba(255,255,255,0.95);border:none" title="Exporter le rapport via impression (PDF)">🖨️ Export</button>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <nav class="nav">
+      <a class="nav__item" href="#/audit" data-route="audit">🧾 Audit</a>
+      <a class="nav__item" href="#/report" data-route="report">📄 Rapport</a>
+      <a class="nav__item" href="#/history" data-route="history">🗂️ Historique</a>
+      <a class="nav__item" href="#/settings" data-route="settings">⚙️ Réglages</a>
+      <div class="nav__sep"></div>
+      <a class="nav__item" href="#/about" data-route="about">⚖️ Mentions</a>
+    </nav>
+
+    <div class="sidebar__hint">
+      <div class="hint__title">🎁 Outil gratuit</div>
+      <div class="hint__text">
+        Offert par la <b>Filière Sécurité</b><br>
+        Lycée Jacques Raynaud<br>
+        Campus ÉQUATIO – Marseille
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div id="view"></div>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer__inner">
+    ⚠️ Outil indicatif. Ne remplace pas un diagnostic réglementaire (ERP/catégorie), commission de sécurité, assureur, etc. — <b>inerWeb Édu</b> par F. Henninot • Offert par la <b>Filière Sécurité</b> du Lycée Jacques Raynaud – Campus ÉQUATIO Marseille
+  </div>
+</footer>
+
+<!-- ================================================
+     VITRINE ÉQUATIO — Panneau latéral rétractable
+     ================================================ -->
+<div class="iw-vitrine-tab" id="vitrineTab" onclick="toggleVitrine()">
+  🎓 ÉQUATIO
+</div>
+
+<div class="iw-vitrine" id="vitrine">
+  <div class="iw-vitrine-handle" onclick="toggleVitrine()">◀</div>
+  
+  <div class="iw-vitrine-header">
+    <span class="iw-vitrine-titre">🎓 Campus ÉQUATIO</span>
+  </div>
+  
+  <div class="iw-vitrine-body">
+    
+    <!-- Logo ÉQUATIO -->
+    <div class="equatio-logo">
+      <svg xmlns="http://www.w3.org/2000/svg" width="200" height="56" viewBox="0 0 720 200" role="img" aria-label="ÉQUATIO — Créateur d'avenir">
+        <defs>
+          <style>
+            .wordmark { fill: #0C4B88; font-family: system-ui, sans-serif; font-weight: 700; letter-spacing: 0.02em; }
+            .baseline { fill: #8FA1AE; font-family: system-ui, sans-serif; font-weight: 400; letter-spacing: 0.20em; }
+          </style>
+        </defs>
+        <g transform="translate(30,20)">
+          <ellipse cx="40" cy="80" rx="28" ry="58" fill="none" stroke="#706EED" stroke-width="12" stroke-linecap="round" transform="rotate(-5 40 80)"/>
+          <ellipse cx="70" cy="80" rx="28" ry="58" fill="none" stroke="#60CAB3" stroke-width="12" stroke-linecap="round" transform="rotate(-5 70 80)"/>
+          <ellipse cx="100" cy="80" rx="28" ry="58" fill="none" stroke="#69D5DE" stroke-width="12" stroke-linecap="round" transform="rotate(-5 100 80)"/>
+          <circle cx="116" cy="80" r="8.5" fill="#F39640"/>
+        </g>
+        <text class="wordmark" x="180" y="98" font-size="72">EQUATIO</text>
+        <text class="baseline" x="184" y="138" font-size="20">C r é a t e u r   d ' a v e n i r</text>
+      </svg>
+    </div>
+
+    <!-- Card Taxe d'apprentissage -->
+    <div class="iw-v-card iw-v-taxe">
+      <div class="iw-v-card-titre">💰 Taxe d'apprentissage</div>
+      <div class="iw-v-card-texte">
+        Soutenez la formation des futurs professionnels de la sécurité !
+      </div>
+      <div class="iw-v-small">
+        Votre contribution finance équipements et formations de qualité.
+      </div>
+      <a href="https://www.soltea.gouv.fr" target="_blank" class="iw-v-btn">Verser via SOLTEA →</a>
+    </div>
+
+    <!-- Card Stages -->
+    <div class="iw-v-card iw-v-stages">
+      <div class="iw-v-card-titre">📅 Accueillez un stagiaire</div>
+      <div class="iw-v-card-texte">
+        Nos élèves cherchent des stages :<br>
+        <b>• CAP Agent de Sécurité</b><br>
+        <b>• BP ATPS</b><br>
+        <b>• Bac Pro Métiers de la Sécurité</b>
+      </div>
+      <div class="iw-v-small" style="margin-top:6px">
+        <b>Prochaines périodes :</b><br>
+        • Janvier 2026 (3 sem)<br>
+        • Mars 2026 (4 sem)<br>
+        • Mai 2026 (4 sem)
+      </div>
+      <button class="iw-v-btn" onclick="alert('Contact : stages@campus-equatio.fr\nTél : 04 91 XX XX XX')">Proposer un stage</button>
+    </div>
+
+    <!-- Card Apprentissage -->
+    <div class="iw-v-card iw-v-stages">
+      <div class="iw-v-card-titre">🎓 Recrutez un apprenti</div>
+      <div class="iw-v-card-texte">
+        Formez votre futur agent de sécurité en alternance !<br>
+        CAP, BP ou Bac Pro — nos apprentis sont motivés et encadrés.
+      </div>
+      <div class="iw-v-small">
+        Aides à l'embauche disponibles.
+      </div>
+      <button class="iw-v-btn" onclick="alert('Contact CFA : apprentissage@campus-equatio.fr\nTél : 04 91 XX XX XX')">Recruter un apprenti</button>
+    </div>
+
+    <!-- Card Contact -->
+    <div class="iw-v-card iw-v-contact">
+      <div class="iw-v-card-titre">📍 Nous contacter</div>
+      <div class="iw-v-card-texte">
+        <b>Campus ÉQUATIO</b><br>
+        Lycée Professionnel Privé Jacques Raynaud<br>
+        Marseille
+      </div>
+      <div class="iw-v-small">
+        <b>Filière Sécurité</b><br>
+        CAP AS • BP ATPS • Bac Pro
+      </div>
+      <a href="mailto:contact@campus-equatio.fr" class="iw-v-btn">✉️ Nous écrire</a>
+    </div>
+
+    <!-- Card Outil gratuit -->
+    <div class="iw-v-card" style="background:var(--orange-warm);border-left:4px solid var(--orange)">
+      <div class="iw-v-card-titre">🎁 Cet outil est gratuit !</div>
+      <div class="iw-v-card-texte">
+        Offert par <b>inerWeb Édu</b> et la <b>Filière Sécurité</b> du Lycée Jacques Raynaud aux professionnels de la sécurité.
+      </div>
+      <div class="iw-v-small">
+        Partagez-le à vos collègues !
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// =====================================================
+// INERWEB ÉDU SÉCU - VERSION COMPLÈTE v5.2
+// Avec vitrine ÉQUATIO
+// =====================================================
+
+(function(){
+"use strict";
+
+// === VITRINE TOGGLE ===
+window.toggleVitrine = function(){
+  var vitrine = document.getElementById('vitrine');
+  var tab = document.getElementById('vitrineTab');
+  var handle = vitrine.querySelector('.iw-vitrine-handle');
+  var isOpen = vitrine.classList.contains('open');
+  
+  if(isOpen){
+    vitrine.classList.remove('open');
+    document.body.classList.remove('vitrine-active');
+    tab.classList.remove('hidden');
+    handle.textContent = '◀';
+  } else {
+    vitrine.classList.add('open');
+    document.body.classList.add('vitrine-active');
+    tab.classList.add('hidden');
+    handle.textContent = '▶';
+  }
+};
+
+// === STATE ===
+var STORAGE_KEY = "inerweb_secu_audit_v2";
+var SETTINGS_KEY = "inerweb_secu_settings_v2";
+
+function loadState(){
+  try{
+    var raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : { audits: [] };
+  }catch(e){
+    return { audits: [] };
+  }
+}
+
+function saveState(state){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function loadSettings(){
+  try{
+    var raw = localStorage.getItem(SETTINGS_KEY);
+    return raw ? JSON.parse(raw) : {
+      author: "",
+      org: "",
+      keepHistory: true
+    };
+  }catch(e){
+    return { author:"", org:"", keepHistory:true };
+  }
+}
+
+function saveSettings(settings){
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+}
+
+function newAuditId(){
+  return "AUD-" + Math.random().toString(36).slice(2,8).toUpperCase() + "-" + Date.now().toString(36).toUpperCase();
+}
+
+// === UI HELPERS ===
+function escapeHtml(s){
+  return String(s ?? "").replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; });
+}
+
+function setStatus(text){
+  var el = document.getElementById("chipStatus");
+  if(el) el.textContent = text;
+}
+
+function setActiveNav(route){
+  document.querySelectorAll(".nav__item").forEach(function(a){
+    a.classList.toggle("is-active", a.dataset.route === route);
+  });
+}
+
+function badge(level){
+  var cls = "warn";
+  if(level.indexOf("Plutôt") !== -1) cls="ok";
+  if(level.indexOf("critique") !== -1) cls="bad";
+  return '<span class="badge"><span class="dot '+cls+'"></span><span>Niveau : '+escapeHtml(level)+'</span></span>';
+}
+
+function renderKpi(kpi){
+  return '<div class="kpi">'+
+    Object.keys(kpi).map(function(k){
+      return '<div class="kpi__box"><b>'+escapeHtml(k)+'</b><span>'+escapeHtml(kpi[k])+'</span></div>';
+    }).join("")+
+  '</div>';
+}
+
+function renderList(items){
+  return '<ul class="list">'+items.map(function(i){return '<li>'+escapeHtml(i)+'</li>';}).join("")+'</ul>';
+}
+
+// === ENGINE: SCHEMA ===
+function readAuditInput(root){
+  root = root || document;
+  return {
+    typeLocal: (root.getElementById("typeLocal")?.value) || "bureau",
+    surface: (root.getElementById("surface")?.value) || "",
+    effectif: (root.getElementById("effectif")?.value) || "",
+    niveaux: (root.getElementById("niveaux")?.value) || "1",
+    public: (root.getElementById("public")?.value) || "non",
+    cuisine: (root.getElementById("cuisine")?.value) || "non",
+    inflammable: (root.getElementById("inflammable")?.value) || "non",
+    tableauElec: (root.getElementById("tableauElec")?.value) || "oui",
+    notes: ((root.getElementById("notes")?.value) || "").trim(),
+    siteName: ((root.getElementById("siteName")?.value) || "").trim(),
+    address: ((root.getElementById("address")?.value) || "").trim(),
+  };
+}
+
+function validateAuditInput(input){
+  var surface = Number(input.surface);
+  var effectif = Number(input.effectif);
+  var niveaux = Number(input.niveaux);
+  var ok = Number.isFinite(surface) && surface > 0
+        && Number.isFinite(effectif) && effectif > 0
+        && Number.isFinite(niveaux) && niveaux > 0;
+  return { ok: ok, surface: surface, effectif: effectif, niveaux: niveaux };
+}
+
+// === ENGINE: RULES ===
+function computeRecommendations(input){
+  var surface = Number(input.surface || 0);
+  var effectif = Number(input.effectif || 0);
+  var niveaux = Number(input.niveaux || 1);
+
+  var hasPublic = input.public === "oui";
+  var hasCuisine = input.cuisine === "oui";
+  var hasInflammable = input.inflammable === "oui";
+  var hasTableauElec = input.tableauElec !== "non";
+
+  var issuesMin = (hasPublic || effectif > 19 || surface > 150 || niveaux > 1) ? 2 : 1;
+
+  var nbEau = Math.max(1, Math.ceil(surface / 200));
+  var nbCO2 = hasTableauElec ? 1 : 0;
+  var nbPoudre = (hasInflammable || input.typeLocal === "atelier" || input.typeLocal === "stockage") ? 1 : 0;
+
+  var risk = 0;
+  if(surface > 200) risk += 1;
+  if(effectif > 20) risk += 1;
+  if(niveaux > 1) risk += 1;
+  if(hasPublic) risk += 1;
+  if(hasInflammable) risk += 1;
+  if(input.typeLocal === "atelier" || input.typeLocal === "stockage") risk += 1;
+
+  var level = "À améliorer";
+  if(risk <= 1) level = "Plutôt conforme";
+  if(risk >= 4) level = "Non conforme critique (probable)";
+
+  var checklist = [
+    "Issues de secours dégagées en permanence (aucun stockage, aucune entrave).",
+    "Cheminements d'évacuation identifiés, accessibles, éclairés.",
+    "Signalisation de sortie / cheminement visible et cohérente.",
+    "Consignes incendie affichées (rôles, alerte, évacuation, point de rassemblement).",
+    "Extincteurs accessibles, visibles, signalés, vérifiés périodiquement.",
+    "Tableau électrique accessible, identifié, zone dégagée.",
+    "Registre de sécurité / suivi des vérifications (extincteurs, alarme, BAES)."
+  ];
+
+  if(hasPublic) checklist.push("Plan d'évacuation affiché et lisible (accueil public / locaux complexes).");
+  if(hasInflammable) checklist.push("Stockage inflammable maîtrisé (local dédié si besoin, ventilation, éloignement sources).");
+  if(hasCuisine) checklist.push("Zone cuisine : prévention feux de cuisson, procédures d'arrêt, nettoyage, moyens adaptés.");
+
+  var reco = [
+    "Prévoir au minimum "+issuesMin+" issue(s) de secours (à confirmer selon configuration et réglementation).",
+    "Extincteurs indicatifs : "+nbEau+" eau pulvérisée/AB (ou équivalent)"
+      + (nbCO2 ? ", "+nbCO2+" CO₂ près du tableau électrique" : "")
+      + (nbPoudre ? ", +"+nbPoudre+" poudre (atelier/stockage/inflammables)." : "."),
+    "Implantation : près des accès et zones à risque, visibles, sans obstacle, avec signalétique.",
+    "Procédure simple : alerter → évacuer → guider → accueillir les secours.",
+    "Former les personnels clés : alerte, évacuation, point de rassemblement, usage extincteur (si prévu)."
+  ];
+
+  if(hasCuisine){
+    reco.push("Cuisine : vérifier besoin de moyens adaptés aux feux de cuisson (à valider selon matériel et risques).");
+  }
+  if(hasPublic){
+    reco.push("Accueil du public : renforcer signalétique, exercices/consignes, et gestion des flux.");
+  }
+
+  var kpi = {
+    "Niveau estimé": level,
+    "Issues min (indicatif)": String(issuesMin),
+    "Extincteurs (indicatif)": nbEau+" eau" + (nbCO2 ? " • "+nbCO2+" CO₂" : "") + (nbPoudre ? " • "+nbPoudre+" poudre" : "")
+  };
+
+  return { level: level, checklist: checklist, reco: reco, kpi: kpi, meta: { issuesMin: issuesMin, nbEau: nbEau, nbCO2: nbCO2, nbPoudre: nbPoudre, risk: risk } };
+}
+
+// === ENGINE: TEXT ===
+function buildReportHtml(audit){
+  var i = audit.input;
+  var r = audit.result;
+
+  var lines = [];
+  lines.push('<div class="muted">Date : '+escapeHtml(audit.dateHuman)+'</div>');
+  if(audit.author || audit.org){
+    lines.push('<div class="muted">Auteur : '+escapeHtml(audit.author || "-")+' • Organisation : '+escapeHtml(audit.org || "-")+'</div>');
+  }
+  lines.push('<div class="hr"></div>');
+
+  lines.push('<h3>Paramètres</h3>');
+  lines.push('<div><b>Site</b> : '+escapeHtml(i.siteName || "-")+'</div>');
+  lines.push('<div><b>Adresse</b> : '+escapeHtml(i.address || "-")+'</div>');
+  lines.push('<div>Type : '+escapeHtml(i.typeLocal)+' • Surface : '+escapeHtml(i.surface)+' m² • Effectif : '+escapeHtml(i.effectif)+' • Niveaux : '+escapeHtml(i.niveaux)+'</div>');
+  lines.push('<div>Public : '+escapeHtml(i.public)+' • Cuisine : '+escapeHtml(i.cuisine)+' • Inflammables : '+escapeHtml(i.inflammable)+' • Tableau électrique : '+escapeHtml(i.tableauElec)+'</div>');
+  if(i.notes) lines.push('<div style="margin-top:8px"><b>Notes</b> : '+escapeHtml(i.notes)+'</div>');
+
+  lines.push('<div class="hr"></div>');
+  lines.push('<h3>Résultat</h3>');
+  lines.push('<div><b>Niveau</b> : '+escapeHtml(r.level)+'</div>');
+
+  lines.push('<div class="hr"></div>');
+  lines.push('<h3>Recommandations (indicatives)</h3>');
+  lines.push('<ul class="list">'+r.reco.map(function(x){return '<li>'+escapeHtml(x)+'</li>';}).join("")+'</ul>');
+
+  lines.push('<div class="hr"></div>');
+  lines.push('<h3>Check-list terrain</h3>');
+  lines.push('<ul class="list">'+r.checklist.map(function(x){return '<li>'+escapeHtml(x)+'</li>';}).join("")+'</ul>');
+
+  lines.push('<div class="hr"></div>');
+  lines.push('<div class="muted">⚠️ Document indicatif. À valider selon la réglementation applicable. — Outil offert par la <b>Filière Sécurité</b> du Lycée Jacques Raynaud – Campus ÉQUATIO Marseille</div>');
+
+  return lines.join("");
+}
+
+// === VIEWS ===
+
+// Audit View
+function renderAuditView(ctx){
+  return '\
+  <section class="card">\
+    <h2>Audit local</h2>\
+    <p>Saisissez les caractéristiques du lieu. Recommandations <b>indicatives</b>.</p>\
+    <div class="grid">\
+      <div class="col-6">\
+        <label>Nom du site (optionnel)</label>\
+        <input id="siteName" placeholder="ex : Boutique Centre-Ville" />\
+      </div>\
+      <div class="col-6">\
+        <label>Adresse (optionnel)</label>\
+        <input id="address" placeholder="ex : 12 rue ..." />\
+      </div>\
+      <div class="col-4">\
+        <label>Type de local</label>\
+        <select id="typeLocal">\
+          <option value="bureau">Bureau</option>\
+          <option value="commerce">Commerce</option>\
+          <option value="atelier">Atelier</option>\
+          <option value="erp">ERP (simplifié)</option>\
+          <option value="stockage">Stockage</option>\
+          <option value="autre">Autre</option>\
+        </select>\
+      </div>\
+      <div class="col-4">\
+        <label>Surface (m²)</label>\
+        <input id="surface" type="number" min="1" step="1" placeholder="ex : 120" />\
+      </div>\
+      <div class="col-4">\
+        <label>Effectif maximal</label>\
+        <input id="effectif" type="number" min="1" step="1" placeholder="ex : 15" />\
+      </div>\
+      <div class="col-3">\
+        <label>Niveaux</label>\
+        <input id="niveaux" type="number" min="1" step="1" value="1" />\
+      </div>\
+      <div class="col-3">\
+        <label>Public accueilli</label>\
+        <select id="public">\
+          <option value="oui">Oui</option>\
+          <option value="non" selected>Non</option>\
+        </select>\
+      </div>\
+      <div class="col-3">\
+        <label>Cuisine</label>\
+        <select id="cuisine">\
+          <option value="non" selected>Non</option>\
+          <option value="oui">Oui</option>\
+        </select>\
+      </div>\
+      <div class="col-3">\
+        <label>Inflammables</label>\
+        <select id="inflammable">\
+          <option value="non" selected>Non</option>\
+          <option value="oui">Oui</option>\
+        </select>\
+      </div>\
+      <div class="col-4">\
+        <label>Tableau électrique</label>\
+        <select id="tableauElec">\
+          <option value="oui" selected>Oui</option>\
+          <option value="non">Non</option>\
+        </select>\
+      </div>\
+      <div class="col-12">\
+        <label>Notes (optionnel)</label>\
+        <textarea id="notes" placeholder="ex : couloir étroit, stock au fond, accès secondaire, etc."></textarea>\
+      </div>\
+    </div>\
+    <div class="row no-print" style="margin-top:12px">\
+      <button class="btn btn--primary" id="btnGenerate">⚙️ Générer</button>\
+      <button class="btn btn--ghost" id="btnClear">↩️ Réinitialiser</button>\
+      <span class="badge" id="badgeEtat"><span class="dot warn"></span><span>Données incomplètes</span></span>\
+    </div>\
+    <div class="hr"></div>\
+    <div class="row" style="justify-content:space-between;align-items:flex-start">\
+      <div style="min-width:280px" id="badgeConformite">'+badge("Niveau : à calculer")+'</div>\
+      <div style="flex:1"></div>\
+    </div>\
+    <div id="kpiBox" style="margin-top:12px"></div>\
+    <div class="grid" style="margin-top:12px">\
+      <div class="col-6">\
+        <div class="card" style="box-shadow:none;border-left:4px solid var(--turquoise)">\
+          <h3>Check-list terrain</h3>\
+          <div id="checklistBox" class="muted">Générez un audit.</div>\
+        </div>\
+      </div>\
+      <div class="col-6">\
+        <div class="card" style="box-shadow:none">\
+          <h3>Recommandations</h3>\
+          <div id="recoBox" class="muted">Générez un audit.</div>\
+        </div>\
+      </div>\
+    </div>\
+  </section>';
+}
+
+function bindAuditView(ctx){
+  var btn = document.getElementById("btnGenerate");
+  var clear = document.getElementById("btnClear");
+
+  function setBadgeEtat(ok){
+    var el = document.getElementById("badgeEtat");
+    el.innerHTML = ok
+      ? '<span class="dot ok"></span><span>Données OK</span>'
+      : '<span class="dot warn"></span><span>Données incomplètes</span>';
+  }
+
+  function reset(){
+    ["siteName","address","surface","effectif","notes"].forEach(function(id){
+      var e = document.getElementById(id); if(e) e.value = "";
+    });
+    document.getElementById("typeLocal").value = "bureau";
+    document.getElementById("niveaux").value = "1";
+    document.getElementById("public").value = "non";
+    document.getElementById("cuisine").value = "non";
+    document.getElementById("inflammable").value = "non";
+    document.getElementById("tableauElec").value = "oui";
+
+    document.getElementById("badgeConformite").innerHTML = badge("Niveau : à calculer");
+    document.getElementById("kpiBox").innerHTML = "";
+    document.getElementById("checklistBox").innerHTML = '<div class="muted">Générez un audit.</div>';
+    document.getElementById("recoBox").innerHTML = '<div class="muted">Générez un audit.</div>';
+    setBadgeEtat(false);
+    setStatus("Prêt");
+    ctx.setCurrentAudit(null);
+  }
+
+  function generate(){
+    var input = readAuditInput(document);
+    var v = validateAuditInput(input);
+    setBadgeEtat(v.ok);
+    if(!v.ok){
+      alert("Saisissez au minimum : surface (m²), effectif, niveaux.");
+      return;
+    }
+    var result = computeRecommendations(input);
+
+    ctx.createAndSetAudit(input, result);
+
+    document.getElementById("badgeConformite").innerHTML = badge(result.level);
+    document.getElementById("kpiBox").innerHTML = renderKpi(result.kpi);
+    document.getElementById("checklistBox").innerHTML = renderList(result.checklist);
+    document.getElementById("recoBox").innerHTML = renderList(result.reco);
+
+    setStatus("Audit généré");
+  }
+
+  if(btn) btn.addEventListener("click", generate);
+  if(clear) clear.addEventListener("click", reset);
+
+  reset();
+}
+
+// Report View
+function renderReportView(ctx){
+  var has = !!ctx.currentAudit;
+  return '\
+  <section class="card">\
+    <h2>Rapport</h2>\
+    <p>Rapport synthétique. Export via impression (PDF) : <b>Ctrl+P</b> ou bouton "Export".</p>\
+    <div class="row no-print" style="margin:10px 0 14px">\
+      <button class="btn btn--blue" id="btnPrint">🖨️ Export PDF</button>\
+      <button class="btn btn--ghost" id="btnCopy">📋 Copier</button>\
+      '+(has ? "" : '<span class="badge"><span class="dot warn"></span><span>Aucun audit sélectionné</span></span>')+'\
+    </div>\
+    <div class="card" style="box-shadow:none" id="reportBox">\
+      '+(has ? buildReportHtml(ctx.currentAudit) : '<div class="muted">Générez un audit dans "Audit", puis revenez ici.</div>')+'\
+    </div>\
+  </section>';
+}
+
+function bindReportView(ctx){
+  var btnPrint = document.getElementById("btnPrint");
+  var btnCopy = document.getElementById("btnCopy");
+
+  if(btnPrint) btnPrint.addEventListener("click", function(){
+    if(!ctx.currentAudit){
+      alert("Aucun audit à exporter.");
+      return;
+    }
+    setStatus("Export…");
+    window.print();
+    setStatus("Prêt");
+  });
+
+  if(btnCopy) btnCopy.addEventListener("click", function(){
+    var box = document.getElementById("reportBox");
+    if(!box) return;
+    try{
+      navigator.clipboard.writeText(box.innerText);
+      alert("Copié.");
+    }catch(e){
+      alert("Copie impossible. Sélectionnez le texte puis Ctrl+C.");
+    }
+  });
+}
+
+// History View
+function renderHistoryView(ctx){
+  var audits = ctx.state.audits.slice().reverse();
+  var rows = audits.map(function(a){
+    return '\
+      <div class="col-12">\
+        <div class="card" style="box-shadow:none;border-style:dashed">\
+          <div class="row" style="justify-content:space-between;align-items:flex-start">\
+            <div>\
+              <div style="font-weight:900">'+escapeHtml(a.input.siteName || "Sans nom")+' • '+escapeHtml(a.input.typeLocal)+'</div>\
+              <div class="muted">'+escapeHtml(a.dateHuman)+' • '+escapeHtml(a.input.surface)+' m² • '+escapeHtml(a.input.effectif)+' pers</div>\
+            </div>\
+            <div class="row">\
+              <button class="btn btn--primary" data-action="open" data-id="'+escapeHtml(a.id)+'">Ouvrir</button>\
+              <button class="btn btn--ghost" data-action="delete" data-id="'+escapeHtml(a.id)+'">Supprimer</button>\
+            </div>\
+          </div>\
+        </div>\
+      </div>';
+  }).join("");
+
+  return '\
+  <section class="card">\
+    <h2>Historique</h2>\
+    <p>Audits stockés localement sur cet appareil.</p>\
+    <div class="row no-print" style="margin:10px 0 14px">\
+      <button class="btn btn--ghost" id="btnClearHistory">🧹 Vider</button>\
+      <span class="badge"><span class="dot ok"></span><span>'+audits.length+' audit(s)</span></span>\
+    </div>\
+    '+(audits.length ? '<div class="grid">'+rows+'</div>' : '<div class="muted">Aucun audit enregistré.</div>')+'\
+  </section>';
+}
+
+function bindHistoryView(ctx){
+  var clear = document.getElementById("btnClearHistory");
+  if(clear) clear.addEventListener("click", function(){
+    if(!confirm("Vider l'historique local ?")) return;
+    ctx.state.audits = [];
+    ctx.persist();
+    setStatus("Historique vidé");
+    window.location.hash = "#/history";
+  });
+
+  document.querySelectorAll("[data-action]").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var action = btn.getAttribute("data-action");
+      var id = btn.getAttribute("data-id");
+      if(action === "open"){
+        var a = ctx.state.audits.find(function(x){return x.id===id;});
+        if(!a) return;
+        ctx.setCurrentAudit(a);
+        setStatus("Audit sélectionné");
+        window.location.hash = "#/report";
+      }
+      if(action === "delete"){
+        if(!confirm("Supprimer cet audit ?")) return;
+        ctx.state.audits = ctx.state.audits.filter(function(x){return x.id!==id;});
+        ctx.persist();
+        setStatus("Audit supprimé");
+        window.location.hash = "#/history";
+      }
+    });
+  });
+}
+
+// Settings View
+function renderSettingsView(ctx){
+  var s = ctx.settings;
+  return '\
+  <section class="card">\
+    <h2>Réglages</h2>\
+    <p>Informations d\'auteur et comportement de l\'historique.</p>\
+    <div class="grid">\
+      <div class="col-6">\
+        <label>Auteur (optionnel)</label>\
+        <input id="setAuthor" value="'+escapeHtml(s.author || "")+'" placeholder="ex : Nom Prénom" />\
+      </div>\
+      <div class="col-6">\
+        <label>Organisation (optionnel)</label>\
+        <input id="setOrg" value="'+escapeHtml(s.org || "")+'" placeholder="ex : Entreprise" />\
+      </div>\
+      <div class="col-6">\
+        <label>Historique local</label>\
+        <select id="setHistory">\
+          <option value="true" '+(s.keepHistory ? "selected":"")+'>Activer</option>\
+          <option value="false" '+(!s.keepHistory ? "selected":"")+'>Désactiver</option>\
+        </select>\
+      </div>\
+    </div>\
+    <div class="row no-print" style="margin-top:12px">\
+      <button class="btn btn--primary" id="btnSaveSettings">💾 Enregistrer</button>\
+    </div>\
+  </section>';
+}
+
+function bindSettingsView(ctx){
+  var btn = document.getElementById("btnSaveSettings");
+  if(btn) btn.addEventListener("click", function(){
+    ctx.settings.author = ((document.getElementById("setAuthor")?.value) || "").trim();
+    ctx.settings.org = ((document.getElementById("setOrg")?.value) || "").trim();
+    ctx.settings.keepHistory = ((document.getElementById("setHistory")?.value) || "true") === "true";
+    ctx.persistSettings();
+    setStatus("Réglages enregistrés");
+    alert("Enregistré.");
+  });
+}
+
+// About View
+function renderAboutView(){
+  return '\
+  <section class="card">\
+    <h2>Mentions & limites</h2>\
+    <p>Cadre d\'usage, responsabilité et bonnes pratiques.</p>\
+    <ul class="list">\
+      <li><b>Aide indicative</b> : recommandations générales. Ne remplace pas un diagnostic réglementaire.</li>\
+      <li><b>Contexte réel</b> : ERP, catégorie, assureur, commission de sécurité peuvent imposer des exigences plus strictes.</li>\
+      <li><b>Données</b> : stockage local uniquement (localStorage). Aucune transmission réseau.</li>\
+      <li><b>Traçabilité</b> : chaque rapport doit mentionner date, auteur, organisation et hypothèses.</li>\
+    </ul>\
+    <div class="hr"></div>\
+    <p class="muted">\
+      <b>inerWeb Édu</b> — Outil pédagogique par F. Henninot<br>\
+      Offert par la <b>Filière Sécurité</b> du Lycée Jacques Raynaud<br>\
+      <b>Campus ÉQUATIO</b> — Marseille<br><br>\
+      <b>Formations proposées :</b><br>\
+      • CAP Agent de Sécurité (CAP AS)<br>\
+      • BP Agent Technique de Prévention et de Sécurité (BP ATPS)<br>\
+      • Bac Pro Métiers de la Sécurité\
+    </p>\
+  </section>';
+}
+
+// === MAIN APP ===
+var view = document.getElementById("view");
+var btnPrintTop = document.getElementById("btnPrintTop");
+
+var ctx = {
+  state: loadState(),
+  settings: loadSettings(),
+  currentAudit: null,
+
+  persist: function(){
+    saveState(this.state);
+  },
+  persistSettings: function(){
+    saveSettings(this.settings);
+  },
+  setCurrentAudit: function(audit){
+    this.currentAudit = audit;
+  },
+  createAndSetAudit: function(input, result){
+    var now = new Date();
+    var audit = {
+      id: newAuditId(),
+      dateISO: now.toISOString(),
+      dateHuman: now.toLocaleString("fr-FR"),
+      author: this.settings.author || "",
+      org: this.settings.org || "",
+      input: input,
+      result: result
+    };
+    this.currentAudit = audit;
+
+    if(this.settings.keepHistory){
+      this.state.audits.push(audit);
+      this.persist();
+    }
+  }
+};
+
+var routes = {
+  audit: function(){
+    setActiveNav("audit");
+    view.innerHTML = renderAuditView(ctx);
+    bindAuditView(ctx);
+    setStatus("Prêt");
+  },
+  report: function(){
+    setActiveNav("report");
+    view.innerHTML = renderReportView(ctx);
+    bindReportView(ctx);
+    setStatus("Prêt");
+  },
+  history: function(){
+    setActiveNav("history");
+    view.innerHTML = renderHistoryView(ctx);
+    bindHistoryView(ctx);
+    setStatus("Prêt");
+  },
+  settings: function(){
+    setActiveNav("settings");
+    view.innerHTML = renderSettingsView(ctx);
+    bindSettingsView(ctx);
+    setStatus("Prêt");
+  },
+  about: function(){
+    setActiveNav("about");
+    view.innerHTML = renderAboutView();
+    setStatus("Prêt");
+  }
+};
+
+function parseRoute(){
+  var h = window.location.hash || "#/audit";
+  var m = h.match(/^#\/([a-zA-Z0-9_-]+)/);
+  return (m ? m[1] : "audit").toLowerCase();
+}
+
+function render(){
+  var r = parseRoute();
+  (routes[r] || routes.audit)();
+}
+
+window.addEventListener("hashchange", render);
+
+if(btnPrintTop) btnPrintTop.addEventListener("click", function(){
+  if(!ctx.currentAudit){
+    alert("Aucun audit sélectionné. Générez un audit, puis exportez depuis Rapport.");
+    return;
+  }
+  window.location.hash = "#/report";
+  setTimeout(function(){window.print();}, 150);
+});
+
+// First render
+if(!window.location.hash) window.location.hash = "#/audit";
+render();
+
+})();
+</script>
+</body>
+</html>
