@@ -1,0 +1,119 @@
+TEXTE TAXE D'APPRENTISSAGE — InerWeb Frigolo
+============================================
+F. Henninot — Lycée Professionnel Privé Jacques Raynaud
+Campus ÉQUATIO, Marseille
+
+Usage : présentation aux entreprises, partenaires, OPCO, organismes
+collecteurs. À adapter selon le support (1 page, slide, email).
+
+-----------------------------------------------------------------------
+VERSION COURTE (slide / email / présentation orale)
+-----------------------------------------------------------------------
+
+InerWeb Frigolo est un ensemble d'outils pédagogiques numériques
+développés par un enseignant en génie climatique et froid du Lycée
+Professionnel Privé Jacques Raynaud (Campus ÉQUATIO, Marseille).
+
+Ces outils sont destinés aux élèves et apprentis des filières
+frigoristes : CAP IFCA, BAC PRO MFER, TP Technicien CVC.
+
+Ils permettent de visualiser, comprendre et s'entraîner sur les
+concepts fondamentaux du cycle frigorifique :
+
+→ Diagramme de Mollier interactif (log P - h) avec tracé de cycle
+→ Lecture de manomètres, calcul de surchauffe et sous-refroidissement
+→ Identification des fluides frigorigènes actuels et de nouvelle
+  génération (HFO, A2L)
+→ Exercices de placement interactifs
+
+Ces outils sont mis à disposition gratuitement des établissements
+et entreprises de la filière, dans un objectif de modernisation
+pédagogique et de préparation des jeunes aux réalités du métier.
+
+Votre soutien via la taxe d'apprentissage contribue directement
+au développement et à la maintenance de ces ressources pédagogiques
+numériques.
+
+-----------------------------------------------------------------------
+VERSION LONGUE (dossier de présentation / livret)
+-----------------------------------------------------------------------
+
+CONTEXTE
+
+La filière froid et climatisation est en transformation profonde :
+transition vers les fluides à bas GWP (HFO, A2L), montée en
+compétences sur les équipements connectés, obligation de formation
+continue. Dans ce contexte, les enseignants doivent produire des
+ressources pédagogiques adaptées, accessibles et actualisées.
+
+LE PROJET
+
+InerWeb Frigolo est né d'un constat simple : les outils numériques
+disponibles pour enseigner la thermodynamique frigorigène sont soit
+inaccessibles (logiciels propriétaires coûteux), soit inadaptés
+au niveau lycée professionnel.
+
+InerWeb Frigolo propose une suite d'outils pédagogiques libres,
+fonctionnant sans installation, sur tablette comme sur ordinateur,
+avec ou sans connexion internet.
+
+CE QUI A ÉTÉ DÉVELOPPÉ
+
+• Diagramme de Mollier interactif
+  Tracé du cycle frigorifique complet (4 points), calcul automatique
+  de TO, TK, surchauffe utile et totale, sous-refroidissement, COP.
+  Exercice interactif de placement de points sur le diagramme.
+
+• Moteur thermodynamique pédagogique (cerveau_v6)
+  36 fluides frigorigènes couverts, dont les fluides de nouvelle
+  génération (R1234yf, R454B, R32, R290, R717, R744…).
+  Calcul par équations d'état (Antoine/Wagner).
+  Informations classe de sécurité, GWP, options de retrofit.
+
+• Fiches fluides interactives
+  Classe de sécurité (A1/A2L/B1), GWP, pressions critiques,
+  repères SR/SC terrain, alternatives de substitution.
+  Calcul de charge maximale A2L selon volume du local.
+
+BÉNÉFICIAIRES DIRECTS
+
+Élèves et apprentis des filières :
+• CAP IFCA (Installation Froid et Conditionnement d'Air)
+• BAC PRO MFER (Maintenance et Efficacité Énergétique)
+• TP Technicien d'Études en CVC (niveau 5, RNCP37292)
+• CFA filière frigoriste
+
+ENGAGEMENT PÉDAGOGIQUE
+
+Ces outils sont développés par un enseignant praticien, issu
+lui-même des filières techniques (CAP → BTS), attentif aux réalités
+du terrain et aux besoins des élèves en difficulté scolaire.
+
+La conception privilégie l'accessibilité : interface claire,
+vocabulaire métier, exercices progressifs, mode hors ligne.
+
+CADRE JURIDIQUE
+
+InerWeb Frigolo est distribué sous licence CC BY-NC-SA 4.0.
+Usage pédagogique libre. Pas d'usage commercial sans autorisation.
+Outil expérimental — données indicatives — vérification
+professionnelle requise pour tout usage terrain.
+
+CONTACT
+
+F. Henninot — inerweb.fh@gmail.com
+Lycée Professionnel Privé Jacques Raynaud — Campus ÉQUATIO
+Marseille
+
+-----------------------------------------------------------------------
+MENTION LÉGALE MINIMALE (à placer sur tout support diffusé)
+-----------------------------------------------------------------------
+
+"InerWeb Frigolo — Outil pédagogique numérique développé par
+F. Henninot, enseignant en génie frigorifique.
+Lycée Professionnel Privé Jacques Raynaud — Campus ÉQUATIO, Marseille.
+Licence CC BY-NC-SA 4.0 — Usage éducatif — Données indicatives."
+
+-----------------------------------------------------------------------
+FIN DU DOCUMENT
+-----------------------------------------------------------------------

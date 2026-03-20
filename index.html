@@ -371,6 +371,84 @@
             color: var(--text-muted);
         }
 
+        /* Demo banner */
+        .demo-banner {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--accent-blue);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 48px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.05s;
+        }
+
+        .demo-banner-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .demo-banner-text {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .demo-banner-text h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .demo-banner-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .demo-banner-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+        }
+
+        .btn-outline:hover {
+            background: var(--glow-blue);
+            transform: translateY(-2px);
+        }
+
         /* Footer */
         footer {
             text-align: center;
@@ -455,6 +533,25 @@
                 </div>
             </div>
         </header>
+
+        <!-- Bannière démonstration -->
+        <div class="demo-banner">
+            <div class="demo-banner-icon">📄</div>
+            <div class="demo-banner-text">
+                <h3>Documents pour la direction</h3>
+                <p>Dossier de présentation officiel et argumentaire taxe d'apprentissage</p>
+            </div>
+            <div class="demo-banner-links">
+                <a class="btn btn-primary" href="presentation/DOSSIER_DIRECTION.html" target="_blank">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                    Dossier Direction
+                </a>
+                <a class="btn btn-outline" href="frigolo_mollier_v4.html" target="_blank">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    Démo Mollier v4
+                </a>
+            </div>
+        </div>
 
         <!-- Applications principales -->
         <div class="section-title">Applications de suivi</div>

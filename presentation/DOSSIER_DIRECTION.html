@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inerWeb Frigolo — Dossier de présentation</title>
+<style>
+:root{--navy:#0f2d52;--orange:#e8914a;--turq:#2aafaf;--bg:#faf7f2;--muted:#5a7080;--font:system-ui,-apple-system,'Segoe UI',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:#fff;color:#2c3e50;font-size:14px;line-height:1.7}
+.cover{background:linear-gradient(135deg,var(--navy),#1a4a6e,var(--turq));color:#fff;padding:60px 48px 48px;min-height:240px;position:relative}
+.cover h1{font-size:2rem;font-weight:900;letter-spacing:1px;margin-bottom:6px}
+.cover .sub{font-size:1rem;opacity:.85;margin-bottom:24px}
+.cover .meta{font-size:.8rem;opacity:.7;line-height:2}
+.cover .badge{display:inline-block;background:var(--orange);color:#fff;padding:4px 14px;border-radius:999px;font-size:.72rem;font-weight:700;margin-bottom:16px}
+.logo{background:rgba(255,255,255,.97);border-radius:12px;padding:6px 12px;display:inline-flex;align-items:center;margin-bottom:20px}
+.wrap{max-width:800px;margin:0 auto;padding:40px 48px}
+h2{font-size:1.1rem;font-weight:800;color:var(--navy);margin:36px 0 12px;padding-bottom:6px;border-bottom:3px solid var(--orange)}
+h3{font-size:.9rem;font-weight:700;color:var(--navy);margin:20px 0 8px}
+p{margin-bottom:10px;color:#3a4a5a}
+ul{margin:0 0 12px 18px}
+ul li{margin-bottom:5px;color:#3a4a5a}
+.card{background:var(--bg);border:1px solid #ece4da;border-left:4px solid var(--orange);border-radius:10px;padding:16px 20px;margin:12px 0}
+.card.turq{border-left-color:var(--turq)}
+.card.navy{border-left-color:var(--navy)}
+.kv{display:flex;gap:12px;margin-bottom:6px;font-size:.87rem}
+.kv .k{color:var(--muted);min-width:150px;flex-shrink:0;font-weight:600}
+.kv .v{color:#2c3e50;font-weight:700}
+.table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.85rem}
+.table th{background:var(--navy);color:#fff;padding:8px 12px;text-align:left;font-weight:700}
+.table td{padding:8px 12px;border-bottom:1px solid #ece4da}
+.table tr:nth-child(even) td{background:#f5f0ea}
+.ok{color:#27ae60;font-weight:700}
+.na{color:var(--muted);font-style:italic}
+.warn{color:var(--orange);font-weight:700}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.7rem;font-weight:700;background:var(--navy);color:#fff;margin-right:4px}
+.pill.o{background:var(--orange)}
+.pill.t{background:var(--turq)}
+.section-num{display:inline-block;background:var(--orange);color:#fff;width:24px;height:24px;border-radius:50%;text-align:center;line-height:24px;font-weight:900;font-size:.8rem;margin-right:8px;flex-shrink:0}
+.disclaimer{background:#fff8e1;border:1px solid #ffc107;border-radius:8px;padding:12px 16px;font-size:.8rem;color:#5a4000;margin:20px 0}
+footer{background:linear-gradient(135deg,var(--navy),#1a4a6e);color:rgba(255,255,255,.8);padding:20px 48px;font-size:.72rem;margin-top:40px}
+@media print{
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2{break-before:auto}
+  .card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE DE COUVERTURE -->
+<div class="cover">
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" width="180" height="36" viewBox="0 0 360 36">
+      <text fill="#0f2d52" font-size="26" x="2" y="28">❄</text>
+      <text fill="#0f2d52" font-family="Trebuchet MS,Arial,sans-serif" font-size="22" font-weight="bold" x="34" y="28">iner</text>
+      <text fill="#0f2d52" font-family="Segoe Script,Brush Script MT,cursive" font-size="22" x="84" y="28">Web</text>
+      <line stroke="#e8914a" stroke-width="2" x1="34" x2="138" y1="31" y2="31"/>
+      <rect fill="#e8914a" x="144" y="5" rx="5" width="64" height="22"/>
+      <text fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="bold" x="176" y="20" text-anchor="middle">Frigolo</text>
+    </svg>
+  </div>
+  <div class="badge">Dossier de présentation — Direction</div>
+  <h1>Diagramme enthalpique interactif</h1>
+  <div class="sub">Outil pédagogique numérique — Filière énergétique Froid / Climatisation</div>
+  <div class="meta">
+    Auteur : F. Henninot — Enseignant, filière énergétique<br>
+    Établissement : LPP Jacques Raynaud — Campus ÉQUATIO, Marseille<br>
+    Date : Mars 2026 — Version 4.0
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- RÉSUMÉ -->
+  <h2><span class="section-num">1</span>Présentation</h2>
+  <p><strong>inerWeb Frigolo</strong> est un outil pédagogique numérique développé dans le cadre de l'enseignement de la filière énergétique (Froid / Climatisation) du LPP Jacques Raynaud.</p>
+  <p>Il prend la forme d'une application web autonome, fonctionnant sans installation, sans connexion internet, sur ordinateur, tablette ou mobile.</p>
+
+  <div class="card">
+    <div class="kv"><span class="k">Nom de l'outil</span><span class="v">inerWeb Frigolo — Diagramme enthalpique</span></div>
+    <div class="kv"><span class="k">Version</span><span class="v">4.0 — Mars 2026</span></div>
+    <div class="kv"><span class="k">Auteur</span><span class="v">F. Henninot, enseignant LPP Jacques Raynaud</span></div>
+    <div class="kv"><span class="k">Format</span><span class="v">Application web standalone (.html) — aucune installation</span></div>
+    <div class="kv"><span class="k">Déploiement</span><span class="v">GitHub Pages (accès public gratuit)</span></div>
+    <div class="kv"><span class="k">Licence</span><span class="v">CC BY-NC-SA 4.0 — usage pédagogique libre</span></div>
+  </div>
+
+  <!-- CONTEXTE PÉDAGOGIQUE -->
+  <h2><span class="section-num">2</span>Contexte pédagogique</h2>
+  <p>Le diagramme enthalpique (log P – h) est un outil fondamental de la thermodynamique frigorifique, utilisé pour représenter et analyser les cycles de réfrigération. Sa lecture et son exploitation constituent une compétence centrale des référentiels CAP IFCA, BAC PRO MFER et TP Technicien CVC.</p>
+  <p>Les outils disponibles sur le marché sont soit des logiciels propriétaires coûteux, soit des documents statiques inadaptés à l'usage en atelier. inerWeb Frigolo répond à ce manque en proposant un outil interactif, librement accessible, maintenu par l'enseignant.</p>
+
+  <div class="card turq">
+    <h3>Formations concernées</h3>
+    <div class="kv"><span class="k">CAP IFCA</span><span class="v">Installation Froid et Conditionnement d'Air</span></div>
+    <div class="kv"><span class="k">BAC PRO MFER</span><span class="v">Maintenance et Efficacité Énergétique</span></div>
+    <div class="kv"><span class="k">TP CVC Niv. 5</span><span class="v">Technicien d'Études en CVC (RNCP37292)</span></div>
+    <div class="kv"><span class="k">UFA / CFA</span><span class="v">Apprentissage froid / climatisation</span></div>
+  </div>
+
+  <!-- FONCTIONNALITÉS -->
+  <h2><span class="section-num">3</span>Fonctionnalités</h2>
+
+  <h3>Diagramme interactif</h3>
+  <ul>
+    <li>Tracé du cycle frigorifique complet à partir des mesures terrain (pressions + températures)</li>
+    <li>Jusqu'à 7 points cliquables sur le diagramme (bulbe, aspiration, refoulement, sortie condenseur, entrée détendeur, sortie détendeur)</li>
+    <li>Clic sur un point → fiche détaillée (enthalpie, pression, zone thermodynamique, surchauffe / sous-refroidissement)</li>
+    <li>Prise en compte du compresseur hermétique (surchauffe moteur forfaitaire)</li>
+    <li>Calcul automatique : TO, TK, SR utile, SR ligne, SR totale, SC condenseur, SC ligne, COP, bilan énergétique</li>
+    <li>Isothermes, titres de vapeur, cycle idéal, annotations, impression</li>
+  </ul>
+
+  <h3>Moteur thermodynamique</h3>
+  <ul>
+    <li>36 fluides frigorigènes couverts : HFC, HFO, hydrocarbures, CO₂, NH₃…</li>
+    <li>Fluides de nouvelle génération : R1234yf, R454B, R32, R290, R717, R744…</li>
+    <li>Calcul par équations d'état (Antoine / Wagner)</li>
+    <li>Fonctionne hors ligne — aucune dépendance externe obligatoire</li>
+  </ul>
+
+  <h3>Autres modules</h3>
+  <ul>
+    <li>Exercice interactif : placement des 4 points du cycle sur le diagramme</li>
+    <li>Manomètres animés (lecture BP/HP → T° évaporation / condensation)</li>
+    <li>Fiche fluide : classe de sécurité, GWP, pressions critiques, options de retrofit, calcul charge max A2L</li>
+    <li>Onglet Méthode : lecture du diagramme, modèles de calcul utilisés</li>
+  </ul>
+
+  <!-- CADRE JURIDIQUE -->
+  <h2><span class="section-num">4</span>Cadre juridique et sécurisation</h2>
+
+  <table class="table">
+    <tr><th>Élément</th><th>Traitement</th><th>Statut</th></tr>
+    <tr><td>Propriété du code</td><td>Code 100 % original — F. Henninot</td><td class="ok">✔ Sécurisé</td></tr>
+    <tr><td>Licence</td><td>CC BY-NC-SA 4.0 avec clause institutionnelle</td><td class="ok">✔ Conforme</td></tr>
+    <tr><td>Données thermodynamiques</td><td>Modèles pédagogiques (Antoine/Wagner) — non propriétaires</td><td class="ok">✔ Sécurisé</td></tr>
+    <tr><td>Composants tiers</td><td>CoolProp (MIT) — documenté dans THIRD-PARTY-NOTICES</td><td class="ok">✔ Documenté</td></tr>
+    <tr><td>Données personnelles</td><td>Aucune collecte — calculs locaux navigateur</td><td class="ok">✔ RGPD conforme</td></tr>
+    <tr><td>Responsabilité lycée</td><td>Partenaire pédagogique uniquement — non éditeur</td><td class="ok">✔ Explicite</td></tr>
+    <tr><td>Disclaimer</td><td>Bannière visible + footer + mentions légales + CGU</td><td class="ok">✔ Conforme</td></tr>
+    <tr><td>Usage commercial</td><td>Interdit sans autorisation — clause NC</td><td class="ok">✔ Protégé</td></tr>
+  </table>
+
+  <div class="disclaimer">
+    <strong>⚠ Outil pédagogique d'analyse.</strong> Les données thermodynamiques sont approximatives, issues de modèles mathématiques (Antoine / Wagner), à des fins éducatives exclusivement. Non utilisable pour des décisions d'ingénierie ou d'exploitation réelle. Aucune donnée personnelle collectée (RGPD).
+  </div>
+
+  <!-- CONTENU DU DOSSIER -->
+  <h2><span class="section-num">5</span>Contenu du dossier livré</h2>
+
+  <table class="table">
+    <tr><th>Fichier</th><th>Description</th></tr>
+    <tr><td><strong>frigolo_mollier_v4.html</strong></td><td>Outil principal — ouvrir dans navigateur</td></tr>
+    <tr><td><strong>cerveau_v6.js</strong></td><td>Moteur thermodynamique 36 fluides (même dossier)</td></tr>
+    <tr><td><strong>README.md</strong></td><td>Description technique pour GitHub</td></tr>
+    <tr><td>juridique/LICENSE.txt</td><td>Licence CC BY-NC-SA 4.0 complète</td></tr>
+    <tr><td>juridique/mentions-legales.html</td><td>Mentions légales (éditeur, hébergeur, lycée)</td></tr>
+    <tr><td>juridique/conditions-utilisation.html</td><td>Conditions d'utilisation, disclaimer, RGPD</td></tr>
+    <tr><td>juridique/THIRD-PARTY-NOTICES.txt</td><td>Licences composants tiers (CoolProp MIT)</td></tr>
+    <tr><td>presentation/DOSSIER_DIRECTION.html</td><td>Ce document</td></tr>
+    <tr><td>presentation/TAXE_APPRENTISSAGE.txt</td><td>Texte pour demande de taxe d'apprentissage</td></tr>
+  </table>
+
+  <!-- DÉPLOIEMENT -->
+  <h2><span class="section-num">6</span>Déploiement et accès</h2>
+
+  <div class="card navy">
+    <h3 style="color:#fff;margin-bottom:10px">Utilisation locale (immédiate)</h3>
+    <p style="color:rgba(255,255,255,.85);font-size:.85rem">Placer <strong>frigolo_mollier_v4.html</strong> et <strong>cerveau_v6.js</strong> dans le même dossier. Ouvrir le fichier HTML dans un navigateur. Fonctionne sans connexion internet.</p>
+  </div>
+
+  <div class="card">
+    <h3>Déploiement web — GitHub Pages</h3>
+    <div class="kv"><span class="k">Dépôt</span><span class="v">github.com/frigorx</span></div>
+    <div class="kv"><span class="k">Accès</span><span class="v">Public, gratuit, HTTPS</span></div>
+    <div class="kv"><span class="k">Hébergeur</span><span class="v">GitHub Pages (GitHub Inc., San Francisco)</span></div>
+    <div class="kv"><span class="k">Objectif</span><span class="v">Accès en ligne pour élèves, enseignants, partenaires</span></div>
+  </div>
+
+  <!-- TAXE APPRENTISSAGE -->
+  <h2><span class="section-num">7</span>Taxe d'apprentissage</h2>
+  <p>Cet outil est développé dans le cadre de l'enseignement professionnel du LPP Jacques Raynaud. Le solde de la taxe d'apprentissage (13 %) peut être fléché vers l'établissement via la plateforme <strong>SOLTéA</strong>.</p>
+  <div class="card">
+    <div class="kv"><span class="k">Association</span><span class="v">Equatio (ex Formation et Métier)</span></div>
+    <div class="kv"><span class="k">Contact taxe</span><span class="v">taxeapprentissage@formationmetier.fr — 04 91 03 88 62</span></div>
+    <div class="kv"><span class="k">Site</span><span class="v">equatio.org/nous-soutenir/</span></div>
+    <div class="kv"><span class="k">Plateforme</span><span class="v">SOLTéA (Caisse des Dépôts) — ouverture mai 2025</span></div>
+    <div class="kv"><span class="k">Code UAI</span><span class="v"><span class="na">À confirmer auprès d'Equatio</span></span></div>
+    <div class="kv"><span class="k">SIRET</span><span class="v"><span class="na">À confirmer auprès d'Equatio</span></span></div>
+  </div>
+
+</div>
+
+<footer>
+  inerWeb Frigolo — Dossier de présentation — F. Henninot — LPP Jacques Raynaud, Campus ÉQUATIO, Marseille — Mars 2026<br>
+  Licence CC BY-NC-SA 4.0 — inerweb.fh@gmail.com — github.com/frigorx
+</footer>
+
+</body>
+</html>

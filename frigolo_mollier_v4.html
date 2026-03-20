@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inerWeb Tools — Diagramme enthalpique | Frigolo</title>
+<style>
+
+:root{--navy:#0f2d52;--navy-mid:#1a4a6e;--orange:#e8914a;--orange-hover:#d47a35;--orange-light:#f3b07a;--orange-warm:#fdf6ef;--turq:#2aafaf;--turq-light:#eef8f7;--good:#27ae60;--good-bg:#eef7f1;--bad:#e74c3c;--bad-bg:#fdeaea;--bg:#faf7f2;--bg-end:#f0ebe3;--card:#fff;--card-border:#ece4da;--text:#2c3e50;--muted:#5a7080;--shadow:0 4px 16px rgba(15,45,82,.07);--r-card:22px;--r-pill:999px;--font:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;--mono:'Courier New',Consolas,monospace}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+/* body géré par layout */
+/* .app remplacé par .layout */
+/* .hdr remplacé par .topbar */
+
+
+
+
+
+.cd{background:var(--card);border:1px solid var(--card-border);border-radius:var(--r-card);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+.cd-in{padding:16px 20px}
+.cd-orange{border-top:4px solid var(--orange)}.cd-navy{border-top:4px solid var(--navy)}.cd-turq{border-top:4px solid var(--turq)}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}
+.fg{display:flex;flex-direction:column;gap:2px}
+.fg label{font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.fg label .tag{font-size:.55rem;background:var(--navy);color:#fff;padding:1px 5px;border-radius:4px;margin-left:2px;vertical-align:middle}
+.fg label .tag-bp{background:#2563eb}.fg label .tag-hp{background:#e74c3c}
+.fg input,.fg select{padding:7px 8px;border:2px solid var(--card-border);border-radius:10px;font-family:var(--mono);font-size:.85rem;font-weight:700;text-align:center;transition:border-color .2s}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,145,74,.1)}
+.fg select{text-align:left;font-family:var(--font);font-size:.8rem}
+.fg .hint{font-size:.58rem;color:var(--muted);text-align:center}
+.sec-t{font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;margin:10px 0 4px;padding:3px 8px;border-radius:6px;display:inline-block}
+.sec-t.pr{color:var(--navy);background:rgba(15,45,82,.05)}.sec-t.tp{color:var(--orange);background:rgba(232,145,74,.08)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 18px;font-family:var(--font);font-size:.82rem;font-weight:700;border:2px solid transparent;border-radius:var(--r-pill);cursor:pointer;transition:all .2s}
+.btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-o{background:var(--orange);color:#fff}.btn-o:hover:not(:disabled){background:var(--orange-hover)}
+.btn-ol{background:transparent;border-color:var(--card-border);color:var(--muted)}.btn-ol:hover:not(:disabled){border-color:var(--orange);color:var(--orange)}
+.btn-blk{width:100%}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(95px,1fr));gap:6px;margin:8px 0}
+.kpi{background:var(--bg);border:1px solid var(--card-border);border-radius:12px;padding:7px;text-align:center}
+.kpi .kv{font-family:var(--mono);font-size:1.15rem;font-weight:800;color:var(--navy)}
+.kpi .kl{font-size:.58rem;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600;margin-top:1px}
+.kpi.warn .kv{color:var(--orange)}.kpi.bad .kv{color:var(--bad)}.kpi.good .kv{color:var(--good)}
+.kpi.k-po{border-left:3px solid #2563eb}.kpi.k-pk{border-left:3px solid #e74c3c}
+.kpi.k-to{border-left:3px solid var(--turq)}.kpi.k-tk{border-left:3px solid var(--orange)}
+.svg-wrap{background:#fff;border:2px solid var(--card-border);border-radius:20px;overflow:hidden;position:relative;margin:8px 0;cursor:crosshair}
+.svg-wrap svg{display:block;width:100%;height:auto}
+.ch-tip{position:absolute;pointer-events:none;background:rgba(15,45,82,.93);color:#fff;padding:7px 11px;border-radius:8px;font-size:.75rem;font-family:var(--mono);font-weight:600;line-height:1.5;white-space:nowrap;display:none;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.opts{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.75rem;margin:8px 0}
+.opts label{display:flex;align-items:center;gap:4px;cursor:pointer;color:var(--muted);font-weight:600}
+.opts input[type=checkbox]{accent-color:var(--orange)}
+.legend{display:flex;flex-wrap:wrap;gap:9px;font-size:.68rem;color:var(--muted);margin:6px 0}
+.legend span{display:flex;align-items:center;gap:4px}
+.legend .dot{width:12px;height:3px;border-radius:2px}
+.tabs{display:none}
+.tab{padding:7px 14px;border:2px solid var(--card-border);border-radius:14px 14px 0 0;background:var(--bg);font-size:.78rem;font-weight:700;cursor:pointer;color:var(--muted);transition:all .2s;white-space:nowrap}
+.tab.on{background:var(--card);border-bottom-color:var(--card);color:var(--navy)}
+.tab-pane{display:none}.tab-pane.on{display:block}
+.relabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--bg);border:1px solid var(--card-border);border-radius:10px;padding:6px;font-size:.75rem;text-align:center;margin:6px 0}
+.relabs .ra-h{font-weight:700;color:var(--muted);font-size:.6rem;text-transform:uppercase}
+.relabs .ra-v{font-family:var(--mono);font-weight:800;font-size:1rem;color:var(--navy)}
+.info-box{padding:12px;background:var(--orange-warm);border:1px dashed var(--orange-light);border-radius:12px;font-size:.8rem;line-height:1.6;margin:8px 0;color:#5a3e1e}
+.info-box strong{color:var(--orange)}
+.info-box.turq{background:var(--turq-light);border-color:#b8dfe0;color:#1a5050}
+.info-box.turq strong{color:var(--turq)}
+.mano-illust{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+.mano-card{background:#fff;border:2px solid var(--card-border);border-radius:16px;padding:12px;text-align:center}
+.mano-card.bp-card{border-color:#2563eb;background:linear-gradient(180deg,#f0f4ff,#fff)}
+.mano-card.hp-card{border-color:#e74c3c;background:linear-gradient(180deg,#fff5f5,#fff)}
+.mano-card h4{font-size:.8rem;margin-bottom:6px}
+.exo-bar{background:linear-gradient(135deg,var(--navy),var(--navy-mid));color:#fff;border-radius:14px;padding:12px 16px;margin:8px 0;display:none}
+.exo-bar.on{display:block;animation:fadeUp .3s ease}
+.exo-bar h3{font-size:.85rem;font-weight:700;margin-bottom:4px}
+.exo-bar p{font-size:.75rem;opacity:.85;line-height:1.4}
+.exo-pts{display:flex;gap:6px;margin-top:6px}
+.exo-pt{padding:5px 12px;border-radius:var(--r-pill);font-size:.75rem;font-weight:700;border:2px solid rgba(255,255,255,.3);color:rgba(255,255,255,.5)}
+.exo-pt.active{border-color:#fff;color:#fff;background:rgba(255,255,255,.15)}
+.exo-pt.done{border-color:var(--good);color:var(--good);background:rgba(39,174,96,.2)}
+.res-banner{text-align:center;padding:16px;border-radius:var(--r-card);margin:8px 0}
+.res-banner.win{background:linear-gradient(135deg,var(--good),#2ecc71);color:#fff}
+.res-banner.lose{background:linear-gradient(135deg,#c0392b,var(--bad));color:#fff}
+.footer{text-align:center;padding:16px 0;font-size:.65rem;color:var(--muted)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+/* print géré par layout */
+/* responsive géré par layout */
+
+/* ═══════════════════════════════════════════════
+   INERWEB TOOLS — Layout v1.0
+   Basé sur le design system inerWeb Sécu
+═══════════════════════════════════════════════ */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  font-family:var(--font);
+  background:linear-gradient(180deg,var(--bg) 0%,var(--bg-end) 100%);
+  background-attachment:fixed;
+  color:var(--text);
+}
+
+/* ── Topbar ── */
+.topbar{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid),#2aafaf);
+  border-bottom:4px solid var(--orange);
+  border-radius:0 0 0 40px;
+  box-shadow:0 4px 20px rgba(15,45,82,.18);
+  gap:12px;
+}
+.brand{display:flex;align-items:center;gap:14px}
+.brand__logo{
+  background:rgba(255,255,255,.97);
+  border-radius:14px;
+  padding:6px 10px 4px;
+  display:flex;align-items:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.12);
+  flex-shrink:0;
+}
+.brand__text{display:flex;flex-direction:column;gap:1px}
+.brand__title{font-weight:900;font-size:1rem;color:#fff;letter-spacing:1.5px;line-height:1}
+.brand__sub{font-size:.68rem;color:rgba(255,255,255,.82);line-height:1.2}
+.topbar__actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.topbar__partner{
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  border-radius:8px;padding:4px 12px;text-align:center;font-size:.6rem;
+}
+.topbar__partner .tp-label{color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:.5px}
+.topbar__partner .tp-name{color:#fff;font-weight:700}
+.btn-export{
+  background:rgba(255,255,255,.95);border:none;border-radius:999px;
+  padding:8px 16px;font-weight:700;font-size:.8rem;cursor:pointer;
+  display:inline-flex;align-items:center;gap:6px;
+  color:var(--navy);transition:all .2s;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+.btn-export:hover{background:#fff;box-shadow:0 4px 16px rgba(0,0,0,.2);transform:translateY(-1px)}
+#cerveau-badge{flex-shrink:0}
+
+/* ── Layout ── */
+.layout{
+  max-width:1280px;
+  margin:16px auto 0;
+  padding:0 16px 32px;
+  display:grid;
+  grid-template-columns:270px 1fr;
+  gap:16px;
+  align-items:start;
+}
+
+/* ── Sidebar ── */
+.sidebar{
+  position:sticky;top:88px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.nav{
+  background:linear-gradient(135deg,#d4f0e8,#b8e6d8);
+  border:1px solid var(--card-border);
+  border-radius:var(--r-card);
+  box-shadow:var(--shadow);
+  padding:10px;
+}
+.nav__item{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:var(--r-pill);
+  text-decoration:none;color:var(--navy);
+  border:2px solid transparent;font-weight:700;font-size:.82rem;
+  background:#fff;margin:3px 0;cursor:pointer;
+  transition:all .2s;
+}
+.nav__item:hover{background:var(--orange-warm);color:var(--orange)}
+.nav__item.active{
+  background:var(--orange);color:#fff;
+  border-color:var(--orange);
+  box-shadow:0 4px 18px rgba(232,145,74,.35);
+}
+.nav__sep{height:1px;background:rgba(126,207,191,.5);margin:8px 0}
+.sidebar-hint{
+  background:var(--orange-warm);border:1px solid var(--card-border);
+  border-left:4px solid var(--orange);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:12px;font-size:.75rem;color:var(--muted);
+  line-height:1.5;
+}
+.sidebar-hint strong{color:var(--orange);display:block;margin-bottom:4px}
+
+/* ── Content ── */
+.content{min-width:0}
+.view{display:none}.view.on{display:block}
+
+/* ── Footer ── */
+.site-footer{
+  padding:16px 20px;
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  border-top:3px solid var(--orange);
+  border-radius:20px 0 0 0;
+  margin-top:24px;
+  font-size:.65rem;color:rgba(255,255,255,.8);line-height:1.7;
+}
+.site-footer a{color:rgba(255,255,255,.7);text-decoration:none}
+.site-footer a:hover{color:var(--orange)}
+
+/* ── Print ── */
+@media print{
+  .topbar,.sidebar,.site-footer,#disclaimer-bar,.no-print,
+  .btn-export,.nav,.sidebar-hint{display:none!important}
+  body{background:#fff!important}
+  .layout{display:block;max-width:none;margin:0;padding:0}
+  .view.on{display:block}
+  .svg-wrap{border:1px solid #999}
+  .card,.cd{box-shadow:none;border-left:3px solid var(--orange)}
+}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:relative;top:auto}
+  .topbar__partner{display:none}
+  .brand__sub{display:none}
+}
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr 1fr!important}
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .mano-illust{grid-template-columns:1fr}
+  .fiche-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+
+
+/* ══ TIROIR TAXE / PROMO ══════════════════════════════════════════════════ */
+.drawer-tab{
+  position:fixed;right:0;top:50%;transform:translateY(-50%);
+  background:var(--orange);color:#fff;
+  writing-mode:vertical-rl;text-orientation:mixed;
+  padding:16px 8px;border-radius:12px 0 0 12px;
+  font-weight:900;font-size:.72rem;letter-spacing:1px;cursor:pointer;
+  box-shadow:-4px 0 16px rgba(232,145,74,.4);z-index:100;
+  transition:all .25s;user-select:none;
+}
+.drawer-tab:hover{background:var(--orange-hover);padding-right:12px}
+.drawer-overlay{
+  display:none;position:fixed;inset:0;background:rgba(15,45,82,.35);
+  z-index:200;backdrop-filter:blur(2px);
+}
+.drawer-overlay.open{display:block}
+.drawer{
+  position:fixed;right:0;top:0;bottom:0;width:min(420px,95vw);
+  background:#fff;z-index:201;
+  box-shadow:-8px 0 40px rgba(15,45,82,.18);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+}
+.drawer.open{transform:translateX(0)}
+.drawer-head{
+  background:linear-gradient(135deg,var(--navy),var(--navy-mid));
+  color:#fff;padding:16px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  flex-shrink:0;
+}
+.drawer-head h3{font-size:.95rem;font-weight:900;margin:0;letter-spacing:.5px}
+.drawer-close{background:rgba(255,255,255,.15);border:none;color:#fff;
+  border-radius:999px;width:32px;height:32px;font-size:1.1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .2s}
+.drawer-close:hover{background:rgba(255,255,255,.3)}
+.drawer-body{flex:1;overflow-y:auto;padding:20px}
+.drawer-footer{
+  padding:12px 20px;border-top:1px solid var(--card-border);
+  display:flex;gap:8px;flex-shrink:0;background:#faf7f2;
+}
+.drawer-section{margin-bottom:18px}
+.drawer-section h4{
+  font-size:.72rem;text-transform:uppercase;letter-spacing:1.5px;
+  color:var(--navy);font-weight:800;margin:0 0 8px;
+  padding-bottom:4px;border-bottom:2px solid var(--card-border);
+}
+.drawer-section p{font-size:.8rem;color:var(--muted);line-height:1.6;margin:0 0 6px}
+.drawer-section ul{font-size:.8rem;color:var(--muted);line-height:1.7;padding-left:16px;margin:0 0 6px}
+.drawer-kv{display:flex;align-items:baseline;gap:8px;margin-bottom:5px;font-size:.8rem}
+.drawer-kv .dk{color:var(--muted);min-width:90px;flex-shrink:0}
+.drawer-kv .dv{font-weight:700;color:var(--text)}
+.logo-lycee-slot{
+  background:var(--bg);border:1px dashed var(--card-border);border-radius:10px;
+  padding:12px;text-align:center;margin-bottom:10px;font-size:.72rem;color:var(--muted);
+}
+.logo-lycee-slot img{max-height:56px;max-width:100%;object-fit:contain}
+@media print{
+  .drawer-tab,.drawer,.drawer-overlay{display:none!important}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ════ TOPBAR ════ -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand__logo"><svg xmlns="http://www.w3.org/2000/svg" width="190" height="40" viewBox="0 0 380 40">
+  <!-- Flocon -->
+  <text fill="#0f2d52" font-size="28" x="2" y="30">❄</text>
+  <!-- iner -->
+  <text fill="#0f2d52" font-family="Trebuchet MS,Arial,sans-serif" font-size="24" font-weight="bold" x="36" y="30">iner</text>
+  <!-- Web en script -->
+  <text fill="#0f2d52" font-family="Segoe Script,Brush Script MT,cursive" font-size="24" x="88" y="30">Web</text>
+  <!-- Soulignement orange -->
+  <line stroke="#e8914a" stroke-width="2.5" x1="36" x2="145" y1="33" y2="33"/>
+  <!-- Cartouche Tools -->
+  <rect fill="#e8914a" x="152" y="6" rx="5" width="60" height="22"/>
+  <text fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="bold" x="182" y="21" text-anchor="middle">Tools</text>
+</svg></div>
+    <div class="brand__text">
+      <div class="brand__title">Diagramme enthalpique</div>
+      <div class="brand__sub">log(p)–h &middot; cycle frigorifique &middot; SR / SC &middot; fluides</div>
+    </div>
+  </div>
+  <div class="topbar__actions">
+    <div class="topbar__partner no-print" style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);padding:5px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.2)">
+      <!-- Logo lycée dans topbar — remplacer src par logo-lycee.png -->
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNjAnIGhlaWdodD0nNTAnIHZpZXdCb3g9JzAgMCAxNjAgNTAnPgogIDxyZWN0IHdpZHRoPScxNjAnIGhlaWdodD0nNTAnIHJ4PSc4JyBmaWxsPScjMGYyZDUyJy8+CiAgPHRleHQgZmlsbD0nI2ZmZicgZm9udC1mYW1pbHk9J1RyZWJ1Y2hldCBNUyxzYW5zLXNlcmlmJyBmb250LXNpemU9JzgnIGZvbnQtd2VpZ2h0PSc3MDAnIHg9JzgwJyB5PScxNicgdGV4dC1hbmNob3I9J21pZGRsZSc+TFlDw4lFIFBST0ZFU1NJT05ORUwgUFJJVsOJPC90ZXh0PgogIDx0ZXh0IGZpbGw9JyNlODkxNGEnIGZvbnQtZmFtaWx5PSdUcmVidWNoZXQgTVMsc2Fucy1zZXJpZicgZm9udC1zaXplPScxMScgZm9udC13ZWlnaHQ9JzkwMCcgeD0nODAnIHk9JzMwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5KYWNxdWVzIFJheW5hdWQ8L3RleHQ+CiAgPHRleHQgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwuNyknIGZvbnQtZmFtaWx5PSdzeXN0ZW0tdWksc2Fucy1zZXJpZicgZm9udC1zaXplPSc3JyB4PSc4MCcgeT0nNDInIHRleHQtYW5jaG9yPSdtaWRkbGUnPkNhbXB1cyDDiVFVQVRJTyDigJQgTWFyc2VpbGxlPC90ZXh0Pgo8L3N2Zz4=" alt="Lycée Jacques Raynaud" style="height:32px;border-radius:5px;background:#fff;padding:2px 4px;cursor:pointer;transition:opacity .2s" title="LPP Jacques Raynaud" onclick="window.open('https://equatio.org/lycee-ufa-jacques-raynaud/','_blank')">
+      <!-- Logo équatio dans topbar — remplacer src par logo-equatio.png -->
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAnIGhlaWdodD0nNTAnIHZpZXdCb3g9JzAgMCAxMjAgNTAnPgogIDxyZWN0IHdpZHRoPScxMjAnIGhlaWdodD0nNTAnIHJ4PSc4JyBmaWxsPScjZTg5MTRhJy8+CiAgPHRleHQgZmlsbD0nI2ZmZicgZm9udC1mYW1pbHk9J1RyZWJ1Y2hldCBNUyxzYW5zLXNlcmlmJyBmb250LXNpemU9JzknIGZvbnQtd2VpZ2h0PSc3MDAnIHg9JzYwJyB5PScxOCcgdGV4dC1hbmNob3I9J21pZGRsZSc+Q2FtcHVzPC90ZXh0PgogIDx0ZXh0IGZpbGw9JyNmZmYnIGZvbnQtZmFtaWx5PSdUcmVidWNoZXQgTVMsc2Fucy1zZXJpZicgZm9udC1zaXplPScxOCcgZm9udC13ZWlnaHQ9JzkwMCcgeD0nNjAnIHk9JzM4JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz7DiVFVQVRJTzwvdGV4dD4KPC9zdmc+" alt="Campus ÉQUATIO" style="height:32px;border-radius:5px;background:rgba(255,255,255,.95);padding:2px 4px;cursor:pointer;transition:opacity .2s" title="Equatio — Nous soutenir" onclick="window.open('https://equatio.org/nous-soutenir/','_blank')">
+    </div>
+    <div id="cerveau-badge" style="display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:999px;font-size:.65rem;font-weight:700;background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.25)">&#9679; Cerveau</div>
+    <button class="btn-export no-print" onclick="window.print()" title="Exporter / Imprimer (PDF via Ctrl+P)">
+      &#128424; Export PDF
+    </button>
+  </div>
+</header>
+
+<!-- ════ LAYOUT PRINCIPAL ════ -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar no-print">
+    <nav class="nav">
+      <div class="nav__item active" onclick="switchView(0)" id="nav0">&#128202; Diagramme</div>
+      <div class="nav__item" onclick="switchView(1)" id="nav1">&#127891; Placer les points</div>
+      <div class="nav__item" onclick="switchView(2)" id="nav2">&#127777; SR / SC &amp; Manos</div>
+      <div class="nav__sep"></div>
+      <div class="nav__item" onclick="switchView(3)" id="nav3">&#9881; Fiche fluide</div>
+      <div class="nav__item" onclick="switchView(4)" id="nav4">&#128214; M&eacute;thode</div>
+      <div class="nav__sep"></div>
+      <a class="nav__item" href="mentions-legales.html" target="_blank">&#9878; Mentions l&eacute;gales</a>
+      <a class="nav__item" href="conditions-utilisation.html" target="_blank">&#128220; CGU</a>
+    </nav>
+    <div class="sidebar-hint">
+      <strong>&#9888; Outil p&eacute;dagogique</strong>
+      Donn&eacute;es approximatives &mdash; mod&egrave;les Antoine&nbsp;/&nbsp;Wagner.<br>
+      Non utilisable en exploitation r&eacute;elle.<br>
+      <span style="font-size:.68rem">CC BY-NC-SA 4.0 &mdash; F. Henninot</span>
+    </div>
+  </aside>
+
+  <!-- CONTENU PRINCIPAL -->
+  <main class="content">
+
+    <!-- Disclaimer -->
+    <div id="disclaimer-bar" style="background:linear-gradient(135deg,#fff8e1,#fffde7);border:2px solid #ffc107;border-radius:12px;padding:10px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:8px;flex:1">
+        <span style="font-size:1.1rem">&#9888;&#65039;</span>
+        <span style="font-size:.75rem;color:#5a4000;line-height:1.4">
+          <strong>Outil p&eacute;dagogique d&rsquo;analyse</strong> &mdash; Donn&eacute;es approximatives, non certifi&eacute;es (Antoine&nbsp;/&nbsp;Wagner).
+          Non utilisable en exploitation r&eacute;elle. <strong>L&rsquo;interpr&eacute;tation appartient &agrave; l&rsquo;utilisateur.</strong>
+        </span>
+      </div>
+      <button onclick="document.getElementById('disclaimer-bar').style.display='none'"
+              style="background:none;border:1px solid #ffc107;border-radius:8px;padding:3px 10px;font-size:.68rem;font-weight:700;color:#856404;cursor:pointer;white-space:nowrap">
+        Compris &#10005;
+      </button>
+    </div>
+
+<div class="view on" id="v0">
+<div class="cd cd-orange"><div class="cd-in">
+  <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--orange);font-weight:700;margin-bottom:4px">&#9881; Relev&eacute; terrain</div>
+  <div class="form-grid" style="grid-template-columns:1fr 1fr"><div class="fg"><label>Fluide</label><select id="sel-fl" onchange="onFluidChange()"></select></div><div class="fg"><label>Moteur</label><select id="sel-bk" onchange="onBkChange()"><option value="tables">Tables internes (offline)</option><option value="coolprop">CoolProp WASM</option></select></div></div>
+  <!-- Bandelette info fluide -->
+  <div id="fluid-strip" style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0;align-items:center;min-height:22px"></div>
+  <div class="sec-t pr">&#128295; Pressions (bar relatif)</div>
+  <!-- PRESSIONS -->
+  <div class="sec-t pr">&#128295; Pressions manom&egrave;tres (bar rel)</div>
+  <div class="form-grid" style="grid-template-columns:1fr 1fr">
+    <div class="fg">
+      <label>Mano BP <span class="tag tag-bp">T&deg; &eacute;vap (TO)</span></label>
+      <input type="number" id="in-po" step="0.1" value="1.9" inputmode="decimal">
+      <div class="hint">Basse pression &rarr; T&deg; &eacute;vaporation</div>
+    </div>
+    <div class="fg">
+      <label>Mano HP <span class="tag tag-hp">T&deg; cond (TK)</span></label>
+      <input type="number" id="in-pk" step="0.1" value="9.2" inputmode="decimal">
+      <div class="hint">Haute pression &rarr; T&deg; condensation</div>
+    </div>
+  </div>
+  <div class="relabs">
+    <div><div class="ra-h">Mano BP</div><div class="ra-v" id="ra-por">&mdash;</div></div>
+    <div><div class="ra-h">T&deg; &eacute;vap (TO)</div><div class="ra-v" id="ra-poa" style="color:var(--turq)">&mdash;</div></div>
+    <div><div class="ra-h">Mano HP</div><div class="ra-v" id="ra-pkr">&mdash;</div></div>
+    <div><div class="ra-h">T&deg; cond (TK)</div><div class="ra-v" id="ra-pka" style="color:var(--orange)">&mdash;</div></div>
+  </div>
+
+  <!-- TEMPÉRATURES — 2 groupes visuels -->
+  <div class="sec-t tp" style="margin-top:10px">&#127777; Mesures de temp&eacute;rature &mdash; <span style="font-size:.58rem;font-weight:400;text-transform:none">&#10035; obligatoire pour tracer &bull; &#9675; optionnel</span></div>
+
+  <!-- Groupe BP — côté évaporateur -->
+  <div style="background:rgba(42,175,175,.06);border:1px solid rgba(42,175,175,.2);border-radius:12px;padding:10px 12px;margin-bottom:8px">
+    <div style="font-size:.6rem;font-weight:700;color:var(--turq);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">&#10052; C&ocirc;t&eacute; basse pression</div>
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+      <div class="fg">
+        <label>&#10035; T&deg; bulbe <span class="tag" style="background:var(--turq)">Sortie &eacute;vap</span></label>
+        <input type="number" id="in-tbulbe" step="0.1" value="0" inputmode="decimal">
+        <div class="hint">Sonde sur ligne aspiration &rarr; SR &eacute;vap</div>
+      </div>
+      <div class="fg">
+        <label>&#9675; T&deg; aspiration <span style="font-size:.55rem;color:var(--muted)">(entr&eacute;e compresseur)</span></label>
+        <input type="number" id="in-tasp" step="0.1" value="" placeholder="— optionnel" inputmode="decimal">
+        <div class="hint">Si diff&eacute;rent du bulbe &rarr; SR ligne</div>
+      </div>
+    </div>
+    <!-- Compresseur hermétique -->
+    <div style="margin-top:8px;padding:6px 10px;background:rgba(255,255,255,.7);border-radius:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+      <label style="display:flex;align-items:center;gap:5px;font-size:.72rem;font-weight:700;color:var(--navy);cursor:pointer">
+        <input type="checkbox" id="in-herm" onchange="toggleHerm()" style="accent-color:var(--navy)">
+        Compresseur herm&eacute;tique
+      </label>
+      <div id="herm-zone" style="display:none;display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+        <span style="font-size:.68rem;color:var(--muted)">Surchauffe moteur forfaitaire&nbsp;:</span>
+        <input type="number" id="in-sr-herm" step="0.5" value="5" style="width:60px;padding:4px 6px;border:1.5px solid var(--card-border);border-radius:8px;font-family:var(--mono);font-size:.82rem;font-weight:700;text-align:center" inputmode="decimal">
+        <span style="font-size:.68rem;color:var(--muted)">K</span>
+        <span style="font-size:.62rem;color:var(--muted);font-style:italic">(r&eacute;chauffement gaz par le moteur)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Groupe HP — côté condenseur -->
+  <div style="background:rgba(232,145,74,.06);border:1px solid rgba(232,145,74,.25);border-radius:12px;padding:10px 12px;margin-bottom:8px">
+    <div style="font-size:.6rem;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">&#128293; C&ocirc;t&eacute; haute pression</div>
+    <div class="form-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+      <div class="fg">
+        <label>&#10035; T&deg; refoulement <span style="font-size:.55rem;color:var(--muted)">(sortie compresseur)</span></label>
+        <input type="number" id="in-tref" step="0.1" value="65" inputmode="decimal">
+        <div class="hint">Gaz chaud sortant du compresseur</div>
+      </div>
+      <div class="fg">
+        <label>&#10035; T&deg; sortie condenseur</label>
+        <input type="number" id="in-tsortcond" step="0.1" value="32" inputmode="decimal">
+        <div class="hint">Liquide en sortie condenseur &rarr; SC</div>
+      </div>
+      <div class="fg">
+        <label>&#9675; T&deg; entr&eacute;e d&eacute;tendeur</label>
+        <input type="number" id="in-tentdet" step="0.1" value="" placeholder="— optionnel" inputmode="decimal">
+        <div class="hint">Si diff&eacute;rent &rarr; SC ligne (pertes)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-row"><button class="btn btn-o btn-blk" onclick="tracerCycle()">&#128208; Tracer le cycle</button></div>
+  <div id="err-msg" style="color:var(--bad);font-size:.78rem;font-weight:700;margin-top:4px"></div>
+</div></div>
+
+<div class="opts">
+  <label><input type="checkbox" id="opt-iso" checked onchange="redraw()"> Isothermes</label>
+  <label><input type="checkbox" id="opt-titre" checked onchange="redraw()"> Titres</label>
+  <label><input type="checkbox" id="opt-zones" checked onchange="redraw()"> Zones</label>
+  <label><input type="checkbox" id="opt-annot" checked onchange="redraw()"> Annotations</label>
+  <label><input type="checkbox" id="opt-ideal" onchange="redraw()"> Cycle id&eacute;al</label>
+  <button class="btn btn-ol" onclick="window.print()" style="margin-left:auto">&#128424;</button>
+</div>
+
+<!-- KPI terrain -->
+<div style="font-size:.62rem;text-transform:uppercase;letter-spacing:2px;color:var(--turq);font-weight:700;margin:8px 0 3px">&#10052; Basse pression &mdash; &Eacute;vaporation</div>
+<div class="kpi-row">
+  <div class="kpi k-to"><div class="kv" id="k-to">&mdash;</div><div class="kl">T&deg; &eacute;vap TO</div></div>
+  <div class="kpi k-po"><div class="kv" id="k-po">&mdash;</div><div class="kl">PO abs (bar)</div></div>
+  <div class="kpi" id="kpi-sru"><div class="kv" id="k-sru">&mdash;</div><div class="kl">SR &eacute;vap (K)</div></div>
+  <div class="kpi" id="kpi-srl"><div class="kv" id="k-srl">&mdash;</div><div class="kl">SR ligne (K)</div></div>
+  <div class="kpi" id="kpi-srt"><div class="kv" id="k-srt">&mdash;</div><div class="kl">SR totale (K)</div></div>
+  <div class="kpi" id="kpi-srh" style="display:none"><div class="kv" id="k-srh">&mdash;</div><div class="kl">SR moteur (K)</div></div>
+</div>
+<div style="font-size:.62rem;text-transform:uppercase;letter-spacing:2px;color:var(--orange);font-weight:700;margin:8px 0 3px">&#128293; Haute pression &mdash; Condensation</div>
+<div class="kpi-row">
+  <div class="kpi k-tk"><div class="kv" id="k-tk">&mdash;</div><div class="kl">T&deg; cond TK</div></div>
+  <div class="kpi k-pk"><div class="kv" id="k-pk">&mdash;</div><div class="kl">PK abs (bar)</div></div>
+  <div class="kpi" id="kpi-sc"><div class="kv" id="k-sc">&mdash;</div><div class="kl">SC condenseur (K)</div></div>
+  <div class="kpi" id="kpi-scl"><div class="kv" id="k-scl">&mdash;</div><div class="kl">SC ligne (K)</div></div>
+  <div class="kpi"><div class="kv" id="k-tref">&mdash;</div><div class="kl">T&deg; refoulement</div></div>
+</div>
+<div style="font-size:.62rem;text-transform:uppercase;letter-spacing:2px;color:var(--navy);font-weight:700;margin:8px 0 3px">&#128200; Bilan &eacute;nerg&eacute;tique</div>
+<div class="kpi-row">
+  <div class="kpi"><div class="kv" id="k-cop">&mdash;</div><div class="kl">COP</div></div>
+  <div class="kpi"><div class="kv" id="k-rc">&mdash;</div><div class="kl">RC (HP/BP)</div></div>
+  <div class="kpi"><div class="kv" id="k-qe">&mdash;</div><div class="kl">Effet frigor. (kJ/kg)</div></div>
+  <div class="kpi"><div class="kv" id="k-wc">&mdash;</div><div class="kl">Trav. compresseur</div></div>
+  <div class="kpi"><div class="kv" id="k-qc">&mdash;</div><div class="kl">Chaleur cond&eacute;ns&eacute;e</div></div>
+</div>
+
+<div class="svg-wrap" id="svg-wrap"><svg id="plot" viewBox="0 0 1100 700" preserveAspectRatio="xMidYMid meet"></svg><div class="ch-tip" id="tooltip"></div></div>
+<div class="legend"><span><div class="dot" style="background:#0f2d52"></div>Cloche</span><span><div class="dot" style="background:#e74c3c"></div>Cycle</span><span><div class="dot" style="background:#27ae60;height:0;border-top:2px dashed #27ae60"></div>Id&eacute;al</span><span><div class="dot" style="background:#e8914a;height:0;border-top:2px dashed #e8914a"></div>Iso.</span><span><div class="dot" style="background:#2aafaf;height:0;border-top:2px dashed #2aafaf"></div>Isobares</span><span style="color:#27ae60;font-weight:700">&#9608;SR utile</span><span style="color:#e8914a;font-weight:700">&#9608;SR ligne</span><span style="color:#2563eb;font-weight:700">&#9608;SC</span></div>
+</div>
+
+<!-- TAB 1 EXO -->
+<div class="view" id="v1">
+<div class="cd cd-navy"><div class="cd-in">
+  <h2 style="font-size:.9rem;font-weight:800;color:var(--navy);margin-bottom:6px">&#127891; Place les 4 points du cycle</h2>
+  <p style="font-size:.78rem;color:var(--muted);margin-bottom:10px">Mesures terrain &rarr; clique sur le diagramme.</p>
+  <div class="form-grid"><div class="fg"><label>Fluide</label><select id="exo-fl" onchange="exoFlC()"></select></div><div class="fg"><label>PO rel</label><input id="exo-po" type="number" step=".1" value="1.9" readonly></div><div class="fg"><label>PK rel</label><input id="exo-pk" type="number" step=".1" value="9.2" readonly></div><div class="fg"><label>T&deg; asp</label><input id="exo-ta" type="number" step=".1" value="5" readonly></div><div class="fg"><label>T&deg; refoul</label><input id="exo-tr" type="number" step=".1" value="65" readonly></div><div class="fg"><label>T&deg; sort cond</label><input id="exo-tl" type="number" step=".1" value="30" readonly></div></div>
+  <div class="btn-row"><button class="btn btn-o" onclick="startExoP()">&#9654; Commencer</button><button class="btn btn-ol" onclick="newExoP()">&#128260; Nouveau</button></div>
+</div></div>
+<div class="exo-bar" id="exo-bar"><h3 id="exo-instr"></h3><p id="exo-hint"></p><div class="exo-pts" id="exo-dots"></div></div>
+<div class="svg-wrap" id="exo-sw" style="display:none"><svg id="exo-plot" viewBox="0 0 1100 700" preserveAspectRatio="xMidYMid meet"></svg><div class="ch-tip" id="exo-tip"></div></div>
+<div id="exo-res"></div>
+</div>
+
+<!-- TAB 2 SR/SC MANO -->
+<div class="view" id="v2">
+<div class="cd cd-turq"><div class="cd-in">
+  <h2 style="font-size:.95rem;font-weight:800;color:var(--turq);margin-bottom:8px">&#127777; Comprendre SR et SC &mdash; Lecture des manom&egrave;tres</h2>
+  <div class="info-box turq"><strong>&Eacute;tape 1 &mdash; Lire les manom&egrave;tres</strong><br>Sur le terrain, on commence TOUJOURS par lire les manom&egrave;tres BP et HP. Ces pressions permettent de d&eacute;terminer <strong>TO</strong> et <strong>TK</strong> gr&acirc;ce &agrave; la correspondance pression/temp&eacute;rature.</div>
+  <div class="mano-illust">
+    <div class="mano-card bp-card"><h4 style="color:#2563eb">&#10052; Mano BP &mdash; PO</h4><svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" id="mano-bp-svg" style="max-width:200px;margin:0 auto;display:block"></svg><div style="margin-top:6px;font-size:.75rem">Lecture PO : <strong style="color:#2563eb" id="mano-bp-val">&mdash;</strong> bar rel<br>&rarr; TO = <strong style="color:var(--turq)" id="mano-bp-to">&mdash;</strong> &deg;C</div></div>
+    <div class="mano-card hp-card"><h4 style="color:#e74c3c">&#128293; Mano HP &mdash; PK</h4><svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" id="mano-hp-svg" style="max-width:200px;margin:0 auto;display:block"></svg><div style="margin-top:6px;font-size:.75rem">Lecture PK : <strong style="color:#e74c3c" id="mano-hp-val">&mdash;</strong> bar rel<br>&rarr; TK = <strong style="color:var(--orange)" id="mano-hp-tk">&mdash;</strong> &deg;C</div></div>
+  </div>
+  <div class="info-box"><strong>&Eacute;tape 2 &mdash; Calculer SR et SC</strong><br><br><strong style="color:#27ae60">&#9632; SR UTILE</strong> = T&deg; sortie &eacute;vaporateur (bulbe) &minus; TO<br><em>&rarr; Ce que l'&eacute;vaporateur ajoute au-del&agrave; du changement d'&eacute;tat</em><br><br><strong style="color:#e8914a">&#9632; SR TOTALE</strong> = T&deg; aspiration compresseur &minus; TO<br><em>&rarr; Inclut le r&eacute;chauffement dans la ligne d'aspiration</em><br><br><strong style="color:#e8914a">&#9632; SR LIGNE</strong> = SR totale &minus; SR utile = T&deg; asp &minus; T&deg; bulbe<br><em>&rarr; R&eacute;chauffement parasite entre &eacute;vaporateur et compresseur</em><br><br><strong style="color:#2563eb">&#9632; SC</strong> = TK &minus; T&deg; sortie condenseur<br><em>&rarr; Refroidissement suppl&eacute;mentaire apr&egrave;s la condensation</em></div>
+  <div class="info-box turq"><strong>&Eacute;tape 3 &mdash; Plages observ&eacute;es en fonctionnement courant</strong><br><br>
+&#9632; SR utile : <strong>5 &agrave; 8 K</strong><br>
+&#9632; SR totale : <strong>7 &agrave; 12 K</strong><br>
+&#9632; SR ligne (= SR totale &minus; SR utile) : <strong>1 &agrave; 5 K</strong><br>
+&#9632; SC : <strong>3 &agrave; 8 K</strong><br><br>
+<em>Ces plages sont indicatives. L&rsquo;analyse des &eacute;carts appartient &agrave; l&rsquo;utilisateur.</em></div>
+</div></div>
+</div>
+
+<!-- TAB 3 METHODE -->
+
+<div class="cd cd-navy"><div class="cd-in">
+  <h2 style="font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:8px">&#128214; Lire un diagramme log(p)-h</h2>
+  <div class="info-box"><strong>Axes :</strong><br>Horizontal = <strong>enthalpie h (kJ/kg)</strong><br>Vertical = <strong>pression P (bar abs)</strong> en &eacute;chelle log<br><br><strong>La cloche :</strong><br>Gauche = <strong>liquide satur&eacute;</strong> (x=0) &middot; Droite = <strong>vapeur satur&eacute;e</strong> (x=1)<br>Sommet = <strong>point critique</strong> &middot; Int&eacute;rieur = <strong>m&eacute;lange L+V</strong></div>
+  <div class="info-box turq"><strong>Les points sur le diagramme :</strong><br><br><strong style="color:#27ae60">B &mdash; Sortie &eacute;vap (Bulbe)</strong> &mdash; PO, vapeur satur&eacute;e ou l&eacute;g&egrave;rement surchauff&eacute;e<br><strong style="color:#2563eb">1 &mdash; Aspiration compresseur</strong> &mdash; PO, vapeur surchauff&eacute;e<br><strong style="color:#e74c3c">2 &mdash; Refoulement compresseur</strong> &mdash; PK, vapeur surchauff&eacute;e<br><strong style="color:#e8914a">3 &mdash; Entr&eacute;e d&eacute;tendeur</strong> &mdash; PK, liquide sous-refroidi<br><strong style="color:#2aafaf">4 &mdash; Sortie d&eacute;tendeur</strong> &mdash; PO, m&eacute;lange L+V (h&#8324; = h&#8323;)<br><br><strong>Grandeurs :</strong><br>q<sub>&eacute;vap</sub> = h&#8321; &minus; h&#8324; &middot; w<sub>comp</sub> = h&#8322; &minus; h&#8321; &middot; COP = q / w</div>
+  <div class="info-box" style="margin-top:10px;font-size:.78rem;background:#f5f5f5;border-color:#ddd;color:#555">
+    <strong>&#128202; Mod&egrave;les de calcul utilis&eacute;s</strong><br><br>
+    Les valeurs de cet outil sont calcul&eacute;es par des mod&egrave;les math&eacute;matiques p&eacute;dagogiques&nbsp;:<br><br>
+    <strong>Antoine</strong> : log<sub>10</sub>(P) = A &minus; B&nbsp;/&nbsp;(T&nbsp;+&nbsp;C) &mdash; pression de saturation<br>
+    <strong>Wagner</strong> : &eacute;quation &agrave; 4 termes (mod&egrave;le alternatif si coefficients disponibles)<br>
+    <strong>Enthalpie</strong> : mod&egrave;le lin&eacute;aire (chaleurs massiques Cp constantes)<br><br>
+    Ces mod&egrave;les sont <strong>approximatifs</strong>. Ils sont suffisants pour l&rsquo;enseignement mais ne constituent pas des donn&eacute;es normatives.
+    Pour un usage professionnel, consulter des sources certifi&eacute;es agr&eacute;&eacute;es, des logiciels sp&eacute;cialis&eacute;s ou les fiches techniques des fabricants de fluides.
+  </div>
+</div></div>
+</div>
+
+
+
+    <!-- VUE 3 : Fiche fluide -->
+    <div class="view" id="v3">
+    <div class="cd cd-navy"><div class="cd-in">
+      <h2 style="font-size:.95rem;font-weight:800;color:var(--navy);margin-bottom:8px">&#9881; Fiche fluide &mdash; <span id="fiche-titre">R134a</span></h2>
+      <div id="fiche-content">
+        <div style="text-align:center;padding:40px 20px;color:var(--muted)">
+          <div style="font-size:2.5rem;margin-bottom:8px">&#129504;</div>
+          <p style="font-size:.82rem;line-height:1.6">La fiche fluide est aliment&eacute;e par <strong>cerveau_v6.js</strong>.<br>
+          Place <code style="background:var(--bg);padding:2px 6px;border-radius:4px;font-family:var(--mono)">cerveau_v6.js</code> dans le m&ecirc;me dossier et recharge.</p>
+        </div>
+      </div>
+    </div></div>
+    </div>
+
+    <!-- VUE 4 : Méthode -->
+    <div class="view" id="v4">
+    <div class="cd cd-navy"><div class="cd-in">
+      <h2 style="font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:8px">&#128214; Lire un diagramme log(p)-h</h2>
+      <div class="info-box"><strong>Axes :</strong><br>Horizontal = <strong>enthalpie h (kJ/kg)</strong><br>Vertical = <strong>pression P (bar abs)</strong> en &eacute;chelle log<br><br><strong>La cloche :</strong><br>Gauche = <strong>liquide satur&eacute;</strong> (x=0) &middot; Droite = <strong>vapeur satur&eacute;e</strong> (x=1)<br>Sommet = <strong>point critique</strong> &middot; Int&eacute;rieur = <strong>m&eacute;lange L+V</strong></div>
+      <div class="info-box turq"><strong>Les points sur le diagramme :</strong><br><br>
+      <strong style="color:#27ae60">B &mdash; Bulbe sortie &eacute;vap</strong> &mdash; PO, vapeur satur&eacute;e ou l&eacute;g&egrave;rement surchauff&eacute;e<br>
+      <strong style="color:#2563eb">1 &mdash; Aspiration compresseur</strong> &mdash; PO, vapeur surchauff&eacute;e<br>
+      <strong style="color:#e74c3c">2 &mdash; Refoulement compresseur</strong> &mdash; PK, vapeur surchauff&eacute;e<br>
+      <strong style="color:#e8914a">3 &mdash; Entr&eacute;e d&eacute;tendeur</strong> &mdash; PK, liquide sous-refroidi<br>
+      <strong style="color:#2aafaf">4 &mdash; Sortie d&eacute;tendeur</strong> &mdash; PO, m&eacute;lange L+V (h&#8324; = h&#8323;)<br><br>
+      <strong>Bilan :</strong> q<sub>&eacute;vap</sub> = h&#8321;&minus;h&#8324; &bull; w<sub>comp</sub> = h&#8322;&minus;h&#8321; &bull; COP = q&nbsp;/&nbsp;w</div>
+      <div class="info-box" style="margin-top:10px;font-size:.78rem;background:#f5f5f5;border-color:#ddd;color:#555">
+        <strong>&#128202; Mod&egrave;les de calcul</strong><br><br>
+        <strong>Antoine</strong> : log<sub>10</sub>(P) = A &minus; B&nbsp;/&nbsp;(T&nbsp;+&nbsp;C)<br>
+        <strong>Wagner</strong> : &eacute;quation &agrave; 4 termes (si disponible)<br>
+        <strong>Enthalpie</strong> : mod&egrave;le lin&eacute;aire (Cp constants)<br><br>
+        Valeurs approximatives &mdash; usage p&eacute;dagogique exclusif.
+      </div>
+    </div></div>
+    </div>
+
+  </main><!-- /content -->
+</div><!-- /layout -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div style="max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px">
+    <div>
+      <strong>inerWeb Tools &mdash; Diagramme enthalpique</strong> &bull;
+      F. Henninot &bull;
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank">CC BY-NC-SA 4.0</a> &bull;
+      <a href="mentions-legales.html">Mentions l&eacute;gales</a> &bull;
+      <a href="conditions-utilisation.html">CGU</a> &bull;
+      Moteur interne / CoolProp (MIT) &bull; RGPD : aucune donn&eacute;e collect&eacute;e
+    </div>
+    <div style="font-size:.6rem;opacity:.7">Campus &Eacute;QUATIO &mdash; partenaire p&eacute;dagogique uniquement, non &eacute;diteur, non responsable technique.</div>
+  </div>
+</footer>
+
+<script>
+// ══ NAVIGATION SIDEBAR ════════════════════════════════════════════════════
+function switchView(n){
+  document.querySelectorAll('.view').forEach(function(v,i){v.classList.toggle('on',i===n)});
+  document.querySelectorAll('.nav__item[id^="nav"]').forEach(function(a,i){a.classList.toggle('active',i===n)});
+  if(n===3)renderFiche(FL);
+}
+// Patcher showTab pour compatibilité avec le code existant
+function showTab(n){switchView(n);}
+
+
+var TH={
+'R134a':{nom:'R134a (HFC)',Tc:101.06,Pc:40.59,Cp_v:0.94,Cp_l:1.38,s_v0:1.74,sat:[[-40,.519,148.4,374.1,.809,1.7653],[-35,.663,154,376.9,.834,1.757],[-30,.843,159.5,379.8,.8585,1.7494],[-25,1.064,165.2,382.5,.8827,1.7425],[-20,1.327,170.7,385.3,.9065,1.7363],[-15,1.64,176.6,387.9,.93,1.7305],[-10,2.006,182.2,390.6,.9532,1.7252],[-5,2.432,188.1,393.1,.976,1.7203],[0,2.928,194,395.6,.9986,1.7157],[5,3.497,199.9,397.9,1.021,1.7113],[10,4.146,206.1,400.2,1.043,1.7072],[15,4.884,212.3,402.2,1.065,1.7031],[20,5.717,218.5,404.3,1.0866,1.699],[25,6.653,225.1,406,1.108,1.6948],[30,7.702,231.5,407.7,1.1293,1.6904],[35,8.87,238.4,409.1,1.1505,1.6856],[40,10.166,245.1,410.3,1.1716,1.6803],[45,11.599,252.3,411.1,1.1928,1.6742],[50,13.179,259.6,411.6,1.2141,1.6672],[55,14.916,267.4,411.5,1.2357,1.6589],[60,16.818,275.5,411.1,1.2576,1.6489],[65,18.898,284,409.8,1.2802,1.6366],[70,21.168,293.4,407.8,1.3037,1.6216],[75,23.641,303.4,404.5,1.3285,1.6025],[80,26.332,314.8,399.2,1.3555,1.578]]},
+'R410A':{nom:'R410A (HFC)',Tc:71.34,Pc:49.02,Cp_v:1.16,Cp_l:1.60,s_v0:1.82,sat:[[-50,.964,134.7,413.1,.752,1.848],[-45,1.274,142.6,416.4,.782,1.836],[-40,1.659,150.7,419.5,.8115,1.8244],[-35,2.133,159,422.4,.8405,1.8133],[-30,2.71,167.6,425.1,.869,1.8025],[-25,3.405,176.3,427.5,.897,1.792],[-20,4.234,185.3,429.7,.9248,1.7817],[-15,5.214,194.5,431.5,.9522,1.7714],[-10,6.363,204,433,.9794,1.761],[-5,7.701,213.8,434.1,1.0064,1.7504],[0,9.248,224,434.7,1.0334,1.7393],[5,11.03,234.5,434.8,1.0604,1.7274],[10,13.06,245.5,434.2,1.0876,1.7145],[15,15.37,257,432.9,1.1152,1.7001],[20,17.99,269.1,430.6,1.1434,1.6837],[25,20.94,281.9,427.3,1.1724,1.6647],[30,24.26,295.7,422.4,1.203,1.6416],[35,27.99,310.8,415.5,1.236,1.6125],[40,32.19,327.6,405.8,1.273,1.574]]},
+'R404A':{nom:'R404A (HFC)',Tc:72.12,Pc:37.31,Cp_v:0.88,Cp_l:1.46,s_v0:1.68,sat:[[-50,.822,131.8,338.8,.728,1.689],[-45,1.076,139.2,342,.756,1.68],[-40,1.389,146.6,345.1,.7835,1.6714],[-35,1.77,154.2,348,.8107,1.6633],[-30,2.23,161.9,350.7,.8375,1.6555],[-25,2.78,169.8,353.2,.864,1.6479],[-20,3.43,177.8,355.4,.8902,1.6405],[-15,4.196,186,357.4,.9161,1.6332],[-10,5.09,194.4,359,.9418,1.6258],[-5,6.13,203,360.3,.9673,1.6184],[0,7.33,211.8,361.3,.9927,1.6108],[5,8.71,220.9,361.8,1.018,1.6028],[10,10.28,230.3,361.8,1.0434,1.5943],[15,12.07,240,361.1,1.0689,1.585],[20,14.08,250.2,359.7,1.0948,1.5747],[25,16.34,260.8,357.4,1.1212,1.5629],[30,18.87,272,354.1,1.1484,1.5491],[35,21.69,283.9,349.3,1.177,1.5325],[40,24.83,296.8,342.8,1.2073,1.5117]]},
+'R32':{nom:'R32 (HFC)',Tc:78.11,Pc:57.82,Cp_v:1.24,Cp_l:1.94,s_v0:2.06,sat:[[-50,1.071,119.2,488.2,.656,2.054],[-45,1.432,129,492,.692,2.038],[-40,1.881,139,495.6,.7275,2.0224],[-35,2.437,149.2,498.9,.7625,2.0074],[-30,3.115,159.6,501.9,.7972,1.9929],[-25,3.934,170.3,504.5,.8315,1.9787],[-20,4.912,181.2,506.8,.8655,1.9648],[-15,6.07,192.5,508.6,.8993,1.9511],[-10,7.429,204,510,.9328,1.9374],[-5,9.012,215.9,510.8,.9662,1.9235],[0,10.84,228.2,511,.9995,1.9094],[5,12.95,241,510.4,1.0328,1.8946],[10,15.35,254.2,508.9,1.0663,1.8789],[15,18.09,268,506.3,1.1001,1.8618],[20,21.2,282.5,502.3,1.1345,1.8427],[25,24.72,298,496.5,1.17,1.8206],[30,28.68,314.5,488.4,1.207,1.794],[35,33.14,332.6,477,1.2465,1.761]]},
+'R22':{nom:'R22 (HCFC)',Tc:96.14,Pc:49.9,Cp_v:0.72,Cp_l:1.18,s_v0:1.73,sat:[[-50,.645,137.8,385,.751,1.742],[-45,.83,143.7,387.4,.776,1.734],[-40,1.053,149.7,389.7,.8005,1.7264],[-35,1.321,155.7,391.9,.8245,1.7192],[-30,1.641,161.8,394.1,.8481,1.7124],[-25,2.019,168,396.1,.8714,1.7058],[-20,2.465,174.3,398,.8943,1.6996],[-15,2.985,180.6,399.8,.917,1.6936],[-10,3.59,187.1,401.5,.9393,1.6879],[-5,4.29,193.6,403,.9614,1.6823],[0,5.09,200.2,404.4,.9832,1.677],[5,6.003,207,405.6,1.0048,1.6717],[10,7.041,213.8,406.6,1.0262,1.6665],[15,8.213,220.8,407.4,1.0474,1.6613],[20,9.531,228,407.9,1.0685,1.6561],[25,11.01,235.3,408.1,1.0895,1.6507],[30,12.66,242.8,408,1.1105,1.645],[35,14.49,250.6,407.4,1.1315,1.6389],[40,16.52,258.7,406.3,1.1527,1.6322],[45,18.76,267.1,404.5,1.1741,1.6247],[50,21.24,275.9,402,1.1959,1.6161],[55,23.96,285.2,398.5,1.2182,1.606],[60,26.96,295.1,393.8,1.2414,1.5937]]},
+'R290':{nom:'R290 Propane (HC)',Tc:96.68,Pc:42.51,Cp_v:1.68,Cp_l:2.52,s_v0:2.32,sat:[[-45,.548,86.5,527,.475,2.348],[-40,.717,99.1,532.5,.518,2.327],[-35,.924,111.8,537.8,.56,2.307],[-30,1.176,124.6,543,.6013,2.288],[-25,1.482,137.6,548,.642,2.27],[-20,1.849,150.7,552.7,.682,2.2528],[-15,2.286,164,557.1,.7214,2.2365],[-10,2.803,177.5,561.2,.7603,2.2208],[-5,3.41,191.2,564.9,.7987,2.2058],[0,4.118,205.1,568.2,.8367,2.1913],[5,4.939,219.2,571,.8743,2.1773],[10,5.886,233.6,573.3,.9115,2.1636],[15,6.972,248.3,575,.9484,2.1501],[20,8.21,263.3,576,.9851,2.1366],[25,9.615,278.7,576.2,1.0216,2.1229],[30,11.2,294.5,575.4,1.058,2.1087],[35,12.98,310.8,573.5,1.0945,2.0937],[40,14.97,327.7,570.1,1.1312,2.0776],[45,17.19,345.4,565,1.1683,2.0597]]}
+};
+
+function lerp(x,x0,x1,y0,y1){return y0+(y1-y0)*(x-x0)/(x1-x0)}
+function satAt(fl,T){var s=TH[fl].sat;if(T<=s[0][0])return{P:s[0][1],hl:s[0][2],hv:s[0][3],sl:s[0][4],sv:s[0][5]};if(T>=s[s.length-1][0]){var e=s[s.length-1];return{P:e[1],hl:e[2],hv:e[3],sl:e[4],sv:e[5]}}for(var i=0;i<s.length-1;i++){if(T>=s[i][0]&&T<=s[i+1][0]){var a=s[i],b=s[i+1],f=(T-a[0])/(b[0]-a[0]);return{P:a[1]+f*(b[1]-a[1]),hl:a[2]+f*(b[2]-a[2]),hv:a[3]+f*(b[3]-a[3]),sl:a[4]+f*(b[4]-a[4]),sv:a[5]+f*(b[5]-a[5])}}}}
+function TfP_t(fl,P){var s=TH[fl].sat;if(P<=s[0][1])return s[0][0];if(P>=s[s.length-1][1])return s[s.length-1][0];for(var i=0;i<s.length-1;i++){if(P>=s[i][1]&&P<=s[i+1][1])return lerp(P,s[i][1],s[i+1][1],s[i][0],s[i+1][0])}}
+function hlP(fl,P){return satAt(fl,TfP(fl,P)).hl}
+function hvP(fl,P){return satAt(fl,TfP(fl,P)).hv}
+function svP(fl,P){return satAt(fl,TfP(fl,P)).sv}
+function hSH_t(fl,P,T){return hvP(fl,P)+TH[fl].Cp_v*(T-TfP(fl,P))}
+function hSC_t(fl,P,T){return hlP(fl,P)-TH[fl].Cp_l*(TfP(fl,P)-T)}
+function sSH(fl,P,T){var Ts=TfP(fl,P);return svP(fl,P)+TH[fl].Cp_v*Math.log((T+273.15)/(Ts+273.15))}
+function hFS(fl,P,s){var sv=svP(fl,P),Ts=TfP(fl,P),hv=hvP(fl,P);if(s>=sv){var dT=Math.exp((s-sv)/TH[fl].Cp_v)*(Ts+273.15)-273.15-Ts;return hv+TH[fl].Cp_v*dT}return hv}
+var BK='tables',CP_OK=false;
+function TfP(fl,P){return BK==='coolprop'&&CP_OK?CP_TfP(fl,P):TfP_t(fl,P)}
+function hSH(fl,P,T){return BK==='coolprop'&&CP_OK?CP_hSH(fl,P,T):hSH_t(fl,P,T)}
+function hSC(fl,P,T){return BK==='coolprop'&&CP_OK?CP_hSC(fl,P,T):hSC_t(fl,P,T)}
+function CP_TfP(f,P){try{return Module.PropsSI('T','P',P*1e5,'Q',1,f)-273.15}catch(e){return TfP_t(f,P)}}
+function CP_hSH(f,P,T){try{return Module.PropsSI('H','P',P*1e5,'T',T+273.15,f)/1e3}catch(e){return hSH_t(f,P,T)}}
+function CP_hSC(f,P,T){try{return Module.PropsSI('H','P',P*1e5,'T',T+273.15,f)/1e3}catch(e){return hSC_t(f,P,T)}}
+/* CoolProp WASM — licence MIT — https://github.com/CoolProp/CoolProp — Copyright © Ian Bell et al. */
+(function(){var s=document.createElement('script');s.src='coolprop.js';s.onload=function(){setTimeout(function(){try{if(typeof Module!=='undefined'&&Module.PropsSI)CP_OK=true}catch(e){}},200)};s.onerror=function(){};document.head.appendChild(s)})();
+function onBkChange(){BK=document.getElementById('sel-bk').value;if(BK==='coolprop'&&!CP_OK){alert("CoolProp non chargé.");BK='tables';document.getElementById('sel-bk').value='tables'}redraw()}
+
+var W=1100,H=700,PD={t:40,b:55,l:80,r:35},NS='http://www.w3.org/2000/svg';
+function $e(t,a,x){var n=document.createElementNS(NS,t);for(var k in a)n.setAttribute(k,String(a[k]));if(x!=null)n.textContent=x;return n}
+function mX(h,hm,hx){return PD.l+(h-hm)*(W-PD.l-PD.r)/(hx-hm)}
+function mY(P,pm,px){var l1=Math.log10(pm),l2=Math.log10(px);return(H-PD.b)-(Math.log10(P)-l1)*(H-PD.t-PD.b)/(l2-l1)}
+function iX(x,hm,hx){return hm+(x-PD.l)*(hx-hm)/(W-PD.l-PD.r)}
+function iY(y,pm,px){return Math.pow(10,Math.log10(pm)+((H-PD.b)-y)*(Math.log10(px)-Math.log10(pm))/(H-PD.t-PD.b))}
+var VW={},CYCLE=null,FL='R134a',PATM=1.013;
+
+function bldVW(f,cy){var d=TH[f].sat,ah=[],ap=[];d.forEach(function(r){ah.push(r[2],r[3]);ap.push(r[1])});if(cy)cy.pts.forEach(function(p){ah.push(p.h);ap.push(p.P)});VW={hm:Math.min.apply(null,ah)-25,hx:Math.max.apply(null,ah)+40,pm:Math.min.apply(null,ap)*.65,px:Math.max.apply(null,ap)*1.2}}
+
+function drawBase(svg,f,opts){
+  while(svg.firstChild)svg.removeChild(svg.firstChild);
+  var d=TH[f].sat,v=VW;
+  svg.append($e('rect',{x:0,y:0,width:W,height:H,fill:'#faf7f2'}));
+  svg.append($e('rect',{x:PD.l,y:PD.t,width:W-PD.l-PD.r,height:H-PD.t-PD.b,fill:'#fff',stroke:'#dbe3ea'}));
+  var hS=Math.round((v.hx-v.hm)/12/5)*5;if(hS<5)hS=5;
+  for(var hh=Math.ceil(v.hm/hS)*hS;hh<=v.hx;hh+=hS){var x=mX(hh,v.hm,v.hx);svg.append($e('line',{x1:x,y1:PD.t,x2:x,y2:H-PD.b,stroke:'#ece4da','stroke-width':.5}));svg.append($e('text',{x:x,y:H-PD.b+18,'text-anchor':'middle','font-size':11,fill:'#7a6e62','font-weight':600},hh.toFixed(0)))}
+  svg.append($e('text',{x:W/2,y:H-4,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'var(--navy)'},'h (kJ/kg)'));
+  [.3,.4,.5,.6,.7,.8,1,1.2,1.5,2,2.5,3,4,5,6,7,8,10,12,15,18,20,25,30,35,40,45,50,55,60].filter(function(p){return p>=v.pm&&p<=v.px}).forEach(function(p){var y=mY(p,v.pm,v.px);svg.append($e('line',{x1:PD.l,y1:y,x2:W-PD.r,y2:y,stroke:'#ece4da','stroke-width':.5}));svg.append($e('text',{x:PD.l-6,y:y+4,'text-anchor':'end','font-size':11,'font-weight':600,fill:'#7a6e62'},p<10?p.toFixed(1):p.toFixed(0)))});
+  svg.append($e('text',{x:16,y:H/2,'text-anchor':'middle','font-size':13,'font-weight':700,fill:'var(--navy)',transform:'rotate(-90 16 '+H/2+')'},'P (bar abs)'));
+  if(opts.zones){var p2='M';d.forEach(function(r,i){p2+=(i?'L':'')+mX(r[2],v.hm,v.hx)+','+mY(r[1],v.pm,v.px)});for(var i=d.length-1;i>=0;i--)p2+='L'+mX(d[i][3],v.hm,v.hx)+','+mY(d[i][1],v.pm,v.px);p2+='Z';svg.append($e('path',{d:p2,fill:'rgba(42,175,175,.05)'}))}
+  var ld='M',rd='M';d.forEach(function(r,i){ld+=(i?'L':'')+mX(r[2],v.hm,v.hx)+','+mY(r[1],v.pm,v.px);rd+=(i?'L':'')+mX(r[3],v.hm,v.hx)+','+mY(r[1],v.pm,v.px)});
+  svg.append($e('path',{d:ld,fill:'none',stroke:'#0f2d52','stroke-width':2.5}));svg.append($e('path',{d:rd,fill:'none',stroke:'#0f2d52','stroke-width':2.5}));
+  var tp=d[d.length-1];svg.append($e('circle',{cx:mX((tp[2]+tp[3])/2,v.hm,v.hx),cy:mY(tp[1],v.pm,v.px),r:4,fill:'#e74c3c'}));
+  if(opts.titre){for(var x=.1;x<=.91;x+=.1){var pts=[];d.forEach(function(r){var hx2=r[2]+x*(r[3]-r[2]);if(mX(hx2,v.hm,v.hx)>PD.l&&mX(hx2,v.hm,v.hx)<W-PD.r)pts.push(mX(hx2,v.hm,v.hx)+','+mY(r[1],v.pm,v.px))});if(pts.length>2){svg.append($e('polyline',{points:pts.join(' '),fill:'none',stroke:'#9b59b6','stroke-width':1,'stroke-dasharray':'4 5',opacity:.5}));var m=pts[Math.floor(pts.length/2)].split(',');svg.append($e('text',{x:+m[0],y:+m[1]-5,'text-anchor':'middle','font-size':9,'font-weight':700,fill:'#9b59b6',opacity:.7},'x='+x.toFixed(1)))}}}
+  if(opts.iso){for(var T=-40;T<=90;T+=10){var sp=satAt(f,T);if(!sp||sp.P<v.pm||sp.P>v.px)continue;var pts=[mX(sp.hl,v.hm,v.hx)+','+mY(sp.P,v.pm,v.px),mX(sp.hv,v.hm,v.hx)+','+mY(sp.P,v.pm,v.px)];for(var k=0;k<10;k++){var pf=sp.P*Math.pow(.7,k+1);if(pf<v.pm*.9)break;var Ts2=TfP(f,pf);if(T<=Ts2)continue;var hh=hSH(f,pf,T);if(hh>v.hx+50)break;pts.push(mX(hh,v.hm,v.hx)+','+mY(pf,v.pm,v.px))}if(pts.length<2)continue;svg.append($e('polyline',{points:pts.join(' '),fill:'none',stroke:'#e8914a','stroke-width':1,'stroke-dasharray':'6 4',opacity:.45}));var l=pts[pts.length-1].split(','),lx=+l[0],ly=+l[1];if(lx>PD.l+20&&lx<W-PD.r-15&&ly>PD.t+10&&ly<H-PD.b-10)svg.append($e('text',{x:lx+3,y:ly-3,'font-size':9,'font-weight':700,fill:'#e8914a',opacity:.6},T+'°'))}}
+  svg.append($e('text',{x:W/2,y:28,'text-anchor':'middle','font-size':14,'font-weight':800,fill:'var(--navy)'},'Diagramme log(p)-h — '+TH[f].nom));
+}
+
+function drawCycle(svg,f,cy,opts){
+  if(!cy||!cy.pts)return;
+  var v=VW;
+
+  // ── Isobares BP / HP ──
+  [cy.BP,cy.HP].forEach(function(P,i){
+    var y=mY(P,v.pm,v.px);
+    svg.append($e('line',{x1:PD.l,y1:y,x2:W-PD.r,y2:y,stroke:'#2aafaf','stroke-width':1.5,'stroke-dasharray':'10 5',opacity:.4}));
+    svg.append($e('text',{x:W-PD.r+4,y:y+4,'font-size':11,'font-weight':800,fill:'#2aafaf'},i?'HP':'BP'));
+  });
+
+  // ── Cycle idéal ──
+  if(opts.ideal&&cy.Tasp){
+    var s1=sSH(f,cy.BP,cy.Tasp),h2i=hFS(f,cy.HP,s1);
+    var ip=[cy.pt1,{h:h2i,P:cy.HP},cy.pt3,{h:cy.pt3.h,P:cy.BP}];
+    var dd='M';ip.forEach(function(q,i){dd+=(i?'L':'')+mX(q.h,v.hm,v.hx)+','+mY(q.P,v.pm,v.px);});
+    dd+='L'+mX(ip[0].h,v.hm,v.hx)+','+mY(ip[0].P,v.pm,v.px);
+    svg.append($e('path',{d:dd,fill:'none',stroke:'#27ae60','stroke-width':2,'stroke-dasharray':'8 5',opacity:.6}));
+  }
+
+  // ── Tracé du cycle principal (4 points de base) ──
+  var BASE=[cy.pt1,cy.pt2,cy.pt3,cy.pt4];
+  for(var i=0;i<4;i++){
+    var a=BASE[i],b=BASE[(i+1)%4];
+    svg.append($e('line',{x1:mX(a.h,v.hm,v.hx),y1:mY(a.P,v.pm,v.px),x2:mX(b.h,v.hm,v.hx),y2:mY(b.P,v.pm,v.px),stroke:'#e74c3c','stroke-width':3,'stroke-linecap':'round'}));
+    var mx2=(mX(a.h,v.hm,v.hx)+mX(b.h,v.hm,v.hx))/2,my2=(mY(a.P,v.pm,v.px)+mY(b.P,v.pm,v.px))/2;
+    var ag=Math.atan2(mY(b.P,v.pm,v.px)-mY(a.P,v.pm,v.px),mX(b.h,v.hm,v.hx)-mX(a.h,v.hm,v.hx));
+    svg.append($e('polygon',{points:[mx2+7*Math.cos(ag)+','+(my2+7*Math.sin(ag)),mx2+7*Math.cos(ag+2.5)+','+(my2+7*Math.sin(ag+2.5)),mx2+7*Math.cos(ag-2.5)+','+(my2+7*Math.sin(ag-2.5))].join(' '),fill:'#e74c3c'}));
+  }
+
+  // ── Annotations bandes SR / SC ──
+  if(opts.annot){
+    var hv1=hvP(f,cy.BP),hl3=hlP(f,cy.HP);
+    var yBP=mY(cy.BP,v.pm,v.px),yHP=mY(cy.HP,v.pm,v.px);
+    // SR évaporateur (bulbe → rosée)
+    if(cy.ptBulbe&&cy.ptBulbe.h>hv1){
+      var x1b=mX(hv1,v.hm,v.hx),xbulbe=mX(cy.ptBulbe.h,v.hm,v.hx);
+      svg.append($e('rect',{x:x1b,y:yBP+2,width:xbulbe-x1b,height:6,rx:2,fill:'rgba(39,174,96,.25)'}));
+      svg.append($e('line',{x1:x1b,y1:yBP+5,x2:xbulbe,y2:yBP+5,stroke:'#27ae60','stroke-width':3}));
+      svg.append($e('text',{x:(x1b+xbulbe)/2,y:yBP+19,'text-anchor':'middle','font-size':9,'font-weight':800,fill:'#27ae60'},'SR évap'));
+    }
+    // SR ligne (bulbe → aspiration)
+    if(cy.ptBulbe&&cy.pt1.h>cy.ptBulbe.h+2){
+      var xbulbe2=mX(cy.ptBulbe.h,v.hm,v.hx),x1a=mX(cy.pt1.h,v.hm,v.hx);
+      svg.append($e('rect',{x:xbulbe2,y:yBP+2,width:x1a-xbulbe2,height:6,rx:2,fill:'rgba(232,145,74,.2)'}));
+      svg.append($e('line',{x1:xbulbe2,y1:yBP+5,x2:x1a,y2:yBP+5,stroke:'#e8914a','stroke-width':3}));
+      svg.append($e('text',{x:(xbulbe2+x1a)/2,y:yBP+31,'text-anchor':'middle','font-size':9,'font-weight':700,fill:'#e8914a'},'SR ligne'));
+    }
+    // SC condenseur (sortie cond → liquide saturé)
+    if(cy.pt3.h<hl3-2){
+      var xliq=mX(cy.pt3.h,v.hm,v.hx),xhl=mX(hl3,v.hm,v.hx);
+      svg.append($e('rect',{x:xliq,y:yHP-8,width:xhl-xliq,height:6,rx:2,fill:'rgba(37,99,235,.2)'}));
+      svg.append($e('line',{x1:xliq,y1:yHP-5,x2:xhl,y2:yHP-5,stroke:'#2563eb','stroke-width':3}));
+      svg.append($e('text',{x:(xliq+xhl)/2,y:yHP-14,'text-anchor':'middle','font-size':9,'font-weight':800,fill:'#2563eb'},'SC'));
+    }
+    // Effet frigorifique
+    svg.append($e('line',{x1:mX(cy.pt4.h,v.hm,v.hx),y1:yBP+44,x2:mX(cy.pt1.h,v.hm,v.hx),y2:yBP+44,stroke:'#0f2d52','stroke-width':2}));
+    svg.append($e('text',{x:(mX(cy.pt4.h,v.hm,v.hx)+mX(cy.pt1.h,v.hm,v.hx))/2,y:yBP+57,'text-anchor':'middle','font-size':10,'font-weight':800,fill:'#0f2d52'},'q='+(cy.pt1.h-cy.pt4.h).toFixed(0)+' kJ/kg'));
+  }
+
+  // ══ POINTS CLIQUABLES ══════════════════════════════════════════════════════
+  // Définition des points à afficher
+  var PTDEF=[
+    {pt:cy.ptBulbe,   id:'B',  col:'#27ae60', r:11, nom:'Bulbe',           desc:'Sortie évaporateur — sonde DTH'},
+    {pt:cy.pt1,       id:'1',  col:'#2563eb', r:13, nom:'Aspiration',      desc:'Entrée compresseur — BP surchauffée'},
+    {pt:cy.pt1herm,   id:'1h', col:'#7c3aed', r:10, nom:'Asp. effective',  desc:'Après réchauffement moteur (hermétique)'},
+    {pt:cy.pt2,       id:'2',  col:'#e74c3c', r:13, nom:'Refoulement',     desc:'Sortie compresseur — HP surchauffée'},
+    {pt:cy.ptSortCond,id:'3s', col:'#9b59b6', r:10, nom:'Sortie cond.',    desc:'Liquide en sortie condenseur'},
+    {pt:cy.pt3,       id:'3',  col:'#e8914a', r:13, nom:'Entrée détend.',  desc:'Liquide avant détendeur — HP sous-refroidi'},
+    {pt:cy.pt4,       id:'4',  col:'#2aafaf', r:11, nom:'Sortie détend.',  desc:'Entrée évaporateur — mélange L+V'},
+  ];
+
+  PTDEF.forEach(function(def){
+    if(!def.pt)return;
+    var cx2=mX(def.pt.h,v.hm,v.hx),cy2=mY(def.pt.P,v.pm,v.px);
+    var r2=def.r;
+    // Cercle
+    var circ=$e('circle',{cx:cx2,cy:cy2,r:r2,fill:'#fff',stroke:def.col,'stroke-width':3.5,style:'cursor:pointer'});
+    // Label dans le cercle
+    var lbl=$e('text',{x:cx2,y:cy2+(def.id.length>1?3:5),'text-anchor':'middle','font-size':def.id.length>1?8:12,'font-weight':800,fill:def.col,style:'cursor:pointer;pointer-events:none'},def.id);
+    // Annotation textuelle si opt
+    if(opts.annot){
+      var oy2=def.pt.P===cy.HP?-(r2+14):(r2+14);
+      var htxt=def.nom+' h='+def.pt.h.toFixed(0);
+      var tw=htxt.length*5.5+8;
+      svg.append($e('rect',{x:cx2-tw/2,y:cy2+oy2-9,width:tw,height:13,rx:4,fill:'#fff',opacity:.9}));
+      svg.append($e('text',{x:cx2,y:cy2+oy2+1,'text-anchor':'middle','font-size':9,'font-weight':700,fill:def.col},htxt));
+    }
+    // Tooltip au clic
+    circ.addEventListener('click',function(e){
+      e.stopPropagation();
+      showPtTooltip(def,cx2,cy2,f,cy);
+    });
+    svg.append(circ);
+    svg.append(lbl);
+  });
+
+  // Fermer tooltip si clic ailleurs
+  svg.addEventListener('click',function(){hidePtTooltip();});
+}
+
+// ── Tooltip point cliquable ────────────────────────────────────────────────
+var _ptTip=null;
+function showPtTooltip(def,cx2,cy2,f,cy){
+  hidePtTooltip();
+  var tip=document.createElement('div');
+  var pt=def.pt;
+  var TO=TfP(f,cy.BP),TK=TfP(f,cy.HP);
+  var Tsat=isFinite(TfP(f,pt.P))?TfP(f,pt.P):null;
+  var hv1=hvP(f,pt.P),hl1=hlP(f,pt.P);
+  var zone=pt.h<hl1?'Liquide sous-refroidi':(pt.h>hv1?'Vapeur surchauffée':'Mélange L+V');
+
+  // Calcul T° estimée si on peut
+  var Tpt=null;
+  try{
+    if(pt.h>hv1&&Tsat!==null){Tpt=Tsat+(pt.h-hv1)/TH[f].Cp_v;}
+    else if(pt.h<hl1&&Tsat!==null){Tpt=Tsat-(hl1-pt.h)/TH[f].Cp_l;}
+    else if(Tsat!==null){Tpt=Tsat;}
+  }catch(e){}
+
+  var rows=[
+    ['Rôle', '<strong>'+def.nom+'</strong>'],
+    ['Description', def.desc],
+    ['Zone', zone],
+    ['h (enthalpie)', pt.h.toFixed(1)+' kJ/kg'],
+    ['P absolue', pt.P.toFixed(2)+' bar abs / '+(pt.P-PATM).toFixed(2)+' bar rel'],
+    ['T° saturation', Tsat!==null?Tsat.toFixed(1)+'°C':'—'],
+  ];
+  if(Tpt!==null)rows.push(['T° estimée', Tpt.toFixed(1)+'°C']);
+  // Valeurs spécifiques selon le point
+  if(def.id==='B'&&cy.SRu!==null)rows.push(['SR évap (bulbe)', cy.SRu.toFixed(1)+' K']);
+  if(def.id==='1'&&cy.SRt!==null)rows.push(['SR totale aspiration', cy.SRt.toFixed(1)+' K']);
+  if(def.id==='1'&&cy.SRl!==null)rows.push(['SR ligne', cy.SRl.toFixed(1)+' K']);
+  if(def.id==='2')rows.push(['T° refoulement', (Tpt!==null?Tpt.toFixed(1):'—')+'°C']);
+  if((def.id==='3'||def.id==='3s')&&cy.SC!==null)rows.push(['SC condenseur', cy.SC.toFixed(1)+' K']);
+  if(def.id==='3'&&cy.SCl!==null)rows.push(['SC ligne (entrée détend.)', cy.SCl.toFixed(1)+' K']);
+
+  var html='<div style="font-size:.68rem;font-weight:800;color:'+def.col+';margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:4px">'+
+    '<span style="font-size:.9rem">'+def.id+'</span> — '+def.nom+'</div>';
+  rows.forEach(function(r){
+    html+='<div style="display:flex;justify-content:space-between;gap:12px;margin-bottom:3px">'+
+      '<span style="opacity:.7;white-space:nowrap">'+r[0]+'</span>'+
+      '<span style="font-weight:700;text-align:right">'+r[1]+'</span></div>';
+  });
+
+  tip.innerHTML=html;
+  tip.style.cssText='position:fixed;background:rgba(15,45,82,.96);color:#fff;padding:12px 14px;border-radius:12px;'+
+    'font-size:.72rem;font-family:var(--mono);min-width:200px;max-width:260px;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.4);'+
+    'border:1px solid '+def.col+';line-height:1.5';
+  document.body.appendChild(tip);
+  _ptTip=tip;
+  // Positionner près du point
+  var wrap=document.getElementById('svg-wrap').getBoundingClientRect();
+  var tx=wrap.left+cx2*wrap.width/W+16;
+  var ty=wrap.top+cy2*wrap.height/H-20;
+  if(tx+270>window.innerWidth)tx=tx-290;
+  if(ty+200>window.innerHeight)ty=ty-210;
+  tip.style.left=Math.max(8,tx)+'px';
+  tip.style.top=Math.max(8,ty)+'px';
+}
+function hidePtTooltip(){if(_ptTip){_ptTip.remove();_ptTip=null;}}
+
+function getO(){return{iso:document.getElementById('opt-iso').checked,titre:document.getElementById('opt-titre').checked,zones:document.getElementById('opt-zones').checked,annot:document.getElementById('opt-annot').checked,ideal:document.getElementById('opt-ideal').checked}}
+function redraw(){if(!CYCLE)return;bldVW(FL,CYCLE);drawBase(document.getElementById('plot'),FL,getO());drawCycle(document.getElementById('plot'),FL,CYCLE,getO())}
+
+function toggleHerm(){
+  var on=document.getElementById('in-herm').checked;
+  var z=document.getElementById('herm-zone');
+  if(z)z.style.display=on?'flex':'none';
+}
+
+function tracerCycle(){
+  FL=document.getElementById('sel-fl').value;
+  var por=parseFloat(document.getElementById('in-po').value);
+  var pkr=parseFloat(document.getElementById('in-pk').value);
+  var Tbulbe=parseFloat(document.getElementById('in-tbulbe').value);
+  var Tasp=parseFloat(document.getElementById('in-tasp').value);   // optionnel
+  var Tref=parseFloat(document.getElementById('in-tref').value);
+  var Tsortcond=parseFloat(document.getElementById('in-tsortcond').value);
+  var Tentdet=parseFloat(document.getElementById('in-tentdet').value);  // optionnel
+  var hermOn=document.getElementById('in-herm').checked;
+  var SRherm=parseFloat(document.getElementById('in-sr-herm').value)||5;
+
+  // ── Validation minimale ──
+  var err='';
+  if(isNaN(por)||isNaN(pkr))err='PO et PK sont obligatoires.';
+  else if(isNaN(Tbulbe))err='T° bulbe (sortie évap) est obligatoire.';
+  else if(isNaN(Tref))err='T° refoulement est obligatoire.';
+  else if(isNaN(Tsortcond))err='T° sortie condenseur est obligatoire.';
+  document.getElementById('err-msg').textContent=err;
+  if(err)return;
+
+  var BP=por+PATM, HP=pkr+PATM;
+  var TO=TfP(FL,BP), TK=TfP(FL,HP);
+
+  // ── Calcul des points ──
+  // Si Tasp absent → on suppose que l'aspiration = bulbe (SR ligne = 0)
+  var TaspEff=isNaN(Tasp)?Tbulbe:Tasp;
+  // Si Tentdet absent → SC ligne = 0, entrée détendeur = sortie condenseur
+  var TentdetEff=isNaN(Tentdet)?Tsortcond:Tentdet;
+
+  // Point B — bulbe sortie évap
+  var ptBulbe={h:hSH(FL,BP,Tbulbe), P:BP, T:Tbulbe, lbl:'Bulbe'};
+  // Point 1 — aspiration compresseur
+  var pt1={h:hSH(FL,BP,TaspEff), P:BP, T:TaspEff, lbl:'Aspiration'};
+  // Point 1h — aspiration effective (hermétique) : on décale de SRherm K
+  var pt1herm=null;
+  if(hermOn){
+    var Teff=TaspEff+SRherm;
+    pt1herm={h:hSH(FL,BP,Teff), P:BP, T:Teff, lbl:'Asp. effective'};
+  }
+  // Point 2 — refoulement
+  var pt2={h:hSH(FL,HP,Tref), P:HP, T:Tref, lbl:'Refoulement'};
+  // Point 3s — sortie condenseur (si différent entrée détendeur)
+  var ptSortCond=null;
+  if(!isNaN(Tentdet)&&Math.abs(Tsortcond-TentdetEff)>0.2){
+    ptSortCond={h:hSC(FL,HP,Tsortcond), P:HP, T:Tsortcond, lbl:'Sortie cond.'};
+  }
+  // Point 3 — entrée détendeur (liquide)
+  var pt3={h:hSC(FL,HP,TentdetEff), P:HP, T:TentdetEff, lbl:'Entrée détend.'};
+  // Point 4 — sortie détendeur (isenthalpique)
+  var pt4={h:pt3.h, P:BP, T:TO, lbl:'Sortie détend.'};
+
+  // ── Grandeurs ──
+  var SRu=Tbulbe-TO;
+  var SRt=TaspEff-TO;
+  var SRl=isNaN(Tasp)?null:TaspEff-Tbulbe;
+  var SRhermK=hermOn?SRherm:null;
+  var SC=TK-Tsortcond;
+  var SCl=!isNaN(Tentdet)&&Math.abs(Tsortcond-TentdetEff)>0.2?Tsortcond-TentdetEff:null;
+  var h1use=hermOn&&pt1herm?pt1herm.h:pt1.h;
+  var qE=h1use-pt4.h, wC=pt2.h-h1use, qC=pt2.h-pt3.h;
+  var COP=wC>0?qE/wC:0, RC=HP/BP;
+
+  // ── Stocker CYCLE ──
+  CYCLE={
+    BP:BP, HP:HP, Tasp:TaspEff, Tref:Tref,
+    pt1:pt1, pt1herm:pt1herm, pt2:pt2, pt3:pt3, pt4:pt4,
+    ptBulbe:ptBulbe, ptSortCond:ptSortCond,
+    pts:[pt1,pt2,pt3,pt4],  // pour bldVW
+    SRu:SRu, SRt:SRt, SRl:SRl, SRhermK:SRhermK, SC:SC, SCl:SCl,
+    COP:COP, qE:qE, wC:wC, qC:qC, RC:RC
+  };
+
+  // ── Affichage KPI ──
+  document.getElementById('ra-por').textContent=por.toFixed(1);
+  document.getElementById('ra-poa').textContent=TO.toFixed(1)+'°C';
+  document.getElementById('ra-pkr').textContent=pkr.toFixed(1);
+  document.getElementById('ra-pka').textContent=TK.toFixed(1)+'°C';
+  document.getElementById('k-to').textContent=TO.toFixed(1)+'°';
+  document.getElementById('k-tk').textContent=TK.toFixed(1)+'°';
+  document.getElementById('k-po').textContent=BP.toFixed(2);
+  document.getElementById('k-pk').textContent=HP.toFixed(2);
+  document.getElementById('k-sru').textContent=SRu.toFixed(1);
+  document.getElementById('k-srt').textContent=SRt.toFixed(1);
+  document.getElementById('k-srl').textContent=SRl!==null?SRl.toFixed(1):'=0';
+  document.getElementById('k-sc').textContent=SC.toFixed(1);
+  document.getElementById('k-scl').textContent=SCl!==null?SCl.toFixed(1):'=0';
+  document.getElementById('k-tref').textContent=Tref.toFixed(1)+'°';
+  var krh=document.getElementById('kpi-srh');
+  if(krh){krh.style.display=hermOn?'':'none';document.getElementById('k-srh').textContent=SRhermK!==null?SRhermK.toFixed(1):'';}
+  document.getElementById('k-cop').textContent=COP.toFixed(2);
+  document.getElementById('k-qe').textContent=qE.toFixed(0);
+  document.getElementById('k-wc').textContent=wC.toFixed(0);
+  document.getElementById('k-qc').textContent=qC.toFixed(0);
+  document.getElementById('k-rc').textContent=RC.toFixed(2);
+
+  updateMano(por,pkr,TO,TK);
+  redraw();
+}
+
+function drawManoSVG(svgId,pMin,pMax,pVal,color,label){
+  var svg=document.getElementById(svgId);while(svg.firstChild)svg.removeChild(svg.firstChild);
+  var cx=110,cy=115,r=85,startA=-220,endA=40,range=pMax-pMin,steps=Math.round(range*2);if(steps<4)steps=4;if(steps>40)steps=40;
+  svg.append($e('circle',{cx:cx,cy:cy,r:r+10,fill:'#f8f9fa',stroke:color,'stroke-width':3}));svg.append($e('circle',{cx:cx,cy:cy,r:r-5,fill:'#fff'}));
+  for(var i=0;i<=steps;i++){var frac=i/steps,ang=(startA+frac*(endA-startA))*Math.PI/180,isMajor=i%(Math.max(1,Math.round(steps/10)))===0||i===0||i===steps,len=isMajor?15:8;
+    svg.append($e('line',{x1:cx+(r-5)*Math.cos(ang),y1:cy+(r-5)*Math.sin(ang),x2:cx+(r-5-len)*Math.cos(ang),y2:cy+(r-5-len)*Math.sin(ang),stroke:'#333','stroke-width':isMajor?2:1}));
+    if(isMajor){var val=pMin+i*range/steps;svg.append($e('text',{x:cx+(r-28)*Math.cos(ang),y:cy+(r-28)*Math.sin(ang)+3,'text-anchor':'middle','font-size':9,'font-weight':700,fill:'#333'},val.toFixed(val%1?1:0)));}}
+  var nFrac=Math.max(0,Math.min(1,(pVal-pMin)/range)),nAng=(startA+nFrac*(endA-startA))*Math.PI/180;
+  svg.append($e('line',{x1:cx,y1:cy,x2:cx+(r-20)*Math.cos(nAng),y2:cy+(r-20)*Math.sin(nAng),stroke:color,'stroke-width':3,'stroke-linecap':'round'}));
+  svg.append($e('circle',{cx:cx,cy:cy,r:6,fill:color}));
+  svg.append($e('text',{x:cx,y:cy+38,'text-anchor':'middle','font-size':14,'font-weight':800,fill:color},pVal.toFixed(1)+' bar'));
+  svg.append($e('text',{x:cx,y:cy+52,'text-anchor':'middle','font-size':9,'font-weight':600,fill:'#666'},label));
+}
+function updateMano(por,pkr,TO,TK){
+  drawManoSVG('mano-bp-svg',-1,Math.max(por+2,5),por,'#2563eb','Basse pression → T° évap');
+  drawManoSVG('mano-hp-svg',0,Math.max(pkr+5,30),pkr,'#e74c3c','Haute pression → T° cond');
+  document.getElementById('mano-bp-val').textContent=por.toFixed(1);document.getElementById('mano-bp-to').textContent=TO.toFixed(1);
+  document.getElementById('mano-hp-val').textContent=pkr.toFixed(1);document.getElementById('mano-hp-tk').textContent=TK.toFixed(1);
+}
+
+function setupCH(wId,tId){var w=document.getElementById(wId),t=document.getElementById(tId);w.addEventListener('mousemove',function(e){var r=w.getBoundingClientRect(),sx=e.clientX-r.left,sy=e.clientY-r.top,svgX=sx*W/r.width,svgY=sy*H/r.height;if(svgX<PD.l||svgX>W-PD.r||svgY<PD.t||svgY>H-PD.b){t.style.display='none';return}var hV=iX(svgX,VW.hm,VW.hx),pV=iY(svgY,VW.pm,VW.px),Ts=TfP(FL,pV),hl=hlP(FL,pV),hv=hvP(FL,pV),zone=hV<hl?'Liquide':(hV>hv?'Vapeur surchauffée':'Mélange L+V');t.innerHTML='h = <b>'+hV.toFixed(1)+'</b> kJ/kg · P = <b>'+pV.toFixed(2)+'</b> bar abs (<b>'+(pV-PATM).toFixed(2)+'</b> rel)<br>T° sat = <b>'+(isFinite(Ts)?Ts.toFixed(1):'—')+'</b>°C · '+zone;t.style.display='block';t.style.left=Math.min(sx+12,r.width-t.offsetWidth-8)+'px';t.style.top=Math.min(sy-50,r.height-t.offsetHeight-8)+'px'});w.addEventListener('mouseleave',function(){t.style.display='none'});}
+
+var EXO={run:false,step:0,pl:[],tgt:[],tol:{h:15,P:.12}};
+var EXSC=[{fl:'R134a',po:1.9,pk:9.2,ta:5,tr:65,tl:30},{fl:'R410A',po:7.2,pk:25.2,ta:5,tr:80,tl:32},{fl:'R404A',po:4.1,pk:17.9,ta:-5,tr:60,tl:28},{fl:'R32',po:5.9,pk:21.2,ta:8,tr:75,tl:30},{fl:'R22',po:3.1,pk:11.6,ta:5,tr:65,tl:30},{fl:'R290',po:3.1,pk:11.2,ta:5,tr:60,tl:28}];
+function newExoP(){var s=EXSC[Math.floor(Math.random()*EXSC.length)];document.getElementById('exo-fl').value=s.fl;document.getElementById('exo-po').value=s.po;document.getElementById('exo-pk').value=s.pk;document.getElementById('exo-ta').value=s.ta;document.getElementById('exo-tr').value=s.tr;document.getElementById('exo-tl').value=s.tl;}
+function startExoP(){var f=document.getElementById('exo-fl').value,bp=parseFloat(document.getElementById('exo-po').value)+PATM,hp=parseFloat(document.getElementById('exo-pk').value)+PATM,ta=parseFloat(document.getElementById('exo-ta').value),tr=parseFloat(document.getElementById('exo-tr').value),tl=parseFloat(document.getElementById('exo-tl').value);var h3=hSC(f,hp,tl);EXO.tgt=[{h:hSH(f,bp,ta),P:bp},{h:hSH(f,hp,tr),P:hp},{h:h3,P:hp},{h:h3,P:bp}];EXO.step=0;EXO.pl=[];EXO.run=true;FL=f;CYCLE=null;bldVW(f,{pts:EXO.tgt});drawBase(document.getElementById('exo-plot'),f,{iso:true,titre:true,zones:true,annot:false,ideal:false});document.getElementById('exo-sw').style.display='block';document.getElementById('exo-bar').classList.add('on');document.getElementById('exo-res').innerHTML='';updExoUI();}
+var ELBL=[{n:'Aspiration (1)',h:'BP — vapeur surchauffée (côté droit cloche, bas)'},{n:'Refoulement (2)',h:'HP — vapeur surchauffée (côté droit cloche, haut)'},{n:'Entrée détendeur (3)',h:'HP — liquide sous-refroidi (côté gauche cloche, haut)'},{n:'Sortie détendeur (4)',h:'BP — mélange L+V (dans la cloche, bas)'}];
+function updExoUI(){var h='';for(var i=0;i<4;i++)h+='<div class="exo-pt '+(i<EXO.step?'done':(i===EXO.step?'active':''))+'">'+['1','2','3','4'][i]+'</div>';document.getElementById('exo-dots').innerHTML=h;if(EXO.step<4){document.getElementById('exo-instr').textContent='Place : '+ELBL[EXO.step].n;document.getElementById('exo-hint').textContent=ELBL[EXO.step].h;}}
+function exoFlC(){var f=document.getElementById('exo-fl').value,s=EXSC.find(function(x){return x.fl===f})||EXSC[0];document.getElementById('exo-po').value=s.po;document.getElementById('exo-pk').value=s.pk;document.getElementById('exo-ta').value=s.ta;document.getElementById('exo-tr').value=s.tr;document.getElementById('exo-tl').value=s.tl;}
+document.getElementById('exo-sw').addEventListener('click',function(e){if(!EXO.run||EXO.step>=4)return;var r=this.getBoundingClientRect(),sx=e.clientX-r.left,sy=e.clientY-r.top,svgX=sx*W/r.width,svgY=sy*H/r.height;if(svgX<PD.l||svgX>W-PD.r||svgY<PD.t||svgY>H-PD.b)return;var hC=iX(svgX,VW.hm,VW.hx),pC=iY(svgY,VW.pm,VW.px);EXO.pl.push({h:hC,P:pC});var colors=['#2563eb','#e74c3c','#e8914a','#2aafaf'],svg=document.getElementById('exo-plot');svg.append($e('circle',{cx:svgX,cy:svgY,r:10,fill:'#fff',stroke:colors[EXO.step],'stroke-width':3}));svg.append($e('text',{x:svgX,y:svgY+4,'text-anchor':'middle','font-size':11,'font-weight':800,fill:colors[EXO.step]},''+(EXO.step+1)));EXO.step++;if(EXO.step<4){updExoUI();return;}EXO.run=false;document.getElementById('exo-instr').textContent='Terminé !';document.getElementById('exo-hint').textContent='';updExoUI();setTimeout(evalExo,500);});
+function evalExo(){var svg=document.getElementById('exo-plot'),ok=0,det='',cl=['#2563eb','#e74c3c','#e8914a','#2aafaf'];for(var i=0;i<4;i++){var t=EXO.tgt[i],p=EXO.pl[i],dh=Math.abs(p.h-t.h),dp=Math.abs(p.P-t.P)/t.P,pass=dh<EXO.tol.h&&dp<EXO.tol.P;if(pass)ok++;det+='<div style="margin:3px 0;font-size:.8rem;color:'+(pass?'var(--good)':'var(--bad)')+'\">'+(pass?'✅':'❌')+' Pt '+(i+1)+' Δh='+dh.toFixed(0)+' ΔP='+(dp*100).toFixed(0)+'%'+(pass?'':' (cible h='+t.h.toFixed(0)+' P='+t.P.toFixed(1)+')')+'</div>';var cx=mX(t.h,VW.hm,VW.hx),cy2=mY(t.P,VW.pm,VW.px);svg.append($e('circle',{cx:cx,cy:cy2,r:6,fill:'none',stroke:cl[i],'stroke-width':2,'stroke-dasharray':'3 2'}));}for(var i=0;i<4;i++){var a=EXO.tgt[i],b=EXO.tgt[(i+1)%4];svg.append($e('line',{x1:mX(a.h,VW.hm,VW.hx),y1:mY(a.P,VW.pm,VW.px),x2:mX(b.h,VW.hm,VW.hx),y2:mY(b.P,VW.pm,VW.px),stroke:'#27ae60','stroke-width':2,'stroke-dasharray':'6 4'}));}document.getElementById('exo-res').innerHTML='<div class="res-banner '+(ok>=3?'win':'lose')+'"><div style="font-size:2.2rem">'+(ok===4?'🎯':ok>=3?'👍':'📐')+'</div><div style="font-size:1rem;font-weight:800;margin:4px 0">'+ok+'/4 — '+Math.round(ok/4*100)+'%</div><div style="font-size:.82rem;opacity:.9">'+(ok===4?'Parfait !':ok>=3?'Presque !':'Révise la méthode.')+'</div></div>'+det;}
+
+// showTab géré par switchView ci-dessus
+var DEFAULTS={'R134a':{po:1.9,pk:9.2,tb:0,ta:5,tr:65,ts:32,td:30},'R410A':{po:7.2,pk:25.2,tb:2,ta:7,tr:80,ts:32,td:30},'R404A':{po:4.1,pk:17.9,tb:-10,ta:-5,tr:60,ts:28,td:26},'R32':{po:5.9,pk:21.2,tb:3,ta:8,tr:75,ts:30,td:28},'R22':{po:3.1,pk:11.6,tb:0,ta:5,tr:65,ts:30,td:28},'R290':{po:3.1,pk:11.2,tb:0,ta:5,tr:60,ts:28,td:26}};
+function onFluidChange(){
+  var fl=document.getElementById('sel-fl').value,d=DEFAULTS[fl];FL=fl;
+  if(d){document.getElementById('in-po').value=d.po;document.getElementById('in-pk').value=d.pk;document.getElementById('in-tbulbe').value=d.tb;document.getElementById('in-tasp').value=d.ta||'';document.getElementById('in-tref').value=d.tr;document.getElementById('in-tsortcond').value=d.ts;document.getElementById('in-tentdet').value=d.td||'';}
+}
+Object.keys(TH).forEach(function(k){[document.getElementById('sel-fl'),document.getElementById('exo-fl')].forEach(function(sel){var opt=document.createElement('option');opt.value=k;opt.textContent=TH[k].nom;sel.appendChild(opt);});});
+FL='R134a';CYCLE=null;bldVW(FL,null);drawBase(document.getElementById('plot'),FL,getO());setupCH('svg-wrap','tooltip');setupCH('exo-sw','exo-tip');
+drawManoSVG('mano-bp-svg',-1,5,1.9,'#2563eb','Basse Pression');drawManoSVG('mano-hp-svg',0,30,9.2,'#e74c3c','Haute Pression');
+// =====================================================
+// INTÉGRATION CERVEAU_V6 — optionnelle (graceful)
+// =====================================================
+var CRV=null,CRV_OK=false;
+(function(){
+  var s=document.createElement('script');
+  s.src='cerveau_v6.js';
+  s.onload=function(){
+    setTimeout(function(){
+      try{
+        if(typeof ManoPubCerveau!=='undefined'&&ManoPubCerveau.listFluids){
+          CRV=ManoPubCerveau;CRV_OK=true;
+          var b=document.getElementById('cerveau-badge');
+          if(b){b.textContent='\u2713 Cerveau v6';b.style.background='#eef7f1';b.style.color='#27ae60';b.style.borderColor='#a8d5b5';}
+          injectCerveauFluids();
+          updateFluidStrip(FL);
+        }
+      }catch(e){}
+    },400);
+  };
+  s.onerror=function(){};
+  document.head.appendChild(s);
+})();
+
+function updateFluidStrip(fl){
+  var strip=document.getElementById('fluid-strip');
+  if(!strip)return;
+  strip.innerHTML='';
+  if(!CRV_OK)return;
+  try{
+    var f=CRV.getFluid(fl);
+    if(!f)return;
+    var env=f.environnement||{};
+    var gwp=env.GWP!==undefined?env.GWP:null;
+    var cls=f.classe||'';
+    var statut=f.statut||'';
+    function pill(txt,bg,col){var sp=document.createElement('span');sp.style.cssText='display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;font-size:.62rem;font-weight:700;background:'+bg+';color:'+col;sp.textContent=txt;strip.appendChild(sp);}
+    if(cls)pill(cls,cls==='A2L'?'#fff3e0':'#e8f5e9',cls==='A2L'?'#e65100':'#2e7d32');
+    if(gwp!==null)pill('GWP '+gwp,gwp>2500?'#fdeaea':gwp>150?'#fdf6ef':'#eef7f1',gwp>2500?'#e74c3c':gwp>150?'#8b4513':'#27ae60');
+    if(statut&&statut.toLowerCase().indexOf('phase')>=0)pill(statut,'#fce4ec','#880e4f');
+    if(cls==='A2L'){var w=document.createElement('span');w.style.cssText='font-size:.62rem;color:#e65100;font-weight:700;margin-left:4px';w.textContent='\u26a0 inflammable';strip.appendChild(w);}
+  }catch(e){}
+}
+
+function renderFiche(fl){
+  var div=document.getElementById('fiche-content');
+  var tit=document.getElementById('fiche-titre');
+  if(tit)tit.textContent=fl;
+  if(!div)return;
+  if(!CRV_OK){
+    div.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--muted)"><div style="font-size:2.5rem;margin-bottom:8px">\u{1F9E0}</div><p style="font-size:.82rem;line-height:1.6">Fiche fluide non disponible.<br>Place <code>cerveau_v6.js</code> dans le m\u00eame dossier et recharge.</p></div>';
+    return;
+  }
+  try{
+    var f=CRV.getFluid(fl);
+    if(!f){div.innerHTML='<div style="background:#fdeaea;padding:10px;border-radius:8px;font-size:.8rem">Fluide non trouv\u00e9 dans le cerveau.</div>';return;}
+    var env=f.environnement||{};
+    var ter=f.terrain||{};
+    var gwp=env.GWP!==undefined?env.GWP:'\u2014';
+    var odp=env.ODP!==undefined?env.ODP:'\u2014';
+    var cls=f.classe||'\u2014';
+    var th=f.thermo||{};
+    var Tc=th.Tc!==undefined?th.Tc.toFixed(1):(TH[fl]?TH[fl].Tc.toFixed(1):'\u2014');
+    var Pc=th.Pc!==undefined?th.Pc.toFixed(1):(TH[fl]?TH[fl].Pc.toFixed(1):'\u2014');
+    var gwpN=typeof gwp==='number';
+    var gwpCls=gwpN?(gwp>2500?'var(--bad)':gwp>150?'var(--orange)':'var(--good)'):'var(--navy)';
+    function card(val,lbl,col){return '<div style="background:var(--bg);border:1px solid var(--card-border);border-radius:12px;padding:10px;text-align:center"><div style="font-family:var(--mono);font-size:1.1rem;font-weight:800;color:'+(col||'var(--navy)')+'">'+val+'</div><div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);font-weight:600;margin-top:2px">'+lbl+'</div></div>';}
+    var html='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0">';
+    html+=card(cls,'Classe s\u00e9curit\u00e9');
+    html+=card(gwp,'GWP (AR5)',gwpCls);
+    html+=card(odp,'ODP');
+    html+=card(Tc+'\u00b0C','Temp. critique');
+    html+=card(Pc+' bar','Pression critique');
+    if(ter.SR_typique)html+=card(ter.SR_typique[0]+'-'+ter.SR_typique[1]+'K','SR typique');
+    if(ter.SC_typique)html+=card(ter.SC_typique[0]+'-'+ter.SC_typique[1]+'K','SC typique');
+    html+='</div>';
+    // Alerte A2L
+    if(cls==='A2L'){
+      html+='<div style="background:linear-gradient(135deg,#fff8e1,#fff3cd);border:2px solid #ffc107;border-radius:12px;padding:12px;margin:8px 0;font-size:.82rem">';
+      html+='<div style="font-weight:800;color:#856404;font-size:.9rem;margin-bottom:4px">\u26a0 Fluide A2L \u2014 L\u00e9g\u00e8rement inflammable</div>';
+      if(env.LFL)html+='LCE : <strong>'+env.LFL+' kg/m\u00b3</strong><br>';
+      html+='R\u00e8gles de s\u00e9curit\u00e9 sp\u00e9cifiques \u2014 v\u00e9rifier charge max locale.</div>';
+      html+='<div style="display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin-top:8px;align-items:flex-end">';
+      html+='<div><label style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase">Volume local (m\u00b3)</label><input type="number" id="a2l-vol" step="10" value="50" style="width:100%;padding:7px 8px;border:2px solid var(--card-border);border-radius:10px;font-family:var(--mono);font-size:.85rem;font-weight:700;text-align:center"></div>';
+      html+='<div><label style="font-size:.65rem;font-weight:700;color:var(--muted);text-transform:uppercase">Hauteur (m)</label><input type="number" id="a2l-haut" step="0.1" value="2.5" style="width:100%;padding:7px 8px;border:2px solid var(--card-border);border-radius:10px;font-family:var(--mono);font-size:.85rem;font-weight:700;text-align:center"></div>';
+      html+='<button onclick="calcA2L(\'' + fl + '\')" style="padding:9px 18px;background:var(--orange);color:#fff;border:none;border-radius:999px;font-weight:700;cursor:pointer">Calculer</button>';
+      html+='</div><div id="a2l-result" style="margin-top:6px"></div>';
+    }
+    // Retrofit
+    try{
+      var ret=CRV.getRetrofitOptions(fl);
+      if(ret&&ret.length>0){
+        html+='<div style="font-size:.7rem;text-transform:uppercase;letter-spacing:1.5px;font-weight:700;color:var(--navy);margin:12px 0 6px">&#8594; Options de retrofit</div>';
+        ret.slice(0,6).forEach(function(r){
+          var tc=r.type==='drop-in'?'#e8f5e9,#2e7d32,Drop-in':r.type==='quasi-drop-in'?'#fff3e0,#e65100,Quasi drop-in':'#fce4ec,#c62828,Retrofit lourd';
+          var tp=tc.split(',');
+          html+='<div style="display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;border:1px solid var(--card-border);margin-bottom:6px;font-size:.8rem">';
+          html+='<strong style="font-family:var(--mono)">'+r.fluide+'</strong>';
+          html+='<span style="font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px;background:'+tp[0]+';color:'+tp[1]+'">'+tp[2]+'</span>';
+          html+='<span style="color:var(--muted);font-size:.75rem;flex:1">'+(r.note||'')+'</span></div>';
+        });
+      }
+    }catch(e){}
+    div.innerHTML=html;
+  }catch(e2){div.innerHTML='<div style="background:#fdeaea;padding:10px;border-radius:8px;font-size:.8rem">Erreur: '+e2.message+'</div>';}
+}
+
+function calcA2L(fl){
+  if(!CRV_OK)return;
+  var vol=parseFloat(document.getElementById('a2l-vol').value);
+  var h=parseFloat(document.getElementById('a2l-haut').value);
+  var res_div=document.getElementById('a2l-result');
+  if(!res_div||isNaN(vol)||isNaN(h))return;
+  try{
+    var res=CRV.getChargeMaxA2L(fl,vol,h);
+    if(res&&res.charge_max){res_div.innerHTML='<div style="background:var(--good-bg);border:1px dashed #a8d5b5;padding:10px;border-radius:10px;font-size:.82rem">Charge max : <strong>'+res.charge_max.toFixed(2)+' kg</strong>'+(res.detail?' \u2014 '+res.detail:'')+'</div>';}
+    else{res_div.innerHTML='<div style="background:#fdeaea;padding:10px;border-radius:8px;font-size:.8rem">Calcul non disponible pour ce fluide.</div>';}
+  }catch(e){res_div.innerHTML='<div style="background:#fdeaea;padding:10px;border-radius:8px;font-size:.8rem">Erreur: '+e.message+'</div>';}
+}
+
+
+// =====================================================
+// INJECTION DES 36 FLUIDES DU CERVEAU
+// =====================================================
+
+/**
+ * Construit une table sat synthétique pour les fluides cerveau
+ * non présents dans TH, via Antoine Psat (pression) + enthalpie approx.
+ * Permet de tracer la cloche sur le diagramme.
+ */
+function buildTHfromCerveau(fl){
+  if(TH[fl])return; // déjà présent
+  try{
+    var f=CRV.getFluid(fl);
+    if(!f||!f.thermo)return;
+    var th=f.thermo;
+    var Tc=th.Tc||80, Pc=th.Pc||40;
+    var Teb=th.Teb||-40;
+    var Cp_v=th.Cp_v||1.0, Cp_l=th.Cp_l||1.4;
+    // Générer table sat de Teb-10 à Tc-5, pas de 5°C
+    var Tmin=Math.max(Teb-15, -60), Tmax=Math.min(Tc-3, 85);
+    var sat=[];
+    // Point de référence enthalpie : on fixe hv=380 à T=0°C (approx générique)
+    // et on intègre via Cp. C'est indicatif pour le diagramme pédagogique.
+    var T_ref=0, hv_ref=380, hl_ref=200;
+    try{
+      // Utiliser les valeurs terrain du cerveau si dispo
+      if(f.terrain&&f.terrain.hv_ref)hv_ref=f.terrain.hv_ref;
+      if(f.terrain&&f.terrain.hl_ref)hl_ref=f.terrain.hl_ref;
+    }catch(e){}
+    for(var T=Tmin;T<=Tmax;T+=5){
+      var P=null;
+      try{var r=CRV.calcPression(T,f,null);if(r&&r.P_abs)P=r.P_abs;}catch(e){}
+      if(P===null){
+        // Fallback Antoine direct
+        if(th.antoine){
+          try{P=Math.pow(10,th.antoine.A-th.antoine.B/(T+th.antoine.C));}catch(e){}
+        }
+      }
+      if(P===null||P<=0)continue;
+      var dT=T-T_ref;
+      var hv=hv_ref+Cp_v*dT;
+      var hl=hl_ref+Cp_l*dT;
+      // Entropie approx (non critique pour le diagramme h-P)
+      var sv=1.7+Cp_v*Math.log((T+273.15)/(T_ref+273.15));
+      var sl=0.9+Cp_l*Math.log((T+273.15)/(T_ref+273.15));
+      sat.push([Math.round(T*10)/10, Math.round(P*100)/100,
+                Math.round(hl*10)/10, Math.round(hv*10)/10,
+                Math.round(sl*1000)/1000, Math.round(sv*1000)/1000]);
+    }
+    if(sat.length<3)return;
+    TH[fl]={nom:f.nom||fl,Tc:Tc,Pc:Pc,Cp_v:Cp_v,Cp_l:Cp_l,s_v0:sat[sat.length-1][5],sat:sat};
+  }catch(e){console.warn('buildTHfromCerveau('+fl+'):', e.message);}
+}
+
+/**
+ * Ajoute les fluides du cerveau dans les selects + construit leur TH
+ */
+function injectCerveauFluids(){
+  if(!CRV_OK)return;
+  var all=CRV.listFluids();
+  if(!all||!all.length)return;
+  var sels=['sel-fl','exo-fl'];
+  // Récupérer les clés TH déjà présentes
+  var existingKeys=Object.keys(TH);
+  // Map nom → clé TH pour déduplication
+  var existingNoms={};
+  existingKeys.forEach(function(k){existingNoms[k.toLowerCase()]=k;});
+  all.forEach(function(nom){
+    if(existingNoms[nom.toLowerCase()])return; // déjà dans TH
+    buildTHfromCerveau(nom);
+    if(!TH[nom])return; // construction échouée
+    sels.forEach(function(id){
+      var sel=document.getElementById(id);
+      if(!sel)return;
+      var opt=document.createElement('option');
+      opt.value=nom;
+      opt.textContent=TH[nom].nom;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+// Patcher onFluidChange pour alimenter la strip
+var _origOnFluidChange=onFluidChange;
+onFluidChange=function(){_origOnFluidChange();updateFluidStrip(FL);};
+
+// Patcher showTab pour rendre la fiche au clic sur onglet 3
+// patcher showTab géré dans switchView
+
+
+</script>
+
+<!-- ════ TIROIR TAXE D'APPRENTISSAGE / PROMO ════ -->
+<div class="drawer-tab no-print" onclick="openDrawer()" title="Partenariat & Taxe d'apprentissage">
+  &#9733; Partenariat
+</div>
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="mainDrawer">
+  <div class="drawer-head">
+    <div>
+      <h3>&#9733; Partenariat &amp; Taxe d&rsquo;apprentissage</h3>
+      <div style="font-size:.65rem;opacity:.8;margin-top:2px">Campus &Eacute;QUATIO &mdash; Lyc&eacute;e Professionnel Priv&eacute; Jacques Raynaud</div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()" aria-label="Fermer">&#10005;</button>
+  </div>
+
+  <div class="drawer-body">
+
+    <!-- Logos -->
+    <div style="display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:18px;flex-wrap:wrap">
+      <div class="logo-lycee-slot" style="flex:1;min-width:120px">
+        <a href="https://equatio.org/lycee-ufa-jacques-raynaud/" target="_blank" title="LPP Jacques Raynaud — equatio.org">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxNjAnIGhlaWdodD0nNTAnIHZpZXdCb3g9JzAgMCAxNjAgNTAnPgogIDxyZWN0IHdpZHRoPScxNjAnIGhlaWdodD0nNTAnIHJ4PSc4JyBmaWxsPScjMGYyZDUyJy8+CiAgPHRleHQgZmlsbD0nI2ZmZicgZm9udC1mYW1pbHk9J1RyZWJ1Y2hldCBNUyxzYW5zLXNlcmlmJyBmb250LXNpemU9JzgnIGZvbnQtd2VpZ2h0PSc3MDAnIHg9JzgwJyB5PScxNicgdGV4dC1hbmNob3I9J21pZGRsZSc+TFlDw4lFIFBST0ZFU1NJT05ORUwgUFJJVsOJPC90ZXh0PgogIDx0ZXh0IGZpbGw9JyNlODkxNGEnIGZvbnQtZmFtaWx5PSdUcmVidWNoZXQgTVMsc2Fucy1zZXJpZicgZm9udC1zaXplPScxMScgZm9udC13ZWlnaHQ9JzkwMCcgeD0nODAnIHk9JzMwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz5KYWNxdWVzIFJheW5hdWQ8L3RleHQ+CiAgPHRleHQgZmlsbD0ncmdiYSgyNTUsMjU1LDI1NSwuNyknIGZvbnQtZmFtaWx5PSdzeXN0ZW0tdWksc2Fucy1zZXJpZicgZm9udC1zaXplPSc3JyB4PSc4MCcgeT0nNDInIHRleHQtYW5jaG9yPSdtaWRkbGUnPkNhbXB1cyDDiVFVQVRJTyDigJQgTWFyc2VpbGxlPC90ZXh0Pgo8L3N2Zz4=" alt="Lycée Professionnel Privé Jacques Raynaud"></a>
+        <div style="margin-top:4px;font-size:.6rem;color:var(--muted)">equatio.org &#8599;</div>
+      </div>
+      <div class="logo-lycee-slot" style="flex:1;min-width:90px">
+        <a href="https://equatio.org/nous-soutenir/" target="_blank" title="Soutenir Equatio — taxe d'apprentissage">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAnIGhlaWdodD0nNTAnIHZpZXdCb3g9JzAgMCAxMjAgNTAnPgogIDxyZWN0IHdpZHRoPScxMjAnIGhlaWdodD0nNTAnIHJ4PSc4JyBmaWxsPScjZTg5MTRhJy8+CiAgPHRleHQgZmlsbD0nI2ZmZicgZm9udC1mYW1pbHk9J1RyZWJ1Y2hldCBNUyxzYW5zLXNlcmlmJyBmb250LXNpemU9JzknIGZvbnQtd2VpZ2h0PSc3MDAnIHg9JzYwJyB5PScxOCcgdGV4dC1hbmNob3I9J21pZGRsZSc+Q2FtcHVzPC90ZXh0PgogIDx0ZXh0IGZpbGw9JyNmZmYnIGZvbnQtZmFtaWx5PSdUcmVidWNoZXQgTVMsc2Fucy1zZXJpZicgZm9udC1zaXplPScxOCcgZm9udC13ZWlnaHQ9JzkwMCcgeD0nNjAnIHk9JzM4JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJz7DiVFVQVRJTzwvdGV4dD4KPC9zdmc+" alt="Campus ÉQUATIO"></a>
+        <div style="margin-top:4px;font-size:.6rem;color:var(--muted)">Nous soutenir &#8599;</div>
+      </div>
+    </div>
+
+    <!-- Présentation -->
+    <div class="drawer-section">
+      <h4>&#127891; L&rsquo;&eacute;tablissement</h4>
+      <div class="drawer-kv"><span class="dk">Lyc&eacute;e</span><span class="dv">LPP Jacques Raynaud</span></div>
+      <div class="drawer-kv"><span class="dk">Association</span><span class="dv">Equatio (ex Formation et M&eacute;tier)</span></div>
+      <div class="drawer-kv"><span class="dk">Adresse</span><span class="dv">59 traverse Charles Susini, 13013 Marseille</span></div>
+      <div class="drawer-kv"><span class="dk">Fili&egrave;re</span><span class="dv">&Eacute;nerg&eacute;tique &mdash; Froid / Climatisation</span></div>
+      <div class="drawer-kv"><span class="dk">Formations</span><span class="dv">CAP IFCA &bull; BAC PRO MFER &bull; TP Technicien CVC (niv. 5)</span></div>
+      <div class="drawer-kv"><span class="dk">Site</span><span class="dv"><a href="https://equatio.org/lycee-ufa-jacques-raynaud/" target="_blank" style="color:var(--navy)">equatio.org</a></span></div>
+    </div>
+
+    <!-- Taxe d'apprentissage -->
+    <div class="drawer-section">
+      <h4>&#128176; Taxe d&rsquo;apprentissage</h4>
+      <p>Le solde (13&nbsp;%) peut &ecirc;tre fl&eacute;ch&eacute; vers notre &eacute;tablissement via la plateforme nationale <strong>SOLTéA</strong> (Caisse des D&eacute;p&ocirc;ts).</p>
+      <div style="background:var(--orange-warm);border:1px solid var(--orange-light);border-radius:10px;padding:10px;margin-top:8px;font-size:.8rem;line-height:1.8">
+        <div class="drawer-kv"><span class="dk">Code UAI</span><span class="dv" style="color:var(--muted);font-style:italic">&agrave; confirmer aupr&egrave;s d&rsquo;Equatio</span></div>
+        <div class="drawer-kv"><span class="dk">SIRET</span><span class="dv" style="color:var(--muted);font-style:italic">&agrave; confirmer aupr&egrave;s d&rsquo;Equatio</span></div>
+      </div>
+      <div style="margin-top:10px;padding:8px 12px;background:#e8f4fd;border-radius:8px;font-size:.75rem;color:#1a4a6e">
+        &#8594; <strong>D&eacute;marche :</strong> rendez-vous sur
+        <a href="https://equatio.org/nous-soutenir/" target="_blank" style="color:var(--navy);font-weight:700">equatio.org/nous-soutenir</a>
+        ou contacter directement&nbsp;:&nbsp;
+        <a href="mailto:taxeapprentissage@formationmetier.fr" style="color:var(--navy);font-weight:700">taxeapprentissage@formationmetier.fr</a>
+        &bull; <a href="tel:+33491038862" style="color:var(--navy)">04&nbsp;91&nbsp;03&nbsp;88&nbsp;62</a>
+      </div>
+    </div>
+
+    <!-- Contact outil -->
+    <div class="drawer-section">
+      <h4>&#128222; Contact &mdash; outil inerWeb</h4>
+      <div class="drawer-kv"><span class="dk">Auteur</span><span class="dv">F. Henninot, enseignant</span></div>
+      <div class="drawer-kv"><span class="dk">Email</span><span class="dv"><a href="mailto:inerweb.fh@gmail.com" style="color:var(--navy)">inerweb.fh@gmail.com</a></span></div>
+      <div class="drawer-kv"><span class="dk">D&eacute;p&ocirc;t</span><span class="dv"><a href="https://github.com/frigorx" target="_blank" style="color:var(--navy)">github.com/frigorx</a></span></div>
+    </div>
+
+  </div><!-- /drawer-body -->
+
+  <div class="drawer-footer no-print">
+    <button class="btn btn-o" onclick="printDrawer()" style="flex:1;padding:9px;font-size:.78rem">
+      &#128424; Imprimer cette fiche
+    </button>
+    <button class="btn btn-ol" onclick="closeDrawer()" style="padding:9px 14px;font-size:.78rem">
+      Fermer
+    </button>
+  </div>
+</div>
+
+<script>
+function openDrawer(){
+  document.getElementById('mainDrawer').classList.add('open');
+  document.getElementById('drawerOverlay').classList.add('open');
+}
+function closeDrawer(){
+  document.getElementById('mainDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+function printDrawer(){
+  // Ouvrir une fenêtre print uniquement avec le contenu du tiroir
+  var body=document.querySelector('.drawer-body').innerHTML;
+  var head=document.querySelector('.drawer-head').innerHTML;
+  var w=window.open('','_blank','width=600,height=800');
+  w.document.write('<html><head><title>Partenariat — inerWeb Frigolo</title>');
+  w.document.write('<style>body{font-family:system-ui,sans-serif;padding:20px;color:#2c3e50;font-size:13px}h3{color:#0f2d52}h4{text-transform:uppercase;font-size:11px;letter-spacing:1px;color:#0f2d52;border-bottom:1px solid #ece4da;padding-bottom:4px;margin-bottom:8px}p,li{color:#5a7080;line-height:1.6}img{max-height:56px}</style>');
+  w.document.write('</head><body>');
+  w.document.write('<div style="background:#0f2d52;color:#fff;padding:12px 16px;border-radius:8px;margin-bottom:16px">'+head+'</div>');
+  w.document.write(body);
+  w.document.write('</body></html>');
+  w.document.close();
+  w.focus();
+  setTimeout(function(){w.print();},300);
+}
+</script>
+
+</body>
+</html>
