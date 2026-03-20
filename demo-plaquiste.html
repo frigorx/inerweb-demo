@@ -2,998 +2,1082 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>inerWeb Édu — Filière Plaquiste</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>inerWeb x EQUATIO — Calculettes Plaquiste Chantier</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --navy: #0f2d52;
-  --navy-light: #163d6e;
-  --orange: #e8914a;
-  --orange-glow: #f5a623;
-  --turq: #2aafaf;
-  --turq-dark: #1e8a8a;
-  --bg: #0b1929;
-  --bg-card: #132238;
-  --bg-card-alt: #18293f;
-  --surface: #1a3150;
-  --text: #e8edf3;
-  --text-muted: #8da0b8;
-  --text-dim: #5a7290;
-  --border: #243b57;
-  --success: #34d399;
-  --error: #f87171;
-  --radius: 14px;
-  --radius-sm: 8px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.35);
-  --shadow-lg: 0 8px 40px rgba(0,0,0,0.45);
-  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --navy: #0f2d52; --navy-mid: #1a4a6e;
+  --orange: #e8914a; --orange-hover: #d47a35; --orange-warm: #fdf6ef; --orange-glow: rgba(232, 145, 74, 0.35);
+  --turquoise: #2aafaf; --turquoise-light: #eef8f7;
+  --bg: #faf7f2; --bg-end: #f0ebe3;
+  --card: #ffffff; --text: #2c3e50; --text-strong: #0f2d52; --muted: #5a7080; --line: #ece4da;
+  --radius: 22px; --radius-sm: 14px; --radius-pill: 999px;
+  --shadow: 0 4px 16px rgba(15, 45, 82, 0.07), 0 1px 3px rgba(232, 145, 74, 0.05);
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --success: #2a9d5c;
+  --error: #d94040;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
+  font-family: var(--font);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
+  background-attachment: fixed;
   color: var(--text);
-  line-height: 1.6;
+  line-height: 1.5;
   min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
 
-/* ============ HEADER ============ */
+/* ========== BANDEAU EQUATIO ========== */
+.top-banner {
+  background: var(--orange-warm);
+  text-align: center;
+  padding: 8px 12px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid var(--orange);
+  text-decoration: none;
+  display: block;
+  transition: background 0.2s;
+}
+.top-banner:hover { background: #fceee0; }
+.top-banner strong { color: var(--turquoise); font-weight: 600; }
+
+/* ========== HEADER ========== */
 .header {
-  background: linear-gradient(135deg, var(--navy) 0%, #091a30 100%);
-  border-bottom: 3px solid var(--orange);
-  padding: 1.5rem 2rem;
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid), var(--turquoise));
+  border-bottom: 4px solid var(--orange);
+  padding: 14px 16px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 200;
 }
-.header::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(232,145,74,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-.header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-.logo-block {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.logo-icon {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--orange), var(--orange-glow));
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -1px;
-  box-shadow: 0 4px 16px rgba(232,145,74,0.35);
-  flex-shrink: 0;
-}
-.logo-text {
-  display: flex;
-  flex-direction: column;
-}
-.logo-text .brand {
-  font-size: 1.3rem;
+.header .brand {
+  font-size: 1.25rem;
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.5px;
 }
-.logo-text .brand span { color: var(--orange); }
-.logo-text .sub {
-  font-size: 0.72rem;
-  color: var(--text-muted);
+.header .brand .iw { color: var(--orange); }
+.header .brand .eq { color: #fff; font-weight: 700; }
+.header .brand .x { color: rgba(255,255,255,0.5); font-weight: 400; margin: 0 4px; font-size: 0.9rem; }
+.header .subtitle {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.7);
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 500;
-}
-.header-info {
-  margin-left: auto;
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-.header-info .title-main {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #fff;
-}
-.header-info .title-main span { color: var(--orange); }
-.header-info .author-line {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-.badge {
-  display: inline-block;
-  background: var(--orange);
-  color: #fff;
-  font-size: 0.65rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 20px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  vertical-align: middle;
-  margin-left: 0.5rem;
+  margin-top: 2px;
 }
 
-/* ============ NAV ============ */
-.nav-bar {
-  background: var(--bg-card);
-  border-bottom: 1px solid var(--border);
-  padding: 0.75rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: blur(12px);
-}
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+/* ========== ONGLETS ========== */
+.tabs {
   display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 55px;
+  z-index: 190;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: var(--shadow);
 }
-.nav-btn {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 0.5rem 1.2rem;
-  border-radius: 30px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
+.tab {
+  flex: 1;
+  min-width: 0;
+  background: var(--card);
+  border: none;
+  border-bottom: 3px solid transparent;
+  color: var(--navy);
   font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 12px 6px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   white-space: nowrap;
 }
-.nav-btn:hover, .nav-btn.active {
+.tab.active {
   background: var(--orange);
   color: #fff;
-  border-color: var(--orange);
-  box-shadow: 0 2px 12px rgba(232,145,74,0.3);
+  border-bottom-color: var(--orange);
 }
-.nav-btn .nav-num {
-  display: inline-flex;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  margin-right: 0.4rem;
-}
+.tab:not(.active):hover { background: var(--orange-warm); }
+.tab:not(.active):active { background: var(--orange-warm); }
+.tab-icon { display: block; font-size: 1.2rem; margin-bottom: 2px; }
 
-/* ============ MAIN ============ */
-.main {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-.section { display: none; }
-.section.active { display: block; animation: fadeUp 0.4s ease; }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* ========== SECTIONS ========== */
+.panel { display: none; padding: 16px; max-width: 600px; margin: 0 auto; }
+.panel.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-/* ============ CARDS ============ */
+/* ========== CARDS ========== */
 .card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--orange);
   border-radius: var(--radius);
-  padding: 1.8rem;
-  margin-bottom: 1.5rem;
+  padding: 16px;
+  margin-bottom: 14px;
   box-shadow: var(--shadow);
-  transition: var(--transition);
 }
-.card:hover { border-color: rgba(232,145,74,0.25); }
 .card-title {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--orange);
-  margin-bottom: 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-.card-title .icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-.card-title .icon.orange { background: rgba(232,145,74,0.15); }
-.card-title .icon.turq { background: rgba(42,175,175,0.15); }
-.card-title .icon.green { background: rgba(52,211,153,0.15); }
-
-/* ============ FORMS ============ */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.2rem;
-}
-.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
-.form-group label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.form-group input, .form-group select {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  color: var(--text);
-  padding: 0.65rem 0.9rem;
-  border-radius: var(--radius-sm);
   font-size: 0.92rem;
-  font-family: inherit;
-  transition: var(--transition);
-  outline: none;
+  font-weight: 700;
+  color: var(--text-strong);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-.form-group input:focus, .form-group select:focus {
-  border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(232,145,74,0.15);
+.card-title .ico {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
 }
-.form-group input::placeholder { color: var(--text-dim); }
+.card-title .ico.orange { background: rgba(232,145,74,0.15); }
+.card-title .ico.turq { background: var(--turquoise-light); }
+.card-title .ico.green { background: rgba(42,157,92,0.12); }
 
-/* ============ BUTTONS ============ */
+/* ========== FORMULAIRES ========== */
+.form-row {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.form-row.cols-2 { grid-template-columns: 1fr 1fr; }
+.form-row.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.fg { display: flex; flex-direction: column; gap: 4px; }
+.fg label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.fg input, .fg select {
+  background: #fff;
+  border: 2px solid var(--line);
+  color: var(--text);
+  padding: 14px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 1.05rem;
+  font-family: inherit;
+  font-weight: 600;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  min-height: 50px;
+}
+.fg input:focus, .fg select:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 4px var(--orange-glow);
+}
+.fg input::placeholder { color: #b0a898; font-weight: 400; }
+.fg select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7080' stroke-width='2' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+
+/* ========== BOUTONS TACTILES ========== */
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem 1.5rem;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 24px;
   border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.88rem;
-  font-weight: 600;
+  border-radius: var(--radius-pill);
+  font-size: 1rem;
+  font-weight: 700;
   font-family: inherit;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.15s;
   white-space: nowrap;
+  min-height: 54px;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .btn-primary {
-  background: linear-gradient(135deg, var(--orange), var(--orange-glow));
+  background: var(--orange);
   color: #fff;
   box-shadow: 0 3px 14px rgba(232,145,74,0.3);
+  width: 100%;
 }
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 20px rgba(232,145,74,0.45);
-}
+.btn-primary:hover { background: var(--orange-hover); }
+.btn-primary:active { transform: scale(0.97); }
 .btn-secondary {
-  background: var(--surface);
+  background: var(--card);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: 2px solid var(--line);
+  width: 100%;
 }
-.btn-secondary:hover { border-color: var(--turq); color: var(--turq); }
+.btn-secondary:hover { border-color: var(--orange); color: var(--orange); }
 .btn-turq {
-  background: linear-gradient(135deg, var(--turq), var(--turq-dark));
+  background: var(--turquoise);
   color: #fff;
-  box-shadow: 0 3px 14px rgba(42,175,175,0.3);
+  box-shadow: 0 3px 14px rgba(42,175,175,0.2);
 }
-.btn-turq:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 20px rgba(42,175,175,0.45);
-}
-.btn-sm { padding: 0.45rem 1rem; font-size: 0.8rem; }
+.btn-turq:active { transform: scale(0.97); }
+.btn-sm { padding: 10px 16px; font-size: 0.85rem; min-height: 42px; }
 .btn-danger {
-  background: rgba(248,113,113,0.15);
+  background: rgba(217,64,64,0.08);
   color: var(--error);
-  border: 1px solid rgba(248,113,113,0.3);
+  border: 1px solid rgba(217,64,64,0.25);
+  padding: 8px 12px;
+  font-size: 0.78rem;
+  min-height: 36px;
 }
-.btn-danger:hover { background: rgba(248,113,113,0.25); }
+.btn-copy {
+  background: var(--turquoise-light);
+  color: var(--turquoise);
+  border: 1px solid rgba(42,175,175,0.25);
+  width: 100%;
+}
+.btn-row { display: flex; gap: 10px; margin-top: 12px; }
+.btn-row > * { flex: 1; }
 
-/* ============ RESULTS ============ */
-.results-panel {
-  background: var(--bg-card-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-top: 1.2rem;
-}
-.results-panel.show { display: block; animation: fadeUp 0.3s ease; }
-.result-row {
+/* ========== TOGGLE / CHECKBOX ========== */
+.toggle-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 0.65rem 0;
-  border-bottom: 1px solid rgba(36,59,87,0.5);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
 }
-.result-row:last-child { border-bottom: none; }
-.result-row .label { color: var(--text-muted); font-size: 0.88rem; }
-.result-row .value { font-weight: 700; font-size: 1rem; color: var(--text); }
-.result-row .value.highlight { color: var(--orange); font-size: 1.15rem; }
-.result-row .value.turq { color: var(--turq); }
+.toggle-row:last-child { border-bottom: none; }
+.toggle-row .lbl { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+.toggle-row .sub { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.switch {
+  position: relative; width: 52px; height: 30px;
+  background: var(--line); border-radius: 15px;
+  cursor: pointer; transition: background 0.2s; flex-shrink: 0;
+}
+.switch.on { background: var(--orange); }
+.switch::after {
+  content: '';
+  position: absolute; top: 3px; left: 3px;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: #fff; transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.switch.on::after { transform: translateX(22px); }
 
-/* ============ TABLE ============ */
-.table-wrap { overflow-x: auto; margin-top: 1rem; }
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.88rem;
+/* ========== OUVERTURES ========== */
+.ouv-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.ouv-item {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--orange-warm); padding: 10px 12px; border-radius: var(--radius-sm);
+  flex-wrap: wrap; border: 1px solid var(--line);
 }
-.data-table th {
-  background: var(--surface);
-  color: var(--orange);
-  font-weight: 700;
-  text-align: left;
-  padding: 0.75rem 1rem;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  letter-spacing: 1px;
-  border-bottom: 2px solid var(--orange);
+.ouv-item .tag {
+  background: var(--turquoise-light); color: var(--turquoise);
+  font-size: 0.7rem; font-weight: 700; padding: 3px 8px;
+  border-radius: 4px; text-transform: uppercase;
 }
-.data-table td {
-  padding: 0.7rem 1rem;
-  border-bottom: 1px solid var(--border);
-  color: var(--text);
-}
-.data-table tr:hover td { background: rgba(232,145,74,0.04); }
-.data-table .qty { font-weight: 700; color: var(--orange); font-size: 1rem; }
+.ouv-item .dims { color: var(--muted); font-size: 0.82rem; }
+.ouv-item .area { color: var(--orange); font-weight: 700; font-size: 0.85rem; margin-left: auto; }
 
-/* ============ OUVERTURES ============ */
-.ouvertures-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
-  margin-bottom: 1rem;
+/* ========== PRESETS OUVERTURES ========== */
+.presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.preset {
+  background: var(--card); border: 1px solid var(--line);
+  color: var(--muted); padding: 8px 12px; border-radius: 6px;
+  font-size: 0.75rem; font-weight: 600; cursor: pointer;
+  font-family: inherit; transition: all 0.15s;
 }
-.ouverture-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: var(--surface);
-  padding: 0.6rem 1rem;
-  border-radius: var(--radius-sm);
-  flex-wrap: wrap;
-}
-.ouverture-item .tag {
-  background: var(--navy-light);
-  color: var(--turq);
-  font-size: 0.75rem;
-  font-weight: 600;
-  padding: 0.2rem 0.6rem;
-  border-radius: 6px;
-  text-transform: uppercase;
-}
-.ouverture-item .dims { color: var(--text-muted); font-size: 0.85rem; }
-.ouverture-item .area { color: var(--orange); font-weight: 600; font-size: 0.85rem; }
+.preset:active { border-color: var(--turquoise); color: var(--turquoise); }
+.preset:hover { border-color: var(--orange); color: var(--orange); }
 
-/* ============ QUIZ ============ */
-.quiz-area {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-.quiz-svg-box {
-  background: #fff;
+/* ========== RESULTATS ========== */
+.results {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--orange);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
+  padding: 14px;
+  margin-top: 14px;
   box-shadow: var(--shadow);
 }
-.quiz-svg-box svg { max-width: 100%; height: auto; }
-.quiz-choices {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 500px;
+.res-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
 }
-.quiz-choice {
-  background: var(--surface);
-  border: 2px solid var(--border);
-  color: var(--text);
-  padding: 0.9rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.92rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  font-family: inherit;
-  text-align: center;
+.res-row:last-child { border-bottom: none; }
+.res-row .rl { color: var(--muted); font-size: 0.85rem; }
+.res-row .rv { font-weight: 800; font-size: 1.05rem; color: var(--text-strong); }
+.res-row .rv.big { color: var(--orange); font-size: 1.4rem; }
+.res-row .rv.turq { color: var(--turquoise); }
+.res-row.total {
+  border-top: 2px solid var(--orange);
+  margin-top: 6px; padding-top: 12px;
 }
-.quiz-choice:hover:not(.disabled) {
-  border-color: var(--orange);
-  background: rgba(232,145,74,0.08);
-}
-.quiz-choice.correct {
-  border-color: var(--success);
-  background: rgba(52,211,153,0.12);
-  color: var(--success);
-}
-.quiz-choice.wrong {
-  border-color: var(--error);
-  background: rgba(248,113,113,0.12);
-  color: var(--error);
-}
-.quiz-choice.disabled { cursor: default; opacity: 0.6; }
-.quiz-choice.disabled.correct { opacity: 1; }
-.quiz-progress {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.88rem;
-  color: var(--text-muted);
-}
-.quiz-dots {
-  display: flex;
-  gap: 0.4rem;
-}
-.quiz-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 2px solid var(--border);
-  transition: var(--transition);
-}
-.quiz-dot.correct { background: var(--success); border-color: var(--success); }
-.quiz-dot.wrong { background: var(--error); border-color: var(--error); }
-.quiz-dot.current { border-color: var(--orange); box-shadow: 0 0 8px rgba(232,145,74,0.4); }
-.quiz-score-final {
-  text-align: center;
-  padding: 2rem;
-}
-.quiz-score-final .big-score {
-  font-size: 3.5rem;
-  font-weight: 800;
-  color: var(--orange);
-}
-.quiz-score-final .msg {
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  margin-top: 0.5rem;
-}
-.quiz-feedback {
-  font-size: 0.95rem;
-  font-weight: 600;
-  min-height: 1.5rem;
-  text-align: center;
-}
-.quiz-feedback.correct { color: var(--success); }
-.quiz-feedback.wrong { color: var(--error); }
 
-/* ============ FOOTER ============ */
+/* ========== TABLE MATERIAUX ========== */
+.tbl-wrap { overflow-x: auto; margin-top: 10px; -webkit-overflow-scrolling: touch; }
+.tbl {
+  width: 100%; border-collapse: collapse; font-size: 0.8rem;
+}
+.tbl th {
+  background: var(--navy); color: #fff; font-weight: 700;
+  text-align: left; padding: 10px 8px;
+  text-transform: uppercase; font-size: 0.65rem;
+  letter-spacing: 0.8px; border-bottom: 2px solid var(--orange);
+  white-space: nowrap;
+}
+.tbl td {
+  padding: 10px 8px; border-bottom: 1px solid var(--line); color: var(--text);
+  vertical-align: top;
+}
+.tbl tr:nth-child(even) td { background: #f5f0ea; }
+.tbl .qty-cell { font-weight: 800; color: var(--orange); font-size: 1rem; white-space: nowrap; }
+.tbl .cond-cell { color: var(--turquoise); font-weight: 600; white-space: nowrap; }
+
+/* ========== AIDE-MEMOIRE ========== */
+.memo-section { margin-bottom: 20px; }
+.memo-title {
+  font-size: 0.82rem; font-weight: 700; color: var(--turquoise);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 8px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.memo-table { width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+.memo-table th {
+  background: var(--navy); color: #fff; font-weight: 600;
+  text-align: left; padding: 8px; font-size: 0.68rem;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.memo-table td { padding: 8px; border-bottom: 1px solid var(--line); color: var(--text); }
+.memo-table tr:nth-child(even) td { background: #f5f0ea; }
+.memo-table .val { color: var(--orange); font-weight: 700; }
+.memo-note {
+  font-size: 0.75rem; color: var(--muted); margin-top: 6px;
+  font-style: italic; padding: 8px; background: var(--orange-warm);
+  border-radius: 6px; border: 1px solid var(--line);
+}
+
+/* ========== FOOTER ========== */
 .footer {
-  text-align: center;
-  padding: 2rem;
-  color: var(--text-dim);
-  font-size: 0.78rem;
-  border-top: 1px solid var(--border);
-  margin-top: 2rem;
+  text-align: center; padding: 20px 16px;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+  color: rgba(255,255,255,0.8); font-size: 0.7rem;
+  border-top: 3px solid var(--orange); margin-top: 20px;
 }
 .footer strong { color: var(--orange); font-weight: 600; }
+.footer a { color: #fff; text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
 
-/* ============ RESPONSIVE ============ */
-@media (max-width: 768px) {
-  .header-inner { flex-direction: column; align-items: flex-start; }
-  .header-info { margin-left: 0; text-align: left; }
-  .main { padding: 1rem; }
-  .card { padding: 1.2rem; }
-  .form-grid { grid-template-columns: 1fr; }
-  .quiz-choices { grid-template-columns: 1fr; }
-  .nav-bar { padding: 0.5rem 1rem; }
+/* ========== PRINT ========== */
+@media print {
+  body { background: #fff; color: #111; }
+  .top-banner, .header, .tabs, .footer, .btn, .presets, .switch { display: none !important; }
+  .panel { display: block !important; max-width: 100%; padding: 0; }
+  .panel:not(#panel-quantitatif) { display: none !important; }
+  #panel-quantitatif { display: block !important; }
+  .card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; background: #fff; border-left: 3px solid var(--orange); }
+  .tbl th { background: #f0f0f0; color: #333; border-bottom: 2px solid #333; }
+  .tbl td { color: #111; border-bottom: 1px solid #ccc; }
+  .tbl .qty-cell { color: #c55a00; }
+  .results { background: #f8f8f8; border: 1px solid #ccc; }
+  .res-row .rv { color: #111; }
+  .res-row .rv.big { color: #c55a00; }
+  .print-header { display: block !important; text-align: center; margin-bottom: 20px; }
+  .print-header h1 { font-size: 1.2rem; }
+  .print-header p { font-size: 0.85rem; color: #666; }
+}
+.print-header { display: none; }
+
+/* ========== RESPONSIVE ========== */
+@media (min-width: 768px) {
+  .tabs { justify-content: center; }
+  .tab { flex: none; padding: 12px 24px; }
 }
 </style>
 </head>
 <body>
 
-<!-- =============== HEADER =============== -->
+<!-- ===== BANDEAU EQUATIO ===== -->
+<a href="https://equatio.org" target="_blank" rel="noopener" class="top-banner">
+  Stage &bull; Apprentissage &bull; Taxe d'apprentissage &rarr; <strong>equatio.org</strong>
+</a>
+
+<!-- ===== HEADER ===== -->
 <header class="header">
-  <div class="header-inner">
-    <div class="logo-block">
-      <div class="logo-icon">iW</div>
-      <div class="logo-text">
-        <div class="brand">iner<span>Web</span> Édu</div>
-        <div class="sub">Outils pédagogiques interactifs</div>
-      </div>
-    </div>
-    <div class="header-info">
-      <div class="title-main">Filière <span>Plaquiste</span> — Systèmes Constructifs Secs <span class="badge">v1.0 démo</span></div>
-      <div class="author-line">F. Henninot — LPP Jacques Raynaud Campus ÉQUATIO Marseille</div>
-    </div>
+  <div class="brand">
+    <span class="iw">iner</span>Web<span class="x">&times;</span><span class="eq">EQUATIO</span>
   </div>
+  <div class="subtitle">Calculettes Plaquiste &mdash; Chantier</div>
 </header>
 
-<!-- =============== NAV =============== -->
-<nav class="nav-bar">
-  <div class="nav-inner">
-    <button class="nav-btn active" onclick="showSection('metres')"><span class="nav-num">1</span>Calculateur de Métrés</button>
-    <button class="nav-btn" onclick="showSection('quantitatif')"><span class="nav-num">2</span>Quantitatif Matériaux</button>
-    <button class="nav-btn" onclick="showSection('quiz')"><span class="nav-num">3</span>Identifie le Profilé</button>
-  </div>
+<!-- ===== ONGLETS ===== -->
+<nav class="tabs">
+  <button class="tab active" onclick="switchTab('metres', this)">
+    <span class="tab-icon">&#9634;</span>Metres
+  </button>
+  <button class="tab" onclick="switchTab('quantitatif', this)">
+    <span class="tab-icon">&#9776;</span>Materiaux
+  </button>
+  <button class="tab" onclick="switchTab('memo', this)">
+    <span class="tab-icon">&#9881;</span>Aide-memoire
+  </button>
 </nav>
 
-<!-- =============== MAIN =============== -->
-<main class="main">
+<!-- ============================================================ -->
+<!--  ONGLET 1 : CALCULATEUR DE METRES PLACO                     -->
+<!-- ============================================================ -->
+<div id="panel-metres" class="panel active">
 
-  <!-- ======== SECTION 1 : MÉTRÉS ======== -->
-  <section id="sec-metres" class="section active">
-    <div class="card">
-      <div class="card-title">
-        <span class="icon orange">&#9634;</span>
-        Dimensions de la pièce
+  <div class="card">
+    <div class="card-title"><span class="ico orange">&#9634;</span> Dimensions de la piece</div>
+    <div class="form-row cols-3">
+      <div class="fg">
+        <label>Longueur (m)</label>
+        <input type="number" id="m-L" placeholder="5.00" step="0.01" min="0" inputmode="decimal">
       </div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Longueur (m)</label>
-          <input type="number" id="m-longueur" placeholder="ex : 5.00" step="0.01" min="0">
-        </div>
-        <div class="form-group">
-          <label>Largeur (m)</label>
-          <input type="number" id="m-largeur" placeholder="ex : 3.50" step="0.01" min="0">
-        </div>
-        <div class="form-group">
-          <label>Hauteur sous plafond (m)</label>
-          <input type="number" id="m-hauteur" placeholder="ex : 2.50" step="0.01" min="0">
-        </div>
+      <div class="fg">
+        <label>Largeur (m)</label>
+        <input type="number" id="m-l" placeholder="3.50" step="0.01" min="0" inputmode="decimal">
+      </div>
+      <div class="fg">
+        <label>Hauteur (m)</label>
+        <input type="number" id="m-H" placeholder="2.50" step="0.01" min="0" inputmode="decimal">
       </div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="card-title">
-        <span class="icon turq">&#9675;</span>
-        Ouvertures (portes et fenêtres)
+  <div class="card">
+    <div class="card-title"><span class="ico turq">&#9881;</span> Options</div>
+    <div class="toggle-row">
+      <div>
+        <div class="lbl">Plafond</div>
+        <div class="sub">Inclure la surface plafond dans le calcul</div>
       </div>
-      <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
-        <div class="form-group">
+      <div class="switch on" id="sw-plafond" onclick="toggleSwitch(this)"></div>
+    </div>
+    <div class="toggle-row">
+      <div>
+        <div class="lbl">Doublage</div>
+        <div class="sub">1 face (standard) ou 2 faces (cloison seche)</div>
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <button class="preset" id="dbl-1" onclick="setDoublage(1)" style="border-color:var(--orange);color:var(--orange);">1 face</button>
+        <button class="preset" id="dbl-2" onclick="setDoublage(2)">2 faces</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ico turq">&#9675;</span> Ouvertures</div>
+    <div class="presets">
+      <button class="preset" onclick="addPreset('Porte std',0.83,2.04)">Porte std 83&times;204</button>
+      <button class="preset" onclick="addPreset('Porte 93',0.93,2.04)">Porte 93&times;204</button>
+      <button class="preset" onclick="addPreset('Fenetre',1.20,1.35)">Fenetre 120&times;135</button>
+      <button class="preset" onclick="addPreset('Porte-fen.',1.40,2.15)">Porte-fen. 140&times;215</button>
+      <button class="preset" onclick="addPreset('Baie',2.40,2.15)">Baie 240&times;215</button>
+    </div>
+    <div id="ouv-list" class="ouv-list"></div>
+    <details style="margin-top:8px;">
+      <summary style="color:var(--muted);font-size:0.82rem;cursor:pointer;font-weight:600;">+ Ouverture personnalisee</summary>
+      <div class="form-row cols-3" style="margin-top:10px;">
+        <div class="fg">
           <label>Type</label>
           <select id="ouv-type">
             <option value="Porte">Porte</option>
-            <option value="Fenêtre">Fenêtre</option>
+            <option value="Fenetre">Fenetre</option>
+            <option value="Baie">Baie</option>
+            <option value="Autre">Autre</option>
           </select>
         </div>
-        <div class="form-group">
-          <label>Largeur (m)</label>
-          <input type="number" id="ouv-larg" placeholder="0.90" step="0.01" min="0">
+        <div class="fg">
+          <label>Larg. (m)</label>
+          <input type="number" id="ouv-w" placeholder="0.90" step="0.01" min="0" inputmode="decimal">
         </div>
-        <div class="form-group">
-          <label>Hauteur (m)</label>
-          <input type="number" id="ouv-haut" placeholder="2.04" step="0.01" min="0">
-        </div>
-        <div class="form-group" style="justify-content:flex-end;">
-          <button class="btn btn-turq btn-sm" onclick="ajouterOuverture()">+ Ajouter</button>
+        <div class="fg">
+          <label>Haut. (m)</label>
+          <input type="number" id="ouv-h" placeholder="2.04" step="0.01" min="0" inputmode="decimal">
         </div>
       </div>
-      <div id="ouvertures-list" class="ouvertures-list"></div>
-    </div>
+      <button class="btn btn-turq btn-sm" onclick="addCustomOuv()" style="width:100%;margin-top:6px;">Ajouter cette ouverture</button>
+    </details>
+  </div>
 
-    <div style="text-align:center; margin-bottom:1.5rem;">
-      <button class="btn btn-primary" onclick="calculerMetres()">Calculer les métrés</button>
-      <button class="btn btn-secondary" onclick="resetMetres()" style="margin-left:0.5rem;">Réinitialiser</button>
-    </div>
+  <button class="btn btn-primary" onclick="calcMetres()">Calculer les metres</button>
+  <div class="btn-row" style="margin-top:8px;">
+    <button class="btn btn-secondary btn-sm" onclick="resetMetres()">Reinitialiser</button>
+  </div>
 
-    <div id="resultats-metres" class="results-panel" style="display:none;">
-      <div class="card-title">
-        <span class="icon green">&#10003;</span>
-        Résultats du métré
-      </div>
-      <div id="metres-detail"></div>
-    </div>
-  </section>
+  <div id="res-metres" class="results" style="display:none;">
+    <div class="card-title"><span class="ico green">&#10003;</span> Resultat du metre</div>
+    <div id="res-metres-detail"></div>
+    <button class="btn btn-copy btn-sm" style="margin-top:10px;" onclick="copyMetres()">Copier le resultat</button>
+  </div>
+</div>
 
-  <!-- ======== SECTION 2 : QUANTITATIF ======== -->
-  <section id="sec-quantitatif" class="section">
-    <div class="card">
-      <div class="card-title">
-        <span class="icon orange">&#9776;</span>
-        Quantitatif Matériaux
+<!-- ============================================================ -->
+<!--  ONGLET 2 : QUANTITATIF & DEVIS MATERIAUX                   -->
+<!-- ============================================================ -->
+<div id="panel-quantitatif" class="panel">
+
+  <div class="print-header">
+    <h1>Quantitatif Materiaux — inerWeb &times; EQUATIO</h1>
+    <p id="print-date"></p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="ico orange">&#9776;</span> Surface &amp; type de cloison</div>
+    <p style="color:var(--muted);font-size:0.78rem;margin-bottom:10px;">
+      La surface est reprise automatiquement du calculateur de metres si disponible.
+    </p>
+    <div class="form-row cols-2">
+      <div class="fg">
+        <label>Surface murs (m2)</label>
+        <input type="number" id="q-murs" placeholder="0" step="0.01" min="0" inputmode="decimal">
       </div>
-      <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">
-        La surface nette est automatiquement reprise du calculateur de métrés si disponible. Vous pouvez aussi la saisir manuellement.
-      </p>
-      <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
-        <div class="form-group">
-          <label>Surface nette murs (m²)</label>
-          <input type="number" id="q-surf-murs" placeholder="Surface murs" step="0.01" min="0">
-        </div>
-        <div class="form-group">
-          <label>Surface nette plafond (m²)</label>
-          <input type="number" id="q-surf-plafond" placeholder="Surface plafond" step="0.01" min="0">
-        </div>
-        <div class="form-group">
-          <label>Périmètre pièce (m)</label>
-          <input type="number" id="q-perimetre" placeholder="Périmètre" step="0.01" min="0">
-        </div>
-        <div class="form-group">
-          <label>Hauteur murs (m)</label>
-          <input type="number" id="q-hauteur" placeholder="Hauteur" step="0.01" min="0">
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:1rem;">
-        <button class="btn btn-primary" onclick="calculerQuantitatif()">Calculer le quantitatif</button>
+      <div class="fg">
+        <label>Surface plafond (m2)</label>
+        <input type="number" id="q-plafond" placeholder="0" step="0.01" min="0" inputmode="decimal">
       </div>
     </div>
-
-    <div id="resultats-quantitatif" class="card" style="display:none;">
-      <div class="card-title">
-        <span class="icon green">&#10003;</span>
-        Récapitulatif Matériaux
+    <div class="form-row cols-2">
+      <div class="fg">
+        <label>Perimetre (m)</label>
+        <input type="number" id="q-perim" placeholder="0" step="0.01" min="0" inputmode="decimal">
       </div>
-      <div class="table-wrap">
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Matériau</th>
-              <th>Détail calcul</th>
-              <th>Quantité</th>
-              <th>Unité</th>
-            </tr>
-          </thead>
-          <tbody id="quantitatif-body"></tbody>
-        </table>
+      <div class="fg">
+        <label>Hauteur (m)</label>
+        <input type="number" id="q-haut" placeholder="2.50" step="0.01" min="0" inputmode="decimal">
       </div>
     </div>
-  </section>
-
-  <!-- ======== SECTION 3 : QUIZ ======== -->
-  <section id="sec-quiz" class="section">
-    <div class="card">
-      <div class="card-title">
-        <span class="icon turq">&#9881;</span>
-        Mini-jeu : Identifie le Profilé
-      </div>
-      <div id="quiz-container" class="quiz-area">
-        <div class="quiz-progress">
-          <span id="quiz-question-num">Question 1 / 5</span>
-          <div class="quiz-dots" id="quiz-dots"></div>
-        </div>
-        <div class="quiz-svg-box" id="quiz-svg-box"></div>
-        <div class="quiz-feedback" id="quiz-feedback">&nbsp;</div>
-        <div class="quiz-choices" id="quiz-choices"></div>
-      </div>
-      <div id="quiz-final" class="quiz-score-final" style="display:none;"></div>
-      <div style="text-align:center; margin-top:1.5rem;">
-        <button class="btn btn-secondary" onclick="resetQuiz()">Recommencer le quiz</button>
+    <div class="form-row">
+      <div class="fg">
+        <label>Type de cloison / doublage</label>
+        <select id="q-type">
+          <option value="simple72">Cloison simple peau 72/48</option>
+          <option value="double98">Cloison double peau 98/48</option>
+          <option value="doublage">Doublage colle (MAP)</option>
+          <option value="plafond">Plafond suspendu</option>
+        </select>
       </div>
     </div>
-  </section>
-</main>
+    <div class="toggle-row">
+      <div>
+        <div class="lbl">Plaques hydro (BA13H)</div>
+        <div class="sub">Pour pieces humides (SdB, cuisine...)</div>
+      </div>
+      <div class="switch" id="sw-hydro" onclick="toggleSwitch(this)"></div>
+    </div>
+    <button class="btn btn-primary" style="margin-top:12px;" onclick="calcQuantitatif()">Calculer le quantitatif</button>
+  </div>
 
-<!-- =============== FOOTER =============== -->
+  <div id="res-quant" class="card" style="display:none;">
+    <div class="card-title"><span class="ico green">&#10003;</span> Recapitulatif materiaux</div>
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Designation</th>
+            <th>Quantite</th>
+            <th>Unite</th>
+            <th>Condit.</th>
+            <th>Nb condit.</th>
+          </tr>
+        </thead>
+        <tbody id="quant-body"></tbody>
+      </table>
+    </div>
+    <div class="btn-row" style="margin-top:12px;">
+      <button class="btn btn-primary btn-sm" onclick="exportPDF()">Exporter en PDF</button>
+      <button class="btn btn-copy btn-sm" onclick="copyQuant()">Copier</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!--  ONGLET 3 : AIDE-MEMOIRE TECHNIQUE                          -->
+<!-- ============================================================ -->
+<div id="panel-memo" class="panel">
+
+  <div class="card">
+    <div class="card-title"><span class="ico turq">&#9881;</span> Aide-memoire technique plaquiste</div>
+
+    <!-- DTU -->
+    <div class="memo-section">
+      <div class="memo-title">DTU de reference</div>
+      <table class="memo-table">
+        <thead><tr><th>DTU</th><th>Intitule</th><th>Application</th></tr></thead>
+        <tbody>
+          <tr><td class="val">25.41</td><td>Ouvrages en plaques de parement en platre — Doublages</td><td>Doublage des murs (colle ou ossature)</td></tr>
+          <tr><td class="val">25.42</td><td>Ouvrages de doublage et habillage — Plafonds</td><td>Plafonds suspendus et habillages</td></tr>
+          <tr><td class="val">72.1</td><td>Cloisons en plaques de platre sur ossature metallique</td><td>Cloisons de distribution et de doublage</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Entraxes -->
+    <div class="memo-section">
+      <div class="memo-title">Entraxes montants selon hauteur</div>
+      <table class="memo-table">
+        <thead><tr><th>Hauteur limite</th><th>Entraxe montants</th><th>Type ossature</th></tr></thead>
+        <tbody>
+          <tr><td>&#8804; 2,50 m</td><td class="val">60 cm</td><td>M48 simple</td></tr>
+          <tr><td>&#8804; 2,80 m</td><td class="val">60 cm</td><td>M48 simple</td></tr>
+          <tr><td>&#8804; 3,00 m</td><td class="val">40 cm</td><td>M48 ou M70</td></tr>
+          <tr><td>&#8804; 3,30 m</td><td class="val">40 cm</td><td>M70 simple</td></tr>
+          <tr><td>&#8804; 3,60 m</td><td class="val">40 cm</td><td>M70 double (dos a dos)</td></tr>
+          <tr><td>> 3,60 m</td><td class="val">40 cm</td><td>M90 ou montants renforces</td></tr>
+        </tbody>
+      </table>
+      <div class="memo-note">Entraxe = distance d'axe en axe entre montants. Valeurs courantes pour BA13 standard.</div>
+    </div>
+
+    <!-- Hauteurs limites -->
+    <div class="memo-section">
+      <div class="memo-title">Hauteurs limites par type de cloison</div>
+      <table class="memo-table">
+        <thead><tr><th>Systeme</th><th>Ossature</th><th>Hauteur max</th></tr></thead>
+        <tbody>
+          <tr><td>Simple peau 72/48</td><td>M48 &mdash; e=60cm</td><td class="val">2,80 m</td></tr>
+          <tr><td>Simple peau 72/48</td><td>M48 &mdash; e=40cm</td><td class="val">3,10 m</td></tr>
+          <tr><td>Double peau 98/48</td><td>M48 &mdash; e=60cm</td><td class="val">3,60 m</td></tr>
+          <tr><td>Double peau 120/70</td><td>M70 &mdash; e=60cm</td><td class="val">4,00 m</td></tr>
+          <tr><td>Cloison SAD (double oss.)</td><td>2&times;M48 &mdash; e=60cm</td><td class="val">5,00 m</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Classement au feu -->
+    <div class="memo-section">
+      <div class="memo-title">Resistance au feu des systemes</div>
+      <table class="memo-table">
+        <thead><tr><th>Systeme</th><th>Parement</th><th>Isolant</th><th>Classement</th></tr></thead>
+        <tbody>
+          <tr><td>72/48 simple peau</td><td>1&times;BA13</td><td>LM 45mm</td><td class="val">EI 30</td></tr>
+          <tr><td>72/48 double peau</td><td>2&times;BA13</td><td>LM 45mm</td><td class="val">EI 60</td></tr>
+          <tr><td>98/48 double peau</td><td>2&times;BA13</td><td>LM 75mm</td><td class="val">EI 90</td></tr>
+          <tr><td>98/48 double peau</td><td>2&times;BA15</td><td>LR 80mm</td><td class="val">EI 120</td></tr>
+          <tr><td>120/70 double peau</td><td>2&times;BA18</td><td>LR 70mm</td><td class="val">EI 120</td></tr>
+        </tbody>
+      </table>
+      <div class="memo-note">EI = Etancheite aux flammes + Isolation thermique. LM = Laine minerale. LR = Laine de roche.</div>
+    </div>
+
+    <!-- Poids -->
+    <div class="memo-section">
+      <div class="memo-title">Poids au m2 des systemes</div>
+      <table class="memo-table">
+        <thead><tr><th>Systeme</th><th>Poids (kg/m2)</th></tr></thead>
+        <tbody>
+          <tr><td>Cloison 72/48 simple peau (1&times;BA13)</td><td class="val">~25 kg/m2</td></tr>
+          <tr><td>Cloison 72/48 double peau (2&times;BA13)</td><td class="val">~35 kg/m2</td></tr>
+          <tr><td>Cloison 98/48 double peau (2&times;BA13)</td><td class="val">~37 kg/m2</td></tr>
+          <tr><td>Doublage colle 10+40 (BA10 + PSE)</td><td class="val">~12 kg/m2</td></tr>
+          <tr><td>Doublage colle 13+80 (BA13 + PSE)</td><td class="val">~15 kg/m2</td></tr>
+          <tr><td>Plafond BA13 sur ossature F530</td><td class="val">~12 kg/m2</td></tr>
+          <tr><td>Plafond 2&times;BA13 sur ossature F530</td><td class="val">~22 kg/m2</td></tr>
+        </tbody>
+      </table>
+      <div class="memo-note">Poids indicatifs sans isolant integre. Verifier la charge admissible du support pour les plafonds.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
 <footer class="footer">
-  Démonstration <strong>inerWeb Édu</strong> — Potentiel filière Plaquiste — F. Henninot — Mars 2026
+  <strong>inerWeb</strong> &times; Campus <strong>EQUATIO</strong> &mdash;
+  <a href="https://equatio.org" target="_blank" rel="noopener">equatio.org</a> &mdash;
+  Gratuit &amp; Open Source
 </footer>
 
 <!-- =============== JAVASCRIPT =============== -->
 <script>
-/* ========================================
-   NAVIGATION
-   ======================================== */
-function showSection(id) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById('sec-' + id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
+/* =============================================
+   NAVIGATION ONGLETS
+   ============================================= */
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
 }
 
-/* ========================================
-   SECTION 1 : CALCULATEUR DE MÉTRÉS
-   ======================================== */
+function toggleSwitch(el) {
+  el.classList.toggle('on');
+}
+
+/* =============================================
+   ONGLET 1 : CALCULATEUR DE METRES
+   ============================================= */
 let ouvertures = [];
+let doublage = 1;
 
-function ajouterOuverture() {
-  const type = document.getElementById('ouv-type').value;
-  const larg = parseFloat(document.getElementById('ouv-larg').value);
-  const haut = parseFloat(document.getElementById('ouv-haut').value);
-  if (isNaN(larg) || isNaN(haut) || larg <= 0 || haut <= 0) return;
-  ouvertures.push({ type, larg, haut, surface: larg * haut });
-  document.getElementById('ouv-larg').value = '';
-  document.getElementById('ouv-haut').value = '';
-  afficherOuvertures();
+function setDoublage(n) {
+  doublage = n;
+  document.getElementById('dbl-1').style.borderColor = n === 1 ? 'var(--orange)' : 'var(--line)';
+  document.getElementById('dbl-1').style.color = n === 1 ? 'var(--orange)' : 'var(--muted)';
+  document.getElementById('dbl-2').style.borderColor = n === 2 ? 'var(--orange)' : 'var(--line)';
+  document.getElementById('dbl-2').style.color = n === 2 ? 'var(--orange)' : 'var(--muted)';
 }
 
-function supprimerOuverture(i) {
+function addPreset(type, w, h) {
+  ouvertures.push({ type: type, w: w, h: h, s: w * h });
+  renderOuv();
+}
+
+function addCustomOuv() {
+  var type = document.getElementById('ouv-type').value;
+  var w = parseFloat(document.getElementById('ouv-w').value);
+  var h = parseFloat(document.getElementById('ouv-h').value);
+  if (isNaN(w) || isNaN(h) || w <= 0 || h <= 0) return;
+  ouvertures.push({ type: type, w: w, h: h, s: w * h });
+  document.getElementById('ouv-w').value = '';
+  document.getElementById('ouv-h').value = '';
+  renderOuv();
+}
+
+function delOuv(i) {
   ouvertures.splice(i, 1);
-  afficherOuvertures();
+  renderOuv();
 }
 
-function afficherOuvertures() {
-  const list = document.getElementById('ouvertures-list');
-  if (ouvertures.length === 0) { list.innerHTML = ''; return; }
-  list.innerHTML = ouvertures.map((o, i) =>
-    '<div class="ouverture-item">' +
+function renderOuv() {
+  var el = document.getElementById('ouv-list');
+  if (ouvertures.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = ouvertures.map(function(o, i) {
+    return '<div class="ouv-item">' +
       '<span class="tag">' + o.type + '</span>' +
-      '<span class="dims">' + o.larg.toFixed(2) + ' x ' + o.haut.toFixed(2) + ' m</span>' +
-      '<span class="area">' + o.surface.toFixed(2) + ' m\u00B2</span>' +
-      '<button class="btn btn-danger btn-sm" onclick="supprimerOuverture(' + i + ')">Suppr.</button>' +
-    '</div>'
-  ).join('');
+      '<span class="dims">' + o.w.toFixed(2) + ' &times; ' + o.h.toFixed(2) + ' m</span>' +
+      '<span class="area">' + o.s.toFixed(2) + ' m&sup2;</span>' +
+      '<button class="btn btn-danger btn-sm" onclick="delOuv(' + i + ')" style="margin-left:4px;min-height:32px;padding:4px 10px;">&#10005;</button>' +
+    '</div>';
+  }).join('');
 }
 
-function calculerMetres() {
-  const L = parseFloat(document.getElementById('m-longueur').value);
-  const l = parseFloat(document.getElementById('m-largeur').value);
-  const h = parseFloat(document.getElementById('m-hauteur').value);
-  if (isNaN(L) || isNaN(l) || isNaN(h) || L <= 0 || l <= 0 || h <= 0) return;
+function calcMetres() {
+  var L = parseFloat(document.getElementById('m-L').value);
+  var l = parseFloat(document.getElementById('m-l').value);
+  var H = parseFloat(document.getElementById('m-H').value);
+  if (isNaN(L) || isNaN(l) || isNaN(H) || L <= 0 || l <= 0 || H <= 0) return;
 
-  const perimetre = 2 * (L + l);
-  const surfBruteMurs = perimetre * h;
-  const surfBrutePlafond = L * l;
-  const totalOuvertures = ouvertures.reduce((s, o) => s + o.surface, 0);
-  const surfNetteMurs = surfBruteMurs - totalOuvertures;
-  const surfNetteTotal = surfNetteMurs + surfBrutePlafond;
+  var inclPlafond = document.getElementById('sw-plafond').classList.contains('on');
+  var perim = 2 * (L + l);
+  var surfBruteMurs = perim * H;
+  var surfPlafond = inclPlafond ? (L * l) : 0;
+  var totalOuv = ouvertures.reduce(function(s, o) { return s + o.s; }, 0);
+  var surfNetteMurs = Math.max(0, surfBruteMurs - totalOuv);
+  var surfDoublee = surfNetteMurs * doublage;
+  var surfTotale = surfDoublee + surfPlafond;
 
-  const panel = document.getElementById('resultats-metres');
-  panel.style.display = 'block';
-  document.getElementById('metres-detail').innerHTML =
-    '<div class="result-row"><span class="label">Périmètre de la pièce</span><span class="value">' + perimetre.toFixed(2) + ' m</span></div>' +
-    '<div class="result-row"><span class="label">Surface brute des murs</span><span class="value">' + surfBruteMurs.toFixed(2) + ' m\u00B2</span></div>' +
-    '<div class="result-row"><span class="label">Surface brute plafond</span><span class="value">' + surfBrutePlafond.toFixed(2) + ' m\u00B2</span></div>' +
-    '<div class="result-row"><span class="label">Déduction ouvertures (' + ouvertures.length + ')</span><span class="value turq">\u2212 ' + totalOuvertures.toFixed(2) + ' m\u00B2</span></div>' +
-    '<div class="result-row"><span class="label">Surface nette murs</span><span class="value">' + surfNetteMurs.toFixed(2) + ' m\u00B2</span></div>' +
-    '<div class="result-row" style="border-top:2px solid var(--orange); margin-top:0.5rem; padding-top:0.8rem;">' +
-      '<span class="label" style="font-weight:700; color:var(--text);">SURFACE NETTE TOTALE</span>' +
-      '<span class="value highlight">' + surfNetteTotal.toFixed(2) + ' m\u00B2</span>' +
-    '</div>';
+  var html =
+    '<div class="res-row"><span class="rl">Perimetre</span><span class="rv">' + perim.toFixed(2) + ' m</span></div>' +
+    '<div class="res-row"><span class="rl">Surface brute murs</span><span class="rv">' + surfBruteMurs.toFixed(2) + ' m&sup2;</span></div>';
+  if (inclPlafond) {
+    html += '<div class="res-row"><span class="rl">Surface plafond</span><span class="rv">' + surfPlafond.toFixed(2) + ' m&sup2;</span></div>';
+  }
+  html +=
+    '<div class="res-row"><span class="rl">Deduction ouvertures (' + ouvertures.length + ')</span><span class="rv turq">&minus; ' + totalOuv.toFixed(2) + ' m&sup2;</span></div>' +
+    '<div class="res-row"><span class="rl">Surface nette murs</span><span class="rv">' + surfNetteMurs.toFixed(2) + ' m&sup2;</span></div>';
+  if (doublage === 2) {
+    html += '<div class="res-row"><span class="rl">Doublage 2 faces</span><span class="rv">' + surfDoublee.toFixed(2) + ' m&sup2;</span></div>';
+  }
+  html += '<div class="res-row total"><span class="rl" style="font-weight:700;color:var(--text-strong);">SURFACE NETTE TOTALE</span><span class="rv big">' + surfTotale.toFixed(2) + ' m&sup2;</span></div>';
 
-  // Pré-remplir le quantitatif
-  document.getElementById('q-surf-murs').value = surfNetteMurs.toFixed(2);
-  document.getElementById('q-surf-plafond').value = surfBrutePlafond.toFixed(2);
-  document.getElementById('q-perimetre').value = perimetre.toFixed(2);
-  document.getElementById('q-hauteur').value = h.toFixed(2);
+  document.getElementById('res-metres-detail').innerHTML = html;
+  document.getElementById('res-metres').style.display = 'block';
+  document.getElementById('res-metres').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // Pre-remplir onglet quantitatif
+  document.getElementById('q-murs').value = surfDoublee.toFixed(2);
+  document.getElementById('q-plafond').value = surfPlafond.toFixed(2);
+  document.getElementById('q-perim').value = perim.toFixed(2);
+  document.getElementById('q-haut').value = H.toFixed(2);
+
+  // Stocker pour copie
+  window._lastMetres = {
+    L: L, l: l, H: H, perim: perim,
+    surfBrute: surfBruteMurs, surfPlafond: surfPlafond,
+    totalOuv: totalOuv, surfNette: surfNetteMurs,
+    doublage: doublage, surfDoublee: surfDoublee,
+    surfTotale: surfTotale
+  };
 }
 
 function resetMetres() {
-  document.getElementById('m-longueur').value = '';
-  document.getElementById('m-largeur').value = '';
-  document.getElementById('m-hauteur').value = '';
+  document.getElementById('m-L').value = '';
+  document.getElementById('m-l').value = '';
+  document.getElementById('m-H').value = '';
   ouvertures = [];
-  afficherOuvertures();
-  document.getElementById('resultats-metres').style.display = 'none';
+  renderOuv();
+  document.getElementById('res-metres').style.display = 'none';
 }
 
-/* ========================================
-   SECTION 2 : QUANTITATIF MATÉRIAUX
-   ======================================== */
-function calculerQuantitatif() {
-  const surfMurs = parseFloat(document.getElementById('q-surf-murs').value) || 0;
-  const surfPlafond = parseFloat(document.getElementById('q-surf-plafond').value) || 0;
-  const perimetre = parseFloat(document.getElementById('q-perimetre').value) || 0;
-  const hauteur = parseFloat(document.getElementById('q-hauteur').value) || 0;
+function copyMetres() {
+  var m = window._lastMetres;
+  if (!m) return;
+  var txt = 'METRE PLACO\n';
+  txt += 'Piece : ' + m.L + ' x ' + m.l + ' x ' + m.H + ' m\n';
+  txt += 'Perimetre : ' + m.perim.toFixed(2) + ' m\n';
+  txt += 'Surface brute murs : ' + m.surfBrute.toFixed(2) + ' m2\n';
+  if (m.surfPlafond > 0) txt += 'Surface plafond : ' + m.surfPlafond.toFixed(2) + ' m2\n';
+  txt += 'Ouvertures : -' + m.totalOuv.toFixed(2) + ' m2\n';
+  txt += 'Surface nette murs : ' + m.surfNette.toFixed(2) + ' m2\n';
+  if (m.doublage === 2) txt += 'Doublage 2 faces : ' + m.surfDoublee.toFixed(2) + ' m2\n';
+  txt += 'TOTAL : ' + m.surfTotale.toFixed(2) + ' m2\n';
+  txt += '-- inerWeb x EQUATIO';
+  navigator.clipboard.writeText(txt).then(function() {
+    var btn = document.querySelector('#res-metres .btn-copy');
+    var old = btn.textContent;
+    btn.textContent = 'Copie !';
+    btn.style.color = 'var(--success)';
+    setTimeout(function() { btn.textContent = old; btn.style.color = ''; }, 1500);
+  });
+}
 
-  const surfTotale = surfMurs + surfPlafond;
+/* =============================================
+   ONGLET 2 : QUANTITATIF & DEVIS MATERIAUX
+   ============================================= */
+function calcQuantitatif() {
+  var surfMurs = parseFloat(document.getElementById('q-murs').value) || 0;
+  var surfPlafond = parseFloat(document.getElementById('q-plafond').value) || 0;
+  var perim = parseFloat(document.getElementById('q-perim').value) || 0;
+  var haut = parseFloat(document.getElementById('q-haut').value) || 2.50;
+  var typeCloison = document.getElementById('q-type').value;
+  var hydro = document.getElementById('sw-hydro').classList.contains('on');
+
+  var surfTotale = surfMurs + surfPlafond;
   if (surfTotale <= 0) return;
 
-  // Plaques BA13 : 2.40 x 1.20 = 2.88 m², +10% chutes
-  const surfPlaques = surfTotale * 1.10;
-  const nbPlaques = Math.ceil(surfPlaques / 2.88);
+  // Parametres selon type de cloison
+  var ossature = 48;   // largeur ossature
+  var entraxe = 0.60;
+  var nbParements = 1; // nb de BA13 par face
+  var epaisseurLaine = 45;
+  var chutePct = 0.10;
+  var isPlafond = false;
 
-  // Rails R48 : périmètre haut + bas = 2x périmètre, longueur 3m
-  const mlRails = perimetre * 2;
-  const nbRails = Math.ceil(mlRails / 3);
+  switch (typeCloison) {
+    case 'simple72':
+      ossature = 48; entraxe = 0.60; nbParements = 1; epaisseurLaine = 45; chutePct = 0.10;
+      break;
+    case 'double98':
+      ossature = 48; entraxe = 0.60; nbParements = 2; epaisseurLaine = 75; chutePct = 0.12;
+      break;
+    case 'doublage':
+      ossature = 48; entraxe = 0.60; nbParements = 1; epaisseurLaine = 0; chutePct = 0.08;
+      break;
+    case 'plafond':
+      isPlafond = true; entraxe = 0.60; nbParements = 1; epaisseurLaine = 0; chutePct = 0.12;
+      break;
+  }
 
-  // Montants M48 : entraxe 60cm sur le périmètre
-  const nbMontants = Math.ceil(perimetre / 0.60);
-  // Chaque montant = hauteur mur
-  const mlMontants = nbMontants * hauteur;
+  var lignes = [];
 
-  // Vis TTPC 25mm : 25 vis/m²
-  const nbVis = Math.ceil(surfTotale * 25);
+  // ---- PLAQUES BA13 ----
+  var surfPlaque = 2.60 * 1.20; // = 3.12 m2
+  var surfAvecChutes = surfTotale * (1 + chutePct);
+  var nbPlaques = Math.ceil(surfAvecChutes / surfPlaque) * nbParements;
+  var nomPlaque = hydro ? 'Plaques BA13 hydro (2,60 x 1,20)' : 'Plaques BA13 standard (2,60 x 1,20)';
+  lignes.push({
+    nom: nomPlaque,
+    qty: nbPlaques,
+    unite: 'plaque(s)',
+    condit: 'A l\'unite',
+    nbCondit: nbPlaques
+  });
 
-  // Bandes et enduit : linéaire de joints
-  // Joints verticaux : 1 tous les 1.20m sur le périmètre + horizontal haut/bas
-  const jointsVerticaux = Math.ceil(perimetre / 1.20);
-  const mlJointsV = jointsVerticaux * hauteur;
-  const mlJointsH = perimetre * 2;
-  const mlJointsTotal = mlJointsV + mlJointsH;
-  // Bandes : même longueur
-  const nbRouleauxBande = Math.ceil(mlJointsTotal / 23); // rouleaux de 23m
-  // Enduit : ~0.3 kg/ml
-  const kgEnduit = Math.ceil(mlJointsTotal * 0.3);
+  if (!isPlafond) {
+    // ---- RAILS ----
+    var railType = ossature === 70 ? 'R70' : 'R48';
+    var mlRails = perim * 2; // haut + bas
+    var nbRails = Math.ceil(mlRails / 3);
+    lignes.push({
+      nom: 'Rails ' + railType + ' (3 m)',
+      qty: nbRails,
+      unite: 'rail(s)',
+      condit: 'Botte de 10',
+      nbCondit: Math.ceil(nbRails / 10)
+    });
 
-  const lignes = [
-    { mat: 'Plaques BA13 standard (2,40 x 1,20 m)', detail: surfTotale.toFixed(1) + ' m\u00B2 x 1,10 / 2,88', qty: nbPlaques, unite: 'plaques' },
-    { mat: 'Rails R48 (longueur 3 m)', detail: 'P\u00E9rim\u00E8tre x2 = ' + mlRails.toFixed(1) + ' ml / 3', qty: nbRails, unite: 'rails' },
-    { mat: 'Montants M48 (entraxe 60 cm)', detail: perimetre.toFixed(1) + ' m / 0,60 = ' + nbMontants + ' montants', qty: nbMontants, unite: 'montants' },
-    { mat: 'Vis TTPC 25 mm', detail: surfTotale.toFixed(1) + ' m\u00B2 x 25 vis/m\u00B2', qty: nbVis, unite: 'vis' },
-    { mat: 'Bandes \u00E0 joint (rouleaux 23 m)', detail: mlJointsTotal.toFixed(1) + ' ml de joints / 23', qty: nbRouleauxBande, unite: 'rouleaux' },
-    { mat: 'Enduit \u00E0 joint', detail: mlJointsTotal.toFixed(1) + ' ml x 0,3 kg/ml', qty: kgEnduit, unite: 'kg' },
-  ];
+    // ---- MONTANTS ----
+    var montantType = ossature === 70 ? 'M70' : 'M48';
+    var nbMontants = Math.ceil(perim / entraxe) + 1;
+    lignes.push({
+      nom: 'Montants ' + montantType + ' (entraxe ' + (entraxe * 100) + ' cm)',
+      qty: nbMontants,
+      unite: 'montant(s)',
+      condit: 'Botte de 10',
+      nbCondit: Math.ceil(nbMontants / 10)
+    });
+  }
 
-  const tbody = document.getElementById('quantitatif-body');
-  tbody.innerHTML = lignes.map(l =>
-    '<tr>' +
-      '<td>' + l.mat + '</td>' +
-      '<td style="color:var(--text-muted); font-size:0.82rem;">' + l.detail + '</td>' +
-      '<td class="qty">' + l.qty.toLocaleString('fr-FR') + '</td>' +
+  if (isPlafond) {
+    // ---- SUSPENTES ----
+    var nbSuspentes = Math.ceil(surfPlafond / 0.80); // 1 suspente / 0.80 m2 environ
+    lignes.push({
+      nom: 'Suspentes a visser',
+      qty: nbSuspentes,
+      unite: 'piece(s)',
+      condit: 'Boite de 50',
+      nbCondit: Math.ceil(nbSuspentes / 50)
+    });
+
+    // ---- FOURRURES F530 ----
+    var mlFourrures = Math.ceil(surfPlafond / entraxe) * 1.05; // + 5% recouvrement
+    var nbFourrures = Math.ceil(mlFourrures / 3.90); // longueur 3.90m
+    lignes.push({
+      nom: 'Fourrures F530 (3,90 m)',
+      qty: nbFourrures,
+      unite: 'fourrure(s)',
+      condit: 'Botte de 12',
+      nbCondit: Math.ceil(nbFourrures / 12)
+    });
+
+    // ---- RAILS DE RIVE ----
+    var mlRive = perim;
+    var nbRive = Math.ceil(mlRive / 3);
+    lignes.push({
+      nom: 'Rails de rive R48 (3 m)',
+      qty: nbRive,
+      unite: 'rail(s)',
+      condit: 'Botte de 10',
+      nbCondit: Math.ceil(nbRive / 10)
+    });
+  }
+
+  // ---- VIS TTPC 25mm ----
+  var nbVisTTPC = Math.ceil(surfTotale * 25 * nbParements);
+  lignes.push({
+    nom: 'Vis TTPC 25 mm',
+    qty: nbVisTTPC,
+    unite: 'vis',
+    condit: 'Boite de 500',
+    nbCondit: Math.ceil(nbVisTTPC / 500)
+  });
+
+  if (!isPlafond) {
+    // ---- VIS TRPF 13mm ----
+    var nbVisTRPF = Math.ceil(perim * 4); // environ 4 vis/ml pour l'ossature
+    lignes.push({
+      nom: 'Vis TRPF 13 mm (ossature)',
+      qty: nbVisTRPF,
+      unite: 'vis',
+      condit: 'Boite de 250',
+      nbCondit: Math.ceil(nbVisTRPF / 250)
+    });
+  }
+
+  // ---- BANDES A JOINT ----
+  var jointsV = Math.ceil(perim / 1.20) * haut;
+  var jointsH = perim * 2;
+  var mlJoints = isPlafond ? (surfPlafond / 1.20 * Math.sqrt(surfPlafond) * 0.4 + perim) : (jointsV + jointsH);
+  mlJoints = Math.max(mlJoints, 10);
+  // Recalcul propre pour plafond
+  if (isPlafond && surfPlafond > 0) {
+    // joints entre plaques : environ 1 joint / 1.20m en largeur
+    var cote = Math.sqrt(surfPlafond);
+    mlJoints = Math.ceil(cote / 1.20) * cote + perim; // joints inter-plaques + peripherie
+  }
+
+  var nbRouleaux23 = Math.ceil(mlJoints / 23);
+  lignes.push({
+    nom: 'Bandes a joint',
+    qty: Math.ceil(mlJoints),
+    unite: 'ml',
+    condit: 'Rouleau 23 m',
+    nbCondit: nbRouleaux23
+  });
+
+  // ---- ENDUIT A JOINT ----
+  var kgEnduit = Math.ceil(mlJoints * 0.38); // ~0.38 kg/ml
+  var nbSacs = Math.ceil(kgEnduit / 25);
+  lignes.push({
+    nom: 'Enduit a joint (sac 25 kg ~ 65 ml)',
+    qty: kgEnduit,
+    unite: 'kg',
+    condit: 'Sac de 25 kg',
+    nbCondit: nbSacs
+  });
+
+  // ---- LAINE MINERALE ----
+  if (epaisseurLaine > 0) {
+    var surfLaine = surfMurs * 1.02; // +2%
+    lignes.push({
+      nom: 'Laine minerale ' + epaisseurLaine + ' mm',
+      qty: parseFloat(surfLaine.toFixed(1)),
+      unite: 'm2',
+      condit: 'Rouleau ~10 m2',
+      nbCondit: Math.ceil(surfLaine / 10)
+    });
+  }
+
+  // ---- MAP pour doublage colle ----
+  if (typeCloison === 'doublage') {
+    var kgMAP = Math.ceil(surfMurs * 3.5); // ~3.5 kg/m2
+    lignes.push({
+      nom: 'MAP (mortier adhesif)',
+      qty: kgMAP,
+      unite: 'kg',
+      condit: 'Sac de 25 kg',
+      nbCondit: Math.ceil(kgMAP / 25)
+    });
+  }
+
+  // Rendu tableau
+  var tbody = document.getElementById('quant-body');
+  tbody.innerHTML = lignes.map(function(l) {
+    return '<tr>' +
+      '<td>' + l.nom + '</td>' +
+      '<td class="qty-cell">' + l.qty.toLocaleString('fr-FR') + '</td>' +
       '<td>' + l.unite + '</td>' +
-    '</tr>'
-  ).join('');
+      '<td>' + l.condit + '</td>' +
+      '<td class="cond-cell">' + l.nbCondit + '</td>' +
+    '</tr>';
+  }).join('');
 
-  document.getElementById('resultats-quantitatif').style.display = 'block';
-  document.getElementById('resultats-quantitatif').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  document.getElementById('res-quant').style.display = 'block';
+  document.getElementById('res-quant').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  // Stocker pour copie
+  window._lastQuant = lignes;
 }
 
-/* ========================================
-   SECTION 3 : QUIZ PROFILÉS
-   ======================================== */
-const PROFILES = [
-  {
-    nom: 'Rail R48',
-    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="20" y="20" width="160" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="20" y="20" width="10" height="80" fill="#555" stroke="#333" stroke-width="2"/><rect x="170" y="20" width="10" height="80" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="115" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Section en U — ailes lisses</text></svg>',
-    description: 'Profilé en U avec ailes lisses, fixé au sol et au plafond'
-  },
-  {
-    nom: 'Montant M48',
-    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="20" y="15" width="160" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="20" y="15" width="10" height="90" fill="#555" stroke="#333" stroke-width="2"/><rect x="170" y="15" width="10" height="90" fill="#555" stroke="#333" stroke-width="2"/><rect x="20" y="95" width="25" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="155" y="95" width="25" height="10" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="115" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Section en C — retours d\'ailes</text></svg>',
-    description: 'Profilé en C avec retours d\'ailes, s\'emboîte dans le rail'
-  },
-  {
-    nom: 'Fourrure F530',
-    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="30" y="20" width="140" height="8" fill="#555" stroke="#333" stroke-width="2"/><rect x="60" y="20" width="8" height="60" fill="#555" stroke="#333" stroke-width="2"/><rect x="132" y="20" width="8" height="60" fill="#555" stroke="#333" stroke-width="2"/><rect x="60" y="72" width="80" height="8" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="110" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Profil en oméga — plafond</text></svg>',
-    description: 'Profilé en forme de chapeau/oméga, utilisé pour les plafonds'
-  },
-  {
-    nom: 'Cornière',
-    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="40" y="20" width="12" height="80" fill="#555" stroke="#333" stroke-width="2"/><rect x="40" y="88" width="100" height="12" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="115" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Section en L — angle droit</text></svg>',
-    description: 'Profilé en L pour la protection des angles saillants'
-  },
-  {
-    nom: 'Entretoise',
-    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="30" y="50" width="140" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="30" y="35" width="15" height="40" fill="#555" stroke="#333" stroke-width="2" rx="2"/><rect x="155" y="35" width="15" height="40" fill="#555" stroke="#333" stroke-width="2" rx="2"/><circle cx="37" cy="45" r="3" fill="#333"/><circle cx="37" cy="65" r="3" fill="#333"/><circle cx="163" cy="45" r="3" fill="#333"/><circle cx="163" cy="65" r="3" fill="#333"/><text x="100" y="110" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Barre plate — pattes perforées</text></svg>',
-    description: 'Barre plate avec pattes perforées aux extrémités pour le contreventement'
-  }
-];
-
-let quizState = { current: 0, score: 0, answers: [], questions: [] };
-
-function shuffleArray(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+function exportPDF() {
+  document.getElementById('print-date').textContent = 'Genere le ' + new Date().toLocaleDateString('fr-FR');
+  window.print();
 }
 
-function generateQuizQuestions() {
-  const shuffled = shuffleArray(PROFILES);
-  return shuffled.map(profile => {
-    const others = PROFILES.filter(p => p.nom !== profile.nom);
-    const distractors = shuffleArray(others).slice(0, 3).map(p => p.nom);
-    const choices = shuffleArray([profile.nom, ...distractors]);
-    return { profile, choices, correct: profile.nom };
+function copyQuant() {
+  var lignes = window._lastQuant;
+  if (!lignes) return;
+  var txt = 'QUANTITATIF MATERIAUX\n';
+  txt += '-----------------------------\n';
+  lignes.forEach(function(l) {
+    txt += l.nom + ' : ' + l.qty.toLocaleString('fr-FR') + ' ' + l.unite + ' (' + l.nbCondit + ' x ' + l.condit + ')\n';
+  });
+  txt += '-----------------------------\n';
+  txt += '-- inerWeb x EQUATIO';
+  navigator.clipboard.writeText(txt).then(function() {
+    var btns = document.querySelectorAll('#res-quant .btn-copy');
+    btns.forEach(function(btn) {
+      var old = btn.textContent;
+      btn.textContent = 'Copie !';
+      btn.style.color = 'var(--success)';
+      setTimeout(function() { btn.textContent = old; btn.style.color = ''; }, 1500);
+    });
   });
 }
 
-function resetQuiz() {
-  quizState = { current: 0, score: 0, answers: [], questions: generateQuizQuestions() };
-  document.getElementById('quiz-container').style.display = 'flex';
-  document.getElementById('quiz-final').style.display = 'none';
-  renderQuizQuestion();
-}
-
-function renderQuizQuestion() {
-  const q = quizState.questions[quizState.current];
-  document.getElementById('quiz-question-num').textContent = 'Question ' + (quizState.current + 1) + ' / 5';
-
-  // Dots
-  const dots = document.getElementById('quiz-dots');
-  dots.innerHTML = '';
-  for (let i = 0; i < 5; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'quiz-dot';
-    if (i < quizState.current) {
-      dot.classList.add(quizState.answers[i] ? 'correct' : 'wrong');
-    } else if (i === quizState.current) {
-      dot.classList.add('current');
-    }
-    dots.appendChild(dot);
-  }
-
-  // SVG
-  document.getElementById('quiz-svg-box').innerHTML = q.profile.svg;
-
-  // Feedback
-  document.getElementById('quiz-feedback').innerHTML = '&nbsp;';
-  document.getElementById('quiz-feedback').className = 'quiz-feedback';
-
-  // Choices
-  const choicesEl = document.getElementById('quiz-choices');
-  choicesEl.innerHTML = '';
-  q.choices.forEach(choice => {
-    const btn = document.createElement('button');
-    btn.className = 'quiz-choice';
-    btn.textContent = choice;
-    btn.onclick = () => handleQuizAnswer(choice);
-    choicesEl.appendChild(btn);
-  });
-}
-
-function handleQuizAnswer(choice) {
-  const q = quizState.questions[quizState.current];
-  const isCorrect = choice === q.correct;
-  quizState.answers.push(isCorrect);
-  if (isCorrect) quizState.score++;
-
-  // Feedback
-  const fb = document.getElementById('quiz-feedback');
-  if (isCorrect) {
-    fb.textContent = 'Bonne réponse ! ' + q.profile.description;
-    fb.className = 'quiz-feedback correct';
-  } else {
-    fb.textContent = 'Incorrect — c\u2019était : ' + q.correct + '. ' + q.profile.description;
-    fb.className = 'quiz-feedback wrong';
-  }
-
-  // Color buttons
-  document.querySelectorAll('.quiz-choice').forEach(btn => {
-    btn.classList.add('disabled');
-    if (btn.textContent === q.correct) btn.classList.add('correct');
-    else if (btn.textContent === choice && !isCorrect) btn.classList.add('wrong');
-  });
-
-  // Next
-  setTimeout(() => {
-    quizState.current++;
-    if (quizState.current >= 5) {
-      showQuizFinal();
-    } else {
-      renderQuizQuestion();
-    }
-  }, 2000);
-}
-
-function showQuizFinal() {
-  document.getElementById('quiz-container').style.display = 'none';
-  const final = document.getElementById('quiz-final');
-  final.style.display = 'block';
-
-  let msg = '';
-  if (quizState.score === 5) msg = 'Excellent ! Vous maîtrisez parfaitement les profilés.';
-  else if (quizState.score >= 3) msg = 'Bon résultat ! Encore un peu de révision et ce sera parfait.';
-  else msg = 'Continuez à vous entraîner, vous progresserez vite !';
-
-  final.innerHTML =
-    '<div class="big-score">' + quizState.score + ' / 5</div>' +
-    '<div class="msg">' + msg + '</div>' +
-    '<div style="margin-top:1rem;">' +
-      quizState.answers.map((a, i) =>
-        '<span style="display:inline-block; width:16px; height:16px; border-radius:50%; margin:0 3px; background:' +
-        (a ? 'var(--success)' : 'var(--error)') + ';"></span>'
-      ).join('') +
-    '</div>';
-}
-
-// Init quiz on load
-resetQuiz();
 </script>
 </body>
 </html>

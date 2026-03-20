@@ -2,1073 +2,1081 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>inerWeb Édu — Filière Électricité</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>inerWeb x EQUATIO — Calculettes Electricien Chantier</title>
 <style>
 :root {
-  --navy: #0f2d52;
-  --navy-light: #163a6a;
-  --orange: #e8914a;
-  --orange-dark: #d07a38;
-  --turq: #2aafaf;
-  --turq-dark: #1f8e8e;
-  --bg: #faf7f2;
-  --bg-card: #ffffff;
-  --bg-dark: #0b1e38;
-  --bg-darker: #071428;
-  --text: #e8e4df;
-  --text-muted: #9aa8b8;
+  --navy: #0f2d52; --navy-mid: #1a4a6e;
+  --orange: #e8914a; --orange-hover: #d47a35; --orange-warm: #fdf6ef; --orange-glow: rgba(232, 145, 74, 0.35);
+  --turquoise: #2aafaf; --turquoise-light: #eef8f7;
+  --bg: #faf7f2; --bg-end: #f0ebe3;
+  --card: #ffffff; --text: #2c3e50; --text-strong: #0f2d52; --muted: #5a7080; --line: #ece4da;
+  --radius: 22px; --radius-sm: 14px; --radius-pill: 999px;
+  --shadow: 0 4px 16px rgba(15, 45, 82, 0.07), 0 1px 3px rgba(232, 145, 74, 0.05);
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --green: #4caf50;
   --red: #e74c3c;
   --yellow: #f0ad4e;
-  --radius: 14px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.3);
 }
-* { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--bg-darker);
+  font-family: var(--font);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
   color: var(--text);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.5;
+  padding-bottom: 80px;
 }
-/* HEADER */
+
+/* HEADER FIXE */
 .header {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--bg-dark) 100%);
-  border-bottom: 3px solid var(--orange);
-  padding: 1.2rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+  position: sticky; top: 0; z-index: 100;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, var(--turquoise) 100%);
+  border-bottom: 4px solid var(--orange);
+  padding: 0.8rem 1rem;
 }
-.header-left { display:flex; align-items:center; gap:1rem; }
+.header-top {
+  display: flex; align-items: center; justify-content: center; gap: 0.6rem;
+  flex-wrap: wrap;
+}
 .logo-circle {
-  width: 52px; height: 52px;
-  background: linear-gradient(135deg, var(--orange), var(--turq));
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--orange), var(--turquoise));
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 900; font-size: 1.1rem; color: #fff;
-  letter-spacing: -0.5px;
-  box-shadow: 0 2px 12px rgba(232,145,74,0.4);
+  font-weight: 900; font-size: 0.85rem; color: #fff;
+  flex-shrink: 0;
 }
-.header-title h1 {
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: #fff;
+.header-brand {
+  font-size: 1.15rem; font-weight: 800; color: #fff;
+  letter-spacing: -0.3px;
 }
-.header-title h1 span { color: var(--orange); }
-.header-subtitle {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-}
-.header-right { text-align:right; }
-.badge-version {
+.header-brand .x { color: #fff; margin: 0 0.3rem; font-size: 0.9rem; opacity: 0.7; }
+.header-brand .equatio { color: var(--orange); }
+.header-bandeau {
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.75);
+  margin-top: 0.3rem;
+  letter-spacing: 0.3px;
+  background: var(--orange-warm);
+  color: var(--navy);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-pill);
+  margin-top: 0.5rem;
   display: inline-block;
-  background: var(--orange);
-  color: #fff;
-  padding: 2px 10px;
-  border-radius: 20px;
+}
+.header-top-wrap {
+  text-align: center;
+}
+.header-bandeau a { color: var(--turquoise); text-decoration: none; font-weight: 700; }
+
+/* ONGLETS */
+.tabs-bar {
+  display: flex;
+  background: var(--card);
+  border-bottom: 2px solid var(--line);
+  position: sticky; top: 72px; z-index: 99;
+  overflow-x: auto;
+  box-shadow: 0 2px 8px rgba(15,45,82,0.05);
+}
+.tab-btn {
+  flex: 1;
+  min-width: 0;
+  padding: 0.75rem 0.4rem;
+  background: var(--card);
+  border: none;
+  color: var(--navy);
   font-size: 0.72rem;
   font-weight: 700;
-  margin-bottom: 4px;
-}
-.header-meta {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-/* NAV TABS */
-.nav-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 1rem 1rem 0;
-  flex-wrap: wrap;
-}
-.nav-tab {
-  padding: 0.7rem 1.5rem;
-  background: var(--navy);
-  border: 2px solid transparent;
-  border-bottom: none;
-  border-radius: var(--radius) var(--radius) 0 0;
-  color: var(--text-muted);
   cursor: pointer;
-  font-size: 0.92rem;
-  font-weight: 600;
-  transition: all 0.25s;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  text-align: center;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
 }
-.nav-tab:hover { color: var(--orange); background: var(--navy-light); }
-.nav-tab.active {
+.tab-btn.active {
   color: #fff;
-  background: var(--bg-dark);
-  border-color: var(--orange);
-  border-bottom: 2px solid var(--bg-dark);
-  margin-bottom: -2px;
-  position: relative;
-  z-index: 2;
+  background: var(--orange);
+  border-bottom-color: var(--orange-hover);
 }
-.nav-tab .tab-icon { font-size:1.2rem; }
+.tab-btn:hover:not(.active) { color: var(--orange); }
+.tab-icon { display: block; font-size: 1.3rem; margin-bottom: 2px; }
 
-/* CONTENT */
-.content-area {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1rem 2rem;
-}
-.tool-panel {
-  display: none;
-  background: var(--bg-dark);
-  border: 2px solid var(--orange);
-  border-top: none;
-  border-radius: 0 0 var(--radius) var(--radius);
-  padding: 2rem;
-  animation: fadeIn 0.3s ease;
-}
-.tool-panel.active { display: block; }
-@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+/* PANELS */
+.panel { display: none; padding: 1rem; max-width: 700px; margin: 0 auto; }
+.panel.active { display: block; animation: fadeUp 0.3s ease; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none} }
 
+/* CARDS */
 .card {
-  background: var(--navy);
+  background: var(--card);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-bottom: 1.2rem;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--orange);
   box-shadow: var(--shadow);
-  border: 1px solid rgba(232,145,74,0.15);
 }
 .card-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--orange);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-strong);
+  margin-bottom: 0.8rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.card-subtitle {
+  font-size: 0.78rem;
+  color: var(--muted);
   margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 /* FORMS */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1rem;
+.form-row { margin-bottom: 0.8rem; }
+.form-row label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
-.form-group { display:flex; flex-direction:column; gap:0.3rem; }
-.form-group label {
-  font-size: 0.82rem;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-.form-group input, .form-group select {
-  padding: 0.6rem 0.8rem;
-  background: var(--bg-darker);
-  border: 1.5px solid rgba(232,145,74,0.3);
-  border-radius: 8px;
+.form-row input, .form-row select {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  background: #fff;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
   color: var(--text);
-  font-size: 0.95rem;
-  transition: border-color 0.2s;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none;
 }
-.form-group input:focus, .form-group select:focus {
+.form-row input:focus, .form-row select:focus {
   outline: none;
   border-color: var(--orange);
-  box-shadow: 0 0 0 3px rgba(232,145,74,0.15);
+  box-shadow: 0 0 0 4px var(--orange-glow);
 }
-.form-group select option { background: var(--bg-darker); }
+.form-row select option { background: #fff; color: var(--text); }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; }
 
+/* BOUTONS */
 .btn {
-  padding: 0.7rem 1.8rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 700;
+  display: block; width: 100%;
+  padding: 0.85rem 1.5rem;
+  border: none; border-radius: var(--radius-pill);
+  font-size: 1.05rem; font-weight: 800;
   cursor: pointer;
   transition: all 0.2s;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
+  text-align: center;
 }
 .btn-primary {
-  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  background: linear-gradient(135deg, var(--orange), var(--orange-hover));
   color: #fff;
+  box-shadow: 0 4px 16px rgba(232,145,74,0.3);
 }
-.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(232,145,74,0.4); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(232,145,74,0.4); }
+.btn-primary:active { transform: scale(0.98); }
 .btn-secondary {
-  background: var(--navy-light);
-  color: var(--text);
-  border: 1.5px solid var(--turq);
+  background: var(--turquoise-light);
+  color: var(--turquoise);
+  border: 2px solid var(--turquoise);
 }
-.btn-secondary:hover { background: var(--turq-dark); color:#fff; }
-.btn-sm { padding: 0.4rem 1rem; font-size:0.85rem; }
+.btn-sm { padding: 0.5rem 1rem; font-size: 0.85rem; width: auto; display: inline-block; }
 
-/* RESULTS */
+/* RESULTATS */
 .result-box {
-  margin-top: 1.2rem;
-  padding: 1.2rem;
+  margin-top: 1rem;
+  padding: 1rem;
   border-radius: var(--radius);
   border: 2px solid;
   display: none;
+  background: var(--card);
 }
-.result-ok { border-color: var(--green); background: rgba(76,175,80,0.08); }
-.result-warn { border-color: var(--yellow); background: rgba(240,173,78,0.08); }
-.result-bad { border-color: var(--red); background: rgba(231,76,60,0.08); }
-
-.result-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  font-size: 0.92rem;
+.result-box.show { display: block; animation: fadeUp 0.3s ease; }
+.result-ok { border-color: var(--green); background: rgba(76,175,80,0.06); }
+.result-warn { border-color: var(--yellow); background: rgba(240,173,78,0.06); }
+.result-bad { border-color: var(--red); background: rgba(231,76,60,0.06); }
+.res-line {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.88rem;
 }
-.result-line:last-child { border-bottom:none; }
-.result-label { color: var(--text-muted); }
-.result-value { font-weight:700; color:#fff; }
-.result-value.ok { color: var(--green); }
-.result-value.warn { color: var(--yellow); }
-.result-value.bad { color: var(--red); }
-.result-status {
+.res-line:last-child { border-bottom: none; }
+.res-label { color: var(--muted); }
+.res-val { font-weight: 800; color: var(--text-strong); text-align: right; }
+.res-val.ok { color: var(--green); }
+.res-val.warn { color: var(--yellow); }
+.res-val.bad { color: var(--red); }
+.res-big {
   text-align: center;
-  font-size: 1.1rem;
-  font-weight: 700;
-  padding: 0.8rem;
-  margin-top: 0.8rem;
-  border-radius: 8px;
-}
-.status-ok { background: rgba(76,175,80,0.15); color: var(--green); }
-.status-warn { background: rgba(240,173,78,0.15); color: var(--yellow); }
-.status-bad { background: rgba(231,76,60,0.15); color: var(--red); }
-
-/* TABLEAU ÉLECTRIQUE */
-.tableau-wrapper {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 1.2rem;
-  min-height: 400px;
-}
-.palette {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.palette-item {
-  padding: 0.6rem 0.8rem;
-  background: var(--bg-darker);
-  border: 1.5px solid rgba(232,145,74,0.25);
-  border-radius: 8px;
-  cursor: grab;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--text);
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.palette-item:hover { border-color: var(--orange); background: var(--navy); }
-.palette-item .circ-icon { font-size:1.1rem; }
-.tableau-board {
-  background: var(--bg-darker);
-  border: 2px solid var(--navy-light);
-  border-radius: var(--radius);
-  padding: 1rem;
-  position: relative;
-}
-.rangee {
-  background: var(--navy);
-  border: 1.5px solid rgba(42,175,175,0.2);
-  border-radius: 8px;
-  padding: 0.6rem;
-  margin-bottom: 0.6rem;
-  min-height: 52px;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  flex-wrap: wrap;
-  transition: border-color 0.2s;
-}
-.rangee.drag-over { border-color: var(--orange); background: rgba(232,145,74,0.05); }
-.rangee-label {
-  font-size: 0.72rem;
-  color: var(--turq);
-  font-weight: 700;
-  min-width: 70px;
-  text-transform: uppercase;
-}
-.circuit-chip {
-  padding: 0.35rem 0.7rem;
-  background: var(--bg-dark);
-  border: 1.5px solid var(--orange);
-  border-radius: 6px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  cursor: grab;
-  position: relative;
-}
-.circuit-chip .chip-close {
-  cursor: pointer;
-  color: var(--red);
+  font-size: 1.3rem;
   font-weight: 900;
-  margin-left: 4px;
-  font-size: 0.9rem;
+  padding: 0.8rem;
+  margin-top: 0.6rem;
+  border-radius: var(--radius-sm);
 }
-.circuit-chip .chip-close:hover { color: #ff6b6b; }
-.chip-disj {
-  font-size: 0.65rem;
-  color: var(--turq);
-  margin-left: 2px;
+.res-big.ok { background: rgba(76,175,80,0.12); color: var(--green); }
+.res-big.warn { background: rgba(240,173,78,0.12); color: var(--yellow); }
+.res-big.bad { background: rgba(231,76,60,0.12); color: var(--red); }
+
+/* TABLEAU ELECTRIQUE */
+.circuit-list-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.6rem 0.8rem;
+  background: var(--card);
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 4px rgba(15,45,82,0.04);
 }
-.conformite-bar {
+.circuit-list-item .cir-info { flex:1; }
+.circuit-list-item .cir-name { font-size: 0.85rem; font-weight: 700; color: var(--text-strong); }
+.circuit-list-item .cir-detail { font-size: 0.7rem; color: var(--muted); }
+.circuit-list-item .cir-qty {
+  display: flex; align-items: center; gap: 0.4rem;
+}
+.qty-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--orange);
+  background: var(--orange-warm);
+  color: var(--orange);
+  font-size: 1.2rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.qty-btn:active { background: var(--orange); color: #fff; }
+.qty-val {
+  min-width: 28px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text-strong);
+}
+
+/* TABLEAU VISUEL */
+.tableau-visual {
+  background: var(--card);
+  border: 2px solid var(--turquoise);
+  border-radius: var(--radius);
+  padding: 0.8rem;
+  margin-top: 1rem;
+  box-shadow: var(--shadow);
+}
+.tableau-rangee {
+  background: var(--turquoise-light);
+  border: 1.5px solid rgba(42,175,175,0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  min-height: 44px;
+}
+.rangee-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 0.3rem;
+}
+.rangee-title { font-size: 0.72rem; font-weight: 800; color: var(--turquoise); text-transform: uppercase; }
+.rangee-diff { font-size: 0.65rem; color: var(--orange); font-weight: 700; }
+.rangee-circuits { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  padding: 0.2rem 0.5rem;
+  background: var(--orange-warm);
+  border: 1px solid rgba(232,145,74,0.3);
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+}
+.chip-a { border-color: rgba(42,175,175,0.4); background: var(--turquoise-light); }
+
+/* BILAN */
+.bilan-box {
   margin-top: 1rem;
   padding: 1rem;
-  background: var(--navy);
-  border-radius: 8px;
-  text-align: center;
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
+  border-left: 5px solid var(--orange);
+  box-shadow: var(--shadow);
 }
-.score-bar-outer {
-  width: 100%;
-  height: 12px;
-  background: var(--bg-darker);
-  border-radius: 6px;
-  overflow: hidden;
-  margin: 0.6rem 0;
+.bilan-line {
+  display: flex; justify-content: space-between;
+  padding: 0.3rem 0;
+  font-size: 0.85rem;
 }
-.score-bar-inner {
-  height: 100%;
-  border-radius: 6px;
-  transition: width 0.5s, background 0.5s;
-}
-.score-label { font-size:1.1rem; font-weight:700; }
+.bilan-label { color: var(--muted); }
+.bilan-val { font-weight: 800; color: var(--text-strong); }
 
-/* QUIZ */
-.quiz-zone {
-  text-align: center;
+/* AIDE-MEMOIRE */
+.memo-section {
+  margin-bottom: 1.2rem;
 }
-.quiz-circuit-svg {
-  margin: 1.5rem auto;
-  display: block;
+.memo-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--turquoise);
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--turquoise-light);
 }
-.quiz-question {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin: 1rem 0;
-  color: #fff;
-}
-.quiz-input-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.8rem;
-  margin: 1rem 0;
-}
-.quiz-input {
-  width: 140px;
-  padding: 0.6rem 1rem;
-  background: var(--bg-darker);
-  border: 2px solid var(--orange);
-  border-radius: 8px;
-  color: #fff;
-  font-size: 1.1rem;
-  text-align: center;
-  font-weight: 700;
-}
-.quiz-input:focus { outline:none; box-shadow:0 0 0 3px rgba(232,145,74,0.2); }
-.quiz-unit { color: var(--orange); font-weight:700; font-size:1.1rem; }
-.quiz-feedback {
-  font-size: 1rem;
-  font-weight: 700;
-  min-height: 2rem;
-  margin: 0.5rem 0;
-}
-.quiz-progress-bar {
+.memo-table {
   width: 100%;
-  height: 8px;
-  background: var(--bg-darker);
-  border-radius: 4px;
-  overflow: hidden;
-  margin: 1rem 0;
+  border-collapse: collapse;
+  font-size: 0.78rem;
 }
-.quiz-progress-fill {
-  height: 100%;
-  background: var(--turq);
-  border-radius: 4px;
-  transition: width 0.3s;
+.memo-table th {
+  background: var(--navy);
+  color: #fff;
+  padding: 0.45rem 0.5rem;
+  text-align: left;
+  font-weight: 700;
+  border-bottom: 2px solid var(--orange);
 }
-.quiz-stats {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin: 1rem 0;
-  font-size: 0.95rem;
+.memo-table td {
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
 }
-.quiz-stats span { color: var(--text-muted); }
-.quiz-stats strong { color: #fff; }
-.quiz-end-screen {
-  display: none;
-  padding: 2rem;
+.memo-table tr:nth-child(even) td { background: #f5f0ea; }
+.memo-table tr:hover td { background: var(--orange-warm); }
+.color-dot {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 4px;
+  border: 1px solid var(--line);
 }
-.quiz-end-score {
-  font-size: 3rem;
+.formula-card {
+  background: var(--card);
+  border-radius: var(--radius-sm);
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  border-left: 4px solid var(--orange);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--orange);
+  box-shadow: 0 1px 4px rgba(15,45,82,0.04);
+}
+.formula-card .f-title {
+  font-size: 0.78rem;
+  color: var(--orange);
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+.formula-card .f-expr {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-strong);
+  font-family: 'Courier New', monospace;
+}
+.formula-card .f-note {
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 0.15rem;
+}
+.volume-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.volume-card {
+  text-align: center;
+  padding: 0.6rem 0.3rem;
+  background: var(--card);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--line);
+  box-shadow: 0 1px 4px rgba(15,45,82,0.04);
+}
+.volume-card .v-num {
+  font-size: 1.3rem;
   font-weight: 900;
-  margin: 0.5rem 0;
+  color: var(--turquoise);
+}
+.volume-card .v-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-top: 0.1rem;
+}
+.volume-card .v-ip {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--orange);
+  margin-top: 0.2rem;
 }
 
 /* FOOTER */
 .footer {
   text-align: center;
-  padding: 1.5rem;
-  color: var(--text-muted);
-  font-size: 0.78rem;
-  border-top: 1px solid rgba(232,145,74,0.15);
+  padding: 1.5rem 1rem;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.8);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+  border-top: 3px solid var(--orange);
   margin-top: 2rem;
 }
+.footer a { color: #fff; text-decoration: none; font-weight: 700; }
 
-/* Responsive */
-@media (max-width:768px) {
-  .header { padding:1rem; flex-direction:column; text-align:center; }
-  .header-right { text-align:center; }
-  .nav-tab { padding:0.5rem 1rem; font-size:0.82rem; }
-  .tableau-wrapper { grid-template-columns:1fr; }
-  .tool-panel { padding:1rem; }
-  .form-grid { grid-template-columns:1fr; }
+/* RESPONSIVE */
+@media (min-width: 500px) {
+  .tabs-bar { justify-content: center; }
+  .tab-btn { flex: 0 1 180px; }
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- HEADER FIXE -->
 <header class="header">
-  <div class="header-left">
+  <div class="header-top">
     <div class="logo-circle">iW</div>
-    <div class="header-title">
-      <h1>iner<span>Web</span> Édu</h1>
-      <div class="header-subtitle">Filière Électricité — Installations &amp; Réseaux</div>
+    <div class="header-brand">
+      inerWeb <span class="x">&times;</span> <span class="equatio">EQUATIO</span>
     </div>
   </div>
-  <div class="header-right">
-    <div class="badge-version">DEMO v1.0</div>
-    <div class="header-meta">F. Henninot — LPP Jacques Raynaud</div>
-    <div class="header-meta">Campus ÉQUATIO — Marseille</div>
+  <div style="text-align:center;">
+    <div class="header-bandeau">
+      Stage &bull; Apprentissage &bull; Taxe d'apprentissage &rarr; <a href="https://equatio.org" target="_blank">equatio.org</a>
+    </div>
   </div>
 </header>
 
-<!-- NAV -->
-<div class="nav-tabs">
-  <div class="nav-tab active" onclick="showTool(0)" id="tab0">
-    <span class="tab-icon">&#9889;</span> Sections de Câbles
+<!-- ONGLETS -->
+<nav class="tabs-bar">
+  <button class="tab-btn active" onclick="showPanel(0)" id="tabBtn0">
+    <span class="tab-icon">&#9889;</span> Sections cables
+  </button>
+  <button class="tab-btn" onclick="showPanel(1)" id="tabBtn1">
+    <span class="tab-icon">&#9638;</span> Tableau electrique
+  </button>
+  <button class="tab-btn" onclick="showPanel(2)" id="tabBtn2">
+    <span class="tab-icon">&#128214;</span> Aide-memoire
+  </button>
+</nav>
+
+<!-- ===== PANEL 1 : CALCULATEUR SECTION DE CABLES ===== -->
+<div class="panel active" id="panel0">
+  <div class="card">
+    <div class="card-title">&#9889; Calculateur Section de Cables</div>
+    <div class="card-subtitle">NF C 15-100 — Dimensionnement rapide sur chantier</div>
+
+    <div class="form-row">
+      <label>Reseau</label>
+      <select id="s-reseau">
+        <option value="mono">Monophase 230 V</option>
+        <option value="tri">Triphase 400 V</option>
+      </select>
+    </div>
+
+    <div class="form-grid-2">
+      <div class="form-row">
+        <label>Puissance</label>
+        <input type="number" id="s-puissance" value="3000" min="1" step="100" inputmode="numeric">
+      </div>
+      <div class="form-row">
+        <label>Unite</label>
+        <select id="s-unite-p">
+          <option value="W">Watts (W)</option>
+          <option value="kW">Kilowatts (kW)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-grid-2">
+      <div class="form-row">
+        <label>cos phi</label>
+        <input type="number" id="s-cosphi" value="0.8" min="0.5" max="1" step="0.05" inputmode="decimal">
+      </div>
+      <div class="form-row">
+        <label>Longueur cable (m)</label>
+        <input type="number" id="s-longueur" value="20" min="1" step="1" inputmode="numeric">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Mode de pose</label>
+      <select id="s-pose">
+        <option value="B1">B1 — Encastre (conduit isolant)</option>
+        <option value="B2">B2 — Apparent (moulure/goulotte)</option>
+        <option value="C">C — Chemin de cables</option>
+        <option value="E1">E1 — Chemin perfore / echelle</option>
+      </select>
+    </div>
+
+    <div class="form-grid-2">
+      <div class="form-row">
+        <label>Type d'isolant</label>
+        <select id="s-isolant">
+          <option value="PVC">PVC</option>
+          <option value="PR">PR / XLPE</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <label>Circuits groupes</label>
+        <select id="s-groupes">
+          <option value="1">1 circuit (x1.00)</option>
+          <option value="2">2 circuits (x0.80)</option>
+          <option value="3">3 circuits (x0.70)</option>
+          <option value="4">4-5 circuits (x0.60)</option>
+          <option value="5">6-9 circuits (x0.57)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Type d'utilisation</label>
+      <select id="s-usage">
+        <option value="force">Force motrice / Prises (limite 5%)</option>
+        <option value="eclairage">Eclairage (limite 3%)</option>
+      </select>
+    </div>
+
+    <div style="margin-top:1rem;">
+      <button class="btn btn-primary" onclick="calculerSection()">&#9889; CALCULER</button>
+    </div>
   </div>
-  <div class="nav-tab" onclick="showTool(1)" id="tab1">
-    <span class="tab-icon">&#9638;</span> Tableau Électrique
-  </div>
-  <div class="nav-tab" onclick="showTool(2)" id="tab2">
-    <span class="tab-icon">&#937;</span> Loi d'Ohm
-  </div>
+
+  <div class="result-box" id="sec-result"></div>
 </div>
 
-<!-- CONTENT -->
-<div class="content-area">
-
-  <!-- OUTIL 1 : CALCULATEUR SECTION DE CÂBLES -->
-  <div class="tool-panel active" id="panel0">
-    <div class="card">
-      <div class="card-title">&#9889; Calculateur de Section de Câbles — NF C 15-100</div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label>Puissance (W)</label>
-          <input type="number" id="calc-puissance" value="3000" min="1" step="100">
-        </div>
-        <div class="form-group">
-          <label>Tension / Réseau</label>
-          <select id="calc-tension">
-            <option value="230">230 V — Monophasé</option>
-            <option value="400">400 V — Triphasé</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Longueur du câble (m)</label>
-          <input type="number" id="calc-longueur" value="15" min="1" step="1">
-        </div>
-        <div class="form-group">
-          <label>Type d'utilisation</label>
-          <select id="calc-usage">
-            <option value="autre">Prises / Autres usages</option>
-            <option value="eclairage">Éclairage</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Type d'installation</label>
-          <select id="calc-install">
-            <option value="encastre">Encastré (conduit isolant)</option>
-            <option value="apparent">Apparent (moulure / goulotte)</option>
-            <option value="chemin">Chemin de câbles (perforé)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Facteur cos(phi)</label>
-          <input type="number" id="calc-cosphi" value="1" min="0.5" max="1" step="0.05">
-        </div>
-      </div>
-      <div style="margin-top:1.2rem; text-align:center;">
-        <button class="btn btn-primary" onclick="calculerSection()">&#9889; Calculer la section</button>
-      </div>
-    </div>
-
-    <div class="result-box" id="calc-result">
-      <div id="calc-result-lines"></div>
-      <div class="result-status" id="calc-status"></div>
+<!-- ===== PANEL 2 : TABLEAU ELECTRIQUE ===== -->
+<div class="panel" id="panel1">
+  <div class="card">
+    <div class="card-title">&#9638; Dimensionnement Tableau Electrique</div>
+    <div class="card-subtitle">NF C 15-100 — Ajoutez les circuits de l'installation</div>
+    <div id="circuit-list"></div>
+    <div style="margin-top:1rem;">
+      <button class="btn btn-primary" onclick="genererTableau()">&#9638; GENERER LE TABLEAU</button>
     </div>
   </div>
 
-  <!-- OUTIL 2 : TABLEAU ÉLECTRIQUE -->
-  <div class="tool-panel" id="panel1">
-    <div class="card">
-      <div class="card-title">&#9638; Tableau Électrique Interactif</div>
-      <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1rem;">
-        Glissez les circuits depuis la palette vers les rangées du tableau. Chaque rangée est protégée par un interrupteur différentiel.
-      </p>
-      <div class="tableau-wrapper">
-        <!-- Palette -->
-        <div class="palette" id="palette">
-          <div style="font-size:0.75rem;color:var(--turq);font-weight:700;text-transform:uppercase;margin-bottom:0.3rem;">Circuits disponibles</div>
-        </div>
-        <!-- Board -->
-        <div class="tableau-board" id="tableau-board">
-          <div style="font-size:0.75rem;color:var(--turq);font-weight:700;text-transform:uppercase;margin-bottom:0.6rem;">Tableau de répartition</div>
-        </div>
-      </div>
-    </div>
-    <div class="conformite-bar" id="conformite-bar">
-      <div class="score-label" id="score-label">Conformité : —</div>
-      <div class="score-bar-outer"><div class="score-bar-inner" id="score-bar" style="width:0%;background:var(--red);"></div></div>
-      <div id="conformite-details" style="font-size:0.82rem;color:var(--text-muted);margin-top:0.5rem;"></div>
-    </div>
-    <div style="text-align:center;margin-top:1rem;">
-      <button class="btn btn-secondary btn-sm" onclick="resetTableau()">Vider le tableau</button>
-    </div>
-  </div>
+  <div id="tableau-result"></div>
+</div>
 
-  <!-- OUTIL 3 : LOI D'OHM -->
-  <div class="tool-panel" id="panel2">
-    <div class="quiz-zone" id="quiz-zone">
-      <div class="card">
-        <div class="card-title" style="justify-content:center;">&#937; Mini-jeu : Loi d'Ohm Interactive</div>
-        <div class="quiz-stats">
-          <span>Question <strong id="q-num">0</strong>/10</span>
-          <span>Score <strong id="q-score">0</strong></span>
-          <span>Temps <strong id="q-timer">0:00</strong></span>
-        </div>
-        <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="q-progress" style="width:0%"></div></div>
+<!-- ===== PANEL 3 : AIDE-MEMOIRE ===== -->
+<div class="panel" id="panel2">
 
-        <!-- SVG Circuit -->
-        <svg class="quiz-circuit-svg" width="380" height="200" viewBox="0 0 380 200" id="circuit-svg">
-          <!-- Fils -->
-          <line x1="40" y1="60" x2="170" y2="60" stroke="#e8914a" stroke-width="3"/>
-          <line x1="210" y1="60" x2="340" y2="60" stroke="#e8914a" stroke-width="3"/>
-          <line x1="340" y1="60" x2="340" y2="150" stroke="#e8914a" stroke-width="3"/>
-          <line x1="340" y1="150" x2="40" y2="150" stroke="#e8914a" stroke-width="3"/>
-          <line x1="40" y1="150" x2="40" y2="60" stroke="#e8914a" stroke-width="3"/>
-          <!-- Source -->
-          <rect x="15" y="85" width="50" height="40" rx="6" fill="none" stroke="#2aafaf" stroke-width="2"/>
-          <text x="40" y="110" text-anchor="middle" fill="#2aafaf" font-size="13" font-weight="700">E</text>
-          <!-- Résistance -->
-          <rect x="160" y="42" width="60" height="36" rx="5" fill="none" stroke="#fff" stroke-width="2"/>
-          <text x="190" y="65" text-anchor="middle" fill="#fff" font-size="14" font-weight="700" id="svg-r">R</text>
-          <!-- Voltmètre -->
-          <circle cx="190" cy="150" r="18" fill="none" stroke="#2aafaf" stroke-width="2"/>
-          <text x="190" y="156" text-anchor="middle" fill="#2aafaf" font-size="14" font-weight="700">V</text>
-          <!-- Ampèremètre -->
-          <circle cx="280" cy="60" r="18" fill="none" stroke="#e8914a" stroke-width="2"/>
-          <text x="280" y="66" text-anchor="middle" fill="#e8914a" font-size="14" font-weight="700">A</text>
-          <!-- Valeurs affichées -->
-          <text x="190" y="30" text-anchor="middle" fill="#9aa8b8" font-size="12" id="svg-r-val"></text>
-          <text x="190" y="185" text-anchor="middle" fill="#9aa8b8" font-size="12" id="svg-v-val"></text>
-          <text x="280" y="95" text-anchor="middle" fill="#9aa8b8" font-size="12" id="svg-a-val"></text>
-        </svg>
-
-        <div class="quiz-question" id="q-question">Prêt pour le quiz ?</div>
-        <div class="quiz-input-row" id="q-input-row" style="display:none;">
-          <input type="number" class="quiz-input" id="q-answer" step="any" autocomplete="off">
-          <span class="quiz-unit" id="q-unit">V</span>
-          <button class="btn btn-primary btn-sm" onclick="submitAnswer()">Valider</button>
-        </div>
-        <div class="quiz-feedback" id="q-feedback"></div>
-        <div style="margin-top:1rem;" id="q-start-zone">
-          <button class="btn btn-primary" onclick="startQuiz()">Lancer le quiz</button>
-        </div>
-      </div>
-
-      <div class="quiz-end-screen card" id="quiz-end">
-        <div class="card-title" style="justify-content:center;">Résultat final</div>
-        <div class="quiz-end-score" id="q-final-score" style="color:var(--orange);">0/10</div>
-        <div id="q-final-time" style="color:var(--text-muted);margin-bottom:1rem;"></div>
-        <div id="q-final-msg" style="font-size:1rem;margin-bottom:1rem;"></div>
-        <button class="btn btn-primary" onclick="startQuiz()">Rejouer</button>
-      </div>
+  <!-- Sections / Calibres -->
+  <div class="card">
+    <div class="card-title">&#128214; Aide-memoire Electricien</div>
+    <div class="memo-section">
+      <div class="memo-title">Sections et calibres par circuit (NF C 15-100)</div>
+      <table class="memo-table">
+        <tr><th>Circuit</th><th>Section</th><th>Disj.</th><th>Max points</th></tr>
+        <tr><td>Eclairage</td><td>1.5 mm2</td><td>10A ou 16A</td><td>8 points</td></tr>
+        <tr><td>Prises 16A</td><td>2.5 mm2</td><td>16A ou 20A</td><td>8 prises</td></tr>
+        <tr><td>Prises cuisine</td><td>2.5 mm2</td><td>20A</td><td>6 prises</td></tr>
+        <tr><td>Lave-linge</td><td>2.5 mm2</td><td>20A</td><td>Dedie</td></tr>
+        <tr><td>Seche-linge</td><td>2.5 mm2</td><td>20A</td><td>Dedie</td></tr>
+        <tr><td>Lave-vaisselle</td><td>2.5 mm2</td><td>20A</td><td>Dedie</td></tr>
+        <tr><td>Four</td><td>2.5 mm2</td><td>20A</td><td>Dedie</td></tr>
+        <tr><td>Plaque cuisson</td><td>6 mm2</td><td>32A</td><td>Dedie</td></tr>
+        <tr><td>Chauffe-eau</td><td>2.5 mm2</td><td>20A</td><td>Dedie + contact. HC</td></tr>
+        <tr><td>VMC</td><td>1.5 mm2</td><td>2A</td><td>Dedie</td></tr>
+        <tr><td>Volets roulants</td><td>1.5 mm2</td><td>16A</td><td>Dedie</td></tr>
+      </table>
     </div>
   </div>
 
+  <!-- Couleurs des fils -->
+  <div class="card">
+    <div class="memo-section">
+      <div class="memo-title">Couleurs des conducteurs</div>
+      <table class="memo-table">
+        <tr>
+          <td><span class="color-dot" style="background:#2196F3;"></span> Bleu</td>
+          <td><strong>Neutre (N)</strong></td>
+        </tr>
+        <tr>
+          <td><span class="color-dot" style="background:linear-gradient(135deg,#4caf50 50%,#f0ad4e 50%);"></span> Vert-Jaune</td>
+          <td><strong>Terre (PE)</strong></td>
+        </tr>
+        <tr>
+          <td><span class="color-dot" style="background:#e74c3c;"></span> Rouge</td>
+          <td><strong>Phase (L1)</strong></td>
+        </tr>
+        <tr>
+          <td><span class="color-dot" style="background:#333;"></span> Noir</td>
+          <td><strong>Phase (L2)</strong></td>
+        </tr>
+        <tr>
+          <td><span class="color-dot" style="background:#8B4513;"></span> Marron</td>
+          <td><strong>Phase (L3)</strong></td>
+        </tr>
+        <tr>
+          <td><span class="color-dot" style="background:#9C27B0;"></span> Violet</td>
+          <td><strong>Retour lampe / Navette</strong></td>
+        </tr>
+        <tr>
+          <td><span class="color-dot" style="background:#FF9800;"></span> Orange</td>
+          <td><strong>Retour lampe / Navette</strong></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Hauteurs -->
+  <div class="card">
+    <div class="memo-section">
+      <div class="memo-title">Hauteurs d'installation</div>
+      <table class="memo-table">
+        <tr><th>Element</th><th>Hauteur</th></tr>
+        <tr><td>Prises 16A (courant)</td><td>5 cm mini (axe)</td></tr>
+        <tr><td>Prises 32A</td><td>12 cm mini (axe)</td></tr>
+        <tr><td>Interrupteurs</td><td>0.90 m a 1.30 m</td></tr>
+        <tr><td>Tableau electrique</td><td>1.00 m a 1.80 m (mano.)</td></tr>
+        <tr><td>Prises plan de travail cuisine</td><td>1.05 m a 1.20 m</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Volumes SdB -->
+  <div class="card">
+    <div class="memo-section">
+      <div class="memo-title">Volumes Salle de Bain</div>
+      <div class="volume-grid">
+        <div class="volume-card" style="border-color:var(--red);">
+          <div class="v-num" style="color:var(--red);">0</div>
+          <div class="v-label">Baignoire / Douche</div>
+          <div class="v-ip">IPX7</div>
+        </div>
+        <div class="volume-card" style="border-color:var(--yellow);">
+          <div class="v-num" style="color:var(--yellow);">1</div>
+          <div class="v-label">Au-dessus bain. H=2.25m</div>
+          <div class="v-ip">IPX5</div>
+        </div>
+        <div class="volume-card" style="border-color:var(--orange);">
+          <div class="v-num">2</div>
+          <div class="v-label">0.60m autour vol. 1</div>
+          <div class="v-ip">IPX4</div>
+        </div>
+        <div class="volume-card" style="border-color:var(--green);">
+          <div class="v-num" style="color:var(--green);">HV</div>
+          <div class="v-label">Hors volume</div>
+          <div class="v-ip">IPX1</div>
+        </div>
+      </div>
+      <table class="memo-table" style="margin-top:0.8rem;">
+        <tr><th>Volume</th><th>Appareillage autorise</th></tr>
+        <tr><td style="color:var(--red);font-weight:700;">0</td><td>TBTS 12V uniquement</td></tr>
+        <tr><td style="color:var(--yellow);font-weight:700;">1</td><td>TBTS 12V, chauffe-eau horiz.</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700;">2</td><td>Eclairage cl.II, prise rasoir 20-50V</td></tr>
+        <tr><td style="color:var(--green);font-weight:700;">Hors vol.</td><td>Tout appareillage (avec 30mA)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Formules -->
+  <div class="card">
+    <div class="memo-section">
+      <div class="memo-title">Formules essentielles</div>
+      <div class="formula-card">
+        <div class="f-title">Puissance monophasee</div>
+        <div class="f-expr">P = U x I x cos phi</div>
+        <div class="f-note">P en W, U en V, I en A</div>
+      </div>
+      <div class="formula-card">
+        <div class="f-title">Puissance triphasee</div>
+        <div class="f-expr">P = U x I x racine(3) x cos phi</div>
+        <div class="f-note">U = 400V entre phases</div>
+      </div>
+      <div class="formula-card">
+        <div class="f-title">Courant monophase</div>
+        <div class="f-expr">I = P / (U x cos phi)</div>
+      </div>
+      <div class="formula-card">
+        <div class="f-title">Courant triphase</div>
+        <div class="f-expr">I = P / (U x racine(3) x cos phi)</div>
+      </div>
+      <div class="formula-card">
+        <div class="f-title">Chute de tension (%)</div>
+        <div class="f-expr">dU% = 100 x 2L x I x (rho/S x cos phi + lambda x sin phi) / U</div>
+        <div class="f-note">rho cuivre = 0.0225 ohm.mm2/m | lambda = 0.08 mOhm/m</div>
+      </div>
+      <div class="formula-card">
+        <div class="f-title">Loi d'Ohm</div>
+        <div class="f-expr">U = R x I</div>
+      </div>
+      <div class="formula-card">
+        <div class="f-title">Puissance electrique</div>
+        <div class="f-expr">P = U x I</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer">
-  Démonstration inerWeb Édu — Potentiel filière Électricité — F. Henninot — Mars 2026
+  inerWeb <span style="color:rgba(255,255,255,0.6);">&times;</span> <span style="color:var(--orange);">EQUATIO</span> — Calculettes Electricien Chantier<br>
+  <a href="https://equatio.org" target="_blank">equatio.org</a> — F. Henninot — 2026
 </footer>
 
 <script>
 /* ===== NAVIGATION ===== */
-function showTool(idx) {
-  document.querySelectorAll('.tool-panel').forEach((p,i) => {
-    p.classList.toggle('active', i === idx);
-  });
-  document.querySelectorAll('.nav-tab').forEach((t,i) => {
-    t.classList.toggle('active', i === idx);
-  });
+function showPanel(idx) {
+  document.querySelectorAll('.panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  document.querySelectorAll('.tab-btn').forEach((t,i) => t.classList.toggle('active', i===idx));
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-/* ================================================================
-   OUTIL 1 — CALCULATEUR SECTION DE CÂBLES (NF C 15-100 simplifié)
-   ================================================================ */
+/* =================================================================
+   OUTIL 1 — CALCULATEUR SECTION DE CABLES (NF C 15-100)
+   ================================================================= */
 
-/* Tableau simplifié : courant admissible (A) par section (mm²) selon mode de pose
-   Référence B (encastré), C (apparent), E (chemin câbles) — cuivre */
-const SECTIONS = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50];
-const IZ = {
-  encastre: [15.5, 21, 28, 36, 50, 68, 89, 110, 134],
-  apparent: [17.5, 24, 32, 41, 57, 76, 96, 119, 144],
-  chemin:   [19.5, 27, 36, 46, 63, 85, 112, 138, 168]
+/* Tableaux Iz (courant admissible A) par section, mode de pose, isolant
+   Source : NF C 15-100 tableaux 52H et 52J simplifies — cuivre */
+const SECTIONS = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120];
+
+const IZ_TABLE = {
+  /* PVC */
+  'B1_PVC': [15.5, 21, 28, 36, 50, 68, 89, 110, 134, 171, 207, 239],
+  'B2_PVC': [17.5, 24, 32, 41, 57, 76, 96, 119, 144, 184, 223, 259],
+  'C_PVC':  [19.5, 27, 36, 46, 63, 85, 112, 138, 168, 213, 258, 299],
+  'E1_PVC': [22,   30, 40, 51, 70, 94, 119, 147, 179, 229, 278, 322],
+  /* PR / XLPE */
+  'B1_PR':  [19.5, 27, 36, 46, 63, 85, 112, 138, 168, 213, 258, 299],
+  'B2_PR':  [23,   31, 42, 54, 75, 100, 127, 158, 192, 246, 298, 346],
+  'C_PR':   [24,   33, 45, 57, 79, 105, 138, 169, 207, 268, 328, 382],
+  'E1_PR':  [26,   36, 49, 63, 86, 115, 149, 185, 225, 289, 352, 410],
 };
 
-/* Calibres disjoncteurs normalisés */
-const CALIBRES = [6, 10, 16, 20, 25, 32, 40, 50, 63];
+/* Facteurs de correction groupement */
+const FACTEURS_GROUPE = { '1':1.00, '2':0.80, '3':0.70, '4':0.60, '5':0.57 };
 
-function calibreDisj(courant) {
-  for (const c of CALIBRES) {
-    if (c >= courant) return c;
+/* Calibres disjoncteurs normalises courbe C */
+const CALIBRES_DISJ = [2, 4, 6, 10, 16, 20, 25, 32, 40, 50, 63, 80, 100];
+
+/* Pouvoirs de coupure courants */
+function conseilPdC(calibre) {
+  if (calibre <= 20) return '4.5 kA ou 6 kA';
+  if (calibre <= 40) return '6 kA';
+  return '10 kA ou 15 kA';
+}
+
+function trouverCalibre(ib) {
+  for (const c of CALIBRES_DISJ) {
+    if (c >= ib) return c;
   }
   return null;
 }
 
 function calculerSection() {
-  const P = parseFloat(document.getElementById('calc-puissance').value);
-  const U = parseInt(document.getElementById('calc-tension').value);
-  const L = parseFloat(document.getElementById('calc-longueur').value);
-  const usage = document.getElementById('calc-usage').value;
-  const install = document.getElementById('calc-install').value;
-  const cosphi = parseFloat(document.getElementById('calc-cosphi').value) || 1;
+  const reseau = document.getElementById('s-reseau').value;
+  let P = parseFloat(document.getElementById('s-puissance').value);
+  const uniteP = document.getElementById('s-unite-p').value;
+  const cosphi = parseFloat(document.getElementById('s-cosphi').value) || 0.8;
+  const sinphi = Math.sqrt(1 - cosphi*cosphi);
+  const L = parseFloat(document.getElementById('s-longueur').value);
+  const pose = document.getElementById('s-pose').value;
+  const isolant = document.getElementById('s-isolant').value;
+  const groupes = document.getElementById('s-groupes').value;
+  const usage = document.getElementById('s-usage').value;
 
-  if (!P || !L || P <= 0 || L <= 0) { alert('Veuillez saisir des valeurs correctes.'); return; }
+  if (!P || P <= 0 || !L || L <= 0) { alert('Valeurs incorrectes.'); return; }
+  if (uniteP === 'kW') P = P * 1000;
 
-  const isTri = (U === 400);
-  const I = isTri ? P / (U * Math.sqrt(3) * cosphi) : P / (U * cosphi);
-  const cal = calibreDisj(I);
+  const U = reseau === 'tri' ? 400 : 230;
+  const isTri = reseau === 'tri';
 
-  /* Choisir section minimale */
-  const iz = IZ[install];
-  let sectionIdx = -1;
+  /* Courant nominal Ib */
+  const Ib = isTri ? P / (U * Math.sqrt(3) * cosphi) : P / (U * cosphi);
+
+  /* Calibre disjoncteur In >= Ib */
+  const In = trouverCalibre(Ib);
+  if (!In) {
+    afficherResultatSection(null, 'PUISSANCE TROP ELEVEE — Consulter un bureau d\'etudes', 'bad');
+    return;
+  }
+
+  /* Facteur de correction */
+  const fg = FACTEURS_GROUPE[groupes];
+
+  /* Courant a couvrir : Iz doit etre >= In / fg (pour que Iz corrige >= In) */
+  const Iz_min = In / fg;
+
+  /* Trouver la section dans le tableau */
+  const cleIz = pose + '_' + isolant;
+  const tableauIz = IZ_TABLE[cleIz];
+  if (!tableauIz) { alert('Combinaison pose/isolant non trouvee.'); return; }
+
+  let idxSection = -1;
   for (let i = 0; i < SECTIONS.length; i++) {
-    if (iz[i] >= (cal || I)) { sectionIdx = i; break; }
+    if (tableauIz[i] >= Iz_min) { idxSection = i; break; }
   }
-  if (sectionIdx === -1) sectionIdx = SECTIONS.length - 1;
-  const section = SECTIONS[sectionIdx];
-  const izAdmissible = iz[sectionIdx];
+  if (idxSection === -1) {
+    afficherResultatSection(null, 'SECTION HORS TABLEAU — Cable > 120mm2', 'bad');
+    return;
+  }
 
-  /* Chute de tension : e = (rho * 2 * L * I) / S   (mono)
-     rho cuivre = 0.0225 ohm.mm²/m
-     tri : facteur sqrt(3) au lieu de 2 */
-  const rho = 0.0225;
-  const facteur = isTri ? Math.sqrt(3) : 2;
-  const deltaU = (rho * facteur * L * I) / section;
-  const deltaUpct = (deltaU / U) * 100;
-  const limiteChute = usage === 'eclairage' ? 3 : 5;
-  const chuteOk = deltaUpct <= limiteChute;
+  let sectionRetenue = SECTIONS[idxSection];
+  let IzRetenu = tableauIz[idxSection];
 
-  /* Section suffisante pour la chute de tension ? */
-  let sectionChute = section;
-  let idxChute = sectionIdx;
-  if (!chuteOk) {
-    for (let j = sectionIdx; j < SECTIONS.length; j++) {
-      const dU2 = (rho * facteur * L * I) / SECTIONS[j];
-      if ((dU2 / U) * 100 <= limiteChute) { sectionChute = SECTIONS[j]; idxChute = j; break; }
+  /* Chute de tension */
+  /* DeltaU = b * (rho/S * cosphi + lambda * sinphi) * L * Ib
+     b = 2 mono, sqrt(3) tri
+     rho cuivre = 0.0225 ohm.mm2/m, lambda = 0.08e-3 ohm/m (reactance) */
+  const rho = 0.0225; /* ohm.mm2/m */
+  const lambda = 0.00008; /* ohm/m (0.08 mOhm/m) */
+  const b = isTri ? Math.sqrt(3) : 2;
+
+  function calcDU(section) {
+    const du = b * L * Ib * (rho / section * cosphi + lambda * sinphi);
+    return (du / U) * 100;
+  }
+
+  let deltaU = calcDU(sectionRetenue);
+  const limDU = usage === 'eclairage' ? 3 : 5;
+
+  /* Si chute trop forte, augmenter la section */
+  let sectionChute = sectionRetenue;
+  let idxChute = idxSection;
+  if (deltaU > limDU) {
+    for (let j = idxSection; j < SECTIONS.length; j++) {
+      if (calcDU(SECTIONS[j]) <= limDU) { sectionChute = SECTIONS[j]; idxChute = j; break; }
+    }
+    if (sectionChute === sectionRetenue && deltaU > limDU) {
+      sectionChute = SECTIONS[SECTIONS.length-1];
+      idxChute = SECTIONS.length-1;
     }
   }
-  const sectionFinale = Math.max(section, sectionChute);
 
-  /* Recalcul chute avec section finale */
-  const deltaUfin = (rho * facteur * L * I) / sectionFinale;
-  const deltaUpctFin = (deltaUfin / U) * 100;
-  const chuteFinOk = deltaUpctFin <= limiteChute;
+  const sectionFinale = Math.max(sectionRetenue, sectionChute);
+  const idxFinal = Math.max(idxSection, idxChute);
+  const IzFinal = tableauIz[idxFinal];
+  const duFinal = calcDU(sectionFinale);
+  const duOk = duFinal <= limDU;
 
-  /* Déterminer statut global */
-  let status, statusClass, boxClass;
-  if (chuteFinOk && cal) {
-    if (deltaUpctFin > limiteChute * 0.8) {
-      status = 'CONFORME — Limite approchée'; statusClass = 'status-warn'; boxClass = 'result-warn';
+  /* Designation cable */
+  const nbCond = isTri ? '5G' : '3G';
+  const typeCable = isolant === 'PVC' ? 'H07V-U' : 'R2V';
+  const designCable = nbCond + sectionFinale + ' mm2 — ' + typeCable;
+
+  /* Status */
+  let status, statusType;
+  if (duOk && In) {
+    if (duFinal > limDU * 0.8) {
+      status = 'CONFORME — Limite de chute approchee'; statusType = 'warn';
     } else {
-      status = 'CONFORME'; statusClass = 'status-ok'; boxClass = 'result-ok';
+      status = 'CONFORME'; statusType = 'ok';
     }
-  } else if (!cal) {
-    status = 'PUISSANCE TROP ÉLEVÉE — Consulter un bureau d\'études'; statusClass = 'status-bad'; boxClass = 'result-bad';
+  } else if (!duOk) {
+    status = 'ATTENTION — Chute de tension hors limite'; statusType = 'bad';
   } else {
-    status = 'NON CONFORME — Chute de tension excessive'; statusClass = 'status-bad'; boxClass = 'result-bad';
+    status = 'NON CONFORME'; statusType = 'bad';
   }
 
-  const typeLabel = {encastre:'Encastré',apparent:'Apparent',chemin:'Chemin de câbles'}[install];
-  const resLines = `
-    <div class="result-line"><span class="result-label">Courant calculé (I)</span><span class="result-value">${I.toFixed(2)} A</span></div>
-    <div class="result-line"><span class="result-label">Calibre disjoncteur</span><span class="result-value">${cal ? cal+' A' : '—'}</span></div>
-    <div class="result-line"><span class="result-label">Section minimale (Iz)</span><span class="result-value">${section} mm² <small style="color:var(--text-muted)">(${izAdmissible} A admissibles — ${typeLabel})</small></span></div>
-    <div class="result-line"><span class="result-label">Chute de tension</span><span class="result-value ${deltaUpctFin<=limiteChute*0.8?'ok':deltaUpctFin<=limiteChute?'warn':'bad'}">${deltaUpctFin.toFixed(2)} % <small style="color:var(--text-muted)">(limite ${limiteChute} % — ${usage==='eclairage'?'éclairage':'autres'})</small></span></div>
-    ${sectionFinale > section ? `<div class="result-line"><span class="result-label">Section corrigée (chute)</span><span class="result-value warn">${sectionFinale} mm²</span></div>` : ''}
-    <div class="result-line"><span class="result-label" style="font-weight:700;color:var(--orange);">Section recommandée</span><span class="result-value" style="font-size:1.2rem;color:var(--orange);">${sectionFinale} mm²</span></div>
-  `;
+  /* Affichage */
+  const duClass = duFinal <= limDU*0.8 ? 'ok' : duFinal <= limDU ? 'warn' : 'bad';
+  const poseNom = {'B1':'B1 Encastre','B2':'B2 Apparent','C':'C Chemin cables','E1':'E1 Perfore'}[pose];
 
-  const box = document.getElementById('calc-result');
-  box.className = 'result-box ' + boxClass;
-  box.style.display = 'block';
-  document.getElementById('calc-result-lines').innerHTML = resLines;
-  document.getElementById('calc-status').className = 'result-status ' + statusClass;
-  document.getElementById('calc-status').textContent = status;
+  let html = `
+    <div class="res-line"><span class="res-label">Courant nominal Ib</span><span class="res-val">${Ib.toFixed(2)} A</span></div>
+    <div class="res-line"><span class="res-label">Calibre disjoncteur In</span><span class="res-val">${In} A (courbe C)</span></div>
+    <div class="res-line"><span class="res-label">Pouvoir de coupure</span><span class="res-val">${conseilPdC(In)}</span></div>
+    <div class="res-line"><span class="res-label">Iz admissible (${poseNom})</span><span class="res-val">${IzFinal} A</span></div>
+    <div class="res-line"><span class="res-label">Facteur groupement</span><span class="res-val">x${fg.toFixed(2)}</span></div>
+    <div class="res-line"><span class="res-label">Section (courant)</span><span class="res-val">${sectionRetenue} mm2</span></div>`;
+  if (sectionFinale > sectionRetenue) {
+    html += `<div class="res-line"><span class="res-label">Section corrigee (chute)</span><span class="res-val warn">${sectionFinale} mm2</span></div>`;
+  }
+  html += `
+    <div class="res-line"><span class="res-label">Chute de tension</span><span class="res-val ${duClass}">${duFinal.toFixed(2)} % (limite ${limDU} %)</span></div>
+    <div class="res-line" style="padding:0.6rem 0;"><span class="res-label" style="color:var(--orange);font-weight:800;">CABLE RECOMMANDE</span><span class="res-val" style="font-size:1.1rem;color:var(--orange);">${designCable}</span></div>
+    <div class="res-big ${statusType}">${status}</div>`;
+
+  afficherResultatSection(html, null, statusType);
+}
+
+function afficherResultatSection(html, msgSeul, type) {
+  const box = document.getElementById('sec-result');
+  box.className = 'result-box show result-' + type;
+  if (html) {
+    box.innerHTML = html;
+  } else {
+    box.innerHTML = `<div class="res-big ${type}">${msgSeul}</div>`;
+  }
 }
 
 
-/* ================================================================
-   OUTIL 2 — TABLEAU ÉLECTRIQUE INTERACTIF
-   ================================================================ */
+/* =================================================================
+   OUTIL 2 — DIMENSIONNEMENT TABLEAU ELECTRIQUE
+   ================================================================= */
 
-const CIRCUITS = [
-  { id:'ecl1', nom:'Éclairage Ch.1', icon:'💡', disj:10, type:'AC', section:1.5, maxParRangee:2 },
-  { id:'ecl2', nom:'Éclairage Ch.2', icon:'💡', disj:10, type:'AC', section:1.5, maxParRangee:2 },
-  { id:'pc1', nom:'Prises salon', icon:'🔌', disj:16, type:'AC', section:2.5, maxParRangee:2 },
-  { id:'pc2', nom:'Prises chambres', icon:'🔌', disj:16, type:'AC', section:2.5, maxParRangee:2 },
-  { id:'four', nom:'Four', icon:'🍳', disj:20, type:'AC', section:2.5, dedie:true },
-  { id:'plaque', nom:'Plaque cuisson', icon:'🔥', disj:32, type:'A', section:6, dedie:true },
-  { id:'ll', nom:'Lave-linge', icon:'👕', disj:20, type:'A', section:2.5, dedie:true },
-  { id:'vmc', nom:'VMC', icon:'🌀', disj:2, type:'AC', section:1.5, dedie:true },
-  { id:'ce', nom:'Chauffe-eau', icon:'♨️', disj:20, type:'AC', section:2.5, dedie:true },
-  { id:'lv', nom:'Lave-vaisselle', icon:'🍽️', disj:20, type:'A', section:2.5, dedie:true },
+const CIRCUIT_TYPES = [
+  { id:'eclairage',    nom:'Eclairage',          section:1.5, disj:16, maxPts:8,  diffType:'AC', icon:'ampoule',  defaut:2 },
+  { id:'prises16',     nom:'Prises 16A',         section:2.5, disj:20, maxPts:8,  diffType:'AC', icon:'prise',    defaut:3 },
+  { id:'prises_cuisine',nom:'Prises cuisine',    section:2.5, disj:20, maxPts:6,  diffType:'AC', icon:'cuisine',  defaut:1 },
+  { id:'lave_linge',   nom:'Lave-linge',         section:2.5, disj:20, maxPts:1,  diffType:'A',  icon:'linge',    defaut:1, dedie:true },
+  { id:'seche_linge',  nom:'Seche-linge',        section:2.5, disj:20, maxPts:1,  diffType:'A',  icon:'seche',    defaut:1, dedie:true },
+  { id:'lave_vaisselle',nom:'Lave-vaisselle',    section:2.5, disj:20, maxPts:1,  diffType:'A',  icon:'vaisselle',defaut:1, dedie:true },
+  { id:'four',         nom:'Four',               section:2.5, disj:20, maxPts:1,  diffType:'AC', icon:'four',     defaut:1, dedie:true },
+  { id:'plaque',       nom:'Plaque de cuisson',  section:6,   disj:32, maxPts:1,  diffType:'A',  icon:'plaque',   defaut:1, dedie:true },
+  { id:'chauffe_eau',  nom:'Chauffe-eau',        section:2.5, disj:20, maxPts:1,  diffType:'AC', icon:'eau',      defaut:1, dedie:true, contacteurHC:true },
+  { id:'vmc',          nom:'VMC',                section:1.5, disj:2,  maxPts:1,  diffType:'AC', icon:'vmc',      defaut:1, dedie:true },
+  { id:'volets',       nom:'Volets roulants',    section:1.5, disj:16, maxPts:1,  diffType:'AC', icon:'volet',    defaut:1 },
 ];
 
-const RANGEES = [
-  { id:'r1', label:'Rangée 1', diff:'40A Type AC', diffType:'AC', circuits:[] },
-  { id:'r2', label:'Rangée 2', diff:'40A Type A',  diffType:'A',  circuits:[] },
-  { id:'r3', label:'Rangée 3', diff:'40A Type AC', diffType:'AC', circuits:[] },
-];
+let circuitQty = {};
 
-let draggedCircuit = null;
+function initCircuits() {
+  CIRCUIT_TYPES.forEach(c => { circuitQty[c.id] = c.defaut; });
+  renderCircuitList();
+}
 
-function initTableau() {
-  /* Reset rangées */
-  RANGEES.forEach(r => r.circuits = []);
-
-  /* Palette */
-  const palette = document.getElementById('palette');
-  palette.innerHTML = '<div style="font-size:0.75rem;color:var(--turq);font-weight:700;text-transform:uppercase;margin-bottom:0.3rem;">Circuits disponibles</div>';
-  CIRCUITS.forEach(c => {
-    const el = document.createElement('div');
-    el.className = 'palette-item';
-    el.draggable = true;
-    el.dataset.circuitId = c.id;
-    el.innerHTML = `<span class="circ-icon">${c.icon}</span> ${c.nom} <span style="margin-left:auto;font-size:0.7rem;color:var(--turq);">${c.disj}A</span>`;
-    el.addEventListener('dragstart', e => {
-      draggedCircuit = c.id;
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    palette.appendChild(el);
+function renderCircuitList() {
+  const container = document.getElementById('circuit-list');
+  let html = '';
+  CIRCUIT_TYPES.forEach(c => {
+    const qty = circuitQty[c.id] || 0;
+    const dedieTag = c.dedie ? ' (dedie)' : '';
+    const hcTag = c.contacteurHC ? ' + contacteur HC' : '';
+    html += `
+      <div class="circuit-list-item">
+        <div class="cir-info">
+          <div class="cir-name">${c.nom}</div>
+          <div class="cir-detail">${c.section} mm2 | Disj ${c.disj}A | Max ${c.maxPts} pts${dedieTag}${hcTag}</div>
+        </div>
+        <div class="cir-qty">
+          <button class="qty-btn" onclick="changeQty('${c.id}',-1)">-</button>
+          <span class="qty-val">${qty}</span>
+          <button class="qty-btn" onclick="changeQty('${c.id}',+1)">+</button>
+        </div>
+      </div>`;
   });
-
-  /* Board */
-  const board = document.getElementById('tableau-board');
-  board.innerHTML = '<div style="font-size:0.75rem;color:var(--turq);font-weight:700;text-transform:uppercase;margin-bottom:0.6rem;">Tableau de répartition</div>';
-  RANGEES.forEach(r => {
-    const row = document.createElement('div');
-    row.className = 'rangee';
-    row.id = 'rangee-' + r.id;
-    row.innerHTML = `<span class="rangee-label">${r.label}<br><small style="color:var(--orange);font-size:0.65rem;">ID ${r.diff}</small></span>`;
-    row.addEventListener('dragover', e => { e.preventDefault(); row.classList.add('drag-over'); });
-    row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
-    row.addEventListener('drop', e => {
-      e.preventDefault();
-      row.classList.remove('drag-over');
-      if (draggedCircuit) { addCircuitToRangee(draggedCircuit, r.id); draggedCircuit = null; }
-    });
-    board.appendChild(row);
-  });
-
-  updateConformite();
+  container.innerHTML = html;
 }
 
-function addCircuitToRangee(circId, rangeeId) {
-  const circ = CIRCUITS.find(c => c.id === circId);
-  const rangee = RANGEES.find(r => r.id === rangeeId);
-  if (!circ || !rangee) return;
-  /* Vérifier pas déjà placé */
-  const dejaPlace = RANGEES.some(r => r.circuits.includes(circId));
-  if (dejaPlace) return;
-  rangee.circuits.push(circId);
-  renderRangee(rangeeId);
-  updatePalette();
-  updateConformite();
+function changeQty(id, delta) {
+  circuitQty[id] = Math.max(0, (circuitQty[id]||0) + delta);
+  renderCircuitList();
 }
 
-function removeCircuit(circId, rangeeId) {
-  const rangee = RANGEES.find(r => r.id === rangeeId);
-  rangee.circuits = rangee.circuits.filter(c => c !== circId);
-  renderRangee(rangeeId);
-  updatePalette();
-  updateConformite();
-}
-
-function renderRangee(rangeeId) {
-  const rangee = RANGEES.find(r => r.id === rangeeId);
-  const row = document.getElementById('rangee-' + rangeeId);
-  /* Garder le label */
-  row.innerHTML = `<span class="rangee-label">${rangee.label}<br><small style="color:var(--orange);font-size:0.65rem;">ID ${rangee.diff}</small></span>`;
-  rangee.circuits.forEach(cid => {
-    const c = CIRCUITS.find(x => x.id === cid);
-    const chip = document.createElement('span');
-    chip.className = 'circuit-chip';
-    chip.draggable = true;
-    chip.dataset.circuitId = c.id;
-    chip.innerHTML = `${c.icon} ${c.nom} <span class="chip-disj">${c.disj}A/${c.section}mm²</span> <span class="chip-close" onclick="removeCircuit('${c.id}','${rangeeId}')">&times;</span>`;
-    chip.addEventListener('dragstart', e => {
-      draggedCircuit = c.id;
-      removeCircuit(c.id, rangeeId);
-    });
-    row.appendChild(chip);
-  });
-}
-
-function updatePalette() {
-  const placed = new Set();
-  RANGEES.forEach(r => r.circuits.forEach(c => placed.add(c)));
-  document.querySelectorAll('.palette-item').forEach(el => {
-    const cid = el.dataset.circuitId;
-    el.style.opacity = placed.has(cid) ? '0.3' : '1';
-    el.style.pointerEvents = placed.has(cid) ? 'none' : 'auto';
-  });
-}
-
-function updateConformite() {
-  let score = 0;
-  let total = 0;
-  const details = [];
-  const placed = [];
-  RANGEES.forEach(r => r.circuits.forEach(c => placed.push(c)));
-
-  /* 1. Au moins un éclairage ET une prise placés */
-  total += 2;
-  if (placed.some(c => c.startsWith('ecl'))) { score++; } else { details.push('Il manque un circuit éclairage.'); }
-  if (placed.some(c => c.startsWith('pc'))) { score++; } else { details.push('Il manque un circuit prises.'); }
-
-  /* 2. Circuits dédiés sur rangée Type A quand nécessaire */
-  const typeAcircuits = ['plaque','ll','lv'];
-  typeAcircuits.forEach(cid => {
-    const rangee = RANGEES.find(r => r.circuits.includes(cid));
-    if (rangee) {
-      total++;
-      if (rangee.diffType === 'A') { score++; } else { details.push(`${CIRCUITS.find(c=>c.id===cid).nom} doit être sur un différentiel Type A.`); }
+function genererTableau() {
+  /* Collecter tous les circuits */
+  let allCircuits = [];
+  CIRCUIT_TYPES.forEach(ct => {
+    const qty = circuitQty[ct.id] || 0;
+    for (let i = 0; i < qty; i++) {
+      allCircuits.push({
+        ...ct,
+        label: qty > 1 ? ct.nom + ' ' + (i+1) : ct.nom,
+        modules: ct.disj >= 32 ? 2 : 1,
+      });
     }
   });
 
-  /* 3. Pas trop de circuits par rangée (max 8 modules = ~5 circuits) */
-  RANGEES.forEach(r => {
-    if (r.circuits.length > 0) {
-      total++;
-      const totalModules = r.circuits.reduce((s, cid) => {
-        const c = CIRCUITS.find(x => x.id === cid);
-        return s + (c.disj >= 32 ? 2 : 1);
-      }, 0);
-      if (totalModules <= 8) { score++; } else { details.push(`${r.label} surchargée (${totalModules} modules > 8).`); }
+  if (allCircuits.length === 0) { alert('Aucun circuit saisi.'); return; }
+
+  /* Repartition sur interrupteurs differentiels 30mA */
+  /* Regles :
+     - Type A obligatoire pour plaque, lave-linge, recharge VE
+     - Type AC pour le reste
+     - Type F/Hi pour informatique, gel (non present ici, on l'indique)
+     - Max 8 circuits par ID 30mA
+  */
+  let circuitsA = allCircuits.filter(c => c.diffType === 'A');
+  let circuitsAC = allCircuits.filter(c => c.diffType === 'AC');
+
+  /* Creer les rangees */
+  let rangees = [];
+
+  /* Rangee(s) Type A */
+  if (circuitsA.length > 0) {
+    for (let i = 0; i < circuitsA.length; i += 8) {
+      rangees.push({
+        diff: '40A 30mA Type A',
+        diffType: 'A',
+        circuits: circuitsA.slice(i, i+8)
+      });
     }
+  }
+
+  /* Rangee(s) Type AC */
+  if (circuitsAC.length > 0) {
+    for (let i = 0; i < circuitsAC.length; i += 8) {
+      rangees.push({
+        diff: '40A 30mA Type AC',
+        diffType: 'AC',
+        circuits: circuitsAC.slice(i, i+8)
+      });
+    }
+  }
+
+  /* Puissance totale */
+  let puissanceTotale = 0;
+  const puissanceCircuit = {
+    'eclairage': 200, 'prises16': 2300, 'prises_cuisine': 2300,
+    'lave_linge': 2500, 'seche_linge': 2500, 'lave_vaisselle': 2500,
+    'four': 2500, 'plaque': 7000, 'chauffe_eau': 2200, 'vmc': 50, 'volets': 200
+  };
+  allCircuits.forEach(c => { puissanceTotale += puissanceCircuit[c.id] || 1000; });
+
+  /* Facteur de simultaneite (approx) */
+  const facteurSimul = allCircuits.length <= 5 ? 0.7 : allCircuits.length <= 10 ? 0.5 : 0.4;
+  const puissanceAppelee = puissanceTotale * facteurSimul;
+  const calibreAbo = puissanceAppelee / 230;
+  let aboRecommande;
+  if (calibreAbo <= 15) aboRecommande = '6 kVA (mono 30A)';
+  else if (calibreAbo <= 30) aboRecommande = '9 kVA (mono 45A)';
+  else if (calibreAbo <= 40) aboRecommande = '12 kVA (mono 60A)';
+  else aboRecommande = '15+ kVA (triphasable)';
+
+  /* Nombre de rangees physiques (13 modules par rangee standard) */
+  let totalModules = 0;
+  rangees.forEach(r => {
+    totalModules += 2; /* ID 30mA = 2 modules */
+    r.circuits.forEach(c => { totalModules += c.modules; });
   });
+  const nbRangeesPhysiques = Math.ceil(totalModules / 13);
+  const tailleTableau = nbRangeesPhysiques <= 2 ? '2 rangees (coffret 26 modules)' :
+                         nbRangeesPhysiques <= 3 ? '3 rangees (coffret 39 modules)' :
+                         nbRangeesPhysiques + ' rangees (coffret ' + (nbRangeesPhysiques*13) + ' modules)';
 
-  /* 4. Équilibrage : pas plus de 2x d'une rangée à l'autre */
-  total++;
-  const counts = RANGEES.map(r => r.circuits.length);
-  const nonZero = counts.filter(c => c > 0);
-  if (nonZero.length <= 1 || (Math.max(...nonZero) <= 2 * Math.min(...nonZero))) {
-    score++;
-  } else {
-    details.push('Mauvais équilibrage entre les rangées.');
-  }
+  /* Rendu HTML */
+  let html = '<div class="tableau-visual">';
+  html += '<div style="font-size:0.75rem;color:var(--turquoise);font-weight:800;text-transform:uppercase;margin-bottom:0.6rem;">Tableau de repartition</div>';
 
-  /* 5. Tous les circuits placés = bonus */
-  total++;
-  if (placed.length === CIRCUITS.length) { score++; } else { details.push(`${CIRCUITS.length - placed.length} circuit(s) non placé(s).`); }
+  rangees.forEach((r, idx) => {
+    html += `<div class="tableau-rangee">
+      <div class="rangee-header">
+        <span class="rangee-title">Rangee ${idx+1}</span>
+        <span class="rangee-diff">ID ${r.diff}</span>
+      </div>
+      <div class="rangee-circuits">`;
+    r.circuits.forEach(c => {
+      const chipClass = r.diffType === 'A' ? 'chip chip-a' : 'chip';
+      let extra = '';
+      if (c.contacteurHC) extra = ' + HC';
+      html += `<span class="${chipClass}">${c.label} ${c.disj}A/${c.section}mm2${extra}</span>`;
+    });
+    html += `</div></div>`;
+  });
+  html += '</div>';
 
-  const pct = total > 0 ? Math.round((score / total) * 100) : 0;
-  const bar = document.getElementById('score-bar');
-  bar.style.width = pct + '%';
-  bar.style.background = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
-  document.getElementById('score-label').textContent = `Conformité : ${pct} %`;
-  document.getElementById('score-label').style.color = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--yellow)' : 'var(--red)';
-  document.getElementById('conformite-details').innerHTML = details.length ? details.map(d => '• ' + d).join('<br>') : '✓ Aucune anomalie détectée.';
-}
+  /* Bilan */
+  html += `<div class="bilan-box">
+    <div style="font-size:0.85rem;font-weight:800;color:var(--orange);margin-bottom:0.5rem;">BILAN DE L'INSTALLATION</div>
+    <div class="bilan-line"><span class="bilan-label">Nombre de circuits</span><span class="bilan-val">${allCircuits.length}</span></div>
+    <div class="bilan-line"><span class="bilan-label">Interrupteurs diff. 30mA</span><span class="bilan-val">${rangees.length} (${rangees.filter(r=>r.diffType==='A').length} Type A + ${rangees.filter(r=>r.diffType==='AC').length} Type AC)</span></div>
+    <div class="bilan-line"><span class="bilan-label">Modules totaux</span><span class="bilan-val">${totalModules}</span></div>
+    <div class="bilan-line"><span class="bilan-label">Taille coffret</span><span class="bilan-val">${tailleTableau}</span></div>
+    <div class="bilan-line"><span class="bilan-label">Puissance installee</span><span class="bilan-val">${(puissanceTotale/1000).toFixed(1)} kW</span></div>
+    <div class="bilan-line"><span class="bilan-label">Puissance appelee (sim. ${Math.round(facteurSimul*100)}%)</span><span class="bilan-val">${(puissanceAppelee/1000).toFixed(1)} kW</span></div>
+    <div class="bilan-line"><span class="bilan-label">Abonnement recommande</span><span class="bilan-val" style="color:var(--orange);">${aboRecommande}</span></div>
+  </div>`;
 
-function resetTableau() {
-  initTableau();
-}
-
-/* ================================================================
-   OUTIL 3 — MINI-JEU LOI D'OHM
-   ================================================================ */
-
-let quizState = { questions:[], current:0, score:0, timer:null, seconds:0, active:false };
-
-function generateQuestions() {
-  const qs = [];
-  for (let i = 0; i < 10; i++) {
-    const usePower = i >= 6; /* Questions 7-10 : puissance */
-    const R = [10,22,47,100,150,220,330,470,1000,2200][Math.floor(Math.random()*10)];
-    const U = Math.round((Math.random()*20 + 2) * 10) / 10; /* 2 à 22 V */
-    const I_val = U / R;
-    const P_val = U * I_val;
-
-    if (usePower) {
-      /* Trouver P à partir de U et I, ou U à partir de P et I, ou I à partir de P et U */
-      const mode = Math.floor(Math.random() * 3);
-      if (mode === 0) {
-        qs.push({ given:{U:U, I:I_val}, find:'P', answer: P_val, unit:'W',
-          text:`U = ${U.toFixed(1)} V, I = ${(I_val*1000).toFixed(2)} mA → P = ?`,
-          hint:'P = U × I', givenU:U, givenI:I_val, givenR:R, findKey:'P' });
-      } else if (mode === 1) {
-        qs.push({ given:{P:P_val, I:I_val}, find:'U', answer: U, unit:'V',
-          text:`P = ${(P_val*1000).toFixed(2)} mW, I = ${(I_val*1000).toFixed(2)} mA → U = ?`,
-          hint:'U = P / I', givenU:U, givenI:I_val, givenR:R, findKey:'U' });
-      } else {
-        qs.push({ given:{P:P_val, U:U}, find:'I', answer: I_val*1000, unit:'mA',
-          text:`P = ${(P_val*1000).toFixed(2)} mW, U = ${U.toFixed(1)} V → I = ?`,
-          hint:'I = P / U', givenU:U, givenI:I_val, givenR:R, findKey:'I' });
-      }
-    } else {
-      /* Loi d'Ohm classique */
-      const mode = Math.floor(Math.random() * 3);
-      if (mode === 0) {
-        qs.push({ find:'U', answer: U, unit:'V',
-          text:`R = ${R} Ω, I = ${(I_val*1000).toFixed(2)} mA → U = ?`,
-          hint:'U = R × I', givenU:U, givenI:I_val, givenR:R, findKey:'U' });
-      } else if (mode === 1) {
-        qs.push({ find:'I', answer: I_val*1000, unit:'mA',
-          text:`U = ${U.toFixed(1)} V, R = ${R} Ω → I = ?`,
-          hint:'I = U / R', givenU:U, givenI:I_val, givenR:R, findKey:'I' });
-      } else {
-        qs.push({ find:'R', answer: R, unit:'Ω',
-          text:`U = ${U.toFixed(1)} V, I = ${(I_val*1000).toFixed(2)} mA → R = ?`,
-          hint:'R = U / I', givenU:U, givenI:I_val, givenR:R, findKey:'R' });
-      }
-    }
-  }
-  return qs;
-}
-
-function startQuiz() {
-  quizState.questions = generateQuestions();
-  quizState.current = 0;
-  quizState.score = 0;
-  quizState.seconds = 0;
-  quizState.active = true;
-  if (quizState.timer) clearInterval(quizState.timer);
-  quizState.timer = setInterval(() => {
-    if (!quizState.active) return;
-    quizState.seconds++;
-    const m = Math.floor(quizState.seconds / 60);
-    const s = quizState.seconds % 60;
-    document.getElementById('q-timer').textContent = m + ':' + String(s).padStart(2,'0');
-  }, 1000);
-
-  document.getElementById('quiz-end').style.display = 'none';
-  document.getElementById('q-start-zone').style.display = 'none';
-  document.getElementById('q-input-row').style.display = 'flex';
-  document.getElementById('q-feedback').textContent = '';
-  showQuestion();
-}
-
-function showQuestion() {
-  const q = quizState.questions[quizState.current];
-  document.getElementById('q-num').textContent = quizState.current + 1;
-  document.getElementById('q-score').textContent = quizState.score;
-  document.getElementById('q-progress').style.width = ((quizState.current) / 10 * 100) + '%';
-  document.getElementById('q-question').textContent = q.text;
-  document.getElementById('q-unit').textContent = q.unit;
-  document.getElementById('q-answer').value = '';
-  document.getElementById('q-answer').focus();
-  document.getElementById('q-feedback').textContent = q.hint;
-  document.getElementById('q-feedback').style.color = 'var(--text-muted)';
-
-  /* Mettre à jour SVG */
-  document.getElementById('svg-r-val').textContent = q.givenR ? 'R = ' + q.givenR + ' Ω' : '';
-  document.getElementById('svg-v-val').textContent = (q.findKey !== 'U') ? 'U = ' + q.givenU.toFixed(1) + ' V' : 'U = ?';
-  document.getElementById('svg-a-val').textContent = (q.findKey !== 'I') ? 'I = ' + (q.givenI*1000).toFixed(2) + ' mA' : 'I = ?';
-  if (q.findKey === 'R') document.getElementById('svg-r-val').textContent = 'R = ?';
-}
-
-function submitAnswer() {
-  if (!quizState.active) return;
-  const q = quizState.questions[quizState.current];
-  const userVal = parseFloat(document.getElementById('q-answer').value);
-  if (isNaN(userVal)) return;
-
-  const tolerance = Math.abs(q.answer) * 0.05; /* 5% tolérance */
-  const correct = Math.abs(userVal - q.answer) <= Math.max(tolerance, 0.01);
-
-  const fb = document.getElementById('q-feedback');
-  if (correct) {
-    quizState.score++;
-    fb.textContent = 'Correct !';
-    fb.style.color = 'var(--green)';
-  } else {
-    fb.textContent = `Faux — Réponse : ${q.answer.toFixed(2)} ${q.unit}`;
-    fb.style.color = 'var(--red)';
-  }
-  document.getElementById('q-score').textContent = quizState.score;
-
-  quizState.current++;
-  if (quizState.current >= 10) {
-    setTimeout(endQuiz, 1200);
-  } else {
-    setTimeout(showQuestion, 1200);
-  }
-}
-
-/* Permettre validation par Entrée */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && quizState.active && document.getElementById('q-answer') === document.activeElement) {
-    submitAnswer();
-  }
-});
-
-function endQuiz() {
-  quizState.active = false;
-  clearInterval(quizState.timer);
-  document.getElementById('q-input-row').style.display = 'none';
-  document.getElementById('q-question').textContent = '';
-  document.getElementById('q-feedback').textContent = '';
-  document.getElementById('q-progress').style.width = '100%';
-
-  const end = document.getElementById('quiz-end');
-  end.style.display = 'block';
-  document.getElementById('q-final-score').textContent = quizState.score + ' / 10';
-  document.getElementById('q-final-score').style.color = quizState.score >= 7 ? 'var(--green)' : quizState.score >= 4 ? 'var(--yellow)' : 'var(--red)';
-  const m = Math.floor(quizState.seconds / 60);
-  const s = quizState.seconds % 60;
-  document.getElementById('q-final-time').textContent = `Temps : ${m}:${String(s).padStart(2,'0')}`;
-
-  let msg;
-  if (quizState.score >= 9) msg = 'Excellent ! Maîtrise parfaite de la loi d\'Ohm.';
-  else if (quizState.score >= 7) msg = 'Très bien ! Quelques révisions et ce sera parfait.';
-  else if (quizState.score >= 5) msg = 'Résultat correct, mais des bases à consolider.';
-  else msg = 'Il faut revoir les fondamentaux. Courage !';
-  document.getElementById('q-final-msg').textContent = msg;
+  document.getElementById('tableau-result').innerHTML = html;
 }
 
 /* ===== INIT ===== */
-initTableau();
+initCircuits();
 </script>
 </body>
 </html>

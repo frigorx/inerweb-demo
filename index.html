@@ -3,415 +3,601 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inerWeb — Démonstrateur Écosystème</title>
+    <title>inerWeb × ÉQUATIO — Démonstrateur Écosystème Numérique</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
         :root {
-            --bg: #0a0e1a;
-            --surface: #111827;
-            --surface-hover: #1a2332;
-            --border: #1e2a3a;
-            --text: #e2e8f0;
-            --text-muted: #8899aa;
-            --accent-blue: #3b82f6;
-            --accent-green: #10b981;
-            --accent-orange: #f59e0b;
-            --accent-purple: #8b5cf6;
-            --accent-red: #ef4444;
-            --accent-cyan: #06b6d4;
-            --glow-blue: rgba(59, 130, 246, 0.15);
-            --glow-green: rgba(16, 185, 129, 0.15);
-            --glow-orange: rgba(245, 158, 11, 0.15);
-            --glow-purple: rgba(139, 92, 246, 0.15);
-            --glow-red: rgba(239, 68, 68, 0.15);
-            --glow-cyan: rgba(6, 182, 212, 0.15);
+            --navy: #0f2d52;
+            --navy-mid: #1a4a6e;
+            --orange: #e8914a;
+            --orange-hover: #d47a35;
+            --orange-warm: #fdf6ef;
+            --orange-glow: rgba(232, 145, 74, 0.35);
+            --turquoise: #2aafaf;
+            --turquoise-light: #eef8f7;
+            --bg: #faf7f2;
+            --bg-end: #f0ebe3;
+            --card: #ffffff;
+            --text: #2c3e50;
+            --text-strong: #0f2d52;
+            --muted: #5a7080;
+            --line: #ece4da;
+            --accent: #e8914a;
+            --radius: 22px;
+            --radius-sm: 14px;
+            --radius-pill: 999px;
+            --shadow: 0 4px 16px rgba(15, 45, 82, 0.07), 0 1px 3px rgba(232, 145, 74, 0.05);
+            --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
+            font-family: var(--font);
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
-        }
-
-        /* Animated background */
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            z-index: 0;
-        }
-
-        .bg-glow {
-            position: fixed;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            filter: blur(150px);
-            opacity: 0.4;
-            z-index: 0;
-            animation: float 20s ease-in-out infinite;
-        }
-
-        .bg-glow-1 { background: var(--accent-blue); top: -200px; left: -100px; }
-        .bg-glow-2 { background: var(--accent-purple); bottom: -200px; right: -100px; animation-delay: -10s; }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(30px, -30px) scale(1.05); }
-            66% { transform: translate(-20px, 20px) scale(0.95); }
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 24px;
-        }
-
-        /* Header */
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            padding-top: 40px;
-        }
-
-        .logo {
-            display: inline-flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .logo-icon {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            font-weight: 800;
-            color: white;
-            box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
-        }
-
-        .logo-text {
-            text-align: left;
-        }
-
-        .logo-text h1 {
-            font-size: 42px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
-        }
-
-        .logo-text .subtitle {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--accent-blue);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .tagline {
-            font-size: 18px;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
             line-height: 1.6;
         }
 
-        .tagline strong {
-            color: var(--text);
+        /* ===== LAYOUT ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
         }
 
-        /* Stats bar */
-        .stats-bar {
+        section {
+            padding: 60px 0;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            gap: 40px;
-            margin: 32px 0 0;
-            flex-wrap: wrap;
-        }
-
-        .stat {
             text-align: center;
+            padding: 60px 24px;
+            position: relative;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 40%, var(--turquoise) 100%);
         }
 
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--accent-blue);
+        .hero-logo {
+            margin-bottom: 32px;
+            animation: fadeDown 1s ease forwards;
+            opacity: 0;
         }
 
-        .stat-label {
+        .hero-logo img {
+            height: 90px;
+            filter: drop-shadow(0 4px 30px rgba(255, 255, 255, 0.2));
+            transition: transform 0.3s;
+        }
+
+        .hero-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-size: clamp(42px, 7vw, 80px);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 16px;
+            animation: fadeUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-title .iner {
+            background: linear-gradient(135deg, var(--orange), #f5a623);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-title .times {
+            color: rgba(255,255,255,0.5);
+            font-weight: 300;
+            margin: 0 8px;
+        }
+
+        .hero-title .equatio {
+            color: #ffffff;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 22px);
+            color: rgba(255,255,255,0.8);
+            max-width: 650px;
+            margin: 0 auto 48px;
+            font-weight: 400;
+            animation: fadeUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-subtitle strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Stats */
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeUp 1s ease 0.6s forwards;
+            opacity: 0;
+        }
+
+        .hero-stat {
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        .hero-stat-value.orange {
+            background: linear-gradient(135deg, var(--orange), #f5c16c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-stat-label {
             font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Section */
-        .section-title {
-            font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-            padding-left: 4px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 4px;
         }
 
-        /* Cards grid */
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-            gap: 20px;
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s ease infinite;
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .hero-scroll-arrow {
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid rgba(255,255,255,0.6);
+            border-bottom: 2px solid rgba(255,255,255,0.6);
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* ===== SECTION TITLES ===== */
+        .section-header {
+            text-align: center;
             margin-bottom: 48px;
         }
 
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+        .section-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--turquoise);
+            background: var(--turquoise-light);
+            border: 1px solid rgba(42, 175, 175, 0.2);
+            padding: 6px 20px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 16px;
+        }
+
+        .section-badge.orange {
+            color: var(--orange);
+            background: var(--orange-warm);
+            border-color: rgba(232, 145, 74, 0.2);
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+            color: var(--text-strong);
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== CARDS: PRODUCTION ===== */
+        .prod-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+        }
+
+        .prod-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-left: 5px solid var(--orange);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+            display: block;
+            box-shadow: var(--shadow);
+        }
+
+        .prod-card:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 20px 60px rgba(15, 45, 82, 0.12),
+                0 0 40px rgba(232, 145, 74, 0.08);
+        }
+
+        .prod-card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            background: var(--orange-warm);
+        }
+
+        .prod-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-strong);
+        }
+
+        .prod-card .version {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--card-color, var(--turquoise));
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .prod-card p {
+            font-size: 14px;
+            color: var(--muted);
+            margin-bottom: 16px;
+            line-height: 1.7;
+        }
+
+        .prod-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .prod-card .tag {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--muted);
+            border: 1px solid var(--line);
+        }
+
+        .prod-card .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--card-color, var(--turquoise));
+            padding-top: 16px;
+            border-top: 1px solid var(--line);
+            width: 100%;
+        }
+
+        .prod-card .card-cta .arrow {
+            transition: transform 0.3s;
+        }
+
+        .prod-card:hover .card-cta .arrow {
+            transform: translateX(4px);
+        }
+
+        /* Card color variants */
+        .prod-card.blue { --card-color: var(--navy-mid); border-left-color: var(--navy-mid); }
+        .prod-card.green { --card-color: #2a9d6e; border-left-color: #2a9d6e; }
+        .prod-card.orange { --card-color: var(--orange); border-left-color: var(--orange); }
+        .prod-card.purple { --card-color: #7c5cbf; border-left-color: #7c5cbf; }
+        .prod-card.cyan { --card-color: var(--turquoise); border-left-color: var(--turquoise); }
+
+        /* ===== DEMO CARDS ===== */
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .demo-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
             padding: 28px;
             text-decoration: none;
             color: inherit;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
-            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            box-shadow: var(--shadow);
         }
 
-        .card::before {
+        .demo-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
-            border-radius: 16px 16px 0 0;
+            background: linear-gradient(90deg, var(--orange), var(--turquoise));
             opacity: 0;
             transition: opacity 0.3s;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: transparent;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        .demo-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(15, 45, 82, 0.12);
+            border-color: var(--turquoise);
         }
 
-        .card:hover::before { opacity: 1; }
+        .demo-card:hover::after { opacity: 1; }
 
-        .card[data-color="blue"] { --card-accent: var(--accent-blue); --card-glow: var(--glow-blue); }
-        .card[data-color="green"] { --card-accent: var(--accent-green); --card-glow: var(--glow-green); }
-        .card[data-color="orange"] { --card-accent: var(--accent-orange); --card-glow: var(--glow-orange); }
-        .card[data-color="purple"] { --card-accent: var(--accent-purple); --card-glow: var(--glow-purple); }
-        .card[data-color="red"] { --card-accent: var(--accent-red); --card-glow: var(--glow-red); }
-        .card[data-color="cyan"] { --card-accent: var(--accent-cyan); --card-glow: var(--glow-cyan); }
-
-        .card::before { background: var(--card-accent); }
-        .card:hover { background: var(--card-glow); border-color: var(--card-accent); }
-
-        .card-header {
+        .demo-card-emoji {
+            font-size: 36px;
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
+            justify-content: center;
+            background: var(--orange-warm);
+            border-radius: var(--radius-sm);
         }
 
-        .card-icon {
+        .demo-card-content h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-strong);
+        }
+
+        .demo-card-content p {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .demo-card-arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--turquoise);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .demo-card:hover .demo-card-arrow {
+            opacity: 1;
+            right: 16px;
+        }
+
+        /* ===== DOCS SECTION ===== */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .doc-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 28px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .doc-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--turquoise);
+            box-shadow: 0 12px 36px rgba(15, 45, 82, 0.1);
+        }
+
+        .doc-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--turquoise-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .doc-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 2px;
+            color: var(--text-strong);
+        }
+
+        .doc-card p {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        /* ===== VISION SECTION ===== */
+        .vision-section {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 24px;
+            padding: 48px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .vision-section::before {
+            content: '';
+            position: absolute;
+            top: -100px; right: -100px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(42, 175, 175, 0.08), transparent 70%);
+            border-radius: 50%;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+
+        .vision-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .vision-icon {
             width: 48px;
             height: 48px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            background: var(--card-glow);
+            font-size: 22px;
             flex-shrink: 0;
         }
 
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-        }
+        .vision-icon.cyan { background: var(--turquoise-light); }
+        .vision-icon.orange { background: var(--orange-warm); }
+        .vision-icon.green { background: #eaf7ef; }
 
-        .card-version {
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--card-accent);
-            background: var(--card-glow);
-            padding: 2px 8px;
-            border-radius: 6px;
-            margin-left: auto;
-        }
-
-        .card-desc {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 18px;
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 18px;
-        }
-
-        .tag {
-            font-size: 11px;
-            font-weight: 500;
-            padding: 4px 10px;
-            border-radius: 6px;
-            background: rgba(255,255,255,0.05);
-            color: var(--text-muted);
-            border: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .card-links {
-            display: flex;
-            gap: 12px;
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
-        }
-
-        .card-link {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--card-accent);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            transition: opacity 0.2s;
-        }
-
-        .card-link:hover { opacity: 0.8; }
-
-        .card-link svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        /* Interfaces badges */
-        .interfaces {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 14px;
-            flex-wrap: wrap;
-        }
-
-        .interface-badge {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 20px;
-            background: var(--card-glow);
-            color: var(--card-accent);
-            border: 1px solid var(--card-accent);
-            opacity: 0.8;
-        }
-
-        /* Tech stack */
-        .tech-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 48px;
-        }
-
-        .tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
-        }
-
-        .tech-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.02);
-        }
-
-        .tech-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .tech-name {
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .tech-detail {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-
-        /* Demo banner */
-        .demo-banner {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-            border: 1px solid var(--accent-blue);
-            border-radius: 16px;
-            padding: 28px 32px;
-            margin-bottom: 48px;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.6s ease forwards;
-            animation-delay: 0.05s;
-        }
-
-        .demo-banner-icon {
-            font-size: 32px;
-            flex-shrink: 0;
-        }
-
-        .demo-banner-text {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .demo-banner-text h3 {
+        .vision-item h4 {
             font-size: 16px;
             font-weight: 700;
             margin-bottom: 4px;
+            color: var(--text-strong);
         }
 
-        .demo-banner-text p {
+        .vision-item p {
             font-size: 13px;
-            color: var(--text-muted);
+            color: var(--muted);
+            line-height: 1.6;
         }
 
-        .demo-banner-links {
+        /* ===== PARTENARIAT ===== */
+        .partner-banner {
+            background: linear-gradient(135deg, var(--navy), #0a5a9e);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .partner-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .partner-banner > * { position: relative; z-index: 1; }
+
+        .partner-banner h2 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #ffffff;
+        }
+
+        .partner-banner .partner-subtitle {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .partner-pills {
             display: flex;
-            gap: 12px;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .partner-pill {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: var(--radius-pill);
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .partner-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
@@ -419,583 +605,635 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 13px;
+            padding: 12px 28px;
+            border-radius: var(--radius-pill);
+            font-size: 14px;
             font-weight: 600;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
         }
 
-        .btn-primary {
-            background: var(--accent-blue);
-            color: white;
+        .btn-white {
+            background: white;
+            color: var(--navy);
         }
 
-        .btn-primary:hover {
-            background: #2563eb;
+        .btn-white:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
 
-        .btn-outline {
+        .btn-outline-white {
             background: transparent;
-            color: var(--accent-blue);
-            border: 1px solid var(--accent-blue);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .btn-outline:hover {
-            background: var(--glow-blue);
+        .btn-outline-white:hover {
+            background: rgba(255,255,255,0.1);
             transform: translateY(-2px);
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
+        .partner-email {
+            margin-top: 20px;
             font-size: 13px;
+            color: rgba(255,255,255,0.5);
         }
 
-        footer a {
-            color: var(--accent-blue);
+        .partner-email a {
+            color: rgba(255,255,255,0.7);
             text-decoration: none;
         }
 
-        .footer-note {
-            margin-top: 8px;
-            font-size: 11px;
-            opacity: 0.6;
+        .partner-email a:hover { color: white; }
+
+        /* ===== LYCEES BANNER ===== */
+        .lycees-strip {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            padding: 32px 0;
+            margin-bottom: 20px;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .logo-text h1 { font-size: 32px; }
-            .cards { grid-template-columns: 1fr; }
-            .stats-bar { gap: 24px; }
-            header { padding-top: 20px; margin-bottom: 40px; }
+        .lycee-item {
+            font-size: 13px;
+            color: var(--muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* Animations on scroll */
-        .card, .tech-section {
+        .lycee-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--turquoise);
+            flex-shrink: 0;
+        }
+
+        .lycee-item strong { color: var(--text-strong); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+            padding: 48px 0 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-logo img:hover { opacity: 1; }
+
+        .footer-author {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+        }
+
+        .footer-author strong { color: #ffffff; }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+
+        .social-link:hover {
+            background: rgba(42, 175, 175, 0.2);
+            border-color: var(--turquoise);
+            color: var(--turquoise);
+            transform: translateY(-2px);
+        }
+
+        .footer-info {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-info a {
+            color: var(--turquoise);
+            text-decoration: none;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.6s ease forwards;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
-        .card:nth-child(6) { animation-delay: 0.6s; }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
 
         @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .tech-section { animation-delay: 0.6s; }
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero { min-height: auto; padding: 100px 24px 60px; }
+            .hero-stats { gap: 24px; }
+            .hero-stat-value { font-size: 36px; }
+            .hero-scroll { display: none; }
+            .prod-grid { grid-template-columns: 1fr; }
+            .demo-grid { grid-template-columns: 1fr; }
+            .docs-grid { grid-template-columns: 1fr; }
+            .vision-section { padding: 32px 20px; }
+            .partner-banner { padding: 32px 20px; }
+            section { padding: 40px 0; }
+            .lycees-strip { gap: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { letter-spacing: -1px; }
+            .hero-stat-value { font-size: 28px; }
+            .hero-stats { gap: 16px; }
+        }
+
+        /* ===== SEPARATOR ===== */
+        .separator {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--turquoise), var(--orange));
+            border-radius: 3px;
+            margin: 0 auto 48px;
+        }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
 
-    <div class="container">
-        <header>
-            <div class="logo">
-                <div class="logo-icon">iW</div>
-                <div class="logo-text">
-                    <h1>inerWeb</h1>
-                    <div class="subtitle">Écosystème pédagogique</div>
-                </div>
-            </div>
-            <p class="tagline">
-                Suite d'applications web <strong>gratuites et open-source</strong> dédiées à l'enseignement professionnel.<br>
-                Un <strong>socle technologique unique</strong>, déployable sur <strong>toutes les filières</strong> de l'établissement.
-            </p>
-            <div class="stats-bar">
-                <div class="stat">
-                    <div class="stat-value">5</div>
-                    <div class="stat-label">Plateformes</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">28+</div>
-                    <div class="stat-label">Modules interactifs</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">9</div>
-                    <div class="stat-label">Filières couvertes</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-value">0 €</div>
-                    <div class="stat-label">Coût pour l'établissement</div>
-                </div>
-            </div>
-        </header>
+    <!-- ===================== HERO ===================== -->
+    <div class="hero">
+        <div class="hero-logo">
+            <img src="https://equatio.org/wp-content/uploads/2025/05/EQ-LOGO-DIGITAL-TRANSPARENT.png" alt="Campus ÉQUATIO">
+        </div>
 
-        <!-- Bannière démonstration -->
-        <div class="demo-banner">
-            <div class="demo-banner-icon">📄</div>
-            <div class="demo-banner-text">
-                <h3>Documents pour la direction</h3>
-                <p>Dossier de présentation officiel et argumentaire taxe d'apprentissage</p>
+        <h1 class="hero-title">
+            <span class="iner">inerWeb</span>
+            <span class="times">&times;</span>
+            <span class="equatio">ÉQUATIO</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            Des outils numériques <strong>gratuits</strong> pour <strong>toutes les filières</strong> de tous les lycées du campus
+        </p>
+
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="hero-stat-value">9</div>
+                <div class="hero-stat-label">Filières</div>
             </div>
-            <div class="demo-banner-links">
-                <a class="btn btn-primary" href="presentation/DOSSIER_DIRECTION.html" target="_blank">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
-                    Dossier Direction
-                </a>
-                <a class="btn btn-outline" href="frigolo_mollier_v4.html" target="_blank">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                    Démo Mollier v4
-                </a>
-                <a class="btn btn-outline" href="inerweb-edu-secu.html" target="_blank" style="border-color:var(--accent-orange);color:var(--accent-orange)">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Démo Sécurité
-                </a>
+            <div class="hero-stat">
+                <div class="hero-stat-value orange">28+</div>
+                <div class="hero-stat-label">Modules</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value">5</div>
+                <div class="hero-stat-label">Plateformes</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-value orange">0&euro;/an</div>
+                <div class="hero-stat-label">Budget requis</div>
             </div>
         </div>
 
-        <!-- Applications principales -->
-        <div class="section-title">Applications de suivi</div>
-        <div class="cards">
-
-            <!-- inerWeb TT Fusion -->
-            <a class="card" data-color="blue" href="https://frigorx.github.io/inerweb-tt-fusion/inerweb_prof.html" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">📋</div>
-                    <div class="card-title">inerWeb TT</div>
-                    <span class="card-version">Fusion v11</span>
-                </div>
-                <div class="interfaces">
-                    <span class="interface-badge">Professeur</span>
-                    <span class="interface-badge">Élève</span>
-                    <span class="interface-badge">Tuteur</span>
-                </div>
-                <p class="card-desc">
-                    Plateforme de suivi CCF et PFMP pour le CAP IFCA. Évaluation par compétences, journal de bord élève, grilles tuteur entreprise, rapport d'inspection PDF.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">CCF</span>
-                    <span class="tag">PFMP</span>
-                    <span class="tag">CAP IFCA</span>
-                    <span class="tag">Compétences</span>
-                    <span class="tag">Photos terrain</span>
-                    <span class="tag">Jurys</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="https://frigorx.github.io/inerweb-tt-fusion/inerweb_prof.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Espace Prof
-                    </a>
-                    <a class="card-link" href="https://frigorx.github.io/inerweb-tt-fusion/inerweb_eleve.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Espace Élève
-                    </a>
-                    <a class="card-link" href="https://frigorx.github.io/inerweb-tt-fusion/inerweb_tuteur.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Espace Tuteur
-                    </a>
-                    <a class="card-link" href="https://github.com/frigorx/inerweb-tt-fusion" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
-                        GitHub
-                    </a>
-                </div>
-            </a>
-
-            <!-- inerWeb TT Filière Énergétique -->
-            <a class="card" data-color="green" href="https://frigorx.github.io/inerweb-tt-fe/" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">🎓</div>
-                    <div class="card-title">inerWeb TT-FE</div>
-                    <span class="card-version">v5.0</span>
-                </div>
-                <div class="interfaces">
-                    <span class="interface-badge">CAP IFCA</span>
-                    <span class="interface-badge">Bac Pro MFER</span>
-                    <span class="interface-badge">2nde TNE</span>
-                </div>
-                <p class="card-desc">
-                    Version multi-filière unifiée pour toute la section énergétique. Référentiels CAP IFCA, Bac Pro MFER et 2nde TNE dans une seule application.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Multi-filière</span>
-                    <span class="tag">EP2/EP3</span>
-                    <span class="tag">E31/E32/E33</span>
-                    <span class="tag">Référentiels</span>
-                    <span class="tag">Admin</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="https://frigorx.github.io/inerweb-tt-fe/" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Ouvrir
-                    </a>
-                    <a class="card-link" href="https://github.com/frigorx/inerweb-tt-fe" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
-                        GitHub
-                    </a>
-                </div>
-            </a>
-
-            <!-- inerWeb Fluide -->
-            <a class="card" data-color="orange" href="https://frigorx.github.io/-inerweb-fluid-cerfa-fi-bsd-4/" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">🧊</div>
-                    <div class="card-title">inerWeb Fluide</div>
-                    <span class="card-version">v33</span>
-                </div>
-                <p class="card-desc">
-                    Gestion complète des fluides frigorigènes : registre machines & bouteilles, mouvements, contrôles d'étanchéité, génération CERFA 15497, bilan annuel et traçabilité croisée.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Fluides frigorigènes</span>
-                    <span class="tag">CERFA 15497</span>
-                    <span class="tag">Traçabilité</span>
-                    <span class="tag">Bilan annuel</span>
-                    <span class="tag">Mode Formation</span>
-                    <span class="tag">Export CSV</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="https://frigorx.github.io/-inerweb-fluid-cerfa-fi-bsd-4/" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Ouvrir
-                    </a>
-                    <a class="card-link" href="https://github.com/frigorx/-inerweb-fluid-cerfa-fi-bsd-4" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
-                        GitHub
-                    </a>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- Outils pédagogiques -->
-        <div class="section-title">Outils pédagogiques interactifs</div>
-        <div class="cards">
-
-            <!-- inerWeb Édu -->
-            <a class="card" data-color="purple" href="https://frigorx.github.io/inerweb-pressostats/" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">⚡</div>
-                    <div class="card-title">inerWeb Édu</div>
-                    <span class="card-version">10 modules</span>
-                </div>
-                <p class="card-desc">
-                    Portail de modules interactifs pour l'enseignement du froid et de l'électrotechnique. Pressostats, échangeurs, compresseur scroll, symboles, diagramme de Mollier, bilan thermique...
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Pressostat BP KP1</span>
-                    <span class="tag">Pressostat HP KP5</span>
-                    <span class="tag">Échangeurs</span>
-                    <span class="tag">Compresseur Scroll</span>
-                    <span class="tag">Symboles Frigo</span>
-                    <span class="tag">Mollier v3</span>
-                    <span class="tag">Bilan Thermique</span>
-                    <span class="tag">Psychro v2</span>
-                    <span class="tag">TD Triphasé</span>
-                    <span class="tag">HABELEC</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="https://frigorx.github.io/inerweb-pressostats/" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Ouvrir le portail
-                    </a>
-                    <a class="card-link" href="https://github.com/frigorx/inerweb-pressostats" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
-                        GitHub
-                    </a>
-                </div>
-            </a>
-
-            <!-- inerWeb FRIGOLO -->
-            <a class="card" data-color="cyan" href="https://frigorx.github.io/inerweb-frigolo/" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">🔬</div>
-                    <div class="card-title">inerWeb FRIGOLO</div>
-                    <span class="card-version">v6.6</span>
-                </div>
-                <p class="card-desc">
-                    Outils professionnels : Mollier v3 Pro, Bilan Thermique, Psychro v2, TP COP PAC, Réglette Fluides. Plus les modules Risques Pro (sécurité, fluides, électrique) et la bibliothèque IRIS-ST.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Mollier v3 Pro</span>
-                    <span class="tag">Bilan Thermique</span>
-                    <span class="tag">Psychro v2</span>
-                    <span class="tag">TP COP PAC</span>
-                    <span class="tag">Réglette Fluides</span>
-                    <span class="tag">Risques Pro</span>
-                    <span class="tag">Bibliothèque PDF</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="https://frigorx.github.io/inerweb-frigolo/" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Ouvrir
-                    </a>
-                    <a class="card-link" href="https://github.com/frigorx/inerweb-frigolo" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>
-                        GitHub
-                    </a>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- Démos multi-filières -->
-        <div class="section-title">Démonstrations multi-filières — le potentiel inerWeb</div>
-        <div class="cards">
-
-            <!-- Plaquiste -->
-            <a class="card" data-color="orange" href="demo-plaquiste.html" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">🧱</div>
-                    <div class="card-title">Plaquiste</div>
-                    <span class="card-version">Démo</span>
-                </div>
-                <p class="card-desc">
-                    Calculateur de métrés (surfaces, déduction ouvertures), quantitatif matériaux (BA13, rails, montants, vis), mini-jeu identification des profilés.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Métrés</span>
-                    <span class="tag">Quantitatif</span>
-                    <span class="tag">Profilés</span>
-                    <span class="tag">Mini-jeu</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="demo-plaquiste.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Tester la démo
-                    </a>
-                </div>
-            </a>
-
-            <!-- Étanchéité -->
-            <a class="card" data-color="blue" href="demo-etancheite.html" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">🏗️</div>
-                    <div class="card-title">Étanchéité</div>
-                    <span class="card-version">Démo</span>
-                </div>
-                <p class="card-desc">
-                    Calculateur toiture-terrasse (surfaces, pente, membranes), configurateur complexe d'étanchéité avec DTU, mini-jeu "trouve le défaut".
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Toiture-terrasse</span>
-                    <span class="tag">Membranes</span>
-                    <span class="tag">DTU</span>
-                    <span class="tag">Mini-jeu</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="demo-etancheite.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Tester la démo
-                    </a>
-                </div>
-            </a>
-
-            <!-- Électricité -->
-            <a class="card" data-color="cyan" href="demo-electricite.html" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">⚡</div>
-                    <div class="card-title">Électricité</div>
-                    <span class="card-version">Démo</span>
-                </div>
-                <p class="card-desc">
-                    Calculateur section câbles NF C 15-100, tableau électrique interactif (glisser-déposer), mini-jeu loi d'Ohm avec schéma SVG.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">NF C 15-100</span>
-                    <span class="tag">Sections câbles</span>
-                    <span class="tag">Tableau</span>
-                    <span class="tag">Loi d'Ohm</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="demo-electricite.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Tester la démo
-                    </a>
-                </div>
-            </a>
-
-            <!-- Mécanique -->
-            <a class="card" data-color="red" href="demo-mecanique.html" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">🔧</div>
-                    <div class="card-title">Mécanique</div>
-                    <span class="card-version">Démo</span>
-                </div>
-                <p class="card-desc">
-                    Lecture pied à coulisse (vernier SVG interactif), calculateur vitesse de coupe, mini-jeu tolérances & ajustements H7/g6.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Pied à coulisse</span>
-                    <span class="tag">Vitesse coupe</span>
-                    <span class="tag">Tolérances</span>
-                    <span class="tag">Mini-jeu</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="demo-mecanique.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Tester la démo
-                    </a>
-                </div>
-            </a>
-
-            <!-- Logistique -->
-            <a class="card" data-color="green" href="demo-logistique.html" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">📦</div>
-                    <div class="card-title">Logistique</div>
-                    <span class="card-version">Démo</span>
-                </div>
-                <p class="card-desc">
-                    Calculateur palettisation (vue SVG), simulation stock FIFO/LIFO avec valorisation, mini-jeu pictogrammes & codes EAN-13.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">Palettisation</span>
-                    <span class="tag">FIFO/LIFO</span>
-                    <span class="tag">Pictogrammes</span>
-                    <span class="tag">EAN-13</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="demo-logistique.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Tester la démo
-                    </a>
-                </div>
-            </a>
-
-            <!-- Conducteurs Routiers -->
-            <a class="card" data-color="purple" href="demo-conducteurs.html" target="_blank">
-                <div class="card-header">
-                    <div class="card-icon">🚛</div>
-                    <div class="card-title">Conducteurs Routiers</div>
-                    <span class="card-version">Démo</span>
-                </div>
-                <p class="card-desc">
-                    Simulateur temps de conduite CE 561/2006 (timeline 24h), calculateur chargement PL avec jauges, quiz panneaux poids lourds SVG.
-                </p>
-                <div class="card-tags">
-                    <span class="tag">CE 561/2006</span>
-                    <span class="tag">Chronotachygraphe</span>
-                    <span class="tag">Chargement</span>
-                    <span class="tag">Panneaux PL</span>
-                </div>
-                <div class="card-links">
-                    <a class="card-link" href="demo-conducteurs.html" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                        Tester la démo
-                    </a>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- Vision multi-filière -->
-        <div class="section-title">Vision : un socle pour tout l'établissement</div>
-        <div class="tech-section" style="background:linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(16, 185, 129, 0.05)); border-color: var(--accent-orange);">
-            <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
-                <div style="flex:1;min-width:280px;">
-                    <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;color:var(--accent-orange)">Déjà déployé</h3>
-                    <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
-                        <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
-                            <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);flex-shrink:0;"></span>
-                            <strong>Froid & Climatisation</strong> — CAP IFCA, Bac Pro MFER, 2nde TNE
-                        </li>
-                        <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
-                            <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);flex-shrink:0;"></span>
-                            <strong>Électrotechnique</strong> — TD Triphasé, HABELEC
-                        </li>
-                        <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
-                            <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-green);flex-shrink:0;"></span>
-                            <strong>Sécurité au travail</strong> — Risques Pro, Sécurité Apprenants, Fluides, Électrique
-                        </li>
-                    </ul>
-                </div>
-                <div style="flex:1;min-width:280px;">
-                    <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;color:var(--accent-purple)">Déployable demain</h3>
-                    <ul style="list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;">
-                        <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-muted);">
-                            <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-purple);flex-shrink:0;"></span>
-                            Toute filière avec CCF / PFMP / suivi de compétences
-                        </li>
-                        <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-muted);">
-                            <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-purple);flex-shrink:0;"></span>
-                            Modules interactifs adaptés à n'importe quel référentiel
-                        </li>
-                        <li style="display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-muted);">
-                            <span style="width:8px;height:8px;border-radius:50%;background:var(--accent-purple);flex-shrink:0;"></span>
-                            Même architecture, même coût : 0 €
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);text-align:center;">
-                <p style="font-size:14px;color:var(--text-muted);max-width:600px;margin:0 auto;">
-                    Le socle inerWeb est <strong style="color:var(--text)">générique et réutilisable</strong>. Chaque nouvelle filière bénéficie de l'infrastructure existante (hébergement, backend, authentification) sans coût supplémentaire.
-                </p>
-            </div>
-        </div>
-
-        <!-- Stack technique -->
-        <div class="tech-section">
-            <div class="section-title" style="margin-bottom:16px">Architecture technique</div>
-            <p style="color:var(--text-muted);font-size:14px;margin-bottom:20px;">
-                Toutes les applications sont hébergées gratuitement et ne nécessitent aucun serveur dédié, aucune licence, aucun budget informatique.
-            </p>
-            <div class="tech-grid">
-                <div class="tech-item">
-                    <div class="tech-dot" style="background:var(--accent-orange)"></div>
-                    <div>
-                        <div class="tech-name">Frontend</div>
-                        <div class="tech-detail">HTML / CSS / JS pur</div>
-                    </div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-dot" style="background:var(--accent-green)"></div>
-                    <div>
-                        <div class="tech-name">Hébergement</div>
-                        <div class="tech-detail">GitHub Pages (gratuit)</div>
-                    </div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-dot" style="background:var(--accent-blue)"></div>
-                    <div>
-                        <div class="tech-name">Backend</div>
-                        <div class="tech-detail">Google Apps Script</div>
-                    </div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-dot" style="background:var(--accent-purple)"></div>
-                    <div>
-                        <div class="tech-name">Base de données</div>
-                        <div class="tech-detail">Google Sheets</div>
-                    </div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-dot" style="background:var(--accent-red)"></div>
-                    <div>
-                        <div class="tech-name">Stockage fichiers</div>
-                        <div class="tech-detail">Google Drive</div>
-                    </div>
-                </div>
-                <div class="tech-item">
-                    <div class="tech-dot" style="background:var(--accent-cyan)"></div>
-                    <div>
-                        <div class="tech-name">Coût total</div>
-                        <div class="tech-detail">0 € / an</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <p>Écosystème <strong>inerWeb</strong> — Conçu par <strong>F. Henninot</strong> — Lycée professionnel</p>
-            <p class="footer-note">Tous les projets sont open-source et hébergés sur <a href="https://github.com/frigorx" target="_blank">github.com/frigorx</a></p>
-            <p class="footer-note">Mars 2026</p>
-        </footer>
+        <a href="#production" class="hero-scroll">
+            Découvrir
+            <div class="hero-scroll-arrow"></div>
+        </a>
     </div>
+
+    <!-- ===================== LYCÉES DU CAMPUS ===================== -->
+    <div class="container">
+        <div class="lycees-strip">
+            <div class="lycee-item"><span class="lycee-dot"></span> <strong>LPP Jacques Raynaud</strong> — Froid, climatisation, énergétique</div>
+            <div class="lycee-item"><span class="lycee-dot"></span> <strong>Saint-André</strong></div>
+            <div class="lycee-item"><span class="lycee-dot"></span> <strong>Saint-Henri</strong></div>
+            <div class="lycee-item"><span class="lycee-dot"></span> <strong>Alexandre Gueidon</strong></div>
+        </div>
+    </div>
+
+    <!-- ===================== PRODUCTION ===================== -->
+    <section id="production">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">En production</div>
+                <h2 class="section-title">Déjà déployé et utilisé</h2>
+                <p class="section-desc">5 plateformes fonctionnelles, testées en conditions réelles par les élèves, les professeurs et les tuteurs entreprise</p>
+            </div>
+
+            <div class="prod-grid">
+
+                <!-- TT Fusion -->
+                <a class="prod-card blue reveal reveal-delay-1" href="https://frigorx.github.io/inerweb-tt-fusion/inerweb_prof.html" target="_blank">
+                    <div class="prod-card-icon">📋</div>
+                    <h3>inerWeb TT Fusion</h3>
+                    <span class="version">CCF / PFMP — Fusion v11</span>
+                    <p>Plateforme complète de suivi CCF et PFMP pour le CAP IFCA. Évaluation par compétences, journal de bord élève, grilles tuteur entreprise, rapport d'inspection PDF.</p>
+                    <div class="tags">
+                        <span class="tag">CCF</span>
+                        <span class="tag">PFMP</span>
+                        <span class="tag">3 interfaces</span>
+                        <span class="tag">Photos terrain</span>
+                        <span class="tag">Jurys</span>
+                    </div>
+                    <div class="card-cta">
+                        Ouvrir la plateforme <span class="arrow">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- TT-FE -->
+                <a class="prod-card green reveal reveal-delay-2" href="https://frigorx.github.io/inerweb-tt-fe/" target="_blank">
+                    <div class="prod-card-icon">🎓</div>
+                    <h3>inerWeb TT-FE</h3>
+                    <span class="version">Multi-filière — v5.0</span>
+                    <p>Version unifiée pour toute la section énergétique. Référentiels CAP IFCA, Bac Pro MFER et 2nde TNE dans une seule application.</p>
+                    <div class="tags">
+                        <span class="tag">Multi-filière</span>
+                        <span class="tag">EP2/EP3</span>
+                        <span class="tag">E31/E32/E33</span>
+                        <span class="tag">Admin</span>
+                    </div>
+                    <div class="card-cta">
+                        Ouvrir la plateforme <span class="arrow">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Fluide -->
+                <a class="prod-card orange reveal reveal-delay-3" href="https://frigorx.github.io/-inerweb-fluid-cerfa-fi-bsd-4/" target="_blank">
+                    <div class="prod-card-icon">🧊</div>
+                    <h3>inerWeb Fluide</h3>
+                    <span class="version">CERFA / Traçabilité — v33</span>
+                    <p>Gestion complète des fluides frigorigènes : registre machines & bouteilles, mouvements, contrôles d'étanchéité, génération CERFA 15497, bilan annuel.</p>
+                    <div class="tags">
+                        <span class="tag">CERFA 15497</span>
+                        <span class="tag">Traçabilité</span>
+                        <span class="tag">Bilan annuel</span>
+                        <span class="tag">Export CSV</span>
+                    </div>
+                    <div class="card-cta">
+                        Ouvrir la plateforme <span class="arrow">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- Édu -->
+                <a class="prod-card purple reveal reveal-delay-4" href="https://frigorx.github.io/inerweb-pressostats/" target="_blank">
+                    <div class="prod-card-icon">⚡</div>
+                    <h3>inerWeb Édu</h3>
+                    <span class="version">10 modules interactifs</span>
+                    <p>Portail de modules interactifs pour l'enseignement du froid et de l'électrotechnique : pressostats, échangeurs, compresseur scroll, Mollier, bilan thermique...</p>
+                    <div class="tags">
+                        <span class="tag">Pressostat BP/HP</span>
+                        <span class="tag">Échangeurs</span>
+                        <span class="tag">Mollier v3</span>
+                        <span class="tag">Psychro v2</span>
+                        <span class="tag">HABELEC</span>
+                    </div>
+                    <div class="card-cta">
+                        Ouvrir le portail <span class="arrow">&rarr;</span>
+                    </div>
+                </a>
+
+                <!-- FRIGOLO -->
+                <a class="prod-card cyan reveal reveal-delay-5" href="https://frigorx.github.io/inerweb-frigolo/" target="_blank">
+                    <div class="prod-card-icon">🔬</div>
+                    <h3>inerWeb FRIGOLO</h3>
+                    <span class="version">Outils pro — v6.6</span>
+                    <p>Outils professionnels : Mollier v3 Pro, Bilan Thermique, Psychro v2, TP COP PAC, Réglette Fluides. Modules Risques Pro et bibliothèque IRIS-ST.</p>
+                    <div class="tags">
+                        <span class="tag">Mollier v3 Pro</span>
+                        <span class="tag">Réglette Fluides</span>
+                        <span class="tag">Risques Pro</span>
+                        <span class="tag">Bibliothèque PDF</span>
+                    </div>
+                    <div class="card-cta">
+                        Ouvrir la plateforme <span class="arrow">&rarr;</span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== DÉMOS MULTI-FILIÈRES ===================== -->
+    <section id="demos">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge orange">Le potentiel</div>
+                <h2 class="section-title">Démos multi-filières</h2>
+                <p class="section-desc">Le même socle inerWeb, adapté à 6 nouvelles filières du campus — preuve de concept fonctionnelle</p>
+            </div>
+
+            <div class="demo-grid">
+
+                <a class="demo-card reveal reveal-delay-1" href="demo-plaquiste.html" target="_blank">
+                    <div class="demo-card-emoji">🧱</div>
+                    <div class="demo-card-content">
+                        <h3>Plaquiste</h3>
+                        <p>Calculateur de métrés, quantitatif matériaux (BA13, rails, montants), mini-jeu identification des profilés</p>
+                    </div>
+                    <div class="demo-card-arrow">&rarr;</div>
+                </a>
+
+                <a class="demo-card reveal reveal-delay-2" href="demo-etancheite.html" target="_blank">
+                    <div class="demo-card-emoji">🏗️</div>
+                    <div class="demo-card-content">
+                        <h3>Étanchéité</h3>
+                        <p>Calculateur toiture-terrasse, configurateur complexe d'étanchéité avec DTU, mini-jeu "trouve le défaut"</p>
+                    </div>
+                    <div class="demo-card-arrow">&rarr;</div>
+                </a>
+
+                <a class="demo-card reveal reveal-delay-3" href="demo-electricite.html" target="_blank">
+                    <div class="demo-card-emoji">⚡</div>
+                    <div class="demo-card-content">
+                        <h3>Électricité</h3>
+                        <p>Calculateur section câbles NF C 15-100, tableau électrique interactif, mini-jeu loi d'Ohm avec schéma SVG</p>
+                    </div>
+                    <div class="demo-card-arrow">&rarr;</div>
+                </a>
+
+                <a class="demo-card reveal reveal-delay-4" href="demo-mecanique.html" target="_blank">
+                    <div class="demo-card-emoji">🔧</div>
+                    <div class="demo-card-content">
+                        <h3>Mécanique</h3>
+                        <p>Lecture pied à coulisse (vernier SVG interactif), calculateur vitesse de coupe, mini-jeu tolérances H7/g6</p>
+                    </div>
+                    <div class="demo-card-arrow">&rarr;</div>
+                </a>
+
+                <a class="demo-card reveal reveal-delay-5" href="demo-logistique.html" target="_blank">
+                    <div class="demo-card-emoji">📦</div>
+                    <div class="demo-card-content">
+                        <h3>Logistique</h3>
+                        <p>Calculateur palettisation (vue SVG), simulation stock FIFO/LIFO, mini-jeu pictogrammes & codes EAN-13</p>
+                    </div>
+                    <div class="demo-card-arrow">&rarr;</div>
+                </a>
+
+                <a class="demo-card reveal" href="demo-conducteurs.html" target="_blank">
+                    <div class="demo-card-emoji">🚛</div>
+                    <div class="demo-card-content">
+                        <h3>Conducteurs Routiers</h3>
+                        <p>Simulateur temps de conduite CE 561/2006, calculateur chargement PL, quiz panneaux poids lourds SVG</p>
+                    </div>
+                    <div class="demo-card-arrow">&rarr;</div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== DOCUMENTS DIRECTION ===================== -->
+    <section id="documents">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">Direction</div>
+                <h2 class="section-title">Documents de présentation</h2>
+            </div>
+
+            <div class="docs-grid">
+                <a class="doc-card reveal reveal-delay-1" href="presentation/DOSSIER_DIRECTION.html" target="_blank">
+                    <div class="doc-card-icon">📄</div>
+                    <div>
+                        <h3>Dossier Direction</h3>
+                        <p>Présentation officielle complète du projet inerWeb pour la direction</p>
+                    </div>
+                </a>
+
+                <a class="doc-card reveal reveal-delay-2" href="frigolo_mollier_v4.html" target="_blank">
+                    <div class="doc-card-icon">📊</div>
+                    <div>
+                        <h3>Démo Mollier v4</h3>
+                        <p>Démonstration interactive du diagramme de Mollier nouvelle génération</p>
+                    </div>
+                </a>
+
+                <a class="doc-card reveal reveal-delay-3" href="inerweb-edu-secu.html" target="_blank">
+                    <div class="doc-card-icon">🛡️</div>
+                    <div>
+                        <h3>Démo Sécurité</h3>
+                        <p>Module sécurité : risques pro, fluides frigorigènes, sécurité électrique</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== VISION ===================== -->
+    <section id="vision">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-badge">Vision</div>
+                <h2 class="section-title">Un socle unique pour tout le campus</h2>
+                <p class="section-desc">Architecture pensée pour être déployée sur toutes les filières sans surcoût</p>
+            </div>
+
+            <div class="vision-section reveal">
+                <div class="vision-grid">
+                    <div class="vision-item">
+                        <div class="vision-icon cyan">🏗️</div>
+                        <div>
+                            <h4>Socle générique et réutilisable</h4>
+                            <p>Chaque nouvelle filière bénéficie de l'infrastructure existante : hébergement, backend, authentification. Le même moteur, adapté à chaque référentiel.</p>
+                        </div>
+                    </div>
+
+                    <div class="vision-item">
+                        <div class="vision-icon orange">💰</div>
+                        <div>
+                            <h4>Coût : 0 € pour l'établissement</h4>
+                            <p>GitHub Pages (hébergement gratuit) + Google Apps Script (backend gratuit) + Google Sheets (base de données gratuite). Aucun serveur, aucune licence.</p>
+                        </div>
+                    </div>
+
+                    <div class="vision-item">
+                        <div class="vision-icon green">⚙️</div>
+                        <div>
+                            <h4>Architecture légère et pérenne</h4>
+                            <p>HTML / CSS / JavaScript pur en frontend. Google Apps Script en backend. Google Sheets en base de données. Pas de framework, pas de dépendances, pas d'obsolescence.</p>
+                        </div>
+                    </div>
+
+                    <div class="vision-item">
+                        <div class="vision-icon cyan">🚀</div>
+                        <div>
+                            <h4>Déployable sur 30 UFA</h4>
+                            <p>Le campus ÉQUATIO dispose de 30 UFA dédiés à l'apprentissage. Chacun peut bénéficier d'outils inerWeb adaptés à ses besoins spécifiques.</p>
+                        </div>
+                    </div>
+
+                    <div class="vision-item">
+                        <div class="vision-icon orange">👨‍🏫</div>
+                        <div>
+                            <h4>Conçu par un enseignant</h4>
+                            <p>F. Henninot, enseignant au lycée Jacques Raynaud, a développé bénévolement cet écosystème complet. Un outil pensé par et pour le terrain.</p>
+                        </div>
+                    </div>
+
+                    <div class="vision-item">
+                        <div class="vision-icon green">📱</div>
+                        <div>
+                            <h4>100% responsive et accessible</h4>
+                            <p>Toutes les applications fonctionnent sur smartphone, tablette et ordinateur. Aucune installation requise, un simple navigateur suffit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== PARTENARIAT ===================== -->
+    <section id="partenariat">
+        <div class="container">
+            <div class="partner-banner reveal">
+                <h2>Soutenez le Campus ÉQUATIO</h2>
+                <p class="partner-subtitle">Acteur historique de la formation, de l'emploi et de l'innovation en région Sud</p>
+
+                <div class="partner-pills">
+                    <div class="partner-pill">💼 Taxe d'apprentissage</div>
+                    <div class="partner-pill">🤝 Stages</div>
+                    <div class="partner-pill">📚 Apprentissage</div>
+                </div>
+
+                <div class="partner-links">
+                    <a class="btn btn-white" href="https://equatio.org/nous-soutenir/" target="_blank">
+                        Nous soutenir
+                    </a>
+                    <a class="btn btn-outline-white" href="https://equatio.org" target="_blank">
+                        equatio.org
+                    </a>
+                </div>
+
+                <p class="partner-email">
+                    Taxe d'apprentissage : <a href="mailto:taxeapprentissage@formationmetier.fr">taxeapprentissage@formationmetier.fr</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">
+                <img src="https://equatio.org/wp-content/uploads/2025/05/EQ-LOGO-DIGITAL-TRANSPARENT.png" alt="Campus ÉQUATIO">
+            </div>
+
+            <p class="footer-author">
+                Écosystème <strong>inerWeb</strong> — Conçu par <strong>F. Henninot</strong> — Mars 2026
+            </p>
+
+            <div class="footer-socials">
+                <a class="social-link" href="https://www.linkedin.com/company/formation-et-metier" target="_blank" title="LinkedIn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+                <a class="social-link" href="https://www.instagram.com/asso_equatio/" target="_blank" title="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a class="social-link" href="https://www.tiktok.com/@campusformationmetier" target="_blank" title="TikTok">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13a8.28 8.28 0 005.58 2.16V11.7a4.84 4.84 0 01-3.77-1.78V6.69z"/></svg>
+                </a>
+                <a class="social-link" href="https://www.facebook.com/formationetmetier" target="_blank" title="Facebook">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+            </div>
+
+            <div class="footer-info">
+                <p>Campus ÉQUATIO — 6 Boulevard Gueidon, 13013 Marseille — <a href="tel:0491038862">04 91 03 88 62</a> — <a href="mailto:contact@formationmetier.fr">contact@formationmetier.fr</a></p>
+                <p style="margin-top:4px;">Tous les projets sont open-source et hébergés sur <a href="https://github.com/frigorx" target="_blank">github.com/frigorx</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===================== SCROLL REVEAL JS ===================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+
+            reveals.forEach(el => observer.observe(el));
+
+            // Counter animation for stats
+            const statValues = document.querySelectorAll('.hero-stat-value');
+            const animateValue = (el, start, end, duration) => {
+                const startTime = performance.now();
+                const isNum = !isNaN(end);
+                if (!isNum) return;
+
+                const step = (timestamp) => {
+                    const progress = Math.min((timestamp - startTime) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(eased * end);
+                    if (progress < 1) requestAnimationFrame(step);
+                    else el.textContent = end;
+                };
+                requestAnimationFrame(step);
+            };
+
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const text = entry.target.textContent.trim();
+                        const num = parseInt(text);
+                        if (!isNaN(num) && num > 0 && num < 100) {
+                            entry.target.textContent = '0';
+                            animateValue(entry.target, 0, num, 1500);
+                        }
+                        statsObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            statValues.forEach(el => statsObserver.observe(el));
+        });
+    </script>
 </body>
 </html>

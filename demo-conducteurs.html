@@ -2,262 +2,301 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>inerWeb Édu — Filière Transport — Conducteurs Routiers</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>inerWeb × ÉQUATIO — Calculettes Conducteur PL</title>
 <style>
 :root {
-  --navy: #0f2d52;
-  --navy-light: #183d6e;
-  --orange: #e8914a;
-  --orange-dark: #c87535;
-  --turq: #2aafaf;
-  --turq-dark: #1e8a8a;
-  --bg: #faf7f2;
-  --bg-card: #ffffff;
-  --bg-dark: #0b1e38;
-  --bg-darker: #071428;
-  --text: #e8e4df;
-  --text-muted: #9aa8b8;
-  --border: #1e3a5c;
+  --navy: #0f2d52; --navy-mid: #1a4a6e;
+  --orange: #e8914a; --orange-hover: #d47a35; --orange-warm: #fdf6ef; --orange-glow: rgba(232, 145, 74, 0.35);
+  --turquoise: #2aafaf; --turquoise-light: #eef8f7;
+  --bg: #faf7f2; --bg-end: #f0ebe3;
+  --card: #ffffff; --text: #2c3e50; --text-strong: #0f2d52; --muted: #5a7080; --line: #ece4da;
+  --radius: 22px; --radius-sm: 14px; --radius-pill: 999px;
+  --shadow: 0 4px 16px rgba(15, 45, 82, 0.07), 0 1px 3px rgba(232, 145, 74, 0.05);
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --red: #e74c3c;
   --green: #2ecc71;
   --yellow: #f1c40f;
-  --blue: #3498db;
-  --grey: #95a5a6;
-  --radius: 12px;
-  --shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
-* { margin:0; padding:0; box-sizing:border-box; }
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: var(--bg-dark);
+  font-family: var(--font);
+  background: linear-gradient(180deg, var(--bg), var(--bg-end));
   color: var(--text);
   min-height: 100vh;
   line-height: 1.5;
-}
-/* ── HEADER ── */
-header {
-  background: linear-gradient(135deg, var(--bg-darker), var(--navy));
-  border-bottom: 3px solid var(--orange);
-  padding: 1.2rem 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-.logo-area {
-  display: flex; align-items: center; gap: 1rem;
-}
-.logo-icon {
-  width: 52px; height: 52px;
-  background: linear-gradient(135deg, var(--orange), var(--turq));
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 900; font-size: 1.1rem; color: #fff;
-  letter-spacing: -1px; text-shadow: 0 1px 3px rgba(0,0,0,.4);
-}
-.header-titles h1 {
-  font-size: 1.35rem; font-weight: 700; color: #fff;
-}
-.header-titles h1 span { color: var(--orange); }
-.header-titles .subtitle {
-  font-size: .82rem; color: var(--text-muted); margin-top: 2px;
-}
-.header-meta {
-  margin-left: auto;
-  text-align: right;
-  font-size: .78rem;
-  color: var(--text-muted);
-}
-.header-meta .badge {
-  display: inline-block;
-  background: var(--orange);
-  color: #fff;
-  font-weight: 700;
-  padding: 2px 10px;
-  border-radius: 20px;
-  font-size: .72rem;
-  margin-bottom: 4px;
+  overflow-x: hidden;
 }
 
-/* ── NAV TABS ── */
+/* ── HEADER FIXE ── */
+.header-fixed {
+  position: sticky; top: 0; z-index: 100;
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid), var(--turquoise));
+  border-bottom: 4px solid var(--orange);
+}
+.header-top {
+  display: flex; align-items: center; gap: 1rem;
+  padding: .8rem 1rem;
+  flex-wrap: wrap;
+}
+.logo-area { display: flex; align-items: center; gap: .7rem; }
+.logo-icon {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, var(--orange), var(--turquoise));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1rem; color: #fff;
+  letter-spacing: -1px; text-shadow: 0 1px 3px rgba(0,0,0,.3);
+  flex-shrink: 0;
+}
+.header-titles h1 {
+  font-size: 1.15rem; font-weight: 800; color: #fff;
+}
+.header-titles h1 .brand-orange { color: var(--orange); }
+.header-titles h1 .brand-turq { color: #b5eded; }
+.header-bandeau {
+  background: linear-gradient(90deg, var(--orange), var(--turquoise));
+  color: #fff;
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 700;
+  padding: 4px 1rem;
+  letter-spacing: .3px;
+}
+.header-bandeau a { color: #fff; text-decoration: underline; }
+
+/* ── NAV ONGLETS ── */
 .nav-tabs {
   display: flex;
-  background: var(--bg-darker);
-  border-bottom: 2px solid var(--border);
-  padding: 0 1rem;
-  gap: .5rem;
+  background: var(--card);
+  border-bottom: 2px solid var(--line);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .nav-tab {
-  padding: .85rem 1.5rem;
+  flex: 1;
+  padding: .9rem .5rem;
   cursor: pointer;
-  font-size: .88rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--navy);
+  border: none;
   border-bottom: 3px solid transparent;
+  background: none;
   transition: all .25s;
   white-space: nowrap;
-  background: none; border-top:none; border-left:none; border-right:none;
+  text-align: center;
+  min-height: 56px;
+  display: flex; align-items: center; justify-content: center; gap: .3rem;
 }
 .nav-tab:hover { color: var(--orange); }
 .nav-tab.active {
-  color: var(--orange);
+  color: #fff;
   border-bottom-color: var(--orange);
+  background: var(--orange);
+  border-radius: 0;
 }
-.nav-tab .tab-icon { margin-right: .4rem; }
+.tab-icon { font-size: 1.2rem; }
 
 /* ── SECTIONS ── */
-.tool-section { display: none; padding: 1.5rem; max-width: 1200px; margin: auto; }
+.tool-section { display: none; padding: 1rem; max-width: 900px; margin: auto; padding-bottom: 5rem; }
 .tool-section.active { display: block; }
 .card {
-  background: linear-gradient(135deg, rgba(15,45,82,.6), rgba(11,30,56,.8));
-  border: 1px solid var(--border);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--orange);
   border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-bottom: 1.2rem;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
   box-shadow: var(--shadow);
 }
 .card-title {
-  font-size: 1.15rem; font-weight: 700; color: var(--orange);
+  font-size: 1.05rem; font-weight: 800; color: var(--text-strong);
   margin-bottom: 1rem;
   display: flex; align-items: center; gap: .5rem;
 }
-.card-title .icon { font-size: 1.3rem; }
-
-/* ── INPUTS ── */
-label { font-size: .82rem; color: var(--text-muted); display: block; margin-bottom: .3rem; }
-input, select, button {
-  font-family: inherit;
+.card-title .icon { font-size: 1.2rem; color: var(--orange); }
+.section-intro {
+  font-size: .82rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.6;
 }
-input[type="text"], input[type="number"], select {
-  background: rgba(0,0,0,.3);
-  border: 1px solid var(--border);
+
+/* ── INPUTS TACTILES ── */
+label { font-size: .78rem; color: var(--muted); display: block; margin-bottom: .3rem; font-weight: 600; }
+input, select, button { font-family: inherit; }
+input[type="text"], input[type="number"], input[type="time"], select {
+  background: #fff;
+  border: 1px solid var(--line);
   color: var(--text);
-  padding: .55rem .8rem;
-  border-radius: 8px;
-  font-size: .88rem;
+  padding: .7rem .9rem;
+  border-radius: var(--radius-sm);
+  font-size: .92rem;
   width: 100%;
   outline: none;
-  transition: border-color .2s;
+  transition: border-color .2s, box-shadow .2s;
+  -webkit-appearance: none;
+  min-height: 48px;
 }
-input:focus, select:focus { border-color: var(--orange); }
+input:focus, select:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-glow); }
 .btn {
-  padding: .6rem 1.3rem;
+  padding: .75rem 1.4rem;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: .85rem;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: .88rem;
   cursor: pointer;
-  transition: all .25s;
-  display: inline-flex; align-items: center; gap: .4rem;
+  transition: all .2s;
+  display: inline-flex; align-items: center; justify-content: center; gap: .4rem;
+  min-height: 50px;
+  min-width: 50px;
+  touch-action: manipulation;
 }
 .btn-orange { background: var(--orange); color: #fff; }
-.btn-orange:hover { background: var(--orange-dark); transform: translateY(-1px); }
-.btn-turq { background: var(--turq); color: #fff; }
-.btn-turq:hover { background: var(--turq-dark); transform: translateY(-1px); }
+.btn-orange:hover { background: var(--orange-hover); }
+.btn-turq { background: var(--turquoise); color: #fff; }
+.btn-turq:hover { background: #229494; }
 .btn-red { background: var(--red); color: #fff; }
 .btn-red:hover { background: #c0392b; }
-.btn-sm { padding: .4rem .9rem; font-size: .8rem; }
-.row { display: flex; gap: 1rem; flex-wrap: wrap; }
-.col { flex: 1; min-width: 200px; }
+.btn-ghost {
+  background: transparent; border: 2px solid var(--line); color: var(--muted);
+}
+.btn-ghost:hover { border-color: var(--orange); color: var(--orange); }
+.btn-sm { padding: .5rem .9rem; font-size: .8rem; min-height: 40px; }
+.btn-block { width: 100%; }
+.btn-big { padding: 1rem 2rem; font-size: 1rem; min-height: 56px; }
+.row { display: flex; gap: .8rem; flex-wrap: wrap; }
+.col { flex: 1; min-width: 140px; }
 
-/* ══════════════════════════
-   OUTIL 1 — TIMELINE
-   ══════════════════════════ */
-.timeline-container { position: relative; margin: 1rem 0; }
+/* ── TIMELINE ── */
+.timeline-container { position: relative; margin: 1rem 0; overflow-x: auto; }
 .timeline-hours {
   display: flex; justify-content: space-between;
-  font-size: .65rem; color: var(--text-muted);
+  font-size: .6rem; color: var(--muted);
   padding: 0 2px; margin-bottom: 4px;
+  min-width: 100%;
 }
 .timeline-bar {
   position: relative;
-  height: 56px;
-  background: rgba(0,0,0,.4);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  height: 60px;
+  background: var(--orange-warm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   overflow: hidden;
-  cursor: crosshair;
+  min-width: 100%;
 }
 .timeline-block {
   position: absolute;
   top: 4px;
-  height: 48px;
-  border-radius: 6px;
+  height: 52px;
+  border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  font-size: .7rem; font-weight: 700; color: #fff;
-  cursor: grab;
-  text-shadow: 0 1px 2px rgba(0,0,0,.5);
-  transition: opacity .15s;
-  min-width: 8px;
+  font-size: .68rem; font-weight: 800; color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,.4);
+  min-width: 6px;
 }
-.timeline-block:hover { opacity: .85; }
+.timeline-block .block-time { font-size: .55rem; font-weight: 600; opacity: .8; margin-left: 3px; }
 .timeline-block .block-delete {
   position: absolute; top: 2px; right: 4px;
-  font-size: .65rem; cursor: pointer; opacity: .6;
+  font-size: .7rem; cursor: pointer; opacity: .6;
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
 }
 .timeline-block .block-delete:hover { opacity: 1; }
 .block-conduite { background: linear-gradient(135deg, #27ae60, #2ecc71); }
-.block-travail { background: linear-gradient(135deg, #2980b9, #3498db); }
-.block-dispo { background: linear-gradient(135deg, #d4a017, #f1c40f); color: #333; }
-.block-repos { background: linear-gradient(135deg, #7f8c8d, #95a5a6); }
+.block-travail { background: linear-gradient(135deg, #2471a3, #3498db); }
+.block-dispo { background: linear-gradient(135deg, #d4ac0d, #f1c40f); color: #3a3000; text-shadow: none; }
+.block-repos { background: linear-gradient(135deg, #717d82, #95a5a6); }
+
+.bloc-list { margin-top: .5rem; }
+.bloc-item {
+  display: flex; align-items: center; gap: .5rem;
+  background: var(--orange-warm);
+  padding: .5rem .7rem;
+  border-radius: 8px;
+  margin-bottom: .3rem;
+  font-size: .82rem;
+  border: 1px solid var(--line);
+}
+.bloc-item .bloc-color {
+  width: 14px; height: 14px; border-radius: 4px; flex-shrink: 0;
+}
+.bloc-item .bloc-info { flex: 1; color: var(--text); }
+.bloc-item .bloc-time { color: var(--orange); font-weight: 700; }
 
 .controls-row {
-  display: flex; gap: .8rem; flex-wrap: wrap;
-  align-items: end; margin-bottom: 1rem;
+  display: flex; gap: .6rem; flex-wrap: wrap;
+  align-items: end; margin-bottom: .8rem;
 }
-.controls-row > div { flex: 1; min-width: 120px; }
+.controls-row > div { flex: 1; min-width: 110px; }
 
 .counters {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: .8rem; margin-top: 1rem;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: .6rem; margin-top: 1rem;
 }
 .counter-box {
-  background: rgba(0,0,0,.3);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: .7rem;
+  background: var(--orange-warm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: .6rem;
   text-align: center;
 }
-.counter-box .val { font-size: 1.5rem; font-weight: 800; color: var(--orange); }
-.counter-box .lbl { font-size: .72rem; color: var(--text-muted); }
+.counter-box .val { font-size: 1.4rem; font-weight: 900; color: var(--orange); }
+.counter-box .lbl { font-size: .68rem; color: var(--muted); font-weight: 600; }
+.counter-box.alert-red { border-color: var(--red); }
+.counter-box.alert-red .val { color: var(--red); }
 
-.alerts-panel {
-  margin-top: 1rem;
-  max-height: 200px;
-  overflow-y: auto;
-}
+.alerts-panel { margin-top: .8rem; }
 .alert-item {
-  background: rgba(231,76,60,.15);
-  border-left: 4px solid var(--red);
-  padding: .5rem .8rem;
-  margin-bottom: .4rem;
-  border-radius: 0 6px 6px 0;
-  font-size: .82rem;
-  color: #f5a5a0;
+  padding: .6rem .8rem;
+  margin-bottom: .3rem;
+  border-radius: 8px;
+  font-size: .8rem;
+  font-weight: 600;
+  display: flex; align-items: center; gap: .4rem;
 }
-.alert-ok {
-  background: rgba(46,204,113,.12);
-  border-left-color: var(--green);
-  color: #7ddfaa;
+.alert-danger { background: rgba(231,76,60,.1); border-left: 4px solid var(--red); color: #b03a2e; }
+.alert-warn { background: rgba(241,196,15,.1); border-left: 4px solid var(--yellow); color: #7d6608; }
+.alert-ok { background: rgba(46,204,113,.08); border-left: 4px solid var(--green); color: #1e8449; }
+
+.legend-bar {
+  display: flex; gap: .8rem; flex-wrap: wrap; margin-bottom: .6rem; font-size: .72rem;
 }
+.legend-item { display: flex; align-items: center; gap: .3rem; color: var(--text); }
+.legend-dot { display: inline-block; width: 14px; height: 14px; border-radius: 4px; }
+
+/* ── RÉSUMÉ MODAL ── */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(15,45,82,.5);
+  z-index: 200; align-items: center; justify-content: center; padding: 1rem;
+}
+.modal-overlay.show { display: flex; }
+.modal-content {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.5rem; max-width: 500px; width: 100%;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(15,45,82,.15);
+}
+.modal-content h3 { color: var(--orange); margin-bottom: 1rem; font-size: 1.05rem; }
+.resume-row {
+  display: flex; justify-content: space-between; padding: .4rem 0;
+  border-bottom: 1px solid var(--line); font-size: .85rem;
+}
+.resume-row .label { color: var(--muted); }
+.resume-row .value { font-weight: 700; color: var(--text-strong); }
 
 /* ══════════════════════════
    OUTIL 2 — CHARGEMENT
    ══════════════════════════ */
 .gauge-container {
-  display: flex; gap: 2rem; justify-content: center;
-  flex-wrap: wrap; margin: 1.5rem 0;
+  display: flex; gap: 1.5rem; justify-content: center;
+  flex-wrap: wrap; margin: 1.2rem 0;
 }
-.gauge {
-  width: 180px; text-align: center;
-}
+.gauge { width: 150px; text-align: center; }
 .gauge-bar-outer {
-  width: 40px; height: 200px;
-  background: rgba(0,0,0,.4);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  width: 44px; height: 180px;
+  background: var(--orange-warm);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
   margin: .5rem auto;
   position: relative;
   overflow: hidden;
@@ -265,262 +304,280 @@ input:focus, select:focus { border-color: var(--orange); }
 .gauge-bar-inner {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  border-radius: 0 0 7px 7px;
+  border-radius: 0 0 13px 13px;
   transition: height .4s, background .4s;
 }
-.gauge-label { font-size: .78rem; color: var(--text-muted); }
-.gauge-value { font-size: 1.3rem; font-weight: 800; color: var(--orange); }
+.gauge-label { font-size: .75rem; color: var(--muted); font-weight: 600; }
+.gauge-value { font-size: 1.2rem; font-weight: 900; color: var(--orange); }
+.gauge-info { font-size: .72rem; color: var(--muted); margin-top: 2px; }
 
-.marchandise-list {
-  max-height: 220px;
-  overflow-y: auto;
+.surcharge-alert {
+  background: rgba(231,76,60,.1); border: 2px solid var(--red);
+  border-radius: var(--radius-sm); padding: .8rem; text-align: center;
+  color: var(--red); font-weight: 800; font-size: .95rem;
+  display: none; margin-top: .8rem;
+  animation: pulse 1s infinite;
 }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .6; } }
+
+.marchandise-list { max-height: 250px; overflow-y: auto; }
 .marchandise-item {
-  display: flex; align-items: center; gap: .6rem;
-  background: rgba(0,0,0,.2);
-  padding: .4rem .7rem;
-  border-radius: 6px;
+  display: flex; align-items: center; gap: .5rem;
+  background: var(--orange-warm);
+  padding: .5rem .7rem;
+  border-radius: 8px;
   margin-bottom: .3rem;
   font-size: .82rem;
+  border: 1px solid var(--line);
 }
-.marchandise-item .m-name { flex: 1; }
-.marchandise-item .m-poids { color: var(--orange); font-weight: 600; }
-.marchandise-item .m-vol { color: var(--turq); font-weight: 600; margin-left: .5rem; }
+.marchandise-item .m-name { flex: 1; color: var(--text); }
+.marchandise-item .m-poids { color: var(--orange); font-weight: 700; }
+.marchandise-item .m-vol { color: var(--turquoise); font-weight: 700; margin-left: .3rem; }
 
 .essieux-bar {
-  display: flex; height: 36px; border-radius: 8px; overflow: hidden;
-  margin-top: .6rem; border: 1px solid var(--border);
+  display: flex; height: 40px; border-radius: var(--radius-sm); overflow: hidden;
+  margin-top: .6rem; border: 1px solid var(--line);
 }
 .essieux-avant {
-  background: linear-gradient(135deg, var(--turq), var(--turq-dark));
+  background: linear-gradient(135deg, var(--turquoise), #229494);
   display: flex; align-items: center; justify-content: center;
-  font-size: .75rem; font-weight: 700; transition: width .4s;
+  font-size: .75rem; font-weight: 800; color: #fff;
+  transition: width .4s;
 }
 .essieux-arriere {
-  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  background: linear-gradient(135deg, var(--orange), var(--orange-hover));
   display: flex; align-items: center; justify-content: center;
-  font-size: .75rem; font-weight: 700; transition: width .4s;
+  font-size: .75rem; font-weight: 800; color: #fff;
+  transition: width .4s;
 }
 
 /* ══════════════════════════
-   OUTIL 3 — QUIZ
+   OUTIL 3 — AIDE-MÉMOIRE
    ══════════════════════════ */
-.quiz-header {
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;
-}
-.quiz-stat {
-  font-size: .88rem; font-weight: 600;
-}
-.quiz-stat span { color: var(--orange); }
-.panneau-area {
-  display: flex; justify-content: center;
-  margin: 1.5rem 0;
-}
-.panneau-area svg {
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,.4));
-}
-.reponses-grid {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: .7rem; max-width: 700px; margin: auto;
-}
-.rep-btn {
-  padding: 1rem;
-  background: rgba(15,45,82,.8);
-  border: 2px solid var(--border);
-  border-radius: 10px;
-  color: var(--text);
-  font-size: .9rem;
+.memo-section { margin-bottom: 1.5rem; }
+.memo-title {
+  font-size: .95rem; font-weight: 800; color: var(--turquoise);
+  padding: .6rem 0; border-bottom: 2px solid var(--line);
+  margin-bottom: .8rem;
   cursor: pointer;
-  transition: all .25s;
-  text-align: center;
-  font-weight: 500;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.rep-btn:hover { border-color: var(--orange); background: rgba(232,145,74,.1); }
-.rep-btn.correct { border-color: var(--green); background: rgba(46,204,113,.2); }
-.rep-btn.wrong { border-color: var(--red); background: rgba(231,76,60,.15); }
-.rep-btn:disabled { cursor: default; }
-.feedback-box {
-  max-width: 700px; margin: 1rem auto;
-  padding: 1rem;
-  border-radius: 8px;
-  font-size: .88rem;
-  display: none;
+.memo-title .chevron { transition: transform .3s; font-size: .8rem; }
+.memo-title.open .chevron { transform: rotate(180deg); }
+.memo-body { display: none; }
+.memo-body.open { display: block; }
+.memo-table {
+  width: 100%; border-collapse: collapse; font-size: .8rem; margin-bottom: .5rem;
 }
-.feedback-box.show { display: block; }
-.feedback-ok { background: rgba(46,204,113,.12); border: 1px solid var(--green); color: #7ddfaa; }
-.feedback-ko { background: rgba(231,76,60,.12); border: 1px solid var(--red); color: #f5a5a0; }
-
-.quiz-end {
-  text-align: center; padding: 2rem;
+.memo-table th {
+  background: var(--navy); color: #fff; font-weight: 700;
+  padding: .5rem .6rem; text-align: left; font-size: .75rem;
+  border-bottom: 1px solid var(--line);
 }
-.quiz-end .big-score { font-size: 3rem; font-weight: 900; color: var(--orange); }
-
-.progress-bar-outer {
-  height: 6px; background: rgba(0,0,0,.3); border-radius: 3px;
-  margin-bottom: 1rem; overflow: hidden;
+.memo-table td {
+  padding: .45rem .6rem; border-bottom: 1px solid var(--line);
+  color: var(--text);
 }
-.progress-bar-inner {
-  height: 100%; background: var(--orange); border-radius: 3px;
-  transition: width .3s;
+.memo-table tr:nth-child(even) td { background: #f5f0ea; }
+.memo-table tr:hover td { background: var(--orange-warm); }
+.memo-list {
+  padding-left: 1.2rem; line-height: 1.9; font-size: .82rem;
+}
+.memo-list li { margin-bottom: .2rem; color: var(--text); }
+.memo-list strong { color: var(--orange); }
+.memo-highlight {
+  background: var(--turquoise-light); border: 1px solid rgba(42,175,175,.2);
+  border-radius: var(--radius-sm); padding: .8rem; margin: .5rem 0; font-size: .82rem;
+  color: var(--text);
 }
 
 /* ── FOOTER ── */
 footer {
   text-align: center;
-  padding: 1.5rem;
-  font-size: .75rem;
-  color: var(--text-muted);
-  border-top: 1px solid var(--border);
-  margin-top: 2rem;
+  padding: 1.2rem;
+  font-size: .7rem;
+  color: rgba(255,255,255,.7);
+  border-top: 1px solid var(--line);
+  background: linear-gradient(135deg, var(--navy), var(--navy-mid));
 }
+footer a { color: var(--turquoise); text-decoration: none; }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 700px) {
-  header { padding: .8rem 1rem; }
-  .header-titles h1 { font-size: 1.05rem; }
-  .tool-section { padding: 1rem; }
-  .reponses-grid { grid-template-columns: 1fr; }
-  .controls-row > div { min-width: 100px; }
+@media (max-width: 600px) {
+  .header-top { padding: .6rem .8rem; }
+  .header-titles h1 { font-size: 1rem; }
+  .tool-section { padding: .8rem; }
+  .card { padding: 1rem; }
+  .controls-row > div { min-width: 100%; }
+  .nav-tab { font-size: .7rem; padding: .7rem .3rem; }
+  .counter-box .val { font-size: 1.15rem; }
+  .counters { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════ HEADER ═══════ -->
-<header>
-  <div class="logo-area">
-    <div class="logo-icon">iW</div>
-    <div class="header-titles">
-      <h1>inerWeb <span>Édu</span> — Filière Transport</h1>
-      <div class="subtitle">Conducteurs Routiers — Outils interactifs pédagogiques</div>
+<!-- ═══════ HEADER FIXE ═══════ -->
+<div class="header-fixed">
+  <div class="header-top">
+    <div class="logo-area">
+      <div class="logo-icon">iW</div>
+      <div class="header-titles">
+        <h1><span class="brand-orange">inerWeb</span> × <span class="brand-turq">ÉQUATIO</span></h1>
+      </div>
     </div>
   </div>
-  <div class="header-meta">
-    <div><span class="badge">v1.0 — Mars 2026</span></div>
-    <div>F. Henninot</div>
-    <div>LPP Jacques Raynaud — Campus ÉQUATIO Marseille</div>
+  <div class="header-bandeau">
+    Stage &bull; Apprentissage &bull; Taxe d'apprentissage &rarr; <a href="https://equatio.org" target="_blank">equatio.org</a>
   </div>
-</header>
-
-<!-- ═══════ NAV ═══════ -->
-<div class="nav-tabs">
-  <button class="nav-tab active" onclick="showTool(0)">
-    <span class="tab-icon">&#9202;</span> Temps de Conduite &amp; Repos
-  </button>
-  <button class="nav-tab" onclick="showTool(1)">
-    <span class="tab-icon">&#9878;</span> Calculateur Chargement
-  </button>
-  <button class="nav-tab" onclick="showTool(2)">
-    <span class="tab-icon">&#127937;</span> Quiz Panneaux PL
-  </button>
+  <!-- NAV ONGLETS -->
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTool(0)">
+      <span class="tab-icon">&#9202;</span> Temps de conduite
+    </button>
+    <button class="nav-tab" onclick="showTool(1)">
+      <span class="tab-icon">&#9878;</span> Chargement &amp; PTAC
+    </button>
+    <button class="nav-tab" onclick="showTool(2)">
+      <span class="tab-icon">&#128214;</span> Aide-mémoire
+    </button>
+  </div>
 </div>
 
-<!-- ═══════════════════════════════
-     OUTIL 1 — TEMPS DE CONDUITE
-     ═══════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════
+     OUTIL 1 — CALCULATEUR TEMPS DE CONDUITE
+     ═══════════════════════════════════════════════ -->
 <section class="tool-section active" id="tool-0">
   <div class="card">
-    <div class="card-title"><span class="icon">&#9202;</span> Simulateur Temps de Conduite &amp; Repos — CE 561/2006</div>
-    <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:1rem;">
-      Placez des blocs d'activité sur la timeline 24h. Le simulateur vérifie en temps réel le respect de la réglementation européenne.
+    <div class="card-title"><span class="icon">&#9202;</span> Calculateur Temps de Conduite — CE 561/2006</div>
+    <p class="section-intro">
+      Saisissez vos blocs d'activité de la journée. Le calculateur vérifie en temps réel le respect de la réglementation européenne sur les temps de conduite et de repos.
     </p>
 
+    <!-- Heure début mission -->
+    <div style="margin-bottom:1rem;">
+      <label>Heure de début de mission</label>
+      <input type="time" id="missionStart" value="06:00" onchange="recalcAll()" style="max-width:200px;" />
+    </div>
+
+    <!-- Ajout bloc -->
     <div class="controls-row">
       <div>
-        <label>Type d'activité</label>
+        <label>Activité</label>
         <select id="blockType">
-          <option value="conduite">Conduite</option>
-          <option value="travail">Autre travail</option>
-          <option value="dispo">Disponibilité</option>
-          <option value="repos">Repos</option>
+          <option value="conduite">&#x1F69B; Conduite</option>
+          <option value="travail">&#x1F527; Autre travail</option>
+          <option value="dispo">&#x23F3; Disponibilité</option>
+          <option value="repos">&#x1F6CF; Repos</option>
         </select>
       </div>
       <div>
-        <label>Heure début</label>
-        <input type="number" id="blockStart" min="0" max="23.75" step="0.25" value="6" />
+        <label>Durée (heures)</label>
+        <input type="number" id="blockHours" min="0" max="15" step="1" value="2" />
       </div>
       <div>
-        <label>Durée (heures)</label>
-        <input type="number" id="blockDuration" min="0.25" max="14" step="0.25" value="2" />
-      </div>
-      <div style="display:flex;align-items:end;gap:.5rem;">
-        <button class="btn btn-orange" onclick="addBlock()">Ajouter</button>
-        <button class="btn btn-red btn-sm" onclick="clearBlocks()">Tout effacer</button>
+        <label>Durée (minutes)</label>
+        <select id="blockMinutes">
+          <option value="0">00</option>
+          <option value="15">15</option>
+          <option value="30">30</option>
+          <option value="45">45</option>
+        </select>
       </div>
     </div>
-
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem;font-size:.75rem;">
-      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2ecc71;"></span> Conduite</span>
-      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#3498db;"></span> Autre travail</span>
-      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#f1c40f;"></span> Disponibilité</span>
-      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#95a5a6;"></span> Repos</span>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <button class="btn btn-orange btn-big" onclick="addBlock()" style="flex:1;">Ajouter le bloc</button>
+      <button class="btn btn-red btn-sm" onclick="clearBlocks()">Tout effacer</button>
     </div>
 
+    <!-- Raccourcis rapides -->
+    <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <button class="btn btn-ghost btn-sm" onclick="quickAdd('conduite',4,30)">Conduite 4h30</button>
+      <button class="btn btn-ghost btn-sm" onclick="quickAdd('repos',0,45)">Pause 45min</button>
+      <button class="btn btn-ghost btn-sm" onclick="quickAdd('repos',0,15)">Pause 15min</button>
+      <button class="btn btn-ghost btn-sm" onclick="quickAdd('repos',0,30)">Pause 30min</button>
+      <button class="btn btn-ghost btn-sm" onclick="quickAdd('conduite',2,0)">Conduite 2h</button>
+      <button class="btn btn-ghost btn-sm" onclick="quickAdd('repos',9,0)">Repos 9h</button>
+      <button class="btn btn-ghost btn-sm" onclick="quickAdd('repos',11,0)">Repos 11h</button>
+    </div>
+
+    <!-- Légende -->
+    <div class="legend-bar">
+      <div class="legend-item"><span class="legend-dot" style="background:#2ecc71;"></span> Conduite</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#3498db;"></span> Autre travail</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#f1c40f;"></span> Disponibilité</div>
+      <div class="legend-item"><span class="legend-dot" style="background:#95a5a6;"></span> Repos</div>
+    </div>
+
+    <!-- Timeline 24h -->
     <div class="timeline-container">
       <div class="timeline-hours" id="timelineHours"></div>
       <div class="timeline-bar" id="timelineBar"></div>
     </div>
 
+    <!-- Liste blocs -->
+    <div class="bloc-list" id="blocList"></div>
+
+    <!-- Compteurs -->
     <div class="counters" id="counters">
-      <div class="counter-box"><div class="val" id="cntConduite">0h00</div><div class="lbl">Total conduite</div></div>
-      <div class="counter-box"><div class="val" id="cntTravail">0h00</div><div class="lbl">Autre travail</div></div>
-      <div class="counter-box"><div class="val" id="cntRepos">0h00</div><div class="lbl">Total repos</div></div>
-      <div class="counter-box"><div class="val" id="cntConduiteRestant">9h00</div><div class="lbl">Conduite restante</div></div>
-      <div class="counter-box"><div class="val" id="cntPauseNeeded">—</div><div class="lbl">Prochaine pause dans</div></div>
+      <div class="counter-box" id="cntConduiteBox"><div class="val" id="cntConduite">0h00</div><div class="lbl">Conduite totale</div></div>
+      <div class="counter-box"><div class="val" id="cntRepos">0h00</div><div class="lbl">Repos total</div></div>
+      <div class="counter-box" id="cntRestantBox"><div class="val" id="cntConduiteRestant">9h00</div><div class="lbl">Conduite restante (jour)</div></div>
+      <div class="counter-box" id="cntPauseBox"><div class="val" id="cntPauseNeeded">4h30</div><div class="lbl">Avant pause obligatoire</div></div>
+      <div class="counter-box"><div class="val" id="cntAmplitude">0h00</div><div class="lbl">Amplitude</div></div>
     </div>
 
+    <!-- Alertes -->
     <div class="alerts-panel" id="alertsPanel"></div>
-  </div>
 
-  <div class="card" style="font-size:.8rem;color:var(--text-muted);">
-    <div class="card-title" style="font-size:.95rem;"><span class="icon">&#128214;</span> Rappel réglementation CE 561/2006</div>
-    <ul style="padding-left:1.2rem;line-height:1.8;">
-      <li>Conduite continue maximale : <strong style="color:var(--orange);">4h30</strong> → pause de <strong>45 min</strong> (ou 15 + 30 min)</li>
-      <li>Conduite journalière maximale : <strong style="color:var(--orange);">9h</strong> (extensible à 10h, 2 fois/semaine)</li>
-      <li>Repos journalier : <strong style="color:var(--orange);">11h</strong> consécutives (ou 9h réduit, 3 fois/semaine max)</li>
-      <li>Repos hebdomadaire : <strong>45h</strong> consécutives (ou 24h réduit, à compenser)</li>
-    </ul>
+    <!-- Bouton résumé -->
+    <div style="margin-top:1rem;text-align:center;">
+      <button class="btn btn-turq btn-big btn-block" onclick="showResume()">Résumé de la journée</button>
+    </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════
-     OUTIL 2 — CHARGEMENT
-     ═══════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════
+     OUTIL 2 — CALCULATEUR CHARGEMENT & PTAC
+     ═══════════════════════════════════════════════ -->
 <section class="tool-section" id="tool-1">
   <div class="card">
-    <div class="card-title"><span class="icon">&#9878;</span> Calculateur de Chargement</div>
+    <div class="card-title"><span class="icon">&#9878;</span> Calculateur Chargement &amp; PTAC</div>
+    <p class="section-intro">
+      Sélectionnez votre véhicule, ajoutez vos marchandises et vérifiez en direct la charge utile restante, les taux de chargement et la répartition par essieu.
+    </p>
 
     <div class="row" style="margin-bottom:1rem;">
-      <div class="col">
-        <label>Type de véhicule (PTAC)</label>
+      <div class="col" style="min-width:100%;">
+        <label>Type de véhicule</label>
         <select id="ptacSelect" onchange="updateChargement()">
-          <option value="3500" data-tare="1800" data-vol="16">VUL — 3,5 T (tare 1,8 T / 16 m³)</option>
-          <option value="19000" data-tare="7500" data-vol="45">Porteur 2 essieux — 19 T (tare 7,5 T / 45 m³)</option>
-          <option value="26000" data-tare="11000" data-vol="60">Porteur 3 essieux — 26 T (tare 11 T / 60 m³)</option>
-          <option value="44000" data-tare="15000" data-vol="90" selected>Ensemble articulé — 44 T (tare 15 T / 90 m³)</option>
+          <option value="3500" data-tare="2200" data-vol="12" data-essieux="2">VUL — 3,5 T (tare ~2 200 kg / 12 m³)</option>
+          <option value="19000" data-tare="7500" data-vol="45" data-essieux="2">Porteur 2 essieux — 19 T (tare ~7 500 kg / 45 m³)</option>
+          <option value="26000" data-tare="10000" data-vol="60" data-essieux="3">Porteur 3 essieux — 26 T (tare ~10 000 kg / 60 m³)</option>
+          <option value="44000" data-tare="15000" data-vol="90" data-essieux="5" selected>Ensemble articulé 5 essieux — 44 T (tare ~15 000 kg / 90 m³)</option>
         </select>
       </div>
+    </div>
+    <div class="row" style="margin-bottom:1rem;">
       <div class="col">
-        <label>Tare personnalisée (kg)</label>
-        <input type="number" id="tareCustom" placeholder="Optionnel" onchange="updateChargement()" />
+        <label>Tare personnalisée (kg) — optionnel</label>
+        <input type="number" id="tareCustom" placeholder="Laisser vide = tare par défaut" onchange="updateChargement()" />
       </div>
     </div>
 
-    <div class="card" style="padding:1rem;">
-      <div style="font-weight:600;margin-bottom:.6rem;color:var(--turq);">Ajouter une marchandise</div>
+    <div class="card" style="padding:1rem;background:var(--orange-warm);border-left:5px solid var(--turquoise);">
+      <div style="font-weight:700;margin-bottom:.6rem;color:var(--turquoise);font-size:.9rem;">Ajouter une marchandise</div>
       <div class="row">
-        <div class="col"><label>Désignation</label><input type="text" id="mNom" value="Palettes" /></div>
-        <div class="col"><label>Poids (kg)</label><input type="number" id="mPoids" value="1200" /></div>
-        <div class="col"><label>Volume (m³)</label><input type="number" id="mVol" value="2.4" step="0.1" /></div>
-        <div style="display:flex;align-items:end;">
-          <button class="btn btn-orange" onclick="ajouterMarchandise()">Ajouter</button>
-        </div>
+        <div class="col"><label>Description</label><input type="text" id="mNom" value="Palettes" /></div>
+        <div class="col"><label>Poids (kg)</label><input type="number" id="mPoids" value="1200" min="0" /></div>
+        <div class="col"><label>Volume (m³)</label><input type="number" id="mVol" value="2.4" step="0.1" min="0" /></div>
       </div>
+      <button class="btn btn-orange btn-block" style="margin-top:.6rem;" onclick="ajouterMarchandise()">Ajouter la marchandise</button>
     </div>
 
     <div class="marchandise-list" id="marchList"></div>
 
+    <!-- Jauges -->
     <div class="gauge-container">
       <div class="gauge">
         <div class="gauge-label">Poids</div>
@@ -528,7 +585,7 @@ footer {
           <div class="gauge-bar-inner" id="gaugePoids" style="height:0%;background:var(--green);"></div>
         </div>
         <div class="gauge-value" id="gaugePoidsVal">0 %</div>
-        <div class="gauge-label" id="gaugePoidsInfo">0 / 29 000 kg</div>
+        <div class="gauge-info" id="gaugePoidsInfo">0 / 29,0 T</div>
       </div>
       <div class="gauge">
         <div class="gauge-label">Volume</div>
@@ -536,86 +593,266 @@ footer {
           <div class="gauge-bar-inner" id="gaugeVol" style="height:0%;background:var(--green);"></div>
         </div>
         <div class="gauge-value" id="gaugeVolVal">0 %</div>
-        <div class="gauge-label" id="gaugeVolInfo">0 / 90 m³</div>
+        <div class="gauge-info" id="gaugeVolInfo">0 / 90 m³</div>
       </div>
     </div>
 
+    <!-- Alerte surcharge -->
+    <div class="surcharge-alert" id="surchargeAlert">SURCHARGE DÉTECTÉE</div>
+
+    <!-- Charge utile restante -->
+    <div class="card" style="padding:.8rem;text-align:center;">
+      <div style="font-size:.78rem;color:var(--muted);font-weight:600;">Charge utile restante</div>
+      <div id="chargeRestante" style="font-size:1.8rem;font-weight:900;color:var(--green);">29 000 kg</div>
+    </div>
+
+    <!-- Répartition essieux -->
     <div class="card" style="padding:1rem;">
-      <div style="font-weight:600;margin-bottom:.5rem;color:var(--turq);">Répartition essieux (estimation simplifiée)</div>
-      <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.3rem;">
+      <div style="font-weight:700;margin-bottom:.5rem;color:var(--turquoise);font-size:.88rem;">Répartition essieux (estimation)</div>
+      <div style="display:flex;justify-content:space-between;font-size:.72rem;margin-bottom:.3rem;font-weight:600;">
         <span>Avant</span><span>Arrière</span>
       </div>
       <div class="essieux-bar">
         <div class="essieux-avant" id="essAvant" style="width:35%;">35 %</div>
         <div class="essieux-arriere" id="essArr" style="width:65%;">65 %</div>
       </div>
-      <div id="essAlerte" style="margin-top:.5rem;font-size:.8rem;"></div>
+      <div id="essAlerte" style="margin-top:.5rem;font-size:.78rem;"></div>
     </div>
 
-    <div style="text-align:center;margin-top:.5rem;">
-      <button class="btn btn-red btn-sm" onclick="viderChargement()">Vider le chargement</button>
+    <div style="text-align:center;">
+      <button class="btn btn-red btn-sm" onclick="viderChargement()">Vider tout le chargement</button>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════
-     OUTIL 3 — QUIZ PANNEAUX
-     ═══════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════
+     OUTIL 3 — AIDE-MÉMOIRE CONDUCTEUR
+     ═══════════════════════════════════════════════ -->
 <section class="tool-section" id="tool-2">
+
+  <!-- CE 561/2006 -->
   <div class="card">
-    <div class="card-title"><span class="icon">&#127937;</span> Quiz — Code de la Route Poids Lourds</div>
+    <div class="card-title"><span class="icon">&#128214;</span> Aide-mémoire Conducteur PL</div>
 
-    <div id="quizIntro" style="text-align:center;padding:2rem 1rem;">
-      <p style="font-size:1.1rem;margin-bottom:1rem;">10 questions sur les panneaux spécifiques aux poids lourds.</p>
-      <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.5rem;">Identifiez chaque panneau parmi 4 propositions. Chronomètre et score en direct !</p>
-      <button class="btn btn-orange" style="font-size:1.1rem;padding:.8rem 2.5rem;" onclick="startQuiz()">Commencer</button>
+    <div class="memo-section">
+      <div class="memo-title open" onclick="toggleMemo(this)">
+        &#9202; Règlement CE 561/2006 — Temps de conduite &amp; repos
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="memo-body open">
+        <table class="memo-table">
+          <thead><tr><th>Règle</th><th>Durée</th><th>Détails</th></tr></thead>
+          <tbody>
+            <tr><td>Conduite continue max</td><td><strong>4h30</strong></td><td>Puis pause de 45 min obligatoire (ou split 15 + 30 min)</td></tr>
+            <tr><td>Conduite journalière</td><td><strong>9h max</strong></td><td>Extension à 10h autorisée 2 fois par semaine</td></tr>
+            <tr><td>Conduite hebdomadaire</td><td><strong>56h max</strong></td><td>Sur une semaine civile (lundi 00h → dimanche 24h)</td></tr>
+            <tr><td>Conduite bi-hebdomadaire</td><td><strong>90h max</strong></td><td>Sur 2 semaines consécutives</td></tr>
+            <tr><td>Repos journalier normal</td><td><strong>11h</strong></td><td>Consécutives ou fractionnées (3h + 9h)</td></tr>
+            <tr><td>Repos journalier réduit</td><td><strong>9h</strong></td><td>Autorisé 3 fois max entre 2 repos hebdomadaires</td></tr>
+            <tr><td>Amplitude max</td><td><strong>13h</strong></td><td>15h avec repos journalier réduit (9h)</td></tr>
+            <tr><td>Repos hebdomadaire normal</td><td><strong>45h</strong></td><td>Consécutives, inclut un dimanche</td></tr>
+            <tr><td>Repos hebdo réduit</td><td><strong>24h</strong></td><td>Compensation avant la fin de la 3e semaine suivante</td></tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <div id="quizGame" style="display:none;">
-      <div class="progress-bar-outer"><div class="progress-bar-inner" id="quizProgress" style="width:0%"></div></div>
-      <div class="quiz-header">
-        <div class="quiz-stat">Question <span id="qNum">1</span> / 10</div>
-        <div class="quiz-stat">Score : <span id="qScore">0</span></div>
-        <div class="quiz-stat">&#9202; <span id="qTimer">0</span>s</div>
+    <div class="memo-section">
+      <div class="memo-title" onclick="toggleMemo(this)">
+        &#x1F6A7; Limitations de vitesse PL
+        <span class="chevron">&#9660;</span>
       </div>
-      <div class="panneau-area" id="panneauArea"></div>
-      <div class="reponses-grid" id="repGrid"></div>
-      <div class="feedback-box" id="feedbackBox"></div>
-      <div style="text-align:center;margin-top:1rem;">
-        <button class="btn btn-turq" id="btnSuivant" style="display:none;" onclick="nextQuestion()">Question suivante</button>
+      <div class="memo-body">
+        <table class="memo-table">
+          <thead><tr><th>Zone</th><th>PL 3,5T – 12T</th><th>PL &gt; 12T</th></tr></thead>
+          <tbody>
+            <tr><td>Agglomération</td><td><strong>50 km/h</strong></td><td><strong>50 km/h</strong></td></tr>
+            <tr><td>Route à 2 voies</td><td><strong>80 km/h</strong></td><td><strong>80 km/h</strong></td></tr>
+            <tr><td>Route à chaussées séparées</td><td><strong>90 km/h</strong></td><td><strong>80 km/h</strong></td></tr>
+            <tr><td>Autoroute</td><td><strong>90 km/h</strong></td><td><strong>90 km/h</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="memo-highlight">
+          Les véhicules transportant des matières dangereuses (TMD) sont limités à <strong style="color:var(--orange);">80 km/h</strong> sur autoroute.
+        </div>
       </div>
     </div>
 
-    <div id="quizEnd" class="quiz-end" style="display:none;">
-      <div style="font-size:1.1rem;margin-bottom:.5rem;">Quiz terminé !</div>
-      <div class="big-score" id="finalScore">0 / 10</div>
-      <div id="finalTime" style="color:var(--text-muted);margin:.5rem 0;"></div>
-      <div id="finalMsg" style="font-size:1rem;margin:1rem 0;"></div>
-      <button class="btn btn-orange" style="margin-top:1rem;" onclick="startQuiz()">Recommencer</button>
+    <div class="memo-section">
+      <div class="memo-title" onclick="toggleMemo(this)">
+        &#x1F4CF; Dimensions maximales des véhicules
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="memo-body">
+        <table class="memo-table">
+          <thead><tr><th>Dimension</th><th>Limite</th></tr></thead>
+          <tbody>
+            <tr><td>Longueur porteur isolé</td><td><strong>12,00 m</strong></td></tr>
+            <tr><td>Longueur ensemble articulé</td><td><strong>16,50 m</strong></td></tr>
+            <tr><td>Longueur train routier</td><td><strong>18,75 m</strong></td></tr>
+            <tr><td>Largeur</td><td><strong>2,55 m</strong> (2,60 m pour engins frigorifiques)</td></tr>
+            <tr><td>Hauteur</td><td><strong>4,00 m</strong> (pas de limite légale mais 4 m = gabarit routier)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="memo-section">
+      <div class="memo-title" onclick="toggleMemo(this)">
+        &#x2696; PTAC / PTRA par configuration
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="memo-body">
+        <table class="memo-table">
+          <thead><tr><th>Configuration</th><th>PTAC / PTRA</th></tr></thead>
+          <tbody>
+            <tr><td>VUL</td><td><strong>3,5 T</strong></td></tr>
+            <tr><td>Porteur 2 essieux</td><td><strong>19 T</strong></td></tr>
+            <tr><td>Porteur 3 essieux</td><td><strong>26 T</strong></td></tr>
+            <tr><td>Porteur 4 essieux</td><td><strong>32 T</strong></td></tr>
+            <tr><td>Ensemble articulé 4 essieux</td><td><strong>38 T</strong></td></tr>
+            <tr><td>Ensemble articulé 5 essieux</td><td><strong>44 T</strong></td></tr>
+            <tr><td>Train routier</td><td><strong>44 T</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="memo-section">
+      <div class="memo-title" onclick="toggleMemo(this)">
+        &#x1F4CB; Documents obligatoires en cabine
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="memo-body">
+        <ul class="memo-list">
+          <li><strong>Permis de conduire</strong> (catégorie C, CE selon véhicule)</li>
+          <li><strong>FIMO / FCO</strong> (Formation Initiale Minimale Obligatoire / Formation Continue Obligatoire)</li>
+          <li><strong>Carte conducteur</strong> (chronotachygraphe numérique)</li>
+          <li><strong>Carte grise</strong> du véhicule (certificat d'immatriculation)</li>
+          <li><strong>Attestation d'assurance</strong></li>
+          <li><strong>Lettre de voiture CMR</strong> (transport international) ou bon de livraison</li>
+          <li><strong>Attestation d'activité</strong> (si pas de carte insérée les jours précédents)</li>
+          <li><strong>Carnet de bord</strong> (si chronotachygraphe analogique)</li>
+          <li><strong>Certificat de visite technique</strong></li>
+          <li><strong>Documents TMD</strong> (si transport matières dangereuses : consignes écrites, certificat ADR)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="memo-section">
+      <div class="memo-title" onclick="toggleMemo(this)">
+        &#x26A0; Signalisation spécifique PL
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="memo-body">
+        <table class="memo-table">
+          <thead><tr><th>Panneau</th><th>Signification</th></tr></thead>
+          <tbody>
+            <tr><td>Rond rouge + PL barré</td><td>Interdiction aux véhicules &gt; 3,5 T</td></tr>
+            <tr><td>Rond rouge + tonnage (ex: 10T)</td><td>PTAC limité au tonnage indiqué</td></tr>
+            <tr><td>Rond rouge + tonnage/essieu</td><td>Poids par essieu limité</td></tr>
+            <tr><td>Rond rouge + largeur (ex: 2,6m)</td><td>Largeur limitée</td></tr>
+            <tr><td>Rond rouge + hauteur (ex: 3,5m)</td><td>Hauteur limitée (tunnel, pont)</td></tr>
+            <tr><td>Rond rouge + longueur (ex: 12m)</td><td>Longueur limitée</td></tr>
+            <tr><td>Rond rouge + PL dépassement</td><td>Interdiction de dépasser pour les PL</td></tr>
+            <tr><td>Triangle danger + pente %</td><td>Descente dangereuse — frein moteur</td></tr>
+            <tr><td>Panneau bleu "Voie de détresse"</td><td>Lit d'arrêt pour véhicules en perte de freinage</td></tr>
+            <tr><td>Panneau bleu "Aire PL"</td><td>Aire de repos/stationnement PL</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="memo-section">
+      <div class="memo-title" onclick="toggleMemo(this)">
+        &#x1F3ED; Protocole de sécurité — Zone de chargement
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="memo-body">
+        <ul class="memo-list">
+          <li><strong>Protocole de sécurité</strong> obligatoire entre le transporteur et l'entreprise d'accueil (art. R4515-4 du Code du travail)</li>
+          <li>Se présenter à l'accueil, <strong>respecter le plan de circulation</strong> du site</li>
+          <li><strong>Couper le moteur</strong> et serrer le frein de parking</li>
+          <li>Mettre les <strong>cales de roues</strong></li>
+          <li>Porter les <strong>EPI</strong> : gilet haute visibilité, chaussures de sécurité, gants</li>
+          <li><strong>Ne pas rester</strong> entre le quai et le véhicule pendant les manoeuvres</li>
+          <li>Vérifier l'arrimage avant départ : <strong>contrôle visuel + tension des sangles</strong></li>
+          <li>Faire signer les documents de transport (émargement)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="memo-section">
+      <div class="memo-title" onclick="toggleMemo(this)">
+        &#x1F517; Arrimage des marchandises
+        <span class="chevron">&#9660;</span>
+      </div>
+      <div class="memo-body">
+        <table class="memo-table">
+          <thead><tr><th>Règle</th><th>Valeur</th></tr></thead>
+          <tbody>
+            <tr><td>Capacité minimale par sangle</td><td><strong>1 sangle pour 500 kg</strong> de charge (LC &ge; 500 daN)</td></tr>
+            <tr><td>Force de retenue longitudinale</td><td><strong>80 %</strong> du poids de la charge (vers l'avant)</td></tr>
+            <tr><td>Force de retenue latérale</td><td><strong>50 %</strong> du poids de la charge</td></tr>
+            <tr><td>Force de retenue vers l'arrière</td><td><strong>50 %</strong> du poids de la charge</td></tr>
+            <tr><td>Coefficient de frottement bois/métal</td><td><strong>&#x03BC; &asymp; 0,2 à 0,3</strong></td></tr>
+            <tr><td>Coefficient de frottement caoutchouc/bois</td><td><strong>&#x03BC; &asymp; 0,5 à 0,6</strong></td></tr>
+            <tr><td>Tapis antiglisse</td><td>Augmente &#x03BC; jusqu'à <strong>0,6 — 0,7</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="memo-highlight">
+          Norme EN 12195 : toujours vérifier que les sangles ne sont pas endommagées (coupures, effilochage, déformation de la boucle). Remplacer toute sangle douteuse.
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- ═══════ MODAL RÉSUMÉ ═══════ -->
+<div class="modal-overlay" id="resumeModal">
+  <div class="modal-content">
+    <h3>&#x1F4CB; Résumé de la journée</h3>
+    <div id="resumeContent"></div>
+    <div style="text-align:center;margin-top:1rem;">
+      <button class="btn btn-orange" onclick="closeResume()">Fermer</button>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════ FOOTER ═══════ -->
 <footer>
-  Démonstration inerWeb Édu — Potentiel filière Transport — F. Henninot — Mars 2026
+  <strong><span style="color:var(--orange);">inerWeb</span> × <span style="color:#b5eded;">ÉQUATIO</span></strong><br>
+  Outil pédagogique — Formation Transport Routier — <a href="https://equatio.org" target="_blank">equatio.org</a>
 </footer>
 
-<!-- ═══════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════
      JAVASCRIPT
-     ═══════════════════════════════════════════ -->
+     ═══════════════════════════════════════════════ -->
 <script>
-/* ── Navigation ── */
+/* ══════════════════════════
+   NAVIGATION
+   ══════════════════════════ */
 function showTool(idx) {
   document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
   document.querySelectorAll('.tool-section').forEach((s,i) => s.classList.toggle('active', i===idx));
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
-/* ═══════════════════════════
-   OUTIL 1 — TIMELINE
-   ═══════════════════════════ */
+/* ══════════════════════════
+   AIDE-MÉMOIRE — Accordéons
+   ══════════════════════════ */
+function toggleMemo(el) {
+  el.classList.toggle('open');
+  const body = el.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+/* ══════════════════════════
+   OUTIL 1 — TEMPS DE CONDUITE
+   ══════════════════════════ */
 const blocks = [];
 
+// Init timeline heures
 (function initTimeline() {
   const h = document.getElementById('timelineHours');
   for (let i = 0; i <= 24; i++) {
@@ -625,43 +862,96 @@ const blocks = [];
   }
 })();
 
-function fmt(h) {
-  const hh = Math.floor(h);
-  const mm = Math.round((h - hh) * 60);
-  return hh + 'h' + String(mm).padStart(2,'0');
+function fmt(hours) {
+  const h = Math.floor(Math.abs(hours));
+  const m = Math.round((Math.abs(hours) - h) * 60);
+  return h + 'h' + String(m).padStart(2,'0');
+}
+
+function fmtHM(hours) {
+  const totalMin = Math.round(hours * 60);
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+  return String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0');
+}
+
+function getMissionStartHours() {
+  const val = document.getElementById('missionStart').value;
+  const parts = val.split(':');
+  return parseInt(parts[0]) + parseInt(parts[1]) / 60;
+}
+
+function getBlockEndTime() {
+  const startH = getMissionStartHours();
+  let elapsed = 0;
+  for (const b of blocks) elapsed += b.dur;
+  return startH + elapsed;
 }
 
 function addBlock() {
   const type = document.getElementById('blockType').value;
-  const start = parseFloat(document.getElementById('blockStart').value);
-  const dur = parseFloat(document.getElementById('blockDuration').value);
-  if (isNaN(start) || isNaN(dur) || dur <= 0) return;
-  const end = start + dur;
-  if (end > 24) { alert('Le bloc dépasse 24h !'); return; }
-  // Vérifier chevauchement
-  for (const b of blocks) {
-    if (start < b.end && end > b.start) {
-      alert('Chevauchement avec un bloc existant ('+fmt(b.start)+' → '+fmt(b.end)+')');
-      return;
-    }
+  const hours = parseInt(document.getElementById('blockHours').value) || 0;
+  const minutes = parseInt(document.getElementById('blockMinutes').value) || 0;
+  const dur = hours + minutes / 60;
+  if (dur <= 0) return;
+
+  const startH = getBlockEndTime();
+  if (startH + dur > 24) {
+    alert('Ce bloc dépasse minuit (24h00). Réduisez la durée.');
+    return;
   }
-  blocks.push({ type, start, end, dur });
-  blocks.sort((a,b) => a.start - b.start);
-  renderTimeline();
-  analyzeRules();
+
+  blocks.push({ type, start: startH, dur, end: startH + dur });
+  renderAll();
+}
+
+function quickAdd(type, h, m) {
+  const dur = h + m / 60;
+  const startH = getBlockEndTime();
+  if (startH + dur > 24) {
+    alert('Ce bloc dépasse minuit (24h00).');
+    return;
+  }
+  blocks.push({ type, start: startH, dur, end: startH + dur });
+  renderAll();
 }
 
 function removeBlock(idx) {
-  blocks.splice(idx, 1);
-  renderTimeline();
-  analyzeRules();
+  blocks.splice(idx);
+  // Recalculate positions
+  let pos = getMissionStartHours();
+  for (let i = 0; i < blocks.length; i++) {
+    blocks[i].start = pos;
+    blocks[i].end = pos + blocks[i].dur;
+    pos = blocks[i].end;
+  }
+  renderAll();
 }
 
 function clearBlocks() {
   blocks.length = 0;
+  renderAll();
+}
+
+function recalcAll() {
+  let pos = getMissionStartHours();
+  for (let i = 0; i < blocks.length; i++) {
+    blocks[i].start = pos;
+    blocks[i].end = pos + blocks[i].dur;
+    pos = blocks[i].end;
+  }
+  renderAll();
+}
+
+function renderAll() {
   renderTimeline();
+  renderBlocList();
   analyzeRules();
 }
+
+const typeLabels = { conduite: 'Conduite', travail: 'Autre travail', dispo: 'Disponibilité', repos: 'Repos' };
+const typeColors = { conduite: '#2ecc71', travail: '#3498db', dispo: '#f1c40f', repos: '#95a5a6' };
+const typeLetters = { conduite: 'C', travail: 'T', dispo: 'D', repos: 'R' };
 
 function renderTimeline() {
   const bar = document.getElementById('timelineBar');
@@ -670,94 +960,135 @@ function renderTimeline() {
     const div = document.createElement('div');
     div.className = 'timeline-block block-' + b.type;
     div.style.left = (b.start / 24 * 100) + '%';
-    div.style.width = (b.dur / 24 * 100) + '%';
-    const labels = { conduite:'C', travail:'T', dispo:'D', repos:'R' };
-    div.innerHTML = labels[b.type] + ' ' + fmt(b.dur) +
-      '<span class="block-delete" onclick="removeBlock('+i+')">&times;</span>';
+    div.style.width = Math.max(0.4, b.dur / 24 * 100) + '%';
+    let label = typeLetters[b.type];
+    if (b.dur >= 0.75) label += ' ' + fmt(b.dur);
+    div.innerHTML = label +
+      '<span class="block-delete" onclick="removeBlock('+i+')" title="Supprimer ce bloc et les suivants">&times;</span>';
     bar.appendChild(div);
   });
 }
 
+function renderBlocList() {
+  const list = document.getElementById('blocList');
+  if (blocks.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:.8rem;font-size:.82rem;">Aucun bloc saisi. Ajoutez votre premier bloc d\'activité.</div>';
+    return;
+  }
+  list.innerHTML = blocks.map((b, i) =>
+    '<div class="bloc-item">' +
+      '<span class="bloc-color" style="background:'+typeColors[b.type]+';"></span>' +
+      '<span class="bloc-info">' + typeLabels[b.type] + '</span>' +
+      '<span class="bloc-time">' + fmtHM(b.start) + ' → ' + fmtHM(b.end) + ' (' + fmt(b.dur) + ')</span>' +
+      '<button class="btn btn-red btn-sm" style="padding:.2rem .5rem;font-size:.7rem;min-height:30px;min-width:30px;" onclick="removeBlock('+i+')">&times;</button>' +
+    '</div>'
+  ).join('');
+}
+
 function analyzeRules() {
   const alerts = [];
-  let totalConduite = 0, totalTravail = 0, totalRepos = 0;
+  let totalConduite = 0, totalTravail = 0, totalRepos = 0, totalDispo = 0;
 
   blocks.forEach(b => {
     if (b.type === 'conduite') totalConduite += b.dur;
     if (b.type === 'travail') totalTravail += b.dur;
     if (b.type === 'repos') totalRepos += b.dur;
+    if (b.type === 'dispo') totalDispo += b.dur;
   });
 
-  // Vérification conduite continue (4h30 sans pause 45min)
+  // Amplitude (du premier bloc au dernier)
+  let amplitude = 0;
+  if (blocks.length > 0) {
+    amplitude = blocks[blocks.length - 1].end - blocks[0].start;
+  }
+
+  // === Conduite continue (4h30 sans pause 45min) ===
   let conduiteConsec = 0;
   let pauseAccum = 0;
-  let lastEnd = 0;
-  const sorted = [...blocks].sort((a,b) => a.start - b.start);
+  let conduiteContinueMax = 0;
 
-  for (const b of sorted) {
+  for (const b of blocks) {
     if (b.type === 'conduite') {
       conduiteConsec += b.dur;
       pauseAccum = 0;
+      if (conduiteConsec > conduiteContinueMax) conduiteContinueMax = conduiteConsec;
       if (conduiteConsec > 4.5) {
-        alerts.push('Conduite continue > 4h30 sans pause de 45 min (atteint ' + fmt(conduiteConsec) + ')');
+        alerts.push({ level: 'danger', msg: 'Conduite continue > 4h30 sans pause de 45 min (atteint ' + fmt(conduiteConsec) + ')' });
+        conduiteConsec = 0; // reset pour ne pas re-alerter
       }
     } else if (b.type === 'repos' || b.type === 'dispo') {
       pauseAccum += b.dur;
-      if (pauseAccum >= 0.75) { // 45 min
+      if (pauseAccum >= 0.75) {
         conduiteConsec = 0;
         pauseAccum = 0;
       }
+    } else {
+      // Autre travail ne compte pas comme pause
+      pauseAccum = 0;
     }
   }
 
-  // Conduite journalière max 9h
-  if (totalConduite > 10) {
-    alerts.push('Conduite journalière > 10h : INTERDIT même en extension !');
-  } else if (totalConduite > 9) {
-    alerts.push('Conduite journalière > 9h : extension à 10h (2 fois/semaine max)');
-  }
-
-  // Repos journalier
-  let maxReposConsec = 0, currentRepos = 0;
-  for (let i = 0; i < sorted.length; i++) {
-    if (sorted[i].type === 'repos') {
-      currentRepos += sorted[i].dur;
-      if (i + 1 < sorted.length && sorted[i+1].type === 'repos' && sorted[i].end === sorted[i+1].start) {
-        continue;
+  // Split 15+30 check
+  let splitPhase = 0; // 0 = rien, 1 = pause 15 trouvée, 2 = split valide
+  let conduiteDepuisSplit = 0;
+  for (const b of blocks) {
+    if (b.type === 'conduite') {
+      conduiteDepuisSplit += b.dur;
+    } else if (b.type === 'repos' || b.type === 'dispo') {
+      if (splitPhase === 0 && b.dur >= 0.25) {
+        splitPhase = 1; // 15 min min
+        conduiteDepuisSplit = 0;
+      } else if (splitPhase === 1 && b.dur >= 0.5) {
+        splitPhase = 2; // 30 min → split 15+30 OK
+        conduiteDepuisSplit = 0;
       }
-    } else {
-      currentRepos = 0;
     }
-    if (currentRepos > maxReposConsec) maxReposConsec = currentRepos;
-    if (sorted[i].type !== 'repos') currentRepos = 0;
   }
-  // Recalcul repos consécutif simplifié
-  maxReposConsec = 0;
-  currentRepos = 0;
-  for (const b of sorted) {
+
+  // === Conduite journalière max 9h ===
+  if (totalConduite > 10) {
+    alerts.push({ level: 'danger', msg: 'Conduite journalière > 10h : DÉPASSEMENT INTERDIT (' + fmt(totalConduite) + ')' });
+  } else if (totalConduite > 9) {
+    alerts.push({ level: 'warn', msg: 'Conduite journalière > 9h (' + fmt(totalConduite) + ') : extension 10h autorisée 2 fois/semaine max' });
+  }
+
+  // === Repos journalier ===
+  let maxReposConsec = 0;
+  let currentReposConsec = 0;
+  for (const b of blocks) {
     if (b.type === 'repos') {
-      currentRepos += b.dur;
+      currentReposConsec += b.dur;
     } else {
-      if (currentRepos > maxReposConsec) maxReposConsec = currentRepos;
-      currentRepos = 0;
+      if (currentReposConsec > maxReposConsec) maxReposConsec = currentReposConsec;
+      currentReposConsec = 0;
     }
   }
-  if (currentRepos > maxReposConsec) maxReposConsec = currentRepos;
+  if (currentReposConsec > maxReposConsec) maxReposConsec = currentReposConsec;
 
-  // Check remaining time for repos
   const usedTime = blocks.reduce((s,b) => s + b.dur, 0);
-  const freeTime = 24 - usedTime;
-  const totalPossibleRepos = totalRepos + freeTime;
+  const freeTimeAfter = blocks.length > 0 ? 24 - blocks[blocks.length - 1].end : 24;
 
-  if (blocks.length > 0 && maxReposConsec < 9 && totalPossibleRepos < 9) {
-    alerts.push('Impossible d\'atteindre le repos journalier minimum (9h réduit) !');
-  } else if (blocks.length > 0 && maxReposConsec < 11 && maxReposConsec >= 9) {
-    alerts.push('Repos journalier réduit (9h) : autorisé max 3 fois/semaine');
+  if (blocks.length > 0 && totalConduite > 0) {
+    const maxPossibleRepos = maxReposConsec + freeTimeAfter;
+    if (maxPossibleRepos < 9) {
+      alerts.push({ level: 'danger', msg: 'Impossible d\'atteindre le repos journalier minimum (9h réduit) !' });
+    } else if (maxReposConsec < 9 && freeTimeAfter >= 9) {
+      // OK, still possible
+    } else if (maxReposConsec >= 9 && maxReposConsec < 11) {
+      alerts.push({ level: 'warn', msg: 'Repos journalier réduit (' + fmt(maxReposConsec) + ') : autorisé max 3 fois/semaine' });
+    }
   }
 
-  // Calcul pause nécessaire
+  // === Amplitude ===
+  if (amplitude > 15) {
+    alerts.push({ level: 'danger', msg: 'Amplitude > 15h : DÉPASSEMENT (' + fmt(amplitude) + ')' });
+  } else if (amplitude > 13) {
+    alerts.push({ level: 'warn', msg: 'Amplitude > 13h (' + fmt(amplitude) + ') : uniquement avec repos réduit (9h)' });
+  }
+
+  // === Calcul pause nécessaire ===
   let conduiteDepuisPause = 0;
-  for (const b of sorted) {
+  for (const b of blocks) {
     if (b.type === 'conduite') {
       conduiteDepuisPause += b.dur;
     } else if ((b.type === 'repos' || b.type === 'dispo') && b.dur >= 0.75) {
@@ -766,36 +1097,98 @@ function analyzeRules() {
   }
   const pauseIn = Math.max(0, 4.5 - conduiteDepuisPause);
 
-  // Update counters
+  // === Update compteurs ===
   document.getElementById('cntConduite').textContent = fmt(totalConduite);
-  document.getElementById('cntTravail').textContent = fmt(totalTravail);
   document.getElementById('cntRepos').textContent = fmt(totalRepos);
-  const restant = Math.max(0, 9 - totalConduite);
-  document.getElementById('cntConduiteRestant').textContent = fmt(restant);
-  document.getElementById('cntConduiteRestant').style.color = restant <= 1 ? 'var(--red)' : 'var(--orange)';
 
+  const restant = Math.max(0, 9 - totalConduite);
+  const cntRestantBox = document.getElementById('cntRestantBox');
+  document.getElementById('cntConduiteRestant').textContent = fmt(restant);
+  cntRestantBox.className = 'counter-box' + (restant <= 1 ? ' alert-red' : '');
+
+  const cntPauseBox = document.getElementById('cntPauseBox');
   if (conduiteDepuisPause > 0) {
     document.getElementById('cntPauseNeeded').textContent = fmt(pauseIn);
-    document.getElementById('cntPauseNeeded').style.color = pauseIn <= 0.5 ? 'var(--red)' : 'var(--orange)';
+    cntPauseBox.className = 'counter-box' + (pauseIn <= 0.5 ? ' alert-red' : '');
   } else {
-    document.getElementById('cntPauseNeeded').textContent = '—';
-    document.getElementById('cntPauseNeeded').style.color = 'var(--orange)';
+    document.getElementById('cntPauseNeeded').textContent = '4h30';
+    cntPauseBox.className = 'counter-box';
   }
 
-  // Render alerts
+  document.getElementById('cntAmplitude').textContent = fmt(amplitude);
+
+  const cntConduiteBox = document.getElementById('cntConduiteBox');
+  cntConduiteBox.className = 'counter-box' + (totalConduite > 9 ? ' alert-red' : '');
+
+  // === Render alerts ===
   const panel = document.getElementById('alertsPanel');
   if (alerts.length === 0 && blocks.length > 0) {
-    panel.innerHTML = '<div class="alert-item alert-ok">&#10003; Toutes les règles sont respectées</div>';
+    panel.innerHTML = '<div class="alert-item alert-ok">&#10003; Toutes les règles CE 561/2006 sont respectées</div>';
   } else {
-    panel.innerHTML = alerts.map(a => '<div class="alert-item">&#9888; ' + a + '</div>').join('');
+    panel.innerHTML = alerts.map(a => {
+      const cls = a.level === 'danger' ? 'alert-danger' : 'alert-warn';
+      const icon = a.level === 'danger' ? '&#9888;' : '&#9888;';
+      return '<div class="alert-item '+cls+'">' + icon + ' ' + a.msg + '</div>';
+    }).join('');
   }
 }
 
-analyzeRules();
+// Init
+renderAll();
 
-/* ═══════════════════════════
+// === Résumé de la journée ===
+function showResume() {
+  let totalConduite = 0, totalTravail = 0, totalRepos = 0, totalDispo = 0;
+  blocks.forEach(b => {
+    if (b.type === 'conduite') totalConduite += b.dur;
+    if (b.type === 'travail') totalTravail += b.dur;
+    if (b.type === 'repos') totalRepos += b.dur;
+    if (b.type === 'dispo') totalDispo += b.dur;
+  });
+  const total = totalConduite + totalTravail + totalRepos + totalDispo;
+  let amplitude = 0;
+  if (blocks.length > 0) amplitude = blocks[blocks.length - 1].end - blocks[0].start;
+
+  let html = '';
+  if (blocks.length === 0) {
+    html = '<div style="text-align:center;color:var(--muted);">Aucune activité saisie.</div>';
+  } else {
+    html += '<div class="resume-row"><span class="label">Début de mission</span><span class="value">' + fmtHM(blocks[0].start) + '</span></div>';
+    html += '<div class="resume-row"><span class="label">Fin d\'activité</span><span class="value">' + fmtHM(blocks[blocks.length-1].end) + '</span></div>';
+    html += '<div class="resume-row"><span class="label">Amplitude</span><span class="value" style="color:'+(amplitude>13?'var(--red)':'var(--green)')+'">' + fmt(amplitude) + '</span></div>';
+    html += '<div style="height:.8rem;"></div>';
+    html += '<div class="resume-row"><span class="label">Conduite totale</span><span class="value" style="color:'+(totalConduite>9?'var(--red)':'var(--orange)')+'">' + fmt(totalConduite) + '</span></div>';
+    html += '<div class="resume-row"><span class="label">Autre travail</span><span class="value">' + fmt(totalTravail) + '</span></div>';
+    html += '<div class="resume-row"><span class="label">Disponibilité</span><span class="value">' + fmt(totalDispo) + '</span></div>';
+    html += '<div class="resume-row"><span class="label">Repos</span><span class="value">' + fmt(totalRepos) + '</span></div>';
+    html += '<div class="resume-row"><span class="label">Temps total occupé</span><span class="value">' + fmt(total) + '</span></div>';
+    html += '<div style="height:.8rem;"></div>';
+    html += '<div class="resume-row"><span class="label">Conduite restante (jour)</span><span class="value">' + fmt(Math.max(0, 9 - totalConduite)) + '</span></div>';
+    html += '<div class="resume-row"><span class="label">Repos journalier nécessaire</span><span class="value">' + (totalRepos >= 11 ? '&#10003; OK (11h)' : totalRepos >= 9 ? '&#10003; OK réduit (9h)' : fmt(Math.max(0, 9 - totalRepos)) + ' manquantes') + '</span></div>';
+
+    html += '<div style="height:1rem;"></div>';
+    html += '<div style="font-weight:700;color:var(--turquoise);margin-bottom:.5rem;">Détail des blocs</div>';
+    blocks.forEach(b => {
+      html += '<div class="resume-row"><span class="label" style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:10px;height:10px;border-radius:3px;background:'+typeColors[b.type]+';"></span> ' + typeLabels[b.type] + '</span><span class="value">' + fmtHM(b.start) + ' → ' + fmtHM(b.end) + ' (' + fmt(b.dur) + ')</span></div>';
+    });
+  }
+
+  document.getElementById('resumeContent').innerHTML = html;
+  document.getElementById('resumeModal').classList.add('show');
+}
+
+function closeResume() {
+  document.getElementById('resumeModal').classList.remove('show');
+}
+
+// Fermer modal au clic extérieur
+document.getElementById('resumeModal').addEventListener('click', function(e) {
+  if (e.target === this) closeResume();
+});
+
+/* ══════════════════════════
    OUTIL 2 — CHARGEMENT
-   ═══════════════════════════ */
+   ══════════════════════════ */
 let marchandises = [];
 
 function getVehicule() {
@@ -805,7 +1198,8 @@ function getVehicule() {
   let tare = parseInt(document.getElementById('tareCustom').value);
   if (isNaN(tare) || tare <= 0) tare = parseInt(opt.dataset.tare);
   const volMax = parseFloat(opt.dataset.vol);
-  return { ptac, tare, volMax, chargeUtile: ptac - tare };
+  const essieux = parseInt(opt.dataset.essieux);
+  return { ptac, tare, volMax, essieux, chargeUtile: ptac - tare };
 }
 
 function ajouterMarchandise() {
@@ -831,36 +1225,63 @@ function updateChargement() {
   const v = getVehicule();
   const totalPoids = marchandises.reduce((s,m) => s + m.poids, 0);
   const totalVol = marchandises.reduce((s,m) => s + m.vol, 0);
-  const pcPoids = Math.min(100, (totalPoids / v.chargeUtile) * 100);
-  const pcVol = Math.min(100, (totalVol / v.volMax) * 100);
+  const pcPoids = (totalPoids / v.chargeUtile) * 100;
+  const pcVol = (totalVol / v.volMax) * 100;
 
-  // Couleur
   function couleur(pc) {
-    if (pc > 100) return 'var(--red)';
-    if (pc > 85) return 'var(--orange)';
+    if (pc > 95) return 'var(--red)';
+    if (pc > 80) return 'var(--orange)';
     return 'var(--green)';
   }
 
+  // Jauge poids
   const gp = document.getElementById('gaugePoids');
   gp.style.height = Math.min(100, pcPoids) + '%';
   gp.style.background = couleur(pcPoids);
   document.getElementById('gaugePoidsVal').textContent = pcPoids.toFixed(1) + ' %';
+  document.getElementById('gaugePoidsVal').style.color = couleur(pcPoids);
   document.getElementById('gaugePoidsInfo').textContent =
     (totalPoids/1000).toFixed(1) + ' / ' + (v.chargeUtile/1000).toFixed(1) + ' T';
-  document.getElementById('gaugePoidsVal').style.color = couleur(pcPoids);
 
+  // Jauge volume
   const gv = document.getElementById('gaugeVol');
   gv.style.height = Math.min(100, pcVol) + '%';
   gv.style.background = couleur(pcVol);
   document.getElementById('gaugeVolVal').textContent = pcVol.toFixed(1) + ' %';
+  document.getElementById('gaugeVolVal').style.color = couleur(pcVol);
   document.getElementById('gaugeVolInfo').textContent =
     totalVol.toFixed(1) + ' / ' + v.volMax + ' m³';
-  document.getElementById('gaugeVolVal').style.color = couleur(pcVol);
 
-  // Essieux (simplifié : 30-40% avant / 60-70% arrière)
+  // Charge utile restante
+  const restante = v.chargeUtile - totalPoids;
+  const crEl = document.getElementById('chargeRestante');
+  crEl.textContent = (restante >= 0 ? '' : '- ') + Math.abs(restante).toLocaleString('fr-FR') + ' kg';
+  crEl.style.color = restante < 0 ? 'var(--red)' : restante < v.chargeUtile * 0.1 ? 'var(--orange)' : 'var(--green)';
+
+  // Surcharge
+  const surchargeEl = document.getElementById('surchargeAlert');
+  if (pcPoids > 100 || pcVol > 100) {
+    surchargeEl.style.display = 'block';
+    let msg = 'SURCHARGE DÉTECTÉE — ';
+    if (pcPoids > 100) msg += 'Poids : +' + ((totalPoids - v.chargeUtile)/1000).toFixed(1) + ' T ';
+    if (pcVol > 100) msg += 'Volume : +' + (totalVol - v.volMax).toFixed(1) + ' m³';
+    surchargeEl.textContent = msg;
+  } else {
+    surchargeEl.style.display = 'none';
+  }
+
+  // Répartition essieux simplifiée
   const poidsTotal = v.tare + totalPoids;
-  const pcAvant = totalPoids > 0 ? Math.max(20, Math.min(45, 35 - (totalPoids / poidsTotal) * 15)) : 35;
-  const pcArr = 100 - pcAvant;
+  let pcAvant, pcArr;
+  if (totalPoids === 0) {
+    pcAvant = 35; pcArr = 65;
+  } else {
+    // Plus la charge augmente, plus elle pèse sur l'arrière (chargement arrière typique PL)
+    const ratioCharge = totalPoids / v.chargeUtile;
+    pcAvant = Math.max(20, Math.min(40, 35 - ratioCharge * 12));
+    pcArr = 100 - pcAvant;
+  }
+
   document.getElementById('essAvant').style.width = pcAvant.toFixed(0) + '%';
   document.getElementById('essAvant').textContent = pcAvant.toFixed(0) + ' %';
   document.getElementById('essArr').style.width = pcArr.toFixed(0) + '%';
@@ -868,258 +1289,31 @@ function updateChargement() {
 
   const essAlerte = document.getElementById('essAlerte');
   if (pcAvant < 25) {
-    essAlerte.innerHTML = '<span style="color:var(--red);">&#9888; Charge avant insuffisante — risque de sous-virage !</span>';
-  } else if (pcArr > 75) {
-    essAlerte.innerHTML = '<span style="color:var(--orange);">&#9888; Charge arrière élevée — vérifier la répartition</span>';
+    essAlerte.innerHTML = '<span style="color:var(--red);">&#9888; Charge avant insuffisante — direction allégée, risque de perte d\'adhérence</span>';
+  } else if (pcArr > 72) {
+    essAlerte.innerHTML = '<span style="color:var(--orange);">&#9888; Charge arrière élevée — vérifier la répartition du chargement</span>';
   } else {
     essAlerte.innerHTML = '<span style="color:var(--green);">&#10003; Répartition correcte</span>';
   }
 
-  // Liste
+  // Liste marchandises
   const list = document.getElementById('marchList');
   if (marchandises.length === 0) {
-    list.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:1rem;font-size:.85rem;">Aucune marchandise chargée</div>';
+    list.innerHTML = '<div style="text-align:center;color:var(--muted);padding:1rem;font-size:.82rem;">Aucune marchandise chargée</div>';
   } else {
     list.innerHTML = marchandises.map((m, i) =>
       '<div class="marchandise-item">' +
         '<span class="m-name">' + m.nom + '</span>' +
-        '<span class="m-poids">' + (m.poids/1000).toFixed(2) + ' T</span>' +
+        '<span class="m-poids">' + (m.poids >= 1000 ? (m.poids/1000).toFixed(2) + ' T' : m.poids + ' kg') + '</span>' +
         '<span class="m-vol">' + m.vol.toFixed(1) + ' m³</span>' +
-        '<button class="btn btn-red btn-sm" style="padding:.2rem .5rem;font-size:.7rem;" onclick="supprimerMarchandise('+i+')">&#10005;</button>' +
+        '<button class="btn btn-red btn-sm" style="padding:.2rem .5rem;font-size:.7rem;min-height:30px;min-width:30px;" onclick="supprimerMarchandise('+i+')">&#10005;</button>' +
       '</div>'
     ).join('');
   }
 }
+
+// Init chargement
 updateChargement();
-
-/* ═══════════════════════════
-   OUTIL 3 — QUIZ PANNEAUX
-   ═══════════════════════════ */
-const quizData = [
-  {
-    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
-      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
-      <line x1="30" y1="130" x2="130" y2="30" stroke="#c0392b" stroke-width="8"/>
-      <text x="80" y="72" text-anchor="middle" font-size="22" font-weight="bold" fill="#333">PL</text>
-      <text x="80" y="100" text-anchor="middle" font-size="15" fill="#333">&gt; 3,5T</text>
-    </svg>`,
-    question: 'Que signifie ce panneau ?',
-    reponses: ['Interdiction aux véhicules de + de 3,5 T', 'Limitation de vitesse PL', 'Voie réservée PL', 'Zone de pesée obligatoire'],
-    correct: 0,
-    explication: 'Ce panneau rond à bordure rouge avec la mention PL > 3,5T interdit la circulation aux véhicules dont le PTAC dépasse 3,5 tonnes.'
-  },
-  {
-    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
-      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
-      <text x="80" y="92" text-anchor="middle" font-size="42" font-weight="bold" fill="#333">10T</text>
-    </svg>`,
-    question: 'Que signifie ce panneau ?',
-    reponses: ['Vitesse limitée à 10 km/h', 'Poids total autorisé limité à 10 tonnes', 'Distance de sécurité 10 m', 'Largeur limitée à 1,0 m'],
-    correct: 1,
-    explication: 'Ce panneau d\'interdiction (rond, bordure rouge) avec "10T" interdit l\'accès aux véhicules dont le poids total dépasse 10 tonnes.'
-  },
-  {
-    svg: `<svg width="160" height="200" viewBox="0 0 160 200">
-      <polygon points="80,10 150,190 10,190" fill="#fff" stroke="#c0392b" stroke-width="7"/>
-      <text x="80" y="135" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">3,5m</text>
-      <line x1="55" y1="80" x2="105" y2="80" stroke="#333" stroke-width="3"/>
-      <line x1="55" y1="80" x2="55" y2="110" stroke="#333" stroke-width="2" stroke-dasharray="4"/>
-      <line x1="105" y1="80" x2="105" y2="110" stroke="#333" stroke-width="2" stroke-dasharray="4"/>
-      <text x="80" y="75" text-anchor="middle" font-size="13" fill="#333">&#8597;</text>
-    </svg>`,
-    question: 'Que signifie ce panneau triangulaire ?',
-    reponses: ['Danger : route étroite', 'Annonce d\'un gabarit limité en hauteur à 3,5 m', 'Limitation de largeur', 'Zone de travaux hauteur réduite'],
-    correct: 1,
-    explication: 'Le triangle de danger annonce un passage limité en hauteur à 3,5 m. Les conducteurs PL doivent vérifier la hauteur de leur véhicule.'
-  },
-  {
-    svg: `<svg width="180" height="120" viewBox="0 0 180 120">
-      <rect x="5" y="5" width="170" height="110" rx="10" fill="#2563eb" stroke="#fff" stroke-width="3"/>
-      <text x="90" y="45" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">VOIE DE</text>
-      <text x="90" y="72" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">DÉTRESSE</text>
-      <text x="90" y="100" text-anchor="middle" font-size="28" fill="#fff">&#10132; 500m</text>
-    </svg>`,
-    question: 'Que signale ce panneau bleu ?',
-    reponses: ['Aire de repos dans 500 m', 'Voie de détresse dans 500 m', 'Station-service dans 500 m', 'Sortie d\'autoroute dans 500 m'],
-    correct: 1,
-    explication: 'Ce panneau d\'indication signale une voie de détresse (lit d\'arrêt) à 500 m, destinée aux véhicules en perte de freinage, notamment les PL en descente.'
-  },
-  {
-    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
-      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
-      <text x="80" y="92" text-anchor="middle" font-size="36" font-weight="bold" fill="#333">2,6m</text>
-      <line x1="45" y1="50" x2="45" y2="110" stroke="#333" stroke-width="3"/>
-      <line x1="115" y1="50" x2="115" y2="110" stroke="#333" stroke-width="3"/>
-      <text x="80" y="46" text-anchor="middle" font-size="13" fill="#333">&#8596;</text>
-    </svg>`,
-    question: 'Que signifie ce panneau ?',
-    reponses: ['Limitation de hauteur à 2,6 m', 'Limitation de largeur à 2,6 m', 'Interdiction aux véhicules de + 2,6 T', 'Passage de 2,6 m minimum'],
-    correct: 1,
-    explication: 'Ce panneau rond à bordure rouge avec la cote 2,6 m et des flèches horizontales interdit le passage aux véhicules dont la largeur dépasse 2,6 mètres.'
-  },
-  {
-    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
-      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
-      <text x="80" y="68" text-anchor="middle" font-size="14" fill="#333">12T</text>
-      <line x1="40" y1="82" x2="120" y2="82" stroke="#333" stroke-width="3"/>
-      <circle cx="60" cy="105" r="10" fill="none" stroke="#333" stroke-width="3"/>
-      <circle cx="100" cy="105" r="10" fill="none" stroke="#333" stroke-width="3"/>
-      <line x1="40" y1="95" x2="120" y2="95" stroke="#333" stroke-width="2"/>
-    </svg>`,
-    question: 'Que signifie ce panneau ?',
-    reponses: ['PTAC limité à 12 T', 'Poids limité à 12 T par essieu', 'Charge remorque limitée à 12 T', 'Distance entre véhicules 12 m'],
-    correct: 1,
-    explication: 'Ce panneau interdit l\'accès aux véhicules dont le poids par essieu dépasse 12 tonnes. Il protège les ouvrages d\'art (ponts) contre les surcharges ponctuelles.'
-  },
-  {
-    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
-      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
-      <rect x="40" y="48" width="80" height="28" rx="4" fill="#333"/>
-      <text x="80" y="67" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">CAMION</text>
-      <rect x="55" y="82" width="50" height="22" rx="3" fill="#333"/>
-      <text x="80" y="98" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">AUTO</text>
-      <line x1="30" y1="130" x2="130" y2="30" stroke="#c0392b" stroke-width="7"/>
-    </svg>`,
-    question: 'Que signifie ce panneau ?',
-    reponses: ['Interdiction de dépasser pour les PL', 'Interdiction aux convois', 'Voie réservée aux PL', 'Interdiction de stationner PL'],
-    correct: 0,
-    explication: 'Ce panneau interdit aux véhicules de + de 3,5 T de dépasser les autres véhicules. Il est fréquent sur les routes à forte déclivité.'
-  },
-  {
-    svg: `<svg width="180" height="120" viewBox="0 0 180 120">
-      <rect x="5" y="5" width="170" height="110" rx="10" fill="#2563eb" stroke="#fff" stroke-width="3"/>
-      <text x="90" y="38" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">AIRE PL</text>
-      <rect x="30" y="48" width="120" height="3" fill="rgba(255,255,255,.4)"/>
-      <text x="90" y="72" text-anchor="middle" font-size="28" fill="#fff">P</text>
-      <text x="90" y="100" text-anchor="middle" font-size="14" fill="#fff">&#9660; 200m</text>
-    </svg>`,
-    question: 'Que signale ce panneau ?',
-    reponses: ['Péage dans 200 m', 'Aire de stationnement PL dans 200 m', 'Poste de contrôle dans 200 m', 'Station GPL dans 200 m'],
-    correct: 1,
-    explication: 'Ce panneau d\'indication signale une aire de stationnement réservée aux poids lourds à 200 m. Utile pour les temps de repos obligatoires.'
-  },
-  {
-    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
-      <polygon points="80,12 152,145 8,145" fill="#f1c40f" stroke="#333" stroke-width="4"/>
-      <text x="80" y="80" text-anchor="middle" font-size="38" font-weight="bold" fill="#333">&#9888;</text>
-      <text x="80" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">10%</text>
-      <polyline points="60,95 80,75 100,95" fill="none" stroke="#333" stroke-width="3"/>
-    </svg>`,
-    question: 'Que signale ce panneau triangulaire ?',
-    reponses: ['Zone de travaux', 'Descente dangereuse à 10 %', 'Montée à 10 % — vitesse limitée', 'Virage dangereux'],
-    correct: 1,
-    explication: 'Ce panneau de danger (triangle jaune/blanc bordé) signale une descente dangereuse avec une pente de 10 %. Les conducteurs PL doivent utiliser le frein moteur et adapter leur vitesse.'
-  },
-  {
-    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
-      <circle cx="80" cy="80" r="72" fill="#2563eb" stroke="#fff" stroke-width="5"/>
-      <text x="80" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">CHAÎNES</text>
-      <text x="80" y="88" text-anchor="middle" font-size="13" fill="#fff">NEIGE</text>
-      <text x="80" y="108" text-anchor="middle" font-size="12" fill="#fff">OBLIGATOIRES</text>
-    </svg>`,
-    question: 'Que signifie ce panneau rond bleu ?',
-    reponses: ['Zone de déneigement', 'Équipements hivernaux recommandés', 'Chaînes à neige obligatoires', 'Pneus hiver conseillés'],
-    correct: 2,
-    explication: 'Le panneau rond à fond bleu est un panneau d\'obligation. Celui-ci impose l\'utilisation de chaînes à neige. Particulièrement important pour les PL en montagne.'
-  }
-];
-
-let quizState = { current: 0, score: 0, timer: 0, interval: null, answered: false, order: [] };
-
-function shuffleArray(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
-}
-
-function startQuiz() {
-  quizState = { current: 0, score: 0, timer: 0, interval: null, answered: false, order: shuffleArray([...Array(quizData.length).keys()]) };
-  document.getElementById('quizIntro').style.display = 'none';
-  document.getElementById('quizEnd').style.display = 'none';
-  document.getElementById('quizGame').style.display = 'block';
-  quizState.interval = setInterval(() => {
-    quizState.timer++;
-    document.getElementById('qTimer').textContent = quizState.timer;
-  }, 1000);
-  showQuestion();
-}
-
-function showQuestion() {
-  const idx = quizState.order[quizState.current];
-  const q = quizData[idx];
-  quizState.answered = false;
-  document.getElementById('qNum').textContent = quizState.current + 1;
-  document.getElementById('qScore').textContent = quizState.score;
-  document.getElementById('quizProgress').style.width = (quizState.current / 10 * 100) + '%';
-  document.getElementById('panneauArea').innerHTML = q.svg;
-  document.getElementById('feedbackBox').className = 'feedback-box';
-  document.getElementById('feedbackBox').style.display = 'none';
-  document.getElementById('btnSuivant').style.display = 'none';
-
-  const grid = document.getElementById('repGrid');
-  grid.innerHTML = '';
-  q.reponses.forEach((r, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'rep-btn';
-    btn.textContent = r;
-    btn.onclick = () => answerQuestion(i);
-    grid.appendChild(btn);
-  });
-}
-
-function answerQuestion(chosen) {
-  if (quizState.answered) return;
-  quizState.answered = true;
-  const idx = quizState.order[quizState.current];
-  const q = quizData[idx];
-  const btns = document.querySelectorAll('.rep-btn');
-  const correct = chosen === q.correct;
-
-  btns.forEach((btn, i) => {
-    btn.disabled = true;
-    if (i === q.correct) btn.classList.add('correct');
-    if (i === chosen && !correct) btn.classList.add('wrong');
-  });
-
-  if (correct) quizState.score++;
-  document.getElementById('qScore').textContent = quizState.score;
-
-  const fb = document.getElementById('feedbackBox');
-  fb.className = 'feedback-box show ' + (correct ? 'feedback-ok' : 'feedback-ko');
-  fb.style.display = 'block';
-  fb.innerHTML = (correct ? '<strong>&#10003; Bonne réponse !</strong>' : '<strong>&#10007; Mauvaise réponse.</strong>') +
-    '<br>' + q.explication;
-
-  document.getElementById('btnSuivant').style.display = 'inline-flex';
-}
-
-function nextQuestion() {
-  quizState.current++;
-  if (quizState.current >= 10) {
-    endQuiz();
-  } else {
-    showQuestion();
-  }
-}
-
-function endQuiz() {
-  clearInterval(quizState.interval);
-  document.getElementById('quizGame').style.display = 'none';
-  document.getElementById('quizEnd').style.display = 'block';
-  document.getElementById('finalScore').textContent = quizState.score + ' / 10';
-  document.getElementById('finalTime').textContent = 'Temps total : ' + quizState.timer + ' secondes';
-  const pct = quizState.score / 10 * 100;
-  let msg = '';
-  if (pct === 100) msg = 'Parfait ! Vous maîtrisez la signalisation PL !';
-  else if (pct >= 80) msg = 'Très bien ! Quelques révisions sur les panneaux manqués.';
-  else if (pct >= 60) msg = 'Correct. Revoyez les panneaux spécifiques PL.';
-  else if (pct >= 40) msg = 'Insuffisant. Une révision complète est nécessaire.';
-  else msg = 'Il faut revoir l\'ensemble de la signalisation PL.';
-  document.getElementById('finalMsg').textContent = msg;
-}
 </script>
 </body>
 </html>
