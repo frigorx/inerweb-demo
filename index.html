@@ -813,7 +813,8 @@
         </h1>
 
         <p class="hero-subtitle">
-            Des outils numériques <strong>gratuits</strong> pour <strong>toutes les filières</strong> de tous les lycées du campus
+            Des outils numériques <strong>gratuits</strong> pour <strong>toutes les filières</strong> de tous les lycées du campus<br>
+            <span style="font-size:0.75em;opacity:0.7">Formation & Métier — Campus ÉQUATIO</span>
         </p>
 
         <div class="hero-stats">
@@ -850,6 +851,64 @@
             <div class="lycee-item"><span class="lycee-dot"></span> <strong>Alexandre Gueidon</strong></div>
         </div>
     </div>
+
+    <!-- ===================== PRODUIT PHARE : MOLLIER ===================== -->
+    <section id="mollier" style="padding-top:20px;padding-bottom:40px;">
+        <div class="container">
+            <div class="reveal" style="background:linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, var(--turquoise) 100%);border-radius:var(--radius);padding:40px 48px;display:flex;gap:36px;align-items:center;flex-wrap:wrap;box-shadow:0 8px 32px rgba(15,45,82,0.15);">
+                <div style="flex:1;min-width:280px;">
+                    <div style="display:inline-block;background:var(--orange);color:white;font-size:11px;font-weight:700;padding:4px 14px;border-radius:var(--radius-pill);margin-bottom:16px;letter-spacing:1px;text-transform:uppercase;">Produit phare — Prêt à déployer</div>
+                    <h2 style="font-size:clamp(28px,4vw,38px);font-weight:900;color:white;margin-bottom:12px;letter-spacing:-0.5px;">Diagramme de Mollier<br>interactif v4</h2>
+                    <p style="color:rgba(255,255,255,0.8);font-size:15px;line-height:1.7;margin-bottom:20px;">36 fluides frigorigènes, tracé de cycle complet, calculs automatiques (COP, surchauffe, sous-refroidissement). Fonctionne <strong style="color:white;">hors ligne</strong>, sur mobile, sans installation. L'outil que les pros n'ont pas gratuitement.</p>
+                    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;">
+                        <span style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);padding:4px 12px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;border:1px solid rgba(255,255,255,0.15);">36 fluides</span>
+                        <span style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);padding:4px 12px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;border:1px solid rgba(255,255,255,0.15);">Hors ligne</span>
+                        <span style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);padding:4px 12px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;border:1px solid rgba(255,255,255,0.15);">log P – h</span>
+                        <span style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);padding:4px 12px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;border:1px solid rgba(255,255,255,0.15);">HFO / A2L</span>
+                        <span style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);padding:4px 12px;border-radius:var(--radius-pill);font-size:12px;font-weight:500;border:1px solid rgba(255,255,255,0.15);">Mobile</span>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <a href="frigolo_mollier_v4.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:white;padding:14px 28px;border-radius:var(--radius-pill);font-weight:700;font-size:15px;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 16px rgba(232,145,74,0.4);">
+                            Tester le diagramme &rarr;
+                        </a>
+                        <a href="presentation/DOSSIER_DIRECTION.html" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);color:white;padding:14px 28px;border-radius:var(--radius-pill);font-weight:600;font-size:14px;text-decoration:none;border:1px solid rgba(255,255,255,0.25);transition:all 0.3s;">
+                            Dossier direction
+                        </a>
+                    </div>
+                </div>
+                <div style="flex:0 0 320px;text-align:center;">
+                    <div style="background:rgba(255,255,255,0.08);border-radius:var(--radius);padding:24px;border:1px solid rgba(255,255,255,0.1);">
+                        <svg viewBox="0 0 300 200" style="width:100%;height:auto;">
+                            <!-- Axes -->
+                            <line x1="40" y1="10" x2="40" y2="170" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                            <line x1="40" y1="170" x2="290" y2="170" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+                            <text x="15" y="95" fill="rgba(255,255,255,0.5)" font-size="9" transform="rotate(-90,15,95)" text-anchor="middle" font-family="system-ui">log P (bar)</text>
+                            <text x="165" y="192" fill="rgba(255,255,255,0.5)" font-size="9" text-anchor="middle" font-family="system-ui">h (kJ/kg)</text>
+                            <!-- Courbe de saturation -->
+                            <path d="M80,150 Q100,50 160,30 Q220,50 240,150" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-dasharray="4,3"/>
+                            <!-- Cycle frigorifique -->
+                            <path d="M100,130 L100,55 L230,55 L230,90 L160,130 Z" fill="rgba(232,145,74,0.15)" stroke="var(--orange)" stroke-width="2.5"/>
+                            <!-- Points du cycle -->
+                            <circle cx="100" cy="130" r="5" fill="var(--orange)"/>
+                            <circle cx="100" cy="55" r="5" fill="#2aafaf"/>
+                            <circle cx="230" cy="55" r="5" fill="#e74c3c"/>
+                            <circle cx="230" cy="90" r="5" fill="#f5a623"/>
+                            <circle cx="160" cy="130" r="5" fill="#27ae60"/>
+                            <!-- Labels -->
+                            <text x="88" y="145" fill="white" font-size="8" font-family="system-ui">1</text>
+                            <text x="88" y="50" fill="white" font-size="8" font-family="system-ui">2</text>
+                            <text x="237" y="52" fill="white" font-size="8" font-family="system-ui">3</text>
+                            <text x="237" y="87" fill="white" font-size="8" font-family="system-ui">4</text>
+                            <text x="155" y="145" fill="white" font-size="8" font-family="system-ui">5</text>
+                            <!-- Légende -->
+                            <text x="165" y="16" fill="rgba(255,255,255,0.7)" font-size="10" text-anchor="middle" font-weight="700" font-family="system-ui">Cycle R-410A</text>
+                        </svg>
+                    </div>
+                    <p style="color:rgba(255,255,255,0.5);font-size:11px;margin-top:8px;">Aperçu — Cliquer pour la version interactive complète</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ===================== PRODUCTION ===================== -->
     <section id="production">
@@ -968,7 +1027,7 @@
                     <div class="demo-card-emoji">🧱</div>
                     <div class="demo-card-content">
                         <h3>Plaquiste</h3>
-                        <p>Calculateur de métrés, quantitatif matériaux (BA13, rails, montants), mini-jeu identification des profilés</p>
+                        <p>Calculateur de métrés placo, quantitatif matériaux (BA13, rails, montants, vis), aide-mémoire DTU</p>
                     </div>
                     <div class="demo-card-arrow">&rarr;</div>
                 </a>
@@ -977,7 +1036,7 @@
                     <div class="demo-card-emoji">🏗️</div>
                     <div class="demo-card-content">
                         <h3>Étanchéité</h3>
-                        <p>Calculateur toiture-terrasse, configurateur complexe d'étanchéité avec DTU, mini-jeu "trouve le défaut"</p>
+                        <p>Calculateur toiture-terrasse, configurateur complexe d'étanchéité avec DTU, aide-mémoire étancheur</p>
                     </div>
                     <div class="demo-card-arrow">&rarr;</div>
                 </a>
@@ -986,7 +1045,7 @@
                     <div class="demo-card-emoji">⚡</div>
                     <div class="demo-card-content">
                         <h3>Électricité</h3>
-                        <p>Calculateur section câbles NF C 15-100, tableau électrique interactif, mini-jeu loi d'Ohm avec schéma SVG</p>
+                        <p>Calculateur section câbles NF C 15-100, dimensionnement tableau électrique, aide-mémoire électricien</p>
                     </div>
                     <div class="demo-card-arrow">&rarr;</div>
                 </a>
@@ -995,7 +1054,7 @@
                     <div class="demo-card-emoji">🔧</div>
                     <div class="demo-card-content">
                         <h3>Mécanique</h3>
-                        <p>Lecture pied à coulisse (vernier SVG interactif), calculateur vitesse de coupe, mini-jeu tolérances H7/g6</p>
+                        <p>Calculateur conditions de coupe, convertisseur & taraudage, aide-mémoire tolérances et usinage</p>
                     </div>
                     <div class="demo-card-arrow">&rarr;</div>
                 </a>
@@ -1004,7 +1063,7 @@
                     <div class="demo-card-emoji">📦</div>
                     <div class="demo-card-content">
                         <h3>Logistique</h3>
-                        <p>Calculateur palettisation (vue SVG), simulation stock FIFO/LIFO, mini-jeu pictogrammes & codes EAN-13</p>
+                        <p>Calculateur palettisation (vue SVG), calculateur camion/container, aide-mémoire incoterms & pictogrammes</p>
                     </div>
                     <div class="demo-card-arrow">&rarr;</div>
                 </a>
@@ -1013,7 +1072,7 @@
                     <div class="demo-card-emoji">🚛</div>
                     <div class="demo-card-content">
                         <h3>Conducteurs Routiers</h3>
-                        <p>Simulateur temps de conduite CE 561/2006, calculateur chargement PL, quiz panneaux poids lourds SVG</p>
+                        <p>Calculateur temps de conduite CE 561/2006, calculateur chargement PTAC, aide-mémoire conducteur</p>
                     </div>
                     <div class="demo-card-arrow">&rarr;</div>
                 </a>
