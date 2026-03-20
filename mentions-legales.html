@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inerWeb — Mentions légales</title>
+    <style>
+        :root {
+            --navy: #0f2d52;
+            --navy-mid: #1a4a6e;
+            --orange: #e8914a;
+            --turquoise: #2aafaf;
+            --bg: #faf7f2;
+            --bg-end: #f0ebe3;
+            --card: #ffffff;
+            --text: #2c3e50;
+            --muted: #5a7080;
+            --line: #ece4da;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(180deg, var(--bg) 0%, var(--bg-end) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.7;
+        }
+
+        /* ── Header ── */
+        header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--turquoise) 100%);
+            border-bottom: 4px solid var(--orange);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        header h1 span {
+            color: var(--orange);
+        }
+
+        header p {
+            margin-top: 0.4rem;
+            font-size: 1.05rem;
+            opacity: 0.9;
+        }
+
+        /* ── Contenu principal ── */
+        main {
+            flex: 1;
+            max-width: 860px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ── Disclaimer / Bandeau ── */
+        .disclaimer {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid var(--orange);
+            border-radius: 12px;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .disclaimer::before {
+            content: "\26A0";
+            font-size: 2.2rem;
+            position: absolute;
+            top: -18px;
+            left: 24px;
+            background: var(--orange);
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            line-height: 1;
+        }
+
+        .disclaimer h2 {
+            color: #c0500a;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .disclaimer p {
+            color: #5d3a1a;
+            font-size: 0.97rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .disclaimer p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* ── Cards / Sections ── */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-left: 5px solid var(--orange);
+            border-radius: 10px;
+            padding: 1.6rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h2 {
+            color: var(--navy);
+            font-size: 1.15rem;
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h2 .icon {
+            font-size: 1.3rem;
+        }
+
+        .card p, .card li {
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 0.5rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card ul li {
+            padding-left: 1.4rem;
+            position: relative;
+        }
+
+        .card ul li::before {
+            content: "\2022";
+            color: var(--orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -1px;
+        }
+
+        .card strong {
+            color: var(--navy-mid);
+        }
+
+        .card a {
+            color: var(--turquoise);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        .card .sub {
+            color: var(--muted);
+            font-size: 0.88rem;
+            font-style: italic;
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%);
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--orange);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.5rem; }
+            .card { padding: 1.2rem 1.3rem; }
+            .disclaimer { padding: 1.4rem 1.3rem; }
+            main { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+    <h1>iner<span>Web</span> — Mentions légales</h1>
+    <p>Informations juridiques relatives à l'écosystème inerWeb</p>
+</header>
+
+<!-- ══════════════ CONTENU ══════════════ -->
+<main>
+
+    <!-- ── DISCLAIMER ── -->
+    <div class="disclaimer">
+        <h2>Avertissement — Limitation de responsabilité</h2>
+        <p>
+            Les outils inerWeb sont des outils pédagogiques à usage exclusivement éducatif et de démonstration.
+            Les données, calculs et résultats fournis sont simplifiés et approximatifs.
+            Ils ne se substituent en aucun cas à un calcul professionnel, à une norme en vigueur,
+            à un diagnostic réglementaire ou à l'avis d'un professionnel qualifié.
+            L'auteur décline toute responsabilité en cas d'utilisation des résultats en situation réelle,
+            professionnelle ou commerciale.
+        </p>
+        <p>
+            Les références à des normes (NF C 15-100, DTU, CE 561/2006, etc.) sont faites à titre pédagogique.
+            Les valeurs présentées sont des approximations destinées à l'apprentissage et ne reproduisent pas
+            les documents normatifs officiels.
+        </p>
+    </div>
+
+    <!-- ── 1. ÉDITEUR ── -->
+    <div class="card">
+        <h2><span class="icon">1.</span> Éditeur</h2>
+        <ul>
+            <li><strong>Nom :</strong> F. Henninot</li>
+            <li><strong>Qualité :</strong> Enseignant, filière énergétique</li>
+            <li><strong>Établissement d'exercice :</strong> LPP Jacques Raynaud — Campus ÉQUATIO</li>
+            <li><strong>Adresse :</strong> 6 Boulevard Gueidon, 13013 Marseille</li>
+            <li><strong>Contact :</strong> <a href="mailto:inerweb.fh@gmail.com">inerweb.fh@gmail.com</a></li>
+            <li><strong>Statut :</strong> Développement bénévole, à titre personnel</li>
+        </ul>
+    </div>
+
+    <!-- ── 2. HÉBERGEUR ── -->
+    <div class="card">
+        <h2><span class="icon">2.</span> Hébergeur</h2>
+        <ul>
+            <li><strong>Service :</strong> GitHub Pages</li>
+            <li><strong>Société :</strong> GitHub Inc.</li>
+            <li><strong>Adresse :</strong> 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA</li>
+        </ul>
+    </div>
+
+    <!-- ── 3. RÔLE DE L'ÉTABLISSEMENT ── -->
+    <div class="card">
+        <h2><span class="icon">3.</span> Rôle de l'établissement</h2>
+        <ul>
+            <li>
+                Le LPP Jacques Raynaud et l'association ÉQUATIO (ex Formation &amp; Métier)
+                sont des <strong>partenaires pédagogiques uniquement</strong>.
+            </li>
+            <li>
+                Ils ne sont ni éditeurs, ni responsables techniques, ni garants du contenu
+                publié sur les sites inerWeb.
+            </li>
+            <li>
+                L'utilisation du nom et du logo ÉQUATIO est faite avec l'accord du campus
+                dans un cadre de promotion de la formation professionnelle.
+            </li>
+        </ul>
+    </div>
+
+    <!-- ── 4. PROPRIÉTÉ INTELLECTUELLE ── -->
+    <div class="card">
+        <h2><span class="icon">4.</span> Propriété intellectuelle</h2>
+        <ul>
+            <li>
+                <strong>Code source :</strong> 100 % original, développé par F. Henninot.
+            </li>
+            <li>
+                <strong>Licence :</strong>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank" rel="noopener">
+                    CC BY-NC-SA 4.0
+                </a>
+                — Creative Commons Attribution — Pas d'Utilisation Commerciale — Partage dans les Mêmes Conditions.
+            </li>
+            <li>
+                <strong>Composants tiers :</strong> CoolProp (licence MIT) pour les données thermodynamiques
+                dans Frigolo Mollier.
+            </li>
+            <li>
+                <strong>Données techniques :</strong> les références aux DTU, NF C, CE 561/2006, etc.
+                sont des valeurs pédagogiques simplifiées, non certifiées, et ne constituent pas
+                une reproduction des normes officielles.
+            </li>
+        </ul>
+    </div>
+
+    <!-- ── 5. RGPD / DONNÉES PERSONNELLES ── -->
+    <div class="card">
+        <h2><span class="icon">5.</span> Protection des données personnelles (RGPD)</h2>
+        <ul>
+            <li><strong>Aucune donnée personnelle</strong> n'est collectée par les sites inerWeb.</li>
+            <li>Aucun cookie, aucun tracker, aucun outil d'analyse de trafic (analytics).</li>
+            <li>
+                Certains outils utilisent le <strong>localStorage</strong> du navigateur pour sauvegarder
+                des données localement — ces données ne quittent jamais l'appareil de l'utilisateur.
+            </li>
+            <li>
+                Aucune transmission de données vers un serveur externe, à l'exception des outils
+                connectés à Google Apps Script, clairement identifiés dans leur interface.
+            </li>
+        </ul>
+    </div>
+
+    <!-- ── 6. MARQUES ── -->
+    <div class="card">
+        <h2><span class="icon">6.</span> Marques et noms déposés</h2>
+        <ul>
+            <li>
+                <strong>« ÉQUATIO »</strong> et <strong>« Formation &amp; Métier »</strong> sont des marques
+                de l'association Formation &amp; Métier, 6 Boulevard Gueidon, 13013 Marseille.
+            </li>
+            <li>
+                <strong>« Incoterms »</strong> est une marque déposée de la Chambre de Commerce Internationale (ICC).
+            </li>
+            <li>
+                Les autres noms de normes (NF C 15-100, DTU, etc.) sont la propriété de leurs
+                organismes respectifs (AFNOR, etc.).
+            </li>
+        </ul>
+    </div>
+
+    <!-- ── 7. CONTACT ── -->
+    <div class="card">
+        <h2><span class="icon">7.</span> Contact</h2>
+        <p>
+            Pour toute question relative aux mentions légales ou aux outils inerWeb :
+            <a href="mailto:inerweb.fh@gmail.com">inerweb.fh@gmail.com</a>
+        </p>
+    </div>
+
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+    inerWeb — Mentions légales — F. Henninot — Mars 2026
+</footer>
+
+</body>
+</html>

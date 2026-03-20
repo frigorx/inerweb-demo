@@ -465,7 +465,7 @@ body {
 <div class="panel active" id="panel0">
   <div class="card">
     <div class="card-title">&#9889; Calculateur Section de Cables</div>
-    <div class="card-subtitle">NF C 15-100 — Dimensionnement rapide sur chantier</div>
+    <div class="card-subtitle">Valeurs pédagogiques inspirées de la réglementation — Dimensionnement rapide sur chantier</div>
 
     <div class="form-row">
       <label>Reseau</label>
@@ -550,7 +550,7 @@ body {
 <div class="panel" id="panel1">
   <div class="card">
     <div class="card-title">&#9638; Dimensionnement Tableau Electrique</div>
-    <div class="card-subtitle">NF C 15-100 — Ajoutez les circuits de l'installation</div>
+    <div class="card-subtitle">Valeurs pédagogiques inspirées de la réglementation — Ajoutez les circuits de l'installation</div>
     <div id="circuit-list"></div>
     <div style="margin-top:1rem;">
       <button class="btn btn-primary" onclick="genererTableau()">&#9638; GENERER LE TABLEAU</button>
@@ -567,7 +567,7 @@ body {
   <div class="card">
     <div class="card-title">&#128214; Aide-memoire Electricien</div>
     <div class="memo-section">
-      <div class="memo-title">Sections et calibres par circuit (NF C 15-100)</div>
+      <div class="memo-title">Sections et calibres par circuit (valeurs pédagogiques inspirées de la réglementation)</div>
       <table class="memo-table">
         <tr><th>Circuit</th><th>Section</th><th>Disj.</th><th>Max points</th></tr>
         <tr><td>Eclairage</td><td>1.5 mm2</td><td>10A ou 16A</td><td>8 points</td></tr>
@@ -712,10 +712,16 @@ body {
   </div>
 </div>
 
+<div style="max-width:900px;margin:20px auto;padding:0 16px;">
+    <div style="background:#fff8e1;border:1px solid #ffc107;border-radius:14px;padding:14px 18px;font-size:12px;color:#5a4000;text-align:center;line-height:1.5;">
+        <strong>⚠️ Outil pédagogique à usage exclusivement éducatif.</strong> Données simplifiées et approximatives. Ne se substitue pas à un calcul professionnel, à une norme en vigueur ou à l'avis d'un professionnel qualifié. <a href="mentions-legales.html" style="color:#5a4000;text-decoration:underline;">Mentions légales</a>
+    </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="footer">
   inerWeb <span style="color:rgba(255,255,255,0.6);">&times;</span> <span style="color:var(--orange);">EQUATIO</span> — Calculettes Electricien Chantier<br>
-  <a href="https://equatio.org" target="_blank">equatio.org</a> — F. Henninot — 2026
+  <a href="https://equatio.org" target="_blank">equatio.org</a> — F. Henninot — 2026 — CC BY-NC-SA 4.0 — <a href="mentions-legales.html">Mentions l&eacute;gales</a>
 </footer>
 
 <script>
@@ -731,7 +737,7 @@ function showPanel(idx) {
    ================================================================= */
 
 /* Tableaux Iz (courant admissible A) par section, mode de pose, isolant
-   Source : NF C 15-100 tableaux 52H et 52J simplifies — cuivre */
+   Valeurs indicatives à usage pédagogique — cuivre */
 const SECTIONS = [1.5, 2.5, 4, 6, 10, 16, 25, 35, 50, 70, 95, 120];
 
 const IZ_TABLE = {
@@ -862,14 +868,14 @@ function calculerSection() {
   let status, statusType;
   if (duOk && In) {
     if (duFinal > limDU * 0.8) {
-      status = 'CONFORME — Limite de chute approchee'; statusType = 'warn';
+      status = 'Estimation : OK — Limite de chute approchee'; statusType = 'warn';
     } else {
-      status = 'CONFORME'; statusType = 'ok';
+      status = 'Estimation : OK'; statusType = 'ok';
     }
   } else if (!duOk) {
     status = 'ATTENTION — Chute de tension hors limite'; statusType = 'bad';
   } else {
-    status = 'NON CONFORME'; statusType = 'bad';
+    status = 'Estimation : à vérifier'; statusType = 'bad';
   }
 
   /* Affichage */
