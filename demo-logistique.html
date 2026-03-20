@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inerWeb Édu — Filière Logistique</title>
+<style>
+:root {
+  --navy: #0f2d52;
+  --navy-light: #163d6e;
+  --orange: #e8914a;
+  --orange-dark: #d07a38;
+  --turq: #2aafaf;
+  --turq-dark: #1e8e8e;
+  --bg: #faf7f2;
+  --card-bg: #0d253f;
+  --card-bg2: #112e4e;
+  --text: #e8e4dd;
+  --text-dim: #8fa3b8;
+  --success: #4caf50;
+  --danger: #ef5350;
+  --warning: #ffa726;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--navy);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+/* HEADER */
+.header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-bottom: 3px solid var(--orange);
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.header-left { display: flex; align-items: center; gap: 1.2rem; }
+.logo-circle {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--orange), var(--turq));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1rem; color: #fff;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+.header-title h1 {
+  font-size: 1.3rem; font-weight: 700; color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.header-title h1 span { color: var(--orange); }
+.header-title p { font-size: 0.82rem; color: var(--text-dim); margin-top: 2px; }
+.header-right { text-align: right; font-size: 0.75rem; color: var(--text-dim); }
+.badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+/* NAVIGATION */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+  background: rgba(0,0,0,0.15);
+}
+.nav-tab {
+  padding: 0.7rem 1.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.nav-tab:hover { border-color: var(--orange); color: var(--text); }
+.nav-tab.active {
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  border-color: var(--orange);
+  box-shadow: 0 2px 12px rgba(232,145,74,0.35);
+}
+.nav-tab .tab-icon { font-size: 1.2rem; }
+/* MAIN */
+.main { max-width: 1200px; margin: 0 auto; padding: 1.5rem; }
+.panel { display: none; }
+.panel.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* CARDS */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+}
+.card h2 {
+  color: var(--orange);
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.card h3 { color: var(--turq); font-size: 0.95rem; margin-bottom: 0.7rem; }
+/* FORMS */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.form-group { display: flex; flex-direction: column; }
+.form-group label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+.form-group input, .form-group select {
+  background: var(--card-bg2);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--orange);
+}
+.form-group select option { background: var(--navy); }
+/* BUTTONS */
+.btn {
+  padding: 0.65rem 1.4rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(232,145,74,0.3);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(232,145,74,0.45); }
+.btn-turq {
+  background: linear-gradient(135deg, var(--turq), var(--turq-dark));
+  color: #fff;
+}
+.btn-turq:hover { transform: translateY(-1px); }
+.btn-sm { padding: 0.45rem 1rem; font-size: 0.82rem; }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-success { background: var(--success); color: #fff; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+/* RESULTS */
+.result-box {
+  background: var(--card-bg2);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-left: 4px solid var(--orange);
+}
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.result-row:last-child { border-bottom: none; }
+.result-label { color: var(--text-dim); font-size: 0.85rem; }
+.result-value { font-weight: 700; color: var(--orange); font-size: 0.95rem; }
+.result-value.ok { color: var(--success); }
+.result-value.ko { color: var(--danger); }
+/* SVG PALETTE */
+.svg-container {
+  background: var(--card-bg2);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  text-align: center;
+  overflow-x: auto;
+}
+.svg-container svg { max-width: 100%; height: auto; }
+/* STOCK GRID */
+.stock-controls {
+  display: flex; gap: 0.8rem; flex-wrap: wrap;
+  align-items: center; margin-bottom: 1rem;
+}
+.stock-mode-toggle {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid var(--orange);
+}
+.stock-mode-toggle button {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  background: var(--card-bg2);
+  color: var(--text-dim);
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.stock-mode-toggle button.active {
+  background: var(--orange);
+  color: #fff;
+}
+.warehouse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 6px;
+  margin: 1rem 0;
+}
+.slot {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 2px dashed rgba(255,255,255,0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  transition: all 0.3s;
+  position: relative;
+}
+.slot.occupied {
+  border: 2px solid var(--turq);
+  background: rgba(42,175,175,0.12);
+}
+.slot.occupied .slot-lot { font-weight: 700; color: var(--turq); font-size: 0.8rem; }
+.slot.occupied .slot-date { font-size: 0.65rem; color: var(--text-dim); }
+.slot.occupied .slot-prix { font-size: 0.65rem; color: var(--orange); }
+.slot.entering {
+  animation: slotEnter 0.5s ease;
+}
+@keyframes slotEnter {
+  from { transform: scale(0.5); opacity: 0; background: rgba(232,145,74,0.3); }
+  to { transform: scale(1); opacity: 1; }
+}
+.slot.exiting {
+  animation: slotExit 0.4s ease forwards;
+}
+@keyframes slotExit {
+  to { transform: scale(0.5); opacity: 0; background: rgba(239,83,80,0.3); }
+}
+/* TABLE */
+.table-wrap { overflow-x: auto; margin-top: 1rem; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+th {
+  background: var(--navy-light);
+  color: var(--orange);
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  font-weight: 700;
+  white-space: nowrap;
+}
+td {
+  padding: 0.5rem 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+tr:hover td { background: rgba(255,255,255,0.03); }
+/* QUIZ */
+.quiz-zone {
+  text-align: center;
+}
+.quiz-question {
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+.quiz-pictos {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.2rem;
+}
+.quiz-picto-display {
+  width: 120px;
+  height: 120px;
+  background: #fff;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  box-shadow: var(--shadow);
+}
+.quiz-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.quiz-choice {
+  padding: 0.8rem;
+  border: 2px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  background: var(--card-bg2);
+  color: var(--text);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 600;
+}
+.quiz-choice:hover { border-color: var(--orange); background: rgba(232,145,74,0.1); }
+.quiz-choice.correct {
+  border-color: var(--success);
+  background: rgba(76,175,80,0.2);
+  color: var(--success);
+}
+.quiz-choice.wrong {
+  border-color: var(--danger);
+  background: rgba(239,83,80,0.15);
+  color: var(--danger);
+}
+.score-display {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--orange);
+  margin: 1rem 0;
+}
+.ean-display {
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  letter-spacing: 4px;
+  background: #fff;
+  color: #000;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  display: inline-block;
+  margin: 1rem 0;
+}
+.ean-segment { padding: 2px 4px; border-radius: 3px; }
+.ean-segment.highlight-country { background: rgba(232,145,74,0.3); }
+.ean-segment.highlight-maker { background: rgba(42,175,175,0.3); }
+.ean-segment.highlight-product { background: rgba(76,175,80,0.3); }
+.ean-segment.highlight-check { background: rgba(239,83,80,0.3); }
+.ean-input {
+  max-width: 400px;
+  margin: 0 auto;
+}
+.ean-input input {
+  background: var(--card-bg2);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 0.5rem 0.8rem;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.ean-input input:focus { outline: none; border-color: var(--orange); }
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--card-bg2);
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+.progress-bar .fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--turq));
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+.feedback {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin: 0.8rem 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.feedback.good { background: rgba(76,175,80,0.15); color: var(--success); border: 1px solid var(--success); }
+.feedback.bad { background: rgba(239,83,80,0.1); color: var(--danger); border: 1px solid var(--danger); }
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  margin-top: 2rem;
+}
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .header { flex-direction: column; text-align: center; }
+  .header-right { text-align: center; }
+  .nav-tab { font-size: 0.8rem; padding: 0.5rem 1rem; }
+  .form-grid { grid-template-columns: 1fr; }
+  .quiz-choices { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo-circle">iW</div>
+    <div class="header-title">
+      <h1>iner<span>Web</span> Édu</h1>
+      <p>Filière Logistique — Gestion &amp; Entreposage</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div><span class="badge">v1.0 — Mars 2026</span></div>
+    <div style="margin-top:4px;">F. Henninot</div>
+    <div>LPP Jacques Raynaud — Campus ÉQUATIO Marseille</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="switchPanel('palettisation')">
+    <span class="tab-icon">&#x1F4E6;</span> Palettisation
+  </button>
+  <button class="nav-tab" onclick="switchPanel('stock')">
+    <span class="tab-icon">&#x1F3ED;</span> Stock FIFO/LIFO
+  </button>
+  <button class="nav-tab" onclick="switchPanel('quiz')">
+    <span class="tab-icon">&#x1F3AF;</span> Étiquetage &amp; Codes
+  </button>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- ===== PANEL 1 : PALETTISATION ===== -->
+<div id="panel-palettisation" class="panel active">
+  <div class="card">
+    <h2>Calculateur de Palettisation</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem;">Optimisez la disposition de vos cartons sur palette en calculant le nombre maximum par couche (avec rotation) et le nombre de couches possible.</p>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Longueur carton (cm)</label>
+        <input type="number" id="p-length" value="40" min="1">
+      </div>
+      <div class="form-group">
+        <label>Largeur carton (cm)</label>
+        <input type="number" id="p-width" value="30" min="1">
+      </div>
+      <div class="form-group">
+        <label>Hauteur carton (cm)</label>
+        <input type="number" id="p-height" value="25" min="1">
+      </div>
+      <div class="form-group">
+        <label>Poids unitaire (kg)</label>
+        <input type="number" id="p-weight" value="8" min="0.1" step="0.1">
+      </div>
+      <div class="form-group">
+        <label>Type de palette</label>
+        <select id="p-palette">
+          <option value="80x120">EUR 80 x 120 cm</option>
+          <option value="100x120">ISO 100 x 120 cm</option>
+          <option value="60x80">Demi-palette 60 x 80 cm</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="calcPalettisation()">Calculer la palettisation</button>
+
+    <div id="p-results" style="display:none;">
+      <div class="result-box" id="p-result-box"></div>
+      <div class="svg-container" id="p-svg-container">
+        <h3 style="margin-bottom:0.5rem;">Vue de dessus — Disposition optimale</h3>
+        <div id="p-svg-wrap"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PANEL 2 : STOCK FIFO/LIFO ===== -->
+<div id="panel-stock" class="panel">
+  <div class="card">
+    <h2>Gestion de Stock — FIFO / LIFO</h2>
+    <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:1rem;">Simulez les entrées et sorties de lots dans un entrepôt. Comparez les méthodes de valorisation FIFO, LIFO et CUMP.</p>
+
+    <div class="stock-controls">
+      <div class="stock-mode-toggle">
+        <button id="btn-fifo" class="active" onclick="setStockMode('FIFO')">FIFO</button>
+        <button id="btn-lifo" onclick="setStockMode('LIFO')">LIFO</button>
+      </div>
+      <div class="form-group" style="min-width:100px;">
+        <label>Quantité</label>
+        <input type="number" id="s-qty" value="10" min="1" style="padding:0.4rem 0.6rem;">
+      </div>
+      <div class="form-group" style="min-width:120px;">
+        <label>Prix unitaire (EUR)</label>
+        <input type="number" id="s-prix" value="15" min="0.01" step="0.01" style="padding:0.4rem 0.6rem;">
+      </div>
+      <button class="btn btn-turq btn-sm" onclick="stockReception()">+ Réception lot</button>
+      <button class="btn btn-danger btn-sm" onclick="stockExpedition()">- Expédition</button>
+      <button class="btn btn-sm" style="background:var(--navy-light);color:var(--text-dim);" onclick="stockReset()">Réinitialiser</button>
+    </div>
+
+    <h3>Entrepôt — Emplacements</h3>
+    <div class="warehouse-grid" id="warehouse-grid"></div>
+
+    <div id="stock-info" style="display:none;">
+      <h3>Tableau récapitulatif des mouvements</h3>
+      <div class="table-wrap">
+        <table id="stock-table">
+          <thead>
+            <tr>
+              <th>Mouvement</th>
+              <th>Lot</th>
+              <th>Qté</th>
+              <th>P.U. (EUR)</th>
+              <th>Montant</th>
+              <th>Stock restant</th>
+            </tr>
+          </thead>
+          <tbody id="stock-tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="result-box" style="margin-top:1rem;">
+        <h3 style="margin-bottom:0.5rem;">Valorisation du stock actuel</h3>
+        <div id="stock-valuation"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PANEL 3 : QUIZ ===== -->
+<div id="panel-quiz" class="panel">
+  <div class="card">
+    <h2>Mini-jeu : Étiquetage &amp; Codification</h2>
+    <div id="quiz-container" class="quiz-zone">
+      <div id="quiz-start-screen">
+        <p style="color:var(--text-dim);margin-bottom:1rem;font-size:0.95rem;">Testez vos connaissances sur les pictogrammes de manutention et les codes-barres EAN-13.<br>10 questions au total.</p>
+        <button class="btn btn-primary" onclick="startQuiz()">Commencer le quiz</button>
+      </div>
+      <div id="quiz-play" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  Démonstration inerWeb Édu — Potentiel filière Logistique — F. Henninot — Mars 2026
+</div>
+
+<script>
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function switchPanel(name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+/* ============================================================
+   1. PALETTISATION
+   ============================================================ */
+function calcPalettisation() {
+  const L = parseFloat(document.getElementById('p-length').value);
+  const W = parseFloat(document.getElementById('p-width').value);
+  const H = parseFloat(document.getElementById('p-height').value);
+  const poids = parseFloat(document.getElementById('p-weight').value);
+  const palType = document.getElementById('p-palette').value;
+  if (!L || !W || !H || !poids) return;
+
+  const palettes = { '80x120': [80,120], '100x120': [100,120], '60x80': [60,80] };
+  const [PW, PL] = palettes[palType];
+  const maxH = 180; // cm
+  const maxPoids = 1000; // kg
+
+  // Essayer les deux orientations pour chaque carton et choisir la meilleure
+  function countBoxes(bL, bW, palL, palW) {
+    return Math.floor(palL / bL) * Math.floor(palW / bW);
+  }
+  // Orientation A : L x W tel quel
+  const countA = countBoxes(L, W, PL, PW);
+  // Orientation B : pivoté 90°
+  const countB = countBoxes(W, L, PL, PW);
+
+  // Disposition mixte : certains en A, reste en B pour remplir les espaces
+  // On teste une approche : rangées en orientation A + remplissage en B
+  function mixedLayout(bL, bW, palL, palW) {
+    // Orientation A
+    const nColA = Math.floor(palL / bL);
+    const nRowA = Math.floor(palW / bW);
+    const usedL_A = nColA * bL;
+    const usedW_A = nRowA * bW;
+    const restL = palL - usedL_A;
+    const restW = palW - usedW_A;
+    // Fill rest of length with rotated
+    const extraRight = Math.floor(restL / bW) * Math.floor(palW / bL);
+    // Fill rest of width with rotated
+    const extraBottom = Math.floor(usedL_A / bW) * Math.floor(restW / bL);
+    // Corner
+    const extraCorner = Math.floor(restL / bL) * Math.floor(restW / bW);
+    return { base: nColA * nRowA, extraRight, extraBottom, total: nColA * nRowA + extraRight + extraBottom };
+  }
+
+  const mix1 = mixedLayout(L, W, PL, PW);
+  const mix2 = mixedLayout(W, L, PL, PW);
+
+  let bestCount = Math.max(countA, countB, mix1.total, mix2.total);
+  let bestLayout = 'A';
+  let layoutInfo;
+
+  // Determine which layout to use and build placement info
+  function buildPlacements(bL, bW, palL, palW) {
+    const placements = [];
+    // Main grid
+    const nCol = Math.floor(palL / bL);
+    const nRow = Math.floor(palW / bW);
+    for (let r = 0; r < nRow; r++) {
+      for (let c = 0; c < nCol; c++) {
+        placements.push({ x: c * bL, y: r * bW, w: bL, h: bW });
+      }
+    }
+    const usedL = nCol * bL;
+    const usedW = nRow * bW;
+    const restL = palL - usedL;
+    const restW = palW - usedW;
+    // Fill right strip with rotated
+    const rCol = Math.floor(restL / bW);
+    const rRow = Math.floor(palW / bL);
+    for (let r = 0; r < rRow; r++) {
+      for (let c = 0; c < rCol; c++) {
+        placements.push({ x: usedL + c * bW, y: r * bL, w: bW, h: bL });
+      }
+    }
+    // Fill bottom strip with rotated
+    const bCol = Math.floor(usedL / bW);
+    const bRow = Math.floor(restW / bL);
+    for (let r = 0; r < bRow; r++) {
+      for (let c = 0; c < bCol; c++) {
+        placements.push({ x: c * bW, y: usedW + r * bL, w: bW, h: bL });
+      }
+    }
+    return placements;
+  }
+
+  let placements;
+  if (mix1.total >= mix2.total && mix1.total >= countA && mix1.total >= countB) {
+    placements = buildPlacements(L, W, PL, PW);
+    bestCount = mix1.total;
+  } else if (mix2.total >= mix1.total && mix2.total >= countA && mix2.total >= countB) {
+    placements = buildPlacements(W, L, PL, PW);
+    bestCount = mix2.total;
+  } else if (countA >= countB) {
+    placements = [];
+    const nCol = Math.floor(PL / L), nRow = Math.floor(PW / W);
+    for (let r = 0; r < nRow; r++)
+      for (let c = 0; c < nCol; c++)
+        placements.push({ x: c * L, y: r * W, w: L, h: W });
+    bestCount = countA;
+  } else {
+    placements = [];
+    const nCol = Math.floor(PL / W), nRow = Math.floor(PW / L);
+    for (let r = 0; r < nRow; r++)
+      for (let c = 0; c < nCol; c++)
+        placements.push({ x: c * W, y: r * L, w: W, h: L });
+    bestCount = countB;
+  }
+
+  const cartonsParCouche = bestCount;
+  const nbCouches = Math.floor(maxH / H);
+  const totalCartons = cartonsParCouche * nbCouches;
+  const poidsTotal = totalCartons * poids;
+  const poidsOk = poidsTotal <= maxPoids;
+
+  // Si poids dépasse, réduire les couches
+  let couchesEffectives = nbCouches;
+  let totalEffectif = totalCartons;
+  if (!poidsOk) {
+    couchesEffectives = Math.floor(maxPoids / (cartonsParCouche * poids));
+    totalEffectif = cartonsParCouche * couchesEffectives;
+  }
+  const poidsEffectif = totalEffectif * poids;
+
+  // Résultats
+  document.getElementById('p-results').style.display = 'block';
+  const rb = document.getElementById('p-result-box');
+  rb.innerHTML = `
+    <div class="result-row"><span class="result-label">Palette</span><span class="result-value">${palType.replace('x',' x ')} cm</span></div>
+    <div class="result-row"><span class="result-label">Cartons par couche</span><span class="result-value">${cartonsParCouche}</span></div>
+    <div class="result-row"><span class="result-label">Nombre de couches (max ${maxH} cm)</span><span class="result-value">${nbCouches} couche${nbCouches>1?'s':''} (${nbCouches * H} cm)</span></div>
+    <div class="result-row"><span class="result-label">Total cartons</span><span class="result-value">${totalCartons}</span></div>
+    <div class="result-row"><span class="result-label">Poids total</span><span class="result-value ${poidsOk?'ok':'ko'}">${poidsTotal.toFixed(1)} kg ${poidsOk ? '— OK' : '— DÉPASSE '+maxPoids+' kg !'}</span></div>
+    ${!poidsOk ? `<div class="result-row"><span class="result-label">Couches ajustées (poids max)</span><span class="result-value">${couchesEffectives} couche${couchesEffectives>1?'s':''} = ${totalEffectif} cartons (${poidsEffectif.toFixed(1)} kg)</span></div>` : ''}
+  `;
+
+  // SVG
+  const scale = 3;
+  const svgW = PL * scale + 20;
+  const svgH = PW * scale + 20;
+  const ox = 10, oy = 10;
+  let svg = `<svg width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" xmlns="http://www.w3.org/2000/svg">`;
+  // Palette
+  svg += `<rect x="${ox}" y="${oy}" width="${PL*scale}" height="${PW*scale}" fill="#1a3a5c" stroke="#e8914a" stroke-width="2" rx="4"/>`;
+  // Dimensions palette
+  svg += `<text x="${ox + PL*scale/2}" y="${oy - 2}" text-anchor="middle" fill="#8fa3b8" font-size="11" font-family="sans-serif">${PL} cm</text>`;
+  svg += `<text x="${ox - 4}" y="${oy + PW*scale/2}" text-anchor="middle" fill="#8fa3b8" font-size="11" font-family="sans-serif" transform="rotate(-90, ${ox-4}, ${oy+PW*scale/2})">${PW} cm</text>`;
+  // Cartons
+  const colors = ['#2aafaf','#3bc4c4','#1e8e8e','#25a0a0'];
+  placements.forEach((p, i) => {
+    const col = colors[i % colors.length];
+    svg += `<rect x="${ox + p.x*scale}" y="${oy + p.y*scale}" width="${p.w*scale - 1}" height="${p.h*scale - 1}" fill="${col}" fill-opacity="0.35" stroke="${col}" stroke-width="1" rx="2"/>`;
+    if (p.w * scale > 22 && p.h * scale > 14) {
+      svg += `<text x="${ox + p.x*scale + p.w*scale/2}" y="${oy + p.y*scale + p.h*scale/2 + 3}" text-anchor="middle" fill="#fff" font-size="${Math.min(10, p.w*scale/4)}" font-family="sans-serif">${p.w}x${p.h}</text>`;
+    }
+  });
+  svg += `</svg>`;
+  document.getElementById('p-svg-wrap').innerHTML = svg;
+}
+
+/* ============================================================
+   2. STOCK FIFO / LIFO
+   ============================================================ */
+let stockMode = 'FIFO';
+let lots = []; // { id, qty, prix, date }
+let mouvements = []; // { type, lot, qty, prix, stockRestant }
+let lotCounter = 0;
+const NB_SLOTS = 24;
+
+function initWarehouse() {
+  const grid = document.getElementById('warehouse-grid');
+  grid.innerHTML = '';
+  for (let i = 0; i < NB_SLOTS; i++) {
+    const div = document.createElement('div');
+    div.className = 'slot';
+    div.id = 'slot-' + i;
+    div.innerHTML = `<span style="font-size:0.65rem;">Emp. ${i+1}</span>`;
+    grid.appendChild(div);
+  }
+}
+initWarehouse();
+
+function setStockMode(mode) {
+  stockMode = mode;
+  document.getElementById('btn-fifo').classList.toggle('active', mode === 'FIFO');
+  document.getElementById('btn-lifo').classList.toggle('active', mode === 'LIFO');
+}
+
+function renderWarehouse() {
+  for (let i = 0; i < NB_SLOTS; i++) {
+    const slot = document.getElementById('slot-' + i);
+    if (i < lots.length) {
+      const lot = lots[i];
+      slot.className = 'slot occupied';
+      slot.innerHTML = `<span class="slot-lot">Lot ${lot.id}</span><span class="slot-date">${lot.date}</span><span class="slot-prix">${lot.qty} x ${lot.prix.toFixed(2)} EUR</span>`;
+    } else {
+      slot.className = 'slot';
+      slot.innerHTML = `<span style="font-size:0.65rem;">Emp. ${i+1}</span>`;
+    }
+  }
+}
+
+function getTotalStock() {
+  return lots.reduce((s, l) => s + l.qty, 0);
+}
+
+function stockReception() {
+  if (lots.length >= NB_SLOTS) { alert('Entrepôt plein !'); return; }
+  const qty = parseInt(document.getElementById('s-qty').value);
+  const prix = parseFloat(document.getElementById('s-prix').value);
+  if (!qty || !prix) return;
+
+  lotCounter++;
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' });
+  const lot = { id: lotCounter, qty, prix, date: dateStr };
+  lots.push(lot);
+
+  mouvements.push({ type: 'Entrée', lot: lotCounter, qty, prix, stockRestant: getTotalStock() });
+
+  renderWarehouse();
+  renderStockTable();
+
+  // Animation
+  const idx = lots.length - 1;
+  const slot = document.getElementById('slot-' + idx);
+  slot.classList.add('entering');
+  setTimeout(() => slot.classList.remove('entering'), 500);
+
+  document.getElementById('stock-info').style.display = 'block';
+}
+
+function stockExpedition() {
+  if (lots.length === 0) { alert('Stock vide !'); return; }
+
+  let removed;
+  if (stockMode === 'FIFO') {
+    removed = lots[0];
+    const slot = document.getElementById('slot-0');
+    slot.classList.add('exiting');
+    setTimeout(() => {
+      lots.shift();
+      renderWarehouse();
+    }, 400);
+  } else {
+    const idx = lots.length - 1;
+    removed = lots[idx];
+    const slot = document.getElementById('slot-' + idx);
+    slot.classList.add('exiting');
+    setTimeout(() => {
+      lots.pop();
+      renderWarehouse();
+    }, 400);
+  }
+
+  setTimeout(() => {
+    mouvements.push({ type: 'Sortie (' + stockMode + ')', lot: removed.id, qty: removed.qty, prix: removed.prix, stockRestant: getTotalStock() });
+    renderStockTable();
+  }, 420);
+}
+
+function stockReset() {
+  lots = [];
+  mouvements = [];
+  lotCounter = 0;
+  renderWarehouse();
+  document.getElementById('stock-info').style.display = 'none';
+  document.getElementById('stock-tbody').innerHTML = '';
+}
+
+function renderStockTable() {
+  const tbody = document.getElementById('stock-tbody');
+  tbody.innerHTML = '';
+  mouvements.forEach(m => {
+    const tr = document.createElement('tr');
+    const typeColor = m.type.startsWith('Entrée') ? 'var(--success)' : 'var(--danger)';
+    tr.innerHTML = `
+      <td style="color:${typeColor};font-weight:700;">${m.type}</td>
+      <td>Lot ${m.lot}</td>
+      <td>${m.qty}</td>
+      <td>${m.prix.toFixed(2)} EUR</td>
+      <td>${(m.qty * m.prix).toFixed(2)} EUR</td>
+      <td>${m.stockRestant}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  // Valorisation
+  const val = document.getElementById('stock-valuation');
+  if (lots.length === 0) {
+    val.innerHTML = '<p style="color:var(--text-dim);">Stock vide</p>';
+    return;
+  }
+  const totalQty = lots.reduce((s, l) => s + l.qty, 0);
+  const totalVal = lots.reduce((s, l) => s + l.qty * l.prix, 0);
+  const cump = totalVal / totalQty;
+  const fifoVal = totalVal;
+  const lifoVal = totalVal;
+
+  val.innerHTML = `
+    <div class="result-row"><span class="result-label">Quantité totale en stock</span><span class="result-value">${totalQty} unités</span></div>
+    <div class="result-row"><span class="result-label">Valeur FIFO (lots existants)</span><span class="result-value">${fifoVal.toFixed(2)} EUR</span></div>
+    <div class="result-row"><span class="result-label">Valeur LIFO (lots existants)</span><span class="result-value">${lifoVal.toFixed(2)} EUR</span></div>
+    <div class="result-row"><span class="result-label">CUMP (coût unitaire moyen pondéré)</span><span class="result-value">${cump.toFixed(2)} EUR / unité</span></div>
+    <div class="result-row"><span class="result-label">Valeur totale au CUMP</span><span class="result-value">${(cump * totalQty).toFixed(2)} EUR</span></div>
+  `;
+}
+
+/* ============================================================
+   3. QUIZ : PICTOGRAMMES + EAN-13
+   ============================================================ */
+const pictoQuestions = [
+  { symbol: '&#x26A0;&#xFE0F;', display: '<svg width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#fff" rx="8"/><text x="50" y="70" text-anchor="middle" font-size="60">&#x1F4A7;</text><line x1="20" y1="85" x2="80" y2="85" stroke="red" stroke-width="4"/></svg>', img: 'Craint l\'humidité', correct: 'Craint l\'humidité', choices: ['Craint l\'humidité', 'Produit liquide', 'Recyclable', 'Risque chimique'] },
+  { symbol: '', display: '<svg width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#fff" rx="8"/><text x="50" y="65" text-anchor="middle" font-size="55" fill="#000">&#x1F377;</text><text x="50" y="90" text-anchor="middle" font-size="14" fill="red" font-weight="bold">FRAGILE</text></svg>', correct: 'Fragile', choices: ['Fragile', 'Ce côté haut', 'Craint la chaleur', 'Ne pas empiler'] },
+  { symbol: '', display: '<svg width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#fff" rx="8"/><polygon points="50,15 35,50 65,50" fill="none" stroke="#000" stroke-width="3"/><line x1="50" y1="50" x2="50" y2="80" stroke="#000" stroke-width="3"/><line x1="35" y1="80" x2="65" y2="80" stroke="#000" stroke-width="3"/></svg>', correct: 'Ce côté haut', choices: ['Ne pas renverser', 'Ce côté haut', 'Centre de gravité', 'Fragile'] },
+  { symbol: '', display: '<svg width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#fff" rx="8"/><rect x="25" y="45" width="50" height="30" fill="none" stroke="#000" stroke-width="3" rx="3"/><rect x="25" y="20" width="50" height="30" fill="none" stroke="#000" stroke-width="3" rx="3"/><line x1="35" y1="10" x2="65" y2="10" stroke="red" stroke-width="4"/><text x="50" y="95" text-anchor="middle" font-size="10" fill="red" font-weight="bold">MAX</text></svg>', correct: 'Ne pas empiler', choices: ['Fragile', 'Limite de poids', 'Ne pas empiler', 'Garder au sec'] },
+  { symbol: '', display: '<svg width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="#fff" rx="8"/><circle cx="50" cy="50" r="30" fill="none" stroke="#000" stroke-width="3"/><text x="50" y="56" text-anchor="middle" font-size="20" fill="#000" font-weight="bold">&#x2600;&#xFE0F;</text><line x1="25" y1="25" x2="75" y2="75" stroke="red" stroke-width="4"/></svg>', correct: 'Craint la chaleur', choices: ['Craint l\'humidité', 'Inflammable', 'Craint la chaleur', 'Conserver au frais'] },
+];
+
+const eanQuestions = [
+  { code: '3017620422003', country: '301', maker: '7620', product: '42200', check: '3',
+    q: 'Quel est le pays d\'origine de ce produit ?', answer: 'France (300-379)', choices: ['France (300-379)', 'Allemagne (400-440)', 'États-Unis (000-019)', 'Espagne (840-849)'] },
+  { code: '4006381333931', country: '400', maker: '6381', product: '33393', check: '1',
+    q: 'Quel est le préfixe pays de ce code EAN-13 ?', answer: 'Allemagne (400-440)', choices: ['France (300-379)', 'Italie (800-839)', 'Allemagne (400-440)', 'Royaume-Uni (500-509)'] },
+  { code: '8410076472885', country: '841', maker: '0076', product: '47288', check: '5',
+    q: 'À quel pays correspond le préfixe 841 ?', answer: 'Espagne (840-849)', choices: ['Portugal (560)', 'Espagne (840-849)', 'Italie (800-839)', 'Brésil (789-790)'] },
+  { code: '5000159484282', country: '500', maker: '0159', product: '48428', check: '2',
+    q: 'Combien de chiffres composent un code EAN-13 ?', answer: '13 chiffres', choices: ['10 chiffres', '12 chiffres', '13 chiffres', '14 chiffres'] },
+  { code: '8001505005592', country: '800', maker: '1505', product: '00559', check: '2',
+    q: 'Quelle partie du code identifie le fabricant ?', answer: 'Les chiffres 4 à 7 (après le pays)', choices: ['Les 3 premiers chiffres', 'Les chiffres 4 à 7 (après le pays)', 'Les 5 derniers chiffres', 'Le dernier chiffre'] },
+];
+
+let quizState = { current: 0, score: 0, total: 10, answered: false };
+
+function startQuiz() {
+  quizState = { current: 0, score: 0, total: 10, answered: false };
+  document.getElementById('quiz-start-screen').style.display = 'none';
+  document.getElementById('quiz-play').style.display = 'block';
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const container = document.getElementById('quiz-play');
+  const idx = quizState.current;
+  const total = quizState.total;
+  const progress = ((idx) / total) * 100;
+
+  if (idx >= total) {
+    // Fin du quiz
+    const pct = Math.round((quizState.score / total) * 100);
+    let msg = '';
+    if (pct >= 80) msg = 'Excellent ! Vous maîtrisez l\'étiquetage logistique.';
+    else if (pct >= 60) msg = 'Bien ! Quelques révisions et ce sera parfait.';
+    else msg = 'Continuez à réviser les pictogrammes et codes-barres.';
+    container.innerHTML = `
+      <h3 style="margin-bottom:1rem;">Quiz terminé !</h3>
+      <div class="score-display">${quizState.score} / ${total}</div>
+      <p style="font-size:1.2rem;margin-bottom:0.5rem;">${pct}%</p>
+      <p style="color:var(--text-dim);margin-bottom:1.5rem;">${msg}</p>
+      <button class="btn btn-primary" onclick="startQuiz()">Recommencer</button>
+      <button class="btn btn-turq" style="margin-left:0.5rem;" onclick="backToQuizStart()">Retour</button>
+    `;
+    return;
+  }
+
+  let html = `
+    <div class="progress-bar"><div class="fill" style="width:${progress}%"></div></div>
+    <p style="color:var(--text-dim);font-size:0.8rem;margin-bottom:0.5rem;">Question ${idx + 1} / ${total} — Score : ${quizState.score}</p>
+  `;
+
+  if (idx < 5) {
+    // Pictogramme
+    const q = pictoQuestions[idx];
+    html += `
+      <p class="quiz-question">Que signifie ce pictogramme de manutention ?</p>
+      <div class="quiz-pictos">
+        <div class="quiz-picto-display">${q.display}</div>
+      </div>
+      <div class="quiz-choices">
+        ${q.choices.map((c, i) => `<button class="quiz-choice" onclick="answerQuiz(${idx}, '${c.replace(/'/g, "\\'")}', this)">${c}</button>`).join('')}
+      </div>
+      <div id="quiz-feedback"></div>
+    `;
+  } else {
+    // EAN-13
+    const eq = eanQuestions[idx - 5];
+    const code = eq.code;
+    html += `
+      <p class="quiz-question">${eq.q}</p>
+      <div class="ean-display">
+        <span class="ean-segment highlight-country">${code.substring(0,3)}</span><span class="ean-segment highlight-maker">${code.substring(3,7)}</span><span class="ean-segment highlight-product">${code.substring(7,12)}</span><span class="ean-segment highlight-check">${code.substring(12)}</span>
+      </div>
+      <div style="font-size:0.75rem;color:var(--text-dim);margin-bottom:1rem;">
+        <span style="color:var(--orange);">Pays</span> &middot;
+        <span style="color:var(--turq);">Fabricant</span> &middot;
+        <span style="color:var(--success);">Produit</span> &middot;
+        <span style="color:var(--danger);">Clé</span>
+      </div>
+      <div class="quiz-choices">
+        ${eq.choices.map((c, i) => `<button class="quiz-choice" onclick="answerQuiz(${idx}, '${c.replace(/'/g, "\\'")}', this)">${c}</button>`).join('')}
+      </div>
+      <div id="quiz-feedback"></div>
+    `;
+  }
+
+  container.innerHTML = html;
+  quizState.answered = false;
+}
+
+function answerQuiz(idx, chosen, btn) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+
+  let correct;
+  if (idx < 5) {
+    correct = pictoQuestions[idx].correct;
+  } else {
+    correct = eanQuestions[idx - 5].answer;
+  }
+
+  const isCorrect = (chosen === correct);
+  if (isCorrect) quizState.score++;
+
+  // Marquer les boutons
+  document.querySelectorAll('.quiz-choice').forEach(b => {
+    b.style.pointerEvents = 'none';
+    const text = b.textContent;
+    if (text === correct) b.classList.add('correct');
+    if (text === chosen && !isCorrect) b.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('quiz-feedback');
+  fb.innerHTML = `<div class="feedback ${isCorrect ? 'good' : 'bad'}">${isCorrect ? 'Bonne réponse !' : 'Mauvaise réponse. La bonne réponse était : ' + correct}</div>`;
+
+  setTimeout(() => {
+    quizState.current++;
+    renderQuizQuestion();
+  }, 1500);
+}
+
+function backToQuizStart() {
+  document.getElementById('quiz-start-screen').style.display = 'block';
+  document.getElementById('quiz-play').style.display = 'none';
+}
+</script>
+</body>
+</html>

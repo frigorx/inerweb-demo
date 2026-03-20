@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inerWeb Édu — Filière Plaquiste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy: #0f2d52;
+  --navy-light: #163d6e;
+  --orange: #e8914a;
+  --orange-glow: #f5a623;
+  --turq: #2aafaf;
+  --turq-dark: #1e8a8a;
+  --bg: #0b1929;
+  --bg-card: #132238;
+  --bg-card-alt: #18293f;
+  --surface: #1a3150;
+  --text: #e8edf3;
+  --text-muted: #8da0b8;
+  --text-dim: #5a7290;
+  --border: #243b57;
+  --success: #34d399;
+  --error: #f87171;
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.35);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.45);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ============ HEADER ============ */
+.header {
+  background: linear-gradient(135deg, var(--navy) 0%, #091a30 100%);
+  border-bottom: 3px solid var(--orange);
+  padding: 1.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(232,145,74,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.logo-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.logo-icon {
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, var(--orange), var(--orange-glow));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -1px;
+  box-shadow: 0 4px 16px rgba(232,145,74,0.35);
+  flex-shrink: 0;
+}
+.logo-text {
+  display: flex;
+  flex-direction: column;
+}
+.logo-text .brand {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+.logo-text .brand span { color: var(--orange); }
+.logo-text .sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+.header-info {
+  margin-left: auto;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.header-info .title-main {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+}
+.header-info .title-main span { color: var(--orange); }
+.header-info .author-line {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}
+
+/* ============ NAV ============ */
+.nav-bar {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+  white-space: nowrap;
+}
+.nav-btn:hover, .nav-btn.active {
+  background: var(--orange);
+  color: #fff;
+  border-color: var(--orange);
+  box-shadow: 0 2px 12px rgba(232,145,74,0.3);
+}
+.nav-btn .nav-num {
+  display: inline-flex;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  margin-right: 0.4rem;
+}
+
+/* ============ MAIN ============ */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.section { display: none; }
+.section.active { display: block; animation: fadeUp 0.4s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============ CARDS ============ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.8rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+.card:hover { border-color: rgba(232,145,74,0.25); }
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.card-title .icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.card-title .icon.orange { background: rgba(232,145,74,0.15); }
+.card-title .icon.turq { background: rgba(42,175,175,0.15); }
+.card-title .icon.green { background: rgba(52,211,153,0.15); }
+
+/* ============ FORMS ============ */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+.form-group label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-group input, .form-group select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.65rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-family: inherit;
+  transition: var(--transition);
+  outline: none;
+}
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px rgba(232,145,74,0.15);
+}
+.form-group input::placeholder { color: var(--text-dim); }
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--orange), var(--orange-glow));
+  color: #fff;
+  box-shadow: 0 3px 14px rgba(232,145,74,0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(232,145,74,0.45);
+}
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--turq); color: var(--turq); }
+.btn-turq {
+  background: linear-gradient(135deg, var(--turq), var(--turq-dark));
+  color: #fff;
+  box-shadow: 0 3px 14px rgba(42,175,175,0.3);
+}
+.btn-turq:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(42,175,175,0.45);
+}
+.btn-sm { padding: 0.45rem 1rem; font-size: 0.8rem; }
+.btn-danger {
+  background: rgba(248,113,113,0.15);
+  color: var(--error);
+  border: 1px solid rgba(248,113,113,0.3);
+}
+.btn-danger:hover { background: rgba(248,113,113,0.25); }
+
+/* ============ RESULTS ============ */
+.results-panel {
+  background: var(--bg-card-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-top: 1.2rem;
+}
+.results-panel.show { display: block; animation: fadeUp 0.3s ease; }
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid rgba(36,59,87,0.5);
+}
+.result-row:last-child { border-bottom: none; }
+.result-row .label { color: var(--text-muted); font-size: 0.88rem; }
+.result-row .value { font-weight: 700; font-size: 1rem; color: var(--text); }
+.result-row .value.highlight { color: var(--orange); font-size: 1.15rem; }
+.result-row .value.turq { color: var(--turq); }
+
+/* ============ TABLE ============ */
+.table-wrap { overflow-x: auto; margin-top: 1rem; }
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+.data-table th {
+  background: var(--surface);
+  color: var(--orange);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  border-bottom: 2px solid var(--orange);
+}
+.data-table td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.data-table tr:hover td { background: rgba(232,145,74,0.04); }
+.data-table .qty { font-weight: 700; color: var(--orange); font-size: 1rem; }
+
+/* ============ OUVERTURES ============ */
+.ouvertures-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.ouverture-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--surface);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  flex-wrap: wrap;
+}
+.ouverture-item .tag {
+  background: var(--navy-light);
+  color: var(--turq);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+.ouverture-item .dims { color: var(--text-muted); font-size: 0.85rem; }
+.ouverture-item .area { color: var(--orange); font-weight: 600; font-size: 0.85rem; }
+
+/* ============ QUIZ ============ */
+.quiz-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+.quiz-svg-box {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  box-shadow: var(--shadow);
+}
+.quiz-svg-box svg { max-width: 100%; height: auto; }
+.quiz-choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 500px;
+}
+.quiz-choice {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  color: var(--text);
+  padding: 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+  text-align: center;
+}
+.quiz-choice:hover:not(.disabled) {
+  border-color: var(--orange);
+  background: rgba(232,145,74,0.08);
+}
+.quiz-choice.correct {
+  border-color: var(--success);
+  background: rgba(52,211,153,0.12);
+  color: var(--success);
+}
+.quiz-choice.wrong {
+  border-color: var(--error);
+  background: rgba(248,113,113,0.12);
+  color: var(--error);
+}
+.quiz-choice.disabled { cursor: default; opacity: 0.6; }
+.quiz-choice.disabled.correct { opacity: 1; }
+.quiz-progress {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+.quiz-dots {
+  display: flex;
+  gap: 0.4rem;
+}
+.quiz-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  transition: var(--transition);
+}
+.quiz-dot.correct { background: var(--success); border-color: var(--success); }
+.quiz-dot.wrong { background: var(--error); border-color: var(--error); }
+.quiz-dot.current { border-color: var(--orange); box-shadow: 0 0 8px rgba(232,145,74,0.4); }
+.quiz-score-final {
+  text-align: center;
+  padding: 2rem;
+}
+.quiz-score-final .big-score {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--orange);
+}
+.quiz-score-final .msg {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+.quiz-feedback {
+  font-size: 0.95rem;
+  font-weight: 600;
+  min-height: 1.5rem;
+  text-align: center;
+}
+.quiz-feedback.correct { color: var(--success); }
+.quiz-feedback.wrong { color: var(--error); }
+
+/* ============ FOOTER ============ */
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+.footer strong { color: var(--orange); font-weight: 600; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .header-inner { flex-direction: column; align-items: flex-start; }
+  .header-info { margin-left: 0; text-align: left; }
+  .main { padding: 1rem; }
+  .card { padding: 1.2rem; }
+  .form-grid { grid-template-columns: 1fr; }
+  .quiz-choices { grid-template-columns: 1fr; }
+  .nav-bar { padding: 0.5rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- =============== HEADER =============== -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo-icon">iW</div>
+      <div class="logo-text">
+        <div class="brand">iner<span>Web</span> Édu</div>
+        <div class="sub">Outils pédagogiques interactifs</div>
+      </div>
+    </div>
+    <div class="header-info">
+      <div class="title-main">Filière <span>Plaquiste</span> — Systèmes Constructifs Secs <span class="badge">v1.0 démo</span></div>
+      <div class="author-line">F. Henninot — LPP Jacques Raynaud Campus ÉQUATIO Marseille</div>
+    </div>
+  </div>
+</header>
+
+<!-- =============== NAV =============== -->
+<nav class="nav-bar">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="showSection('metres')"><span class="nav-num">1</span>Calculateur de Métrés</button>
+    <button class="nav-btn" onclick="showSection('quantitatif')"><span class="nav-num">2</span>Quantitatif Matériaux</button>
+    <button class="nav-btn" onclick="showSection('quiz')"><span class="nav-num">3</span>Identifie le Profilé</button>
+  </div>
+</nav>
+
+<!-- =============== MAIN =============== -->
+<main class="main">
+
+  <!-- ======== SECTION 1 : MÉTRÉS ======== -->
+  <section id="sec-metres" class="section active">
+    <div class="card">
+      <div class="card-title">
+        <span class="icon orange">&#9634;</span>
+        Dimensions de la pièce
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Longueur (m)</label>
+          <input type="number" id="m-longueur" placeholder="ex : 5.00" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>Largeur (m)</label>
+          <input type="number" id="m-largeur" placeholder="ex : 3.50" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>Hauteur sous plafond (m)</label>
+          <input type="number" id="m-hauteur" placeholder="ex : 2.50" step="0.01" min="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="icon turq">&#9675;</span>
+        Ouvertures (portes et fenêtres)
+      </div>
+      <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));">
+        <div class="form-group">
+          <label>Type</label>
+          <select id="ouv-type">
+            <option value="Porte">Porte</option>
+            <option value="Fenêtre">Fenêtre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Largeur (m)</label>
+          <input type="number" id="ouv-larg" placeholder="0.90" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>Hauteur (m)</label>
+          <input type="number" id="ouv-haut" placeholder="2.04" step="0.01" min="0">
+        </div>
+        <div class="form-group" style="justify-content:flex-end;">
+          <button class="btn btn-turq btn-sm" onclick="ajouterOuverture()">+ Ajouter</button>
+        </div>
+      </div>
+      <div id="ouvertures-list" class="ouvertures-list"></div>
+    </div>
+
+    <div style="text-align:center; margin-bottom:1.5rem;">
+      <button class="btn btn-primary" onclick="calculerMetres()">Calculer les métrés</button>
+      <button class="btn btn-secondary" onclick="resetMetres()" style="margin-left:0.5rem;">Réinitialiser</button>
+    </div>
+
+    <div id="resultats-metres" class="results-panel" style="display:none;">
+      <div class="card-title">
+        <span class="icon green">&#10003;</span>
+        Résultats du métré
+      </div>
+      <div id="metres-detail"></div>
+    </div>
+  </section>
+
+  <!-- ======== SECTION 2 : QUANTITATIF ======== -->
+  <section id="sec-quantitatif" class="section">
+    <div class="card">
+      <div class="card-title">
+        <span class="icon orange">&#9776;</span>
+        Quantitatif Matériaux
+      </div>
+      <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1rem;">
+        La surface nette est automatiquement reprise du calculateur de métrés si disponible. Vous pouvez aussi la saisir manuellement.
+      </p>
+      <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="form-group">
+          <label>Surface nette murs (m²)</label>
+          <input type="number" id="q-surf-murs" placeholder="Surface murs" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>Surface nette plafond (m²)</label>
+          <input type="number" id="q-surf-plafond" placeholder="Surface plafond" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>Périmètre pièce (m)</label>
+          <input type="number" id="q-perimetre" placeholder="Périmètre" step="0.01" min="0">
+        </div>
+        <div class="form-group">
+          <label>Hauteur murs (m)</label>
+          <input type="number" id="q-hauteur" placeholder="Hauteur" step="0.01" min="0">
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:1rem;">
+        <button class="btn btn-primary" onclick="calculerQuantitatif()">Calculer le quantitatif</button>
+      </div>
+    </div>
+
+    <div id="resultats-quantitatif" class="card" style="display:none;">
+      <div class="card-title">
+        <span class="icon green">&#10003;</span>
+        Récapitulatif Matériaux
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Matériau</th>
+              <th>Détail calcul</th>
+              <th>Quantité</th>
+              <th>Unité</th>
+            </tr>
+          </thead>
+          <tbody id="quantitatif-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== SECTION 3 : QUIZ ======== -->
+  <section id="sec-quiz" class="section">
+    <div class="card">
+      <div class="card-title">
+        <span class="icon turq">&#9881;</span>
+        Mini-jeu : Identifie le Profilé
+      </div>
+      <div id="quiz-container" class="quiz-area">
+        <div class="quiz-progress">
+          <span id="quiz-question-num">Question 1 / 5</span>
+          <div class="quiz-dots" id="quiz-dots"></div>
+        </div>
+        <div class="quiz-svg-box" id="quiz-svg-box"></div>
+        <div class="quiz-feedback" id="quiz-feedback">&nbsp;</div>
+        <div class="quiz-choices" id="quiz-choices"></div>
+      </div>
+      <div id="quiz-final" class="quiz-score-final" style="display:none;"></div>
+      <div style="text-align:center; margin-top:1.5rem;">
+        <button class="btn btn-secondary" onclick="resetQuiz()">Recommencer le quiz</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- =============== FOOTER =============== -->
+<footer class="footer">
+  Démonstration <strong>inerWeb Édu</strong> — Potentiel filière Plaquiste — F. Henninot — Mars 2026
+</footer>
+
+<!-- =============== JAVASCRIPT =============== -->
+<script>
+/* ========================================
+   NAVIGATION
+   ======================================== */
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+}
+
+/* ========================================
+   SECTION 1 : CALCULATEUR DE MÉTRÉS
+   ======================================== */
+let ouvertures = [];
+
+function ajouterOuverture() {
+  const type = document.getElementById('ouv-type').value;
+  const larg = parseFloat(document.getElementById('ouv-larg').value);
+  const haut = parseFloat(document.getElementById('ouv-haut').value);
+  if (isNaN(larg) || isNaN(haut) || larg <= 0 || haut <= 0) return;
+  ouvertures.push({ type, larg, haut, surface: larg * haut });
+  document.getElementById('ouv-larg').value = '';
+  document.getElementById('ouv-haut').value = '';
+  afficherOuvertures();
+}
+
+function supprimerOuverture(i) {
+  ouvertures.splice(i, 1);
+  afficherOuvertures();
+}
+
+function afficherOuvertures() {
+  const list = document.getElementById('ouvertures-list');
+  if (ouvertures.length === 0) { list.innerHTML = ''; return; }
+  list.innerHTML = ouvertures.map((o, i) =>
+    '<div class="ouverture-item">' +
+      '<span class="tag">' + o.type + '</span>' +
+      '<span class="dims">' + o.larg.toFixed(2) + ' x ' + o.haut.toFixed(2) + ' m</span>' +
+      '<span class="area">' + o.surface.toFixed(2) + ' m\u00B2</span>' +
+      '<button class="btn btn-danger btn-sm" onclick="supprimerOuverture(' + i + ')">Suppr.</button>' +
+    '</div>'
+  ).join('');
+}
+
+function calculerMetres() {
+  const L = parseFloat(document.getElementById('m-longueur').value);
+  const l = parseFloat(document.getElementById('m-largeur').value);
+  const h = parseFloat(document.getElementById('m-hauteur').value);
+  if (isNaN(L) || isNaN(l) || isNaN(h) || L <= 0 || l <= 0 || h <= 0) return;
+
+  const perimetre = 2 * (L + l);
+  const surfBruteMurs = perimetre * h;
+  const surfBrutePlafond = L * l;
+  const totalOuvertures = ouvertures.reduce((s, o) => s + o.surface, 0);
+  const surfNetteMurs = surfBruteMurs - totalOuvertures;
+  const surfNetteTotal = surfNetteMurs + surfBrutePlafond;
+
+  const panel = document.getElementById('resultats-metres');
+  panel.style.display = 'block';
+  document.getElementById('metres-detail').innerHTML =
+    '<div class="result-row"><span class="label">Périmètre de la pièce</span><span class="value">' + perimetre.toFixed(2) + ' m</span></div>' +
+    '<div class="result-row"><span class="label">Surface brute des murs</span><span class="value">' + surfBruteMurs.toFixed(2) + ' m\u00B2</span></div>' +
+    '<div class="result-row"><span class="label">Surface brute plafond</span><span class="value">' + surfBrutePlafond.toFixed(2) + ' m\u00B2</span></div>' +
+    '<div class="result-row"><span class="label">Déduction ouvertures (' + ouvertures.length + ')</span><span class="value turq">\u2212 ' + totalOuvertures.toFixed(2) + ' m\u00B2</span></div>' +
+    '<div class="result-row"><span class="label">Surface nette murs</span><span class="value">' + surfNetteMurs.toFixed(2) + ' m\u00B2</span></div>' +
+    '<div class="result-row" style="border-top:2px solid var(--orange); margin-top:0.5rem; padding-top:0.8rem;">' +
+      '<span class="label" style="font-weight:700; color:var(--text);">SURFACE NETTE TOTALE</span>' +
+      '<span class="value highlight">' + surfNetteTotal.toFixed(2) + ' m\u00B2</span>' +
+    '</div>';
+
+  // Pré-remplir le quantitatif
+  document.getElementById('q-surf-murs').value = surfNetteMurs.toFixed(2);
+  document.getElementById('q-surf-plafond').value = surfBrutePlafond.toFixed(2);
+  document.getElementById('q-perimetre').value = perimetre.toFixed(2);
+  document.getElementById('q-hauteur').value = h.toFixed(2);
+}
+
+function resetMetres() {
+  document.getElementById('m-longueur').value = '';
+  document.getElementById('m-largeur').value = '';
+  document.getElementById('m-hauteur').value = '';
+  ouvertures = [];
+  afficherOuvertures();
+  document.getElementById('resultats-metres').style.display = 'none';
+}
+
+/* ========================================
+   SECTION 2 : QUANTITATIF MATÉRIAUX
+   ======================================== */
+function calculerQuantitatif() {
+  const surfMurs = parseFloat(document.getElementById('q-surf-murs').value) || 0;
+  const surfPlafond = parseFloat(document.getElementById('q-surf-plafond').value) || 0;
+  const perimetre = parseFloat(document.getElementById('q-perimetre').value) || 0;
+  const hauteur = parseFloat(document.getElementById('q-hauteur').value) || 0;
+
+  const surfTotale = surfMurs + surfPlafond;
+  if (surfTotale <= 0) return;
+
+  // Plaques BA13 : 2.40 x 1.20 = 2.88 m², +10% chutes
+  const surfPlaques = surfTotale * 1.10;
+  const nbPlaques = Math.ceil(surfPlaques / 2.88);
+
+  // Rails R48 : périmètre haut + bas = 2x périmètre, longueur 3m
+  const mlRails = perimetre * 2;
+  const nbRails = Math.ceil(mlRails / 3);
+
+  // Montants M48 : entraxe 60cm sur le périmètre
+  const nbMontants = Math.ceil(perimetre / 0.60);
+  // Chaque montant = hauteur mur
+  const mlMontants = nbMontants * hauteur;
+
+  // Vis TTPC 25mm : 25 vis/m²
+  const nbVis = Math.ceil(surfTotale * 25);
+
+  // Bandes et enduit : linéaire de joints
+  // Joints verticaux : 1 tous les 1.20m sur le périmètre + horizontal haut/bas
+  const jointsVerticaux = Math.ceil(perimetre / 1.20);
+  const mlJointsV = jointsVerticaux * hauteur;
+  const mlJointsH = perimetre * 2;
+  const mlJointsTotal = mlJointsV + mlJointsH;
+  // Bandes : même longueur
+  const nbRouleauxBande = Math.ceil(mlJointsTotal / 23); // rouleaux de 23m
+  // Enduit : ~0.3 kg/ml
+  const kgEnduit = Math.ceil(mlJointsTotal * 0.3);
+
+  const lignes = [
+    { mat: 'Plaques BA13 standard (2,40 x 1,20 m)', detail: surfTotale.toFixed(1) + ' m\u00B2 x 1,10 / 2,88', qty: nbPlaques, unite: 'plaques' },
+    { mat: 'Rails R48 (longueur 3 m)', detail: 'P\u00E9rim\u00E8tre x2 = ' + mlRails.toFixed(1) + ' ml / 3', qty: nbRails, unite: 'rails' },
+    { mat: 'Montants M48 (entraxe 60 cm)', detail: perimetre.toFixed(1) + ' m / 0,60 = ' + nbMontants + ' montants', qty: nbMontants, unite: 'montants' },
+    { mat: 'Vis TTPC 25 mm', detail: surfTotale.toFixed(1) + ' m\u00B2 x 25 vis/m\u00B2', qty: nbVis, unite: 'vis' },
+    { mat: 'Bandes \u00E0 joint (rouleaux 23 m)', detail: mlJointsTotal.toFixed(1) + ' ml de joints / 23', qty: nbRouleauxBande, unite: 'rouleaux' },
+    { mat: 'Enduit \u00E0 joint', detail: mlJointsTotal.toFixed(1) + ' ml x 0,3 kg/ml', qty: kgEnduit, unite: 'kg' },
+  ];
+
+  const tbody = document.getElementById('quantitatif-body');
+  tbody.innerHTML = lignes.map(l =>
+    '<tr>' +
+      '<td>' + l.mat + '</td>' +
+      '<td style="color:var(--text-muted); font-size:0.82rem;">' + l.detail + '</td>' +
+      '<td class="qty">' + l.qty.toLocaleString('fr-FR') + '</td>' +
+      '<td>' + l.unite + '</td>' +
+    '</tr>'
+  ).join('');
+
+  document.getElementById('resultats-quantitatif').style.display = 'block';
+  document.getElementById('resultats-quantitatif').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ========================================
+   SECTION 3 : QUIZ PROFILÉS
+   ======================================== */
+const PROFILES = [
+  {
+    nom: 'Rail R48',
+    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="20" y="20" width="160" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="20" y="20" width="10" height="80" fill="#555" stroke="#333" stroke-width="2"/><rect x="170" y="20" width="10" height="80" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="115" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Section en U — ailes lisses</text></svg>',
+    description: 'Profilé en U avec ailes lisses, fixé au sol et au plafond'
+  },
+  {
+    nom: 'Montant M48',
+    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="20" y="15" width="160" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="20" y="15" width="10" height="90" fill="#555" stroke="#333" stroke-width="2"/><rect x="170" y="15" width="10" height="90" fill="#555" stroke="#333" stroke-width="2"/><rect x="20" y="95" width="25" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="155" y="95" width="25" height="10" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="115" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Section en C — retours d\'ailes</text></svg>',
+    description: 'Profilé en C avec retours d\'ailes, s\'emboîte dans le rail'
+  },
+  {
+    nom: 'Fourrure F530',
+    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="30" y="20" width="140" height="8" fill="#555" stroke="#333" stroke-width="2"/><rect x="60" y="20" width="8" height="60" fill="#555" stroke="#333" stroke-width="2"/><rect x="132" y="20" width="8" height="60" fill="#555" stroke="#333" stroke-width="2"/><rect x="60" y="72" width="80" height="8" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="110" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Profil en oméga — plafond</text></svg>',
+    description: 'Profilé en forme de chapeau/oméga, utilisé pour les plafonds'
+  },
+  {
+    nom: 'Cornière',
+    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="40" y="20" width="12" height="80" fill="#555" stroke="#333" stroke-width="2"/><rect x="40" y="88" width="100" height="12" fill="#555" stroke="#333" stroke-width="2"/><text x="100" y="115" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Section en L — angle droit</text></svg>',
+    description: 'Profilé en L pour la protection des angles saillants'
+  },
+  {
+    nom: 'Entretoise',
+    svg: '<svg viewBox="0 0 200 120" width="280"><rect x="30" y="50" width="140" height="10" fill="#555" stroke="#333" stroke-width="2"/><rect x="30" y="35" width="15" height="40" fill="#555" stroke="#333" stroke-width="2" rx="2"/><rect x="155" y="35" width="15" height="40" fill="#555" stroke="#333" stroke-width="2" rx="2"/><circle cx="37" cy="45" r="3" fill="#333"/><circle cx="37" cy="65" r="3" fill="#333"/><circle cx="163" cy="45" r="3" fill="#333"/><circle cx="163" cy="65" r="3" fill="#333"/><text x="100" y="110" text-anchor="middle" font-size="11" fill="#888" font-family="Inter,sans-serif">Barre plate — pattes perforées</text></svg>',
+    description: 'Barre plate avec pattes perforées aux extrémités pour le contreventement'
+  }
+];
+
+let quizState = { current: 0, score: 0, answers: [], questions: [] };
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function generateQuizQuestions() {
+  const shuffled = shuffleArray(PROFILES);
+  return shuffled.map(profile => {
+    const others = PROFILES.filter(p => p.nom !== profile.nom);
+    const distractors = shuffleArray(others).slice(0, 3).map(p => p.nom);
+    const choices = shuffleArray([profile.nom, ...distractors]);
+    return { profile, choices, correct: profile.nom };
+  });
+}
+
+function resetQuiz() {
+  quizState = { current: 0, score: 0, answers: [], questions: generateQuizQuestions() };
+  document.getElementById('quiz-container').style.display = 'flex';
+  document.getElementById('quiz-final').style.display = 'none';
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const q = quizState.questions[quizState.current];
+  document.getElementById('quiz-question-num').textContent = 'Question ' + (quizState.current + 1) + ' / 5';
+
+  // Dots
+  const dots = document.getElementById('quiz-dots');
+  dots.innerHTML = '';
+  for (let i = 0; i < 5; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'quiz-dot';
+    if (i < quizState.current) {
+      dot.classList.add(quizState.answers[i] ? 'correct' : 'wrong');
+    } else if (i === quizState.current) {
+      dot.classList.add('current');
+    }
+    dots.appendChild(dot);
+  }
+
+  // SVG
+  document.getElementById('quiz-svg-box').innerHTML = q.profile.svg;
+
+  // Feedback
+  document.getElementById('quiz-feedback').innerHTML = '&nbsp;';
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+
+  // Choices
+  const choicesEl = document.getElementById('quiz-choices');
+  choicesEl.innerHTML = '';
+  q.choices.forEach(choice => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-choice';
+    btn.textContent = choice;
+    btn.onclick = () => handleQuizAnswer(choice);
+    choicesEl.appendChild(btn);
+  });
+}
+
+function handleQuizAnswer(choice) {
+  const q = quizState.questions[quizState.current];
+  const isCorrect = choice === q.correct;
+  quizState.answers.push(isCorrect);
+  if (isCorrect) quizState.score++;
+
+  // Feedback
+  const fb = document.getElementById('quiz-feedback');
+  if (isCorrect) {
+    fb.textContent = 'Bonne réponse ! ' + q.profile.description;
+    fb.className = 'quiz-feedback correct';
+  } else {
+    fb.textContent = 'Incorrect — c\u2019était : ' + q.correct + '. ' + q.profile.description;
+    fb.className = 'quiz-feedback wrong';
+  }
+
+  // Color buttons
+  document.querySelectorAll('.quiz-choice').forEach(btn => {
+    btn.classList.add('disabled');
+    if (btn.textContent === q.correct) btn.classList.add('correct');
+    else if (btn.textContent === choice && !isCorrect) btn.classList.add('wrong');
+  });
+
+  // Next
+  setTimeout(() => {
+    quizState.current++;
+    if (quizState.current >= 5) {
+      showQuizFinal();
+    } else {
+      renderQuizQuestion();
+    }
+  }, 2000);
+}
+
+function showQuizFinal() {
+  document.getElementById('quiz-container').style.display = 'none';
+  const final = document.getElementById('quiz-final');
+  final.style.display = 'block';
+
+  let msg = '';
+  if (quizState.score === 5) msg = 'Excellent ! Vous maîtrisez parfaitement les profilés.';
+  else if (quizState.score >= 3) msg = 'Bon résultat ! Encore un peu de révision et ce sera parfait.';
+  else msg = 'Continuez à vous entraîner, vous progresserez vite !';
+
+  final.innerHTML =
+    '<div class="big-score">' + quizState.score + ' / 5</div>' +
+    '<div class="msg">' + msg + '</div>' +
+    '<div style="margin-top:1rem;">' +
+      quizState.answers.map((a, i) =>
+        '<span style="display:inline-block; width:16px; height:16px; border-radius:50%; margin:0 3px; background:' +
+        (a ? 'var(--success)' : 'var(--error)') + ';"></span>'
+      ).join('') +
+    '</div>';
+}
+
+// Init quiz on load
+resetQuiz();
+</script>
+</body>
+</html>

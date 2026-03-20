@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inerWeb Édu — Filière Transport — Conducteurs Routiers</title>
+<style>
+:root {
+  --navy: #0f2d52;
+  --navy-light: #183d6e;
+  --orange: #e8914a;
+  --orange-dark: #c87535;
+  --turq: #2aafaf;
+  --turq-dark: #1e8a8a;
+  --bg: #faf7f2;
+  --bg-card: #ffffff;
+  --bg-dark: #0b1e38;
+  --bg-darker: #071428;
+  --text: #e8e4df;
+  --text-muted: #9aa8b8;
+  --border: #1e3a5c;
+  --red: #e74c3c;
+  --green: #2ecc71;
+  --yellow: #f1c40f;
+  --blue: #3498db;
+  --grey: #95a5a6;
+  --radius: 12px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, var(--bg-darker), var(--navy));
+  border-bottom: 3px solid var(--orange);
+  padding: 1.2rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.logo-area {
+  display: flex; align-items: center; gap: 1rem;
+}
+.logo-icon {
+  width: 52px; height: 52px;
+  background: linear-gradient(135deg, var(--orange), var(--turq));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 1.1rem; color: #fff;
+  letter-spacing: -1px; text-shadow: 0 1px 3px rgba(0,0,0,.4);
+}
+.header-titles h1 {
+  font-size: 1.35rem; font-weight: 700; color: #fff;
+}
+.header-titles h1 span { color: var(--orange); }
+.header-titles .subtitle {
+  font-size: .82rem; color: var(--text-muted); margin-top: 2px;
+}
+.header-meta {
+  margin-left: auto;
+  text-align: right;
+  font-size: .78rem;
+  color: var(--text-muted);
+}
+.header-meta .badge {
+  display: inline-block;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: .72rem;
+  margin-bottom: 4px;
+}
+
+/* ── NAV TABS ── */
+.nav-tabs {
+  display: flex;
+  background: var(--bg-darker);
+  border-bottom: 2px solid var(--border);
+  padding: 0 1rem;
+  gap: .5rem;
+  overflow-x: auto;
+}
+.nav-tab {
+  padding: .85rem 1.5rem;
+  cursor: pointer;
+  font-size: .88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 3px solid transparent;
+  transition: all .25s;
+  white-space: nowrap;
+  background: none; border-top:none; border-left:none; border-right:none;
+}
+.nav-tab:hover { color: var(--orange); }
+.nav-tab.active {
+  color: var(--orange);
+  border-bottom-color: var(--orange);
+}
+.nav-tab .tab-icon { margin-right: .4rem; }
+
+/* ── SECTIONS ── */
+.tool-section { display: none; padding: 1.5rem; max-width: 1200px; margin: auto; }
+.tool-section.active { display: block; }
+.card {
+  background: linear-gradient(135deg, rgba(15,45,82,.6), rgba(11,30,56,.8));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.2rem;
+  box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 1.15rem; font-weight: 700; color: var(--orange);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: .5rem;
+}
+.card-title .icon { font-size: 1.3rem; }
+
+/* ── INPUTS ── */
+label { font-size: .82rem; color: var(--text-muted); display: block; margin-bottom: .3rem; }
+input, select, button {
+  font-family: inherit;
+}
+input[type="text"], input[type="number"], select {
+  background: rgba(0,0,0,.3);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: .55rem .8rem;
+  border-radius: 8px;
+  font-size: .88rem;
+  width: 100%;
+  outline: none;
+  transition: border-color .2s;
+}
+input:focus, select:focus { border-color: var(--orange); }
+.btn {
+  padding: .6rem 1.3rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .85rem;
+  cursor: pointer;
+  transition: all .25s;
+  display: inline-flex; align-items: center; gap: .4rem;
+}
+.btn-orange { background: var(--orange); color: #fff; }
+.btn-orange:hover { background: var(--orange-dark); transform: translateY(-1px); }
+.btn-turq { background: var(--turq); color: #fff; }
+.btn-turq:hover { background: var(--turq-dark); transform: translateY(-1px); }
+.btn-red { background: var(--red); color: #fff; }
+.btn-red:hover { background: #c0392b; }
+.btn-sm { padding: .4rem .9rem; font-size: .8rem; }
+.row { display: flex; gap: 1rem; flex-wrap: wrap; }
+.col { flex: 1; min-width: 200px; }
+
+/* ══════════════════════════
+   OUTIL 1 — TIMELINE
+   ══════════════════════════ */
+.timeline-container { position: relative; margin: 1rem 0; }
+.timeline-hours {
+  display: flex; justify-content: space-between;
+  font-size: .65rem; color: var(--text-muted);
+  padding: 0 2px; margin-bottom: 4px;
+}
+.timeline-bar {
+  position: relative;
+  height: 56px;
+  background: rgba(0,0,0,.4);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: crosshair;
+}
+.timeline-block {
+  position: absolute;
+  top: 4px;
+  height: 48px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700; color: #fff;
+  cursor: grab;
+  text-shadow: 0 1px 2px rgba(0,0,0,.5);
+  transition: opacity .15s;
+  min-width: 8px;
+}
+.timeline-block:hover { opacity: .85; }
+.timeline-block .block-delete {
+  position: absolute; top: 2px; right: 4px;
+  font-size: .65rem; cursor: pointer; opacity: .6;
+}
+.timeline-block .block-delete:hover { opacity: 1; }
+.block-conduite { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+.block-travail { background: linear-gradient(135deg, #2980b9, #3498db); }
+.block-dispo { background: linear-gradient(135deg, #d4a017, #f1c40f); color: #333; }
+.block-repos { background: linear-gradient(135deg, #7f8c8d, #95a5a6); }
+
+.controls-row {
+  display: flex; gap: .8rem; flex-wrap: wrap;
+  align-items: end; margin-bottom: 1rem;
+}
+.controls-row > div { flex: 1; min-width: 120px; }
+
+.counters {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: .8rem; margin-top: 1rem;
+}
+.counter-box {
+  background: rgba(0,0,0,.3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: .7rem;
+  text-align: center;
+}
+.counter-box .val { font-size: 1.5rem; font-weight: 800; color: var(--orange); }
+.counter-box .lbl { font-size: .72rem; color: var(--text-muted); }
+
+.alerts-panel {
+  margin-top: 1rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.alert-item {
+  background: rgba(231,76,60,.15);
+  border-left: 4px solid var(--red);
+  padding: .5rem .8rem;
+  margin-bottom: .4rem;
+  border-radius: 0 6px 6px 0;
+  font-size: .82rem;
+  color: #f5a5a0;
+}
+.alert-ok {
+  background: rgba(46,204,113,.12);
+  border-left-color: var(--green);
+  color: #7ddfaa;
+}
+
+/* ══════════════════════════
+   OUTIL 2 — CHARGEMENT
+   ══════════════════════════ */
+.gauge-container {
+  display: flex; gap: 2rem; justify-content: center;
+  flex-wrap: wrap; margin: 1.5rem 0;
+}
+.gauge {
+  width: 180px; text-align: center;
+}
+.gauge-bar-outer {
+  width: 40px; height: 200px;
+  background: rgba(0,0,0,.4);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: .5rem auto;
+  position: relative;
+  overflow: hidden;
+}
+.gauge-bar-inner {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  border-radius: 0 0 7px 7px;
+  transition: height .4s, background .4s;
+}
+.gauge-label { font-size: .78rem; color: var(--text-muted); }
+.gauge-value { font-size: 1.3rem; font-weight: 800; color: var(--orange); }
+
+.marchandise-list {
+  max-height: 220px;
+  overflow-y: auto;
+}
+.marchandise-item {
+  display: flex; align-items: center; gap: .6rem;
+  background: rgba(0,0,0,.2);
+  padding: .4rem .7rem;
+  border-radius: 6px;
+  margin-bottom: .3rem;
+  font-size: .82rem;
+}
+.marchandise-item .m-name { flex: 1; }
+.marchandise-item .m-poids { color: var(--orange); font-weight: 600; }
+.marchandise-item .m-vol { color: var(--turq); font-weight: 600; margin-left: .5rem; }
+
+.essieux-bar {
+  display: flex; height: 36px; border-radius: 8px; overflow: hidden;
+  margin-top: .6rem; border: 1px solid var(--border);
+}
+.essieux-avant {
+  background: linear-gradient(135deg, var(--turq), var(--turq-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 700; transition: width .4s;
+}
+.essieux-arriere {
+  background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 700; transition: width .4s;
+}
+
+/* ══════════════════════════
+   OUTIL 3 — QUIZ
+   ══════════════════════════ */
+.quiz-header {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;
+}
+.quiz-stat {
+  font-size: .88rem; font-weight: 600;
+}
+.quiz-stat span { color: var(--orange); }
+.panneau-area {
+  display: flex; justify-content: center;
+  margin: 1.5rem 0;
+}
+.panneau-area svg {
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,.4));
+}
+.reponses-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: .7rem; max-width: 700px; margin: auto;
+}
+.rep-btn {
+  padding: 1rem;
+  background: rgba(15,45,82,.8);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: .9rem;
+  cursor: pointer;
+  transition: all .25s;
+  text-align: center;
+  font-weight: 500;
+}
+.rep-btn:hover { border-color: var(--orange); background: rgba(232,145,74,.1); }
+.rep-btn.correct { border-color: var(--green); background: rgba(46,204,113,.2); }
+.rep-btn.wrong { border-color: var(--red); background: rgba(231,76,60,.15); }
+.rep-btn:disabled { cursor: default; }
+.feedback-box {
+  max-width: 700px; margin: 1rem auto;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: .88rem;
+  display: none;
+}
+.feedback-box.show { display: block; }
+.feedback-ok { background: rgba(46,204,113,.12); border: 1px solid var(--green); color: #7ddfaa; }
+.feedback-ko { background: rgba(231,76,60,.12); border: 1px solid var(--red); color: #f5a5a0; }
+
+.quiz-end {
+  text-align: center; padding: 2rem;
+}
+.quiz-end .big-score { font-size: 3rem; font-weight: 900; color: var(--orange); }
+
+.progress-bar-outer {
+  height: 6px; background: rgba(0,0,0,.3); border-radius: 3px;
+  margin-bottom: 1rem; overflow: hidden;
+}
+.progress-bar-inner {
+  height: 100%; background: var(--orange); border-radius: 3px;
+  transition: width .3s;
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: .75rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  header { padding: .8rem 1rem; }
+  .header-titles h1 { font-size: 1.05rem; }
+  .tool-section { padding: 1rem; }
+  .reponses-grid { grid-template-columns: 1fr; }
+  .controls-row > div { min-width: 100px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<header>
+  <div class="logo-area">
+    <div class="logo-icon">iW</div>
+    <div class="header-titles">
+      <h1>inerWeb <span>Édu</span> — Filière Transport</h1>
+      <div class="subtitle">Conducteurs Routiers — Outils interactifs pédagogiques</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <div><span class="badge">v1.0 — Mars 2026</span></div>
+    <div>F. Henninot</div>
+    <div>LPP Jacques Raynaud — Campus ÉQUATIO Marseille</div>
+  </div>
+</header>
+
+<!-- ═══════ NAV ═══════ -->
+<div class="nav-tabs">
+  <button class="nav-tab active" onclick="showTool(0)">
+    <span class="tab-icon">&#9202;</span> Temps de Conduite &amp; Repos
+  </button>
+  <button class="nav-tab" onclick="showTool(1)">
+    <span class="tab-icon">&#9878;</span> Calculateur Chargement
+  </button>
+  <button class="nav-tab" onclick="showTool(2)">
+    <span class="tab-icon">&#127937;</span> Quiz Panneaux PL
+  </button>
+</div>
+
+<!-- ═══════════════════════════════
+     OUTIL 1 — TEMPS DE CONDUITE
+     ═══════════════════════════════ -->
+<section class="tool-section active" id="tool-0">
+  <div class="card">
+    <div class="card-title"><span class="icon">&#9202;</span> Simulateur Temps de Conduite &amp; Repos — CE 561/2006</div>
+    <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:1rem;">
+      Placez des blocs d'activité sur la timeline 24h. Le simulateur vérifie en temps réel le respect de la réglementation européenne.
+    </p>
+
+    <div class="controls-row">
+      <div>
+        <label>Type d'activité</label>
+        <select id="blockType">
+          <option value="conduite">Conduite</option>
+          <option value="travail">Autre travail</option>
+          <option value="dispo">Disponibilité</option>
+          <option value="repos">Repos</option>
+        </select>
+      </div>
+      <div>
+        <label>Heure début</label>
+        <input type="number" id="blockStart" min="0" max="23.75" step="0.25" value="6" />
+      </div>
+      <div>
+        <label>Durée (heures)</label>
+        <input type="number" id="blockDuration" min="0.25" max="14" step="0.25" value="2" />
+      </div>
+      <div style="display:flex;align-items:end;gap:.5rem;">
+        <button class="btn btn-orange" onclick="addBlock()">Ajouter</button>
+        <button class="btn btn-red btn-sm" onclick="clearBlocks()">Tout effacer</button>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.8rem;font-size:.75rem;">
+      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#2ecc71;"></span> Conduite</span>
+      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#3498db;"></span> Autre travail</span>
+      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#f1c40f;"></span> Disponibilité</span>
+      <span style="display:flex;align-items:center;gap:.3rem;"><span style="display:inline-block;width:14px;height:14px;border-radius:3px;background:#95a5a6;"></span> Repos</span>
+    </div>
+
+    <div class="timeline-container">
+      <div class="timeline-hours" id="timelineHours"></div>
+      <div class="timeline-bar" id="timelineBar"></div>
+    </div>
+
+    <div class="counters" id="counters">
+      <div class="counter-box"><div class="val" id="cntConduite">0h00</div><div class="lbl">Total conduite</div></div>
+      <div class="counter-box"><div class="val" id="cntTravail">0h00</div><div class="lbl">Autre travail</div></div>
+      <div class="counter-box"><div class="val" id="cntRepos">0h00</div><div class="lbl">Total repos</div></div>
+      <div class="counter-box"><div class="val" id="cntConduiteRestant">9h00</div><div class="lbl">Conduite restante</div></div>
+      <div class="counter-box"><div class="val" id="cntPauseNeeded">—</div><div class="lbl">Prochaine pause dans</div></div>
+    </div>
+
+    <div class="alerts-panel" id="alertsPanel"></div>
+  </div>
+
+  <div class="card" style="font-size:.8rem;color:var(--text-muted);">
+    <div class="card-title" style="font-size:.95rem;"><span class="icon">&#128214;</span> Rappel réglementation CE 561/2006</div>
+    <ul style="padding-left:1.2rem;line-height:1.8;">
+      <li>Conduite continue maximale : <strong style="color:var(--orange);">4h30</strong> → pause de <strong>45 min</strong> (ou 15 + 30 min)</li>
+      <li>Conduite journalière maximale : <strong style="color:var(--orange);">9h</strong> (extensible à 10h, 2 fois/semaine)</li>
+      <li>Repos journalier : <strong style="color:var(--orange);">11h</strong> consécutives (ou 9h réduit, 3 fois/semaine max)</li>
+      <li>Repos hebdomadaire : <strong>45h</strong> consécutives (ou 24h réduit, à compenser)</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     OUTIL 2 — CHARGEMENT
+     ═══════════════════════════════ -->
+<section class="tool-section" id="tool-1">
+  <div class="card">
+    <div class="card-title"><span class="icon">&#9878;</span> Calculateur de Chargement</div>
+
+    <div class="row" style="margin-bottom:1rem;">
+      <div class="col">
+        <label>Type de véhicule (PTAC)</label>
+        <select id="ptacSelect" onchange="updateChargement()">
+          <option value="3500" data-tare="1800" data-vol="16">VUL — 3,5 T (tare 1,8 T / 16 m³)</option>
+          <option value="19000" data-tare="7500" data-vol="45">Porteur 2 essieux — 19 T (tare 7,5 T / 45 m³)</option>
+          <option value="26000" data-tare="11000" data-vol="60">Porteur 3 essieux — 26 T (tare 11 T / 60 m³)</option>
+          <option value="44000" data-tare="15000" data-vol="90" selected>Ensemble articulé — 44 T (tare 15 T / 90 m³)</option>
+        </select>
+      </div>
+      <div class="col">
+        <label>Tare personnalisée (kg)</label>
+        <input type="number" id="tareCustom" placeholder="Optionnel" onchange="updateChargement()" />
+      </div>
+    </div>
+
+    <div class="card" style="padding:1rem;">
+      <div style="font-weight:600;margin-bottom:.6rem;color:var(--turq);">Ajouter une marchandise</div>
+      <div class="row">
+        <div class="col"><label>Désignation</label><input type="text" id="mNom" value="Palettes" /></div>
+        <div class="col"><label>Poids (kg)</label><input type="number" id="mPoids" value="1200" /></div>
+        <div class="col"><label>Volume (m³)</label><input type="number" id="mVol" value="2.4" step="0.1" /></div>
+        <div style="display:flex;align-items:end;">
+          <button class="btn btn-orange" onclick="ajouterMarchandise()">Ajouter</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="marchandise-list" id="marchList"></div>
+
+    <div class="gauge-container">
+      <div class="gauge">
+        <div class="gauge-label">Poids</div>
+        <div class="gauge-bar-outer">
+          <div class="gauge-bar-inner" id="gaugePoids" style="height:0%;background:var(--green);"></div>
+        </div>
+        <div class="gauge-value" id="gaugePoidsVal">0 %</div>
+        <div class="gauge-label" id="gaugePoidsInfo">0 / 29 000 kg</div>
+      </div>
+      <div class="gauge">
+        <div class="gauge-label">Volume</div>
+        <div class="gauge-bar-outer">
+          <div class="gauge-bar-inner" id="gaugeVol" style="height:0%;background:var(--green);"></div>
+        </div>
+        <div class="gauge-value" id="gaugeVolVal">0 %</div>
+        <div class="gauge-label" id="gaugeVolInfo">0 / 90 m³</div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:1rem;">
+      <div style="font-weight:600;margin-bottom:.5rem;color:var(--turq);">Répartition essieux (estimation simplifiée)</div>
+      <div style="display:flex;justify-content:space-between;font-size:.75rem;margin-bottom:.3rem;">
+        <span>Avant</span><span>Arrière</span>
+      </div>
+      <div class="essieux-bar">
+        <div class="essieux-avant" id="essAvant" style="width:35%;">35 %</div>
+        <div class="essieux-arriere" id="essArr" style="width:65%;">65 %</div>
+      </div>
+      <div id="essAlerte" style="margin-top:.5rem;font-size:.8rem;"></div>
+    </div>
+
+    <div style="text-align:center;margin-top:.5rem;">
+      <button class="btn btn-red btn-sm" onclick="viderChargement()">Vider le chargement</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════
+     OUTIL 3 — QUIZ PANNEAUX
+     ═══════════════════════════════ -->
+<section class="tool-section" id="tool-2">
+  <div class="card">
+    <div class="card-title"><span class="icon">&#127937;</span> Quiz — Code de la Route Poids Lourds</div>
+
+    <div id="quizIntro" style="text-align:center;padding:2rem 1rem;">
+      <p style="font-size:1.1rem;margin-bottom:1rem;">10 questions sur les panneaux spécifiques aux poids lourds.</p>
+      <p style="font-size:.88rem;color:var(--text-muted);margin-bottom:1.5rem;">Identifiez chaque panneau parmi 4 propositions. Chronomètre et score en direct !</p>
+      <button class="btn btn-orange" style="font-size:1.1rem;padding:.8rem 2.5rem;" onclick="startQuiz()">Commencer</button>
+    </div>
+
+    <div id="quizGame" style="display:none;">
+      <div class="progress-bar-outer"><div class="progress-bar-inner" id="quizProgress" style="width:0%"></div></div>
+      <div class="quiz-header">
+        <div class="quiz-stat">Question <span id="qNum">1</span> / 10</div>
+        <div class="quiz-stat">Score : <span id="qScore">0</span></div>
+        <div class="quiz-stat">&#9202; <span id="qTimer">0</span>s</div>
+      </div>
+      <div class="panneau-area" id="panneauArea"></div>
+      <div class="reponses-grid" id="repGrid"></div>
+      <div class="feedback-box" id="feedbackBox"></div>
+      <div style="text-align:center;margin-top:1rem;">
+        <button class="btn btn-turq" id="btnSuivant" style="display:none;" onclick="nextQuestion()">Question suivante</button>
+      </div>
+    </div>
+
+    <div id="quizEnd" class="quiz-end" style="display:none;">
+      <div style="font-size:1.1rem;margin-bottom:.5rem;">Quiz terminé !</div>
+      <div class="big-score" id="finalScore">0 / 10</div>
+      <div id="finalTime" style="color:var(--text-muted);margin:.5rem 0;"></div>
+      <div id="finalMsg" style="font-size:1rem;margin:1rem 0;"></div>
+      <button class="btn btn-orange" style="margin-top:1rem;" onclick="startQuiz()">Recommencer</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ FOOTER ═══════ -->
+<footer>
+  Démonstration inerWeb Édu — Potentiel filière Transport — F. Henninot — Mars 2026
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     JAVASCRIPT
+     ═══════════════════════════════════════════ -->
+<script>
+/* ── Navigation ── */
+function showTool(idx) {
+  document.querySelectorAll('.nav-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  document.querySelectorAll('.tool-section').forEach((s,i) => s.classList.toggle('active', i===idx));
+}
+
+/* ═══════════════════════════
+   OUTIL 1 — TIMELINE
+   ═══════════════════════════ */
+const blocks = [];
+
+(function initTimeline() {
+  const h = document.getElementById('timelineHours');
+  for (let i = 0; i <= 24; i++) {
+    const s = document.createElement('span');
+    s.textContent = String(i).padStart(2,'0')+'h';
+    h.appendChild(s);
+  }
+})();
+
+function fmt(h) {
+  const hh = Math.floor(h);
+  const mm = Math.round((h - hh) * 60);
+  return hh + 'h' + String(mm).padStart(2,'0');
+}
+
+function addBlock() {
+  const type = document.getElementById('blockType').value;
+  const start = parseFloat(document.getElementById('blockStart').value);
+  const dur = parseFloat(document.getElementById('blockDuration').value);
+  if (isNaN(start) || isNaN(dur) || dur <= 0) return;
+  const end = start + dur;
+  if (end > 24) { alert('Le bloc dépasse 24h !'); return; }
+  // Vérifier chevauchement
+  for (const b of blocks) {
+    if (start < b.end && end > b.start) {
+      alert('Chevauchement avec un bloc existant ('+fmt(b.start)+' → '+fmt(b.end)+')');
+      return;
+    }
+  }
+  blocks.push({ type, start, end, dur });
+  blocks.sort((a,b) => a.start - b.start);
+  renderTimeline();
+  analyzeRules();
+}
+
+function removeBlock(idx) {
+  blocks.splice(idx, 1);
+  renderTimeline();
+  analyzeRules();
+}
+
+function clearBlocks() {
+  blocks.length = 0;
+  renderTimeline();
+  analyzeRules();
+}
+
+function renderTimeline() {
+  const bar = document.getElementById('timelineBar');
+  bar.innerHTML = '';
+  blocks.forEach((b, i) => {
+    const div = document.createElement('div');
+    div.className = 'timeline-block block-' + b.type;
+    div.style.left = (b.start / 24 * 100) + '%';
+    div.style.width = (b.dur / 24 * 100) + '%';
+    const labels = { conduite:'C', travail:'T', dispo:'D', repos:'R' };
+    div.innerHTML = labels[b.type] + ' ' + fmt(b.dur) +
+      '<span class="block-delete" onclick="removeBlock('+i+')">&times;</span>';
+    bar.appendChild(div);
+  });
+}
+
+function analyzeRules() {
+  const alerts = [];
+  let totalConduite = 0, totalTravail = 0, totalRepos = 0;
+
+  blocks.forEach(b => {
+    if (b.type === 'conduite') totalConduite += b.dur;
+    if (b.type === 'travail') totalTravail += b.dur;
+    if (b.type === 'repos') totalRepos += b.dur;
+  });
+
+  // Vérification conduite continue (4h30 sans pause 45min)
+  let conduiteConsec = 0;
+  let pauseAccum = 0;
+  let lastEnd = 0;
+  const sorted = [...blocks].sort((a,b) => a.start - b.start);
+
+  for (const b of sorted) {
+    if (b.type === 'conduite') {
+      conduiteConsec += b.dur;
+      pauseAccum = 0;
+      if (conduiteConsec > 4.5) {
+        alerts.push('Conduite continue > 4h30 sans pause de 45 min (atteint ' + fmt(conduiteConsec) + ')');
+      }
+    } else if (b.type === 'repos' || b.type === 'dispo') {
+      pauseAccum += b.dur;
+      if (pauseAccum >= 0.75) { // 45 min
+        conduiteConsec = 0;
+        pauseAccum = 0;
+      }
+    }
+  }
+
+  // Conduite journalière max 9h
+  if (totalConduite > 10) {
+    alerts.push('Conduite journalière > 10h : INTERDIT même en extension !');
+  } else if (totalConduite > 9) {
+    alerts.push('Conduite journalière > 9h : extension à 10h (2 fois/semaine max)');
+  }
+
+  // Repos journalier
+  let maxReposConsec = 0, currentRepos = 0;
+  for (let i = 0; i < sorted.length; i++) {
+    if (sorted[i].type === 'repos') {
+      currentRepos += sorted[i].dur;
+      if (i + 1 < sorted.length && sorted[i+1].type === 'repos' && sorted[i].end === sorted[i+1].start) {
+        continue;
+      }
+    } else {
+      currentRepos = 0;
+    }
+    if (currentRepos > maxReposConsec) maxReposConsec = currentRepos;
+    if (sorted[i].type !== 'repos') currentRepos = 0;
+  }
+  // Recalcul repos consécutif simplifié
+  maxReposConsec = 0;
+  currentRepos = 0;
+  for (const b of sorted) {
+    if (b.type === 'repos') {
+      currentRepos += b.dur;
+    } else {
+      if (currentRepos > maxReposConsec) maxReposConsec = currentRepos;
+      currentRepos = 0;
+    }
+  }
+  if (currentRepos > maxReposConsec) maxReposConsec = currentRepos;
+
+  // Check remaining time for repos
+  const usedTime = blocks.reduce((s,b) => s + b.dur, 0);
+  const freeTime = 24 - usedTime;
+  const totalPossibleRepos = totalRepos + freeTime;
+
+  if (blocks.length > 0 && maxReposConsec < 9 && totalPossibleRepos < 9) {
+    alerts.push('Impossible d\'atteindre le repos journalier minimum (9h réduit) !');
+  } else if (blocks.length > 0 && maxReposConsec < 11 && maxReposConsec >= 9) {
+    alerts.push('Repos journalier réduit (9h) : autorisé max 3 fois/semaine');
+  }
+
+  // Calcul pause nécessaire
+  let conduiteDepuisPause = 0;
+  for (const b of sorted) {
+    if (b.type === 'conduite') {
+      conduiteDepuisPause += b.dur;
+    } else if ((b.type === 'repos' || b.type === 'dispo') && b.dur >= 0.75) {
+      conduiteDepuisPause = 0;
+    }
+  }
+  const pauseIn = Math.max(0, 4.5 - conduiteDepuisPause);
+
+  // Update counters
+  document.getElementById('cntConduite').textContent = fmt(totalConduite);
+  document.getElementById('cntTravail').textContent = fmt(totalTravail);
+  document.getElementById('cntRepos').textContent = fmt(totalRepos);
+  const restant = Math.max(0, 9 - totalConduite);
+  document.getElementById('cntConduiteRestant').textContent = fmt(restant);
+  document.getElementById('cntConduiteRestant').style.color = restant <= 1 ? 'var(--red)' : 'var(--orange)';
+
+  if (conduiteDepuisPause > 0) {
+    document.getElementById('cntPauseNeeded').textContent = fmt(pauseIn);
+    document.getElementById('cntPauseNeeded').style.color = pauseIn <= 0.5 ? 'var(--red)' : 'var(--orange)';
+  } else {
+    document.getElementById('cntPauseNeeded').textContent = '—';
+    document.getElementById('cntPauseNeeded').style.color = 'var(--orange)';
+  }
+
+  // Render alerts
+  const panel = document.getElementById('alertsPanel');
+  if (alerts.length === 0 && blocks.length > 0) {
+    panel.innerHTML = '<div class="alert-item alert-ok">&#10003; Toutes les règles sont respectées</div>';
+  } else {
+    panel.innerHTML = alerts.map(a => '<div class="alert-item">&#9888; ' + a + '</div>').join('');
+  }
+}
+
+analyzeRules();
+
+/* ═══════════════════════════
+   OUTIL 2 — CHARGEMENT
+   ═══════════════════════════ */
+let marchandises = [];
+
+function getVehicule() {
+  const sel = document.getElementById('ptacSelect');
+  const opt = sel.options[sel.selectedIndex];
+  const ptac = parseInt(sel.value);
+  let tare = parseInt(document.getElementById('tareCustom').value);
+  if (isNaN(tare) || tare <= 0) tare = parseInt(opt.dataset.tare);
+  const volMax = parseFloat(opt.dataset.vol);
+  return { ptac, tare, volMax, chargeUtile: ptac - tare };
+}
+
+function ajouterMarchandise() {
+  const nom = document.getElementById('mNom').value.trim() || 'Marchandise';
+  const poids = parseFloat(document.getElementById('mPoids').value) || 0;
+  const vol = parseFloat(document.getElementById('mVol').value) || 0;
+  if (poids <= 0 && vol <= 0) return;
+  marchandises.push({ nom, poids, vol });
+  updateChargement();
+}
+
+function supprimerMarchandise(i) {
+  marchandises.splice(i, 1);
+  updateChargement();
+}
+
+function viderChargement() {
+  marchandises = [];
+  updateChargement();
+}
+
+function updateChargement() {
+  const v = getVehicule();
+  const totalPoids = marchandises.reduce((s,m) => s + m.poids, 0);
+  const totalVol = marchandises.reduce((s,m) => s + m.vol, 0);
+  const pcPoids = Math.min(100, (totalPoids / v.chargeUtile) * 100);
+  const pcVol = Math.min(100, (totalVol / v.volMax) * 100);
+
+  // Couleur
+  function couleur(pc) {
+    if (pc > 100) return 'var(--red)';
+    if (pc > 85) return 'var(--orange)';
+    return 'var(--green)';
+  }
+
+  const gp = document.getElementById('gaugePoids');
+  gp.style.height = Math.min(100, pcPoids) + '%';
+  gp.style.background = couleur(pcPoids);
+  document.getElementById('gaugePoidsVal').textContent = pcPoids.toFixed(1) + ' %';
+  document.getElementById('gaugePoidsInfo').textContent =
+    (totalPoids/1000).toFixed(1) + ' / ' + (v.chargeUtile/1000).toFixed(1) + ' T';
+  document.getElementById('gaugePoidsVal').style.color = couleur(pcPoids);
+
+  const gv = document.getElementById('gaugeVol');
+  gv.style.height = Math.min(100, pcVol) + '%';
+  gv.style.background = couleur(pcVol);
+  document.getElementById('gaugeVolVal').textContent = pcVol.toFixed(1) + ' %';
+  document.getElementById('gaugeVolInfo').textContent =
+    totalVol.toFixed(1) + ' / ' + v.volMax + ' m³';
+  document.getElementById('gaugeVolVal').style.color = couleur(pcVol);
+
+  // Essieux (simplifié : 30-40% avant / 60-70% arrière)
+  const poidsTotal = v.tare + totalPoids;
+  const pcAvant = totalPoids > 0 ? Math.max(20, Math.min(45, 35 - (totalPoids / poidsTotal) * 15)) : 35;
+  const pcArr = 100 - pcAvant;
+  document.getElementById('essAvant').style.width = pcAvant.toFixed(0) + '%';
+  document.getElementById('essAvant').textContent = pcAvant.toFixed(0) + ' %';
+  document.getElementById('essArr').style.width = pcArr.toFixed(0) + '%';
+  document.getElementById('essArr').textContent = pcArr.toFixed(0) + ' %';
+
+  const essAlerte = document.getElementById('essAlerte');
+  if (pcAvant < 25) {
+    essAlerte.innerHTML = '<span style="color:var(--red);">&#9888; Charge avant insuffisante — risque de sous-virage !</span>';
+  } else if (pcArr > 75) {
+    essAlerte.innerHTML = '<span style="color:var(--orange);">&#9888; Charge arrière élevée — vérifier la répartition</span>';
+  } else {
+    essAlerte.innerHTML = '<span style="color:var(--green);">&#10003; Répartition correcte</span>';
+  }
+
+  // Liste
+  const list = document.getElementById('marchList');
+  if (marchandises.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:var(--text-muted);padding:1rem;font-size:.85rem;">Aucune marchandise chargée</div>';
+  } else {
+    list.innerHTML = marchandises.map((m, i) =>
+      '<div class="marchandise-item">' +
+        '<span class="m-name">' + m.nom + '</span>' +
+        '<span class="m-poids">' + (m.poids/1000).toFixed(2) + ' T</span>' +
+        '<span class="m-vol">' + m.vol.toFixed(1) + ' m³</span>' +
+        '<button class="btn btn-red btn-sm" style="padding:.2rem .5rem;font-size:.7rem;" onclick="supprimerMarchandise('+i+')">&#10005;</button>' +
+      '</div>'
+    ).join('');
+  }
+}
+updateChargement();
+
+/* ═══════════════════════════
+   OUTIL 3 — QUIZ PANNEAUX
+   ═══════════════════════════ */
+const quizData = [
+  {
+    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
+      <line x1="30" y1="130" x2="130" y2="30" stroke="#c0392b" stroke-width="8"/>
+      <text x="80" y="72" text-anchor="middle" font-size="22" font-weight="bold" fill="#333">PL</text>
+      <text x="80" y="100" text-anchor="middle" font-size="15" fill="#333">&gt; 3,5T</text>
+    </svg>`,
+    question: 'Que signifie ce panneau ?',
+    reponses: ['Interdiction aux véhicules de + de 3,5 T', 'Limitation de vitesse PL', 'Voie réservée PL', 'Zone de pesée obligatoire'],
+    correct: 0,
+    explication: 'Ce panneau rond à bordure rouge avec la mention PL > 3,5T interdit la circulation aux véhicules dont le PTAC dépasse 3,5 tonnes.'
+  },
+  {
+    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
+      <text x="80" y="92" text-anchor="middle" font-size="42" font-weight="bold" fill="#333">10T</text>
+    </svg>`,
+    question: 'Que signifie ce panneau ?',
+    reponses: ['Vitesse limitée à 10 km/h', 'Poids total autorisé limité à 10 tonnes', 'Distance de sécurité 10 m', 'Largeur limitée à 1,0 m'],
+    correct: 1,
+    explication: 'Ce panneau d\'interdiction (rond, bordure rouge) avec "10T" interdit l\'accès aux véhicules dont le poids total dépasse 10 tonnes.'
+  },
+  {
+    svg: `<svg width="160" height="200" viewBox="0 0 160 200">
+      <polygon points="80,10 150,190 10,190" fill="#fff" stroke="#c0392b" stroke-width="7"/>
+      <text x="80" y="135" text-anchor="middle" font-size="20" font-weight="bold" fill="#333">3,5m</text>
+      <line x1="55" y1="80" x2="105" y2="80" stroke="#333" stroke-width="3"/>
+      <line x1="55" y1="80" x2="55" y2="110" stroke="#333" stroke-width="2" stroke-dasharray="4"/>
+      <line x1="105" y1="80" x2="105" y2="110" stroke="#333" stroke-width="2" stroke-dasharray="4"/>
+      <text x="80" y="75" text-anchor="middle" font-size="13" fill="#333">&#8597;</text>
+    </svg>`,
+    question: 'Que signifie ce panneau triangulaire ?',
+    reponses: ['Danger : route étroite', 'Annonce d\'un gabarit limité en hauteur à 3,5 m', 'Limitation de largeur', 'Zone de travaux hauteur réduite'],
+    correct: 1,
+    explication: 'Le triangle de danger annonce un passage limité en hauteur à 3,5 m. Les conducteurs PL doivent vérifier la hauteur de leur véhicule.'
+  },
+  {
+    svg: `<svg width="180" height="120" viewBox="0 0 180 120">
+      <rect x="5" y="5" width="170" height="110" rx="10" fill="#2563eb" stroke="#fff" stroke-width="3"/>
+      <text x="90" y="45" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">VOIE DE</text>
+      <text x="90" y="72" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">DÉTRESSE</text>
+      <text x="90" y="100" text-anchor="middle" font-size="28" fill="#fff">&#10132; 500m</text>
+    </svg>`,
+    question: 'Que signale ce panneau bleu ?',
+    reponses: ['Aire de repos dans 500 m', 'Voie de détresse dans 500 m', 'Station-service dans 500 m', 'Sortie d\'autoroute dans 500 m'],
+    correct: 1,
+    explication: 'Ce panneau d\'indication signale une voie de détresse (lit d\'arrêt) à 500 m, destinée aux véhicules en perte de freinage, notamment les PL en descente.'
+  },
+  {
+    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
+      <text x="80" y="92" text-anchor="middle" font-size="36" font-weight="bold" fill="#333">2,6m</text>
+      <line x1="45" y1="50" x2="45" y2="110" stroke="#333" stroke-width="3"/>
+      <line x1="115" y1="50" x2="115" y2="110" stroke="#333" stroke-width="3"/>
+      <text x="80" y="46" text-anchor="middle" font-size="13" fill="#333">&#8596;</text>
+    </svg>`,
+    question: 'Que signifie ce panneau ?',
+    reponses: ['Limitation de hauteur à 2,6 m', 'Limitation de largeur à 2,6 m', 'Interdiction aux véhicules de + 2,6 T', 'Passage de 2,6 m minimum'],
+    correct: 1,
+    explication: 'Ce panneau rond à bordure rouge avec la cote 2,6 m et des flèches horizontales interdit le passage aux véhicules dont la largeur dépasse 2,6 mètres.'
+  },
+  {
+    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
+      <text x="80" y="68" text-anchor="middle" font-size="14" fill="#333">12T</text>
+      <line x1="40" y1="82" x2="120" y2="82" stroke="#333" stroke-width="3"/>
+      <circle cx="60" cy="105" r="10" fill="none" stroke="#333" stroke-width="3"/>
+      <circle cx="100" cy="105" r="10" fill="none" stroke="#333" stroke-width="3"/>
+      <line x1="40" y1="95" x2="120" y2="95" stroke="#333" stroke-width="2"/>
+    </svg>`,
+    question: 'Que signifie ce panneau ?',
+    reponses: ['PTAC limité à 12 T', 'Poids limité à 12 T par essieu', 'Charge remorque limitée à 12 T', 'Distance entre véhicules 12 m'],
+    correct: 1,
+    explication: 'Ce panneau interdit l\'accès aux véhicules dont le poids par essieu dépasse 12 tonnes. Il protège les ouvrages d\'art (ponts) contre les surcharges ponctuelles.'
+  },
+  {
+    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="72" fill="#fff" stroke="#c0392b" stroke-width="8"/>
+      <rect x="40" y="48" width="80" height="28" rx="4" fill="#333"/>
+      <text x="80" y="67" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">CAMION</text>
+      <rect x="55" y="82" width="50" height="22" rx="3" fill="#333"/>
+      <text x="80" y="98" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">AUTO</text>
+      <line x1="30" y1="130" x2="130" y2="30" stroke="#c0392b" stroke-width="7"/>
+    </svg>`,
+    question: 'Que signifie ce panneau ?',
+    reponses: ['Interdiction de dépasser pour les PL', 'Interdiction aux convois', 'Voie réservée aux PL', 'Interdiction de stationner PL'],
+    correct: 0,
+    explication: 'Ce panneau interdit aux véhicules de + de 3,5 T de dépasser les autres véhicules. Il est fréquent sur les routes à forte déclivité.'
+  },
+  {
+    svg: `<svg width="180" height="120" viewBox="0 0 180 120">
+      <rect x="5" y="5" width="170" height="110" rx="10" fill="#2563eb" stroke="#fff" stroke-width="3"/>
+      <text x="90" y="38" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff">AIRE PL</text>
+      <rect x="30" y="48" width="120" height="3" fill="rgba(255,255,255,.4)"/>
+      <text x="90" y="72" text-anchor="middle" font-size="28" fill="#fff">P</text>
+      <text x="90" y="100" text-anchor="middle" font-size="14" fill="#fff">&#9660; 200m</text>
+    </svg>`,
+    question: 'Que signale ce panneau ?',
+    reponses: ['Péage dans 200 m', 'Aire de stationnement PL dans 200 m', 'Poste de contrôle dans 200 m', 'Station GPL dans 200 m'],
+    correct: 1,
+    explication: 'Ce panneau d\'indication signale une aire de stationnement réservée aux poids lourds à 200 m. Utile pour les temps de repos obligatoires.'
+  },
+  {
+    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
+      <polygon points="80,12 152,145 8,145" fill="#f1c40f" stroke="#333" stroke-width="4"/>
+      <text x="80" y="80" text-anchor="middle" font-size="38" font-weight="bold" fill="#333">&#9888;</text>
+      <text x="80" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#333">10%</text>
+      <polyline points="60,95 80,75 100,95" fill="none" stroke="#333" stroke-width="3"/>
+    </svg>`,
+    question: 'Que signale ce panneau triangulaire ?',
+    reponses: ['Zone de travaux', 'Descente dangereuse à 10 %', 'Montée à 10 % — vitesse limitée', 'Virage dangereux'],
+    correct: 1,
+    explication: 'Ce panneau de danger (triangle jaune/blanc bordé) signale une descente dangereuse avec une pente de 10 %. Les conducteurs PL doivent utiliser le frein moteur et adapter leur vitesse.'
+  },
+  {
+    svg: `<svg width="160" height="160" viewBox="0 0 160 160">
+      <circle cx="80" cy="80" r="72" fill="#2563eb" stroke="#fff" stroke-width="5"/>
+      <text x="80" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">CHAÎNES</text>
+      <text x="80" y="88" text-anchor="middle" font-size="13" fill="#fff">NEIGE</text>
+      <text x="80" y="108" text-anchor="middle" font-size="12" fill="#fff">OBLIGATOIRES</text>
+    </svg>`,
+    question: 'Que signifie ce panneau rond bleu ?',
+    reponses: ['Zone de déneigement', 'Équipements hivernaux recommandés', 'Chaînes à neige obligatoires', 'Pneus hiver conseillés'],
+    correct: 2,
+    explication: 'Le panneau rond à fond bleu est un panneau d\'obligation. Celui-ci impose l\'utilisation de chaînes à neige. Particulièrement important pour les PL en montagne.'
+  }
+];
+
+let quizState = { current: 0, score: 0, timer: 0, interval: null, answered: false, order: [] };
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  quizState = { current: 0, score: 0, timer: 0, interval: null, answered: false, order: shuffleArray([...Array(quizData.length).keys()]) };
+  document.getElementById('quizIntro').style.display = 'none';
+  document.getElementById('quizEnd').style.display = 'none';
+  document.getElementById('quizGame').style.display = 'block';
+  quizState.interval = setInterval(() => {
+    quizState.timer++;
+    document.getElementById('qTimer').textContent = quizState.timer;
+  }, 1000);
+  showQuestion();
+}
+
+function showQuestion() {
+  const idx = quizState.order[quizState.current];
+  const q = quizData[idx];
+  quizState.answered = false;
+  document.getElementById('qNum').textContent = quizState.current + 1;
+  document.getElementById('qScore').textContent = quizState.score;
+  document.getElementById('quizProgress').style.width = (quizState.current / 10 * 100) + '%';
+  document.getElementById('panneauArea').innerHTML = q.svg;
+  document.getElementById('feedbackBox').className = 'feedback-box';
+  document.getElementById('feedbackBox').style.display = 'none';
+  document.getElementById('btnSuivant').style.display = 'none';
+
+  const grid = document.getElementById('repGrid');
+  grid.innerHTML = '';
+  q.reponses.forEach((r, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'rep-btn';
+    btn.textContent = r;
+    btn.onclick = () => answerQuestion(i);
+    grid.appendChild(btn);
+  });
+}
+
+function answerQuestion(chosen) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const idx = quizState.order[quizState.current];
+  const q = quizData[idx];
+  const btns = document.querySelectorAll('.rep-btn');
+  const correct = chosen === q.correct;
+
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add('correct');
+    if (i === chosen && !correct) btn.classList.add('wrong');
+  });
+
+  if (correct) quizState.score++;
+  document.getElementById('qScore').textContent = quizState.score;
+
+  const fb = document.getElementById('feedbackBox');
+  fb.className = 'feedback-box show ' + (correct ? 'feedback-ok' : 'feedback-ko');
+  fb.style.display = 'block';
+  fb.innerHTML = (correct ? '<strong>&#10003; Bonne réponse !</strong>' : '<strong>&#10007; Mauvaise réponse.</strong>') +
+    '<br>' + q.explication;
+
+  document.getElementById('btnSuivant').style.display = 'inline-flex';
+}
+
+function nextQuestion() {
+  quizState.current++;
+  if (quizState.current >= 10) {
+    endQuiz();
+  } else {
+    showQuestion();
+  }
+}
+
+function endQuiz() {
+  clearInterval(quizState.interval);
+  document.getElementById('quizGame').style.display = 'none';
+  document.getElementById('quizEnd').style.display = 'block';
+  document.getElementById('finalScore').textContent = quizState.score + ' / 10';
+  document.getElementById('finalTime').textContent = 'Temps total : ' + quizState.timer + ' secondes';
+  const pct = quizState.score / 10 * 100;
+  let msg = '';
+  if (pct === 100) msg = 'Parfait ! Vous maîtrisez la signalisation PL !';
+  else if (pct >= 80) msg = 'Très bien ! Quelques révisions sur les panneaux manqués.';
+  else if (pct >= 60) msg = 'Correct. Revoyez les panneaux spécifiques PL.';
+  else if (pct >= 40) msg = 'Insuffisant. Une révision complète est nécessaire.';
+  else msg = 'Il faut revoir l\'ensemble de la signalisation PL.';
+  document.getElementById('finalMsg').textContent = msg;
+}
+</script>
+</body>
+</html>

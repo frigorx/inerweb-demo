@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>inerWeb Édu — Filière Étanchéité</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0f2d52;--orange:#e8914a;--turq:#2aafaf;--bg:#faf7f2;
+  --card:#1a2a3a;--card2:#162232;--text:#e8e4df;--muted:#8a9ab0;
+  --success:#4caf50;--error:#e85a5a;--radius:12px;
+}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--navy);color:var(--text);line-height:1.6;min-height:100vh}
+a{color:var(--turq);text-decoration:none}
+
+/* === HEADER === */
+.header{background:linear-gradient(135deg,#091b35 0%,var(--navy) 50%,#0d2440 100%);padding:1.5rem 2rem;border-bottom:3px solid var(--orange);text-align:center;position:relative}
+.header::after{content:'';position:absolute;bottom:-3px;left:0;width:100%;height:3px;background:linear-gradient(90deg,var(--orange),var(--turq),var(--orange))}
+.logo{display:inline-flex;align-items:center;gap:.7rem;margin-bottom:.5rem}
+.logo-icon{width:48px;height:48px;background:var(--orange);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#fff;letter-spacing:-1px;box-shadow:0 4px 15px rgba(232,145,74,.35)}
+.header h1{font-size:1.6rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.header h1 span{color:var(--orange)}
+.header-sub{color:var(--muted);font-size:.85rem}
+.badge{display:inline-block;background:var(--orange);color:#fff;font-size:.65rem;padding:2px 8px;border-radius:20px;font-weight:700;vertical-align:middle;margin-left:.5rem}
+.header-meta{margin-top:.4rem;font-size:.78rem;color:var(--turq)}
+
+/* === NAV TABS === */
+.tabs{display:flex;justify-content:center;gap:.5rem;padding:1rem 1rem 0;flex-wrap:wrap}
+.tab-btn{background:var(--card);border:2px solid transparent;color:var(--muted);padding:.65rem 1.3rem;border-radius:var(--radius) var(--radius) 0 0;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .25s}
+.tab-btn:hover{color:var(--text);border-color:var(--turq)}
+.tab-btn.active{background:var(--card2);color:var(--orange);border-color:var(--orange);border-bottom-color:var(--card2)}
+
+/* === SECTIONS === */
+.panels{max-width:1100px;margin:0 auto;padding:0 1rem 2rem}
+.panel{display:none;animation:fadeUp .4s ease}
+.panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.card{background:var(--card);border-radius:var(--radius);padding:1.5rem;margin-top:1rem;border:1px solid rgba(255,255,255,.06);box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.card h2{color:var(--orange);font-size:1.25rem;margin-bottom:.2rem;display:flex;align-items:center;gap:.5rem}
+.card h2 .ico{font-size:1.4rem}
+.card-desc{color:var(--muted);font-size:.85rem;margin-bottom:1.2rem;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:.8rem}
+
+/* === FORMS === */
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem}
+label.field{display:flex;flex-direction:column;gap:.25rem}
+label.field span{font-size:.78rem;color:var(--turq);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+input[type="number"],select{background:var(--card2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.55rem .75rem;color:var(--text);font-size:.95rem;width:100%;transition:border-color .2s}
+input[type="number"]:focus,select:focus{outline:none;border-color:var(--orange)}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M6 8L1 3h10z' fill='%238a9ab0'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+
+.btn{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,var(--orange),#d17a35);color:#fff;border:none;padding:.65rem 1.5rem;border-radius:8px;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;margin-top:.8rem}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,145,74,.4)}
+.btn:active{transform:translateY(0)}
+.btn-turq{background:linear-gradient(135deg,var(--turq),#1e8a8a)}
+.btn-turq:hover{box-shadow:0 6px 20px rgba(42,175,175,.4)}
+
+/* === RESULTS === */
+.results{margin-top:1.2rem;background:var(--card2);border-radius:var(--radius);padding:1.2rem;border-left:4px solid var(--orange)}
+.results h3{color:var(--orange);margin-bottom:.6rem;font-size:1rem}
+.result-row{display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.9rem}
+.result-row:last-child{border-bottom:none}
+.result-row .val{color:var(--turq);font-weight:700}
+.result-row.total{border-top:2px solid var(--orange);margin-top:.4rem;padding-top:.5rem;font-weight:700;font-size:1rem}
+.result-row.total .val{color:var(--orange);font-size:1.1rem}
+
+/* === CONFIGURATEUR === */
+.config-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media(max-width:700px){.config-grid{grid-template-columns:1fr}}
+.config-left{display:flex;flex-direction:column;gap:.8rem}
+.config-right{background:var(--card2);border-radius:var(--radius);padding:1.2rem;border:1px solid rgba(255,255,255,.06)}
+.config-right h3{color:var(--orange);margin-bottom:.8rem;font-size:1rem}
+.layer{display:flex;align-items:center;gap:.7rem;padding:.6rem .8rem;border-radius:8px;margin-bottom:.4rem;position:relative;font-size:.88rem;transition:all .3s}
+.layer .layer-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.75rem;flex-shrink:0}
+.layer .layer-info{flex:1}
+.layer .layer-info strong{display:block;font-size:.85rem}
+.layer .layer-info small{color:var(--muted);font-size:.75rem}
+.layer-pv{background:rgba(42,175,175,.1);border:1px solid rgba(42,175,175,.25)}
+.layer-pv .layer-num{background:var(--turq);color:#fff}
+.layer-iso{background:rgba(232,145,74,.1);border:1px solid rgba(232,145,74,.25)}
+.layer-iso .layer-num{background:var(--orange);color:#fff}
+.layer-memb{background:rgba(15,45,82,.4);border:1px solid rgba(255,255,255,.15)}
+.layer-memb .layer-num{background:var(--navy);color:var(--orange);border:2px solid var(--orange)}
+.layer-prot{background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.25)}
+.layer-prot .layer-num{background:var(--success);color:#fff}
+.dtu-box{margin-top:1rem;background:rgba(42,175,175,.08);border:1px solid rgba(42,175,175,.2);border-radius:8px;padding:.8rem;font-size:.82rem;color:var(--turq)}
+.dtu-box strong{color:#fff}
+
+/* === JEU === */
+.game-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.score-display{display:flex;gap:1rem;align-items:center}
+.score-item{background:var(--card2);padding:.4rem .8rem;border-radius:8px;font-size:.85rem;font-weight:600}
+.score-item .num{color:var(--orange);font-size:1.1rem}
+.scenario-title{color:var(--turq);font-size:1rem;font-weight:600;margin-bottom:.5rem}
+.svg-container{background:var(--bg);border-radius:var(--radius);overflow:hidden;cursor:crosshair;position:relative;max-width:750px;margin:0 auto}
+.svg-container svg{width:100%;height:auto;display:block}
+.feedback-box{margin-top:.8rem;padding:.8rem 1rem;border-radius:8px;font-size:.9rem;font-weight:600;text-align:center;min-height:48px;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:all .3s}
+.feedback-ok{background:rgba(76,175,80,.15);color:var(--success);border:1px solid rgba(76,175,80,.3)}
+.feedback-ko{background:rgba(232,90,90,.15);color:var(--error);border:1px solid rgba(232,90,90,.3)}
+.feedback-info{background:rgba(42,175,175,.1);color:var(--turq);border:1px solid rgba(42,175,175,.2)}
+.game-btns{display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap}
+.progress-bar{height:6px;background:var(--card2);border-radius:3px;overflow:hidden;margin-bottom:.8rem}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--turq),var(--orange));transition:width .4s;border-radius:3px}
+
+/* === FOOTER === */
+.footer{text-align:center;padding:1.5rem;color:var(--muted);font-size:.78rem;border-top:1px solid rgba(255,255,255,.06);margin-top:2rem}
+
+/* Responsive */
+@media(max-width:600px){
+  .header h1{font-size:1.2rem}
+  .tabs{gap:.3rem}
+  .tab-btn{padding:.5rem .8rem;font-size:.8rem}
+  .card{padding:1rem}
+  .form-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ====== HEADER ====== -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">iW</div>
+    <div>
+      <h1>Filière <span>Étanchéité</span> — Toitures &amp; Enveloppes <span class="badge">v1.0</span></h1>
+      <div class="header-sub">inerWeb Édu — Démonstration interactive</div>
+    </div>
+  </div>
+  <div class="header-meta">F. Henninot — LPP Jacques Raynaud — Campus ÉQUATIO Marseille</div>
+</header>
+
+<!-- ====== NAVIGATION ====== -->
+<nav class="tabs">
+  <button class="tab-btn active" onclick="showPanel('calc')">&#128208; Calculateur Toiture</button>
+  <button class="tab-btn" onclick="showPanel('config')">&#128736; Complexe d'Étanchéité</button>
+  <button class="tab-btn" onclick="showPanel('game')">&#127922; Trouve le Défaut</button>
+</nav>
+
+<!-- ====== PANNEAUX ====== -->
+<div class="panels">
+
+<!-- ========== PANEL 1 : CALCULATEUR ========== -->
+<section id="panel-calc" class="panel active">
+  <div class="card">
+    <h2><span class="ico">&#128208;</span> Calculateur Toiture-Terrasse</h2>
+    <p class="card-desc">Dimensionnement rapide : surface, relevés d'acrotères, pente et quantité de membrane bitumineuse.</p>
+
+    <div class="form-grid">
+      <label class="field">
+        <span>Longueur (m)</span>
+        <input type="number" id="c-long" value="20" min="1" step="0.1">
+      </label>
+      <label class="field">
+        <span>Largeur (m)</span>
+        <input type="number" id="c-larg" value="12" min="1" step="0.1">
+      </label>
+      <label class="field">
+        <span>Hauteur acrotères (m)</span>
+        <input type="number" id="c-acro" value="0.30" min="0.1" step="0.01">
+      </label>
+      <label class="field">
+        <span>Nb évacuations EP</span>
+        <input type="number" id="c-ep" value="2" min="1" step="1">
+      </label>
+      <label class="field">
+        <span>Pente souhaitée (%)</span>
+        <input type="number" id="c-pente" value="1.5" min="1" max="3" step="0.1">
+      </label>
+      <label class="field">
+        <span>Épaisseur isolant min (cm)</span>
+        <input type="number" id="c-iso" value="8" min="2" step="1">
+      </label>
+    </div>
+
+    <button class="btn" onclick="calculerToiture()">&#128200; Calculer</button>
+
+    <div id="calc-results" class="results" style="display:none"></div>
+  </div>
+</section>
+
+<!-- ========== PANEL 2 : CONFIGURATEUR ========== -->
+<section id="panel-config" class="panel">
+  <div class="card">
+    <h2><span class="ico">&#128736;</span> Choix du Complexe d'Étanchéité</h2>
+    <p class="card-desc">Sélectionnez les paramètres du projet — le complexe multicouche s'affiche automatiquement.</p>
+
+    <div class="config-grid">
+      <div class="config-left">
+        <label class="field">
+          <span>Type de toiture</span>
+          <select id="cfg-type" onchange="updateComplexe()">
+            <option value="inaccessible">Terrasse inaccessible</option>
+            <option value="pieton">Terrasse accessible piétons</option>
+            <option value="vegetalisee">Terrasse végétalisée</option>
+            <option value="parking">Toiture-parking</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Support</span>
+          <select id="cfg-support" onchange="updateComplexe()">
+            <option value="beton">Béton</option>
+            <option value="bacier">Bac acier</option>
+            <option value="bois">Bois (panneaux CLT)</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Isolant</span>
+          <select id="cfg-isolant" onchange="updateComplexe()">
+            <option value="pu">Polyuréthane (PU)</option>
+            <option value="pir">Polyisocyanurate (PIR)</option>
+            <option value="ldr">Laine de roche</option>
+            <option value="pse">Polystyrène expansé (PSE)</option>
+          </select>
+        </label>
+      </div>
+      <div class="config-right">
+        <h3>&#128203; Composition du complexe</h3>
+        <div id="complexe-layers"></div>
+        <div id="dtu-ref" class="dtu-box"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PANEL 3 : JEU ========== -->
+<section id="panel-game" class="panel">
+  <div class="card">
+    <h2><span class="ico">&#127922;</span> Trouve le Défaut</h2>
+    <p class="card-desc">Observez le schéma en coupe et cliquez sur la zone où se cache le défaut d'étanchéité.</p>
+
+    <div class="game-header">
+      <div class="score-display">
+        <div class="score-item">Score : <span class="num" id="g-score">0</span> / <span id="g-total">5</span></div>
+        <div class="score-item">Scénario : <span class="num" id="g-num">1</span> / 5</div>
+      </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="g-progress" style="width:0%"></div></div>
+
+    <div id="g-scenario-title" class="scenario-title"></div>
+    <div class="svg-container" id="svg-wrap"></div>
+    <div id="g-feedback" class="feedback-box feedback-info">Cliquez sur la zone du défaut dans le schéma ci-dessus.</div>
+    <div class="game-btns">
+      <button class="btn btn-turq" id="g-next-btn" onclick="nextScenario()" style="display:none">Scénario suivant &#10132;</button>
+      <button class="btn" onclick="resetGame()">&#128260; Recommencer</button>
+    </div>
+  </div>
+</section>
+
+</div><!-- .panels -->
+
+<footer class="footer">
+  Démonstration inerWeb Édu — Potentiel filière Étanchéité — F. Henninot — Mars 2026
+</footer>
+
+<script>
+/* ==========================================
+   NAVIGATION ONGLETS
+   ========================================== */
+function showPanel(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+/* ==========================================
+   1. CALCULATEUR TOITURE-TERRASSE
+   ========================================== */
+function calculerToiture(){
+  const L = parseFloat(document.getElementById('c-long').value)||0;
+  const W = parseFloat(document.getElementById('c-larg').value)||0;
+  const H = parseFloat(document.getElementById('c-acro').value)||0;
+  const EP = parseInt(document.getElementById('c-ep').value)||1;
+  const pente = parseFloat(document.getElementById('c-pente').value)||1.5;
+  const isoMin = parseFloat(document.getElementById('c-iso').value)||8;
+
+  const surfH = L * W;
+  const perimetre = 2*(L+W);
+  const surfReleves = perimetre * H;
+  const surfTotale = surfH + surfReleves;
+
+  // pente : surélévation max au point le plus éloigné de l'EP
+  // on prend la demi-diagonale comme distance max simplifiée
+  const distMax = Math.max(L, W)/2;
+  const surElevation = distMax * (pente/100);
+  const epIsoMax = (isoMin/100) + surElevation;
+  const epIsoMoy = (isoMin/100) + surElevation/2;
+  const volIsolant = surfH * epIsoMoy;
+
+  // membrane : rouleaux 8m x 1m = 8 m², +15% recouvrements
+  const surfMembrane = surfTotale * 1.15;
+  const nbRouleaux = Math.ceil(surfMembrane / 8);
+
+  // débit EP simplifié (norme 3 L/min/m²)
+  const debitTotal = surfH * 3; // L/min
+  const debitParEP = debitTotal / EP;
+
+  const box = document.getElementById('calc-results');
+  box.style.display = 'block';
+  box.innerHTML = `
+    <h3>&#128200; Résultats du dimensionnement</h3>
+    <div class="result-row"><span>Surface horizontale</span><span class="val">${surfH.toFixed(1)} m²</span></div>
+    <div class="result-row"><span>Périmètre</span><span class="val">${perimetre.toFixed(1)} ml</span></div>
+    <div class="result-row"><span>Surface relevés d'acrotères</span><span class="val">${surfReleves.toFixed(1)} m²</span></div>
+    <div class="result-row total"><span>Surface totale à traiter</span><span class="val">${surfTotale.toFixed(1)} m²</span></div>
+    <div class="result-row" style="margin-top:.6rem"><span>Pente ${pente}% — surélévation max</span><span class="val">${(surElevation*100).toFixed(1)} cm</span></div>
+    <div class="result-row"><span>Épaisseur isolant : min ${isoMin} cm → max ${(epIsoMax*100).toFixed(1)} cm</span><span class="val">moy. ${(epIsoMoy*100).toFixed(1)} cm</span></div>
+    <div class="result-row"><span>Volume d'isolant de pente</span><span class="val">${volIsolant.toFixed(2)} m³</span></div>
+    <div class="result-row" style="margin-top:.6rem"><span>Surface membrane (+15% recouvrements)</span><span class="val">${surfMembrane.toFixed(1)} m²</span></div>
+    <div class="result-row total"><span>Rouleaux bitumineux (8 m × 1 m)</span><span class="val">${nbRouleaux} rouleaux</span></div>
+    <div class="result-row" style="margin-top:.6rem"><span>Débit EP total (3 L/min/m²)</span><span class="val">${debitTotal.toFixed(0)} L/min</span></div>
+    <div class="result-row"><span>Débit par évacuation (${EP} EP)</span><span class="val">${debitParEP.toFixed(0)} L/min</span></div>
+  `;
+}
+
+/* ==========================================
+   2. CONFIGURATEUR COMPLEXE
+   ========================================== */
+const COMPLEXES = {
+  inaccessible:{
+    layers:[
+      {type:'pv', nom:'Pare-vapeur', details:'Écran bitumineux soudé ou film PE'},
+      {type:'iso', nom:'Isolant thermique', details:''},
+      {type:'memb', nom:'Membrane d\'étanchéité bicouche', details:'EAC + feuille bitumineuse SBS/APP soudée'},
+      {type:'prot', nom:'Protection meuble', details:'Gravillons roulés 4/8 — ép. 5 cm min.'}
+    ],
+    dtu:'DTU 43.1 (béton) / DTU 43.3 (bac acier) / DTU 43.4 (bois)'
+  },
+  pieton:{
+    layers:[
+      {type:'pv', nom:'Pare-vapeur', details:'Film bitumineux ou synthétique'},
+      {type:'iso', nom:'Isolant thermique', details:''},
+      {type:'memb', nom:'Membrane d\'étanchéité bicouche', details:'Système bitumineux SBS anti-poinçonnement'},
+      {type:'prot', nom:'Protection dure', details:'Dalles sur plots ou chape + carrelage collé'}
+    ],
+    dtu:'DTU 43.1 — Classement F5 I5 T4 obligatoire'
+  },
+  vegetalisee:{
+    layers:[
+      {type:'pv', nom:'Pare-vapeur', details:'Écran PE ou bitumineux'},
+      {type:'iso', nom:'Isolant thermique', details:''},
+      {type:'memb', nom:'Membrane anti-racines', details:'Bicouche bitumineux + écran anti-racines certifié'},
+      {type:'prot', nom:'Complexe végétal', details:'Drainage + filtre + substrat + sédum (ép. 8-15 cm)'}
+    ],
+    dtu:'DTU 43.1 + Règles professionnelles toitures végétalisées (ADIVET / CSFE)'
+  },
+  parking:{
+    layers:[
+      {type:'pv', nom:'Pare-vapeur renforcé', details:'Film bitumineux armé soudé'},
+      {type:'iso', nom:'Isolant haute résistance', details:''},
+      {type:'memb', nom:'Membrane d\'étanchéité renforcée', details:'Bicouche SBS armé polyester — résistance au poinçonnement'},
+      {type:'prot', nom:'Protection lourde', details:'Chape béton armé 8 cm + revêtement anti-dérapant'}
+    ],
+    dtu:'DTU 43.1 — Classement I5 T4 — Avis technique requis'
+  }
+};
+
+const ISOLANTS = {
+  pu: {nom:'Polyuréthane (PU)', lambda:'0,022 W/m·K', avantage:'Très haute performance, faible épaisseur'},
+  pir:{nom:'Polyisocyanurate (PIR)', lambda:'0,023 W/m·K', avantage:'Excellente tenue au feu, haute performance'},
+  ldr:{nom:'Laine de roche', lambda:'0,036 W/m·K', avantage:'Incombustible (A1), bon acoustique'},
+  pse:{nom:'Polystyrène expansé (PSE)', lambda:'0,032 W/m·K', avantage:'Économique, léger, bonne résistance mécanique'}
+};
+
+const SUPPORTS = {
+  beton:{nom:'Dalle béton armé', note:'Primaire d\'accrochage EIF ou vernis bitumineux'},
+  bacier:{nom:'Bac acier nervuré', note:'Fixation mécanique — pare-vapeur indépendant'},
+  bois:{nom:'Panneau bois CLT / OSB', note:'Ventilation obligatoire — pare-vapeur continu'}
+};
+
+function updateComplexe(){
+  const typeK = document.getElementById('cfg-type').value;
+  const supK = document.getElementById('cfg-support').value;
+  const isoK = document.getElementById('cfg-isolant').value;
+  const cx = COMPLEXES[typeK];
+  const iso = ISOLANTS[isoK];
+  const sup = SUPPORTS[supK];
+
+  let html = '';
+  // support
+  html += `<div class="layer layer-pv" style="background:rgba(15,45,82,.3);border-color:rgba(255,255,255,.15)">
+    <div class="layer-num" style="background:var(--navy);color:var(--text);border:2px solid var(--muted)">0</div>
+    <div class="layer-info"><strong>${sup.nom}</strong><small>${sup.note}</small></div>
+  </div>`;
+
+  cx.layers.forEach((l,i)=>{
+    let det = l.details;
+    if(l.type==='iso'){
+      det = `${iso.nom} — λ = ${iso.lambda} — ${iso.avantage}`;
+    }
+    html += `<div class="layer layer-${l.type}">
+      <div class="layer-num">${i+1}</div>
+      <div class="layer-info"><strong>${l.nom}</strong><small>${det}</small></div>
+    </div>`;
+  });
+
+  document.getElementById('complexe-layers').innerHTML = html;
+  document.getElementById('dtu-ref').innerHTML = `<strong>DTU de référence :</strong> ${cx.dtu}`;
+}
+// init
+updateComplexe();
+
+/* ==========================================
+   3. MINI-JEU : TROUVE LE DÉFAUT
+   ========================================== */
+const SCENARIOS = [
+  {
+    title:'Scénario 1 — Cloquage de la membrane',
+    desc:'Une cloque s\'est formée sur la membrane bitumineuse en partie courante.',
+    defautZone:{x:280,y:155,w:100,h:30},
+    explication:'La cloque est causée par une humidité résiduelle dans le support ou un défaut de soudure du pare-vapeur. L\'eau piégée se vaporise sous l\'effet de la chaleur.'
+  },
+  {
+    title:'Scénario 2 — Retroussement au relevé',
+    desc:'Le relevé d\'étanchéité en pied d\'acrotère présente un retroussement.',
+    defautZone:{x:580,y:95,w:60,h:80},
+    explication:'Le retroussement du relevé est dû à un manque de fixation en tête ou à un défaut de soudure. L\'eau s\'infiltre derrière la membrane par capillarité.'
+  },
+  {
+    title:'Scénario 3 — Absence de solin',
+    desc:'La jonction entre le relevé et le mur en maçonnerie n\'est pas protégée.',
+    defautZone:{x:565,y:50,w:75,h:45},
+    explication:'L\'absence de solin (bande métallique de rejet d\'eau) en tête de relevé permet aux eaux de ruissellement de s\'infiltrer derrière l\'étanchéité.'
+  },
+  {
+    title:'Scénario 4 — Pente insuffisante',
+    desc:'L\'eau stagne en partie courante de la toiture. Où est le problème ?',
+    defautZone:{x:180,y:140,w:200,h:35},
+    explication:'La pente est insuffisante (< 1%). L\'eau stagnante accélère le vieillissement de la membrane et provoque des surcharges. La norme impose 1% minimum (DTU 43.1).'
+  },
+  {
+    title:'Scénario 5 — EEP bouchée',
+    desc:'L\'entrée d\'eaux pluviales est obstruée. Localisez-la.',
+    defautZone:{x:80,y:145,w:60,h:45},
+    explication:'L\'EEP (Entrée d\'Eaux Pluviales) est bouchée par des débris. L\'eau remonte et s\'infiltre sous les relevés. Un entretien régulier (2 fois/an) est obligatoire.'
+  }
+];
+
+let gameState = {current:0, score:0, answered:false};
+
+function drawSVG(scenarioIdx){
+  const s = SCENARIOS[scenarioIdx];
+  const dz = s.defautZone;
+  // SVG coupe toiture-terrasse
+  let svg = `<svg viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg" id="game-svg">
+    <defs>
+      <pattern id="hatch" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+        <line x1="0" y1="0" x2="0" y2="8" stroke="#888" stroke-width="1"/>
+      </pattern>
+      <pattern id="gravel" patternUnits="userSpaceOnUse" width="12" height="12">
+        <circle cx="3" cy="3" r="1.5" fill="#999"/>
+        <circle cx="9" cy="9" r="2" fill="#aaa"/>
+        <circle cx="6" cy="1" r="1" fill="#bbb"/>
+      </pattern>
+    </defs>
+    <!-- Fond ciel -->
+    <rect x="0" y="0" width="700" height="280" fill="#e3edf7"/>
+    <!-- Mur acrotère gauche -->
+    <rect x="30" y="40" width="40" height="195" fill="#b0a090" stroke="#7a6a5a" stroke-width="1.5"/>
+    <rect x="30" y="40" width="40" height="195" fill="url(#hatch)" opacity="0.3"/>
+    <!-- Mur acrotère droit -->
+    <rect x="570" y="40" width="40" height="195" fill="#b0a090" stroke="#7a6a5a" stroke-width="1.5"/>
+    <rect x="570" y="40" width="40" height="195" fill="url(#hatch)" opacity="0.3"/>
+    <!-- Mur vertical droit (maçonnerie) -->
+    <rect x="610" y="10" width="60" height="250" fill="#c4b8a8" stroke="#7a6a5a" stroke-width="1.5"/>
+    <rect x="610" y="10" width="60" height="250" fill="url(#hatch)" opacity="0.2"/>
+    <text x="640" y="145" font-size="10" fill="#5a4a3a" text-anchor="middle" transform="rotate(-90,640,145)">Maçonnerie</text>
+    <!-- Dalle béton -->
+    <rect x="70" y="200" width="500" height="35" fill="#9a9a9a" stroke="#666" stroke-width="1"/>
+    <text x="320" y="222" font-size="11" fill="#444" text-anchor="middle" font-weight="bold">Dalle béton support</text>`;
+
+  // Variantes par scénario
+  if(scenarioIdx === 0){
+    // Cloquage
+    svg += `
+    <!-- Pare-vapeur -->
+    <rect x="70" y="193" width="500" height="5" fill="#5ab8b8" opacity="0.7"/>
+    <!-- Isolant -->
+    <rect x="70" y="172" width="500" height="21" fill="#f5c76a" stroke="#d4a640" stroke-width="0.5"/>
+    <text x="320" y="186" font-size="9" fill="#7a5a20" text-anchor="middle">Isolant</text>
+    <!-- Membrane avec cloque -->
+    <rect x="70" y="165" width="500" height="7" fill="#2a2a2a"/>
+    <ellipse cx="330" cy="162" rx="45" ry="12" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="1.5"/>
+    <!-- Gravillons -->
+    <rect x="70" y="145" width="500" height="17" fill="url(#gravel)" stroke="#888" stroke-width="0.5"/>
+    <text x="320" y="156" font-size="8" fill="#555" text-anchor="middle">Gravillons</text>
+    <!-- Relevés -->
+    <rect x="68" y="60" width="6" height="105" fill="#2a2a2a"/>
+    <rect x="566" y="60" width="8" height="105" fill="#2a2a2a"/>
+    <!-- Solin -->
+    <path d="M566,60 L610,55 L610,65 L570,65 Z" fill="#888" stroke="#666" stroke-width="1"/>
+    <!-- EEP -->
+    <circle cx="110" cy="170" r="12" fill="#446" stroke="#223" stroke-width="2"/>
+    <text x="110" y="174" font-size="8" fill="#aab" text-anchor="middle">EEP</text>`;
+  } else if(scenarioIdx === 1){
+    // Retroussement relevé droit
+    svg += `
+    <rect x="70" y="193" width="500" height="5" fill="#5ab8b8" opacity="0.7"/>
+    <rect x="70" y="172" width="500" height="21" fill="#f5c76a" stroke="#d4a640" stroke-width="0.5"/>
+    <text x="320" y="186" font-size="9" fill="#7a5a20" text-anchor="middle">Isolant</text>
+    <rect x="70" y="165" width="500" height="7" fill="#2a2a2a"/>
+    <rect x="70" y="145" width="500" height="17" fill="url(#gravel)" stroke="#888" stroke-width="0.5"/>
+    <!-- Relevé gauche OK -->
+    <rect x="68" y="60" width="6" height="105" fill="#2a2a2a"/>
+    <!-- Relevé droit RETROUSSÉ -->
+    <path d="M566,165 L570,165 L574,100 L580,90 L590,95 L600,110" fill="none" stroke="#2a2a2a" stroke-width="5" stroke-linecap="round"/>
+    <!-- Solin gauche -->
+    <path d="M30,55 L72,60 L72,66 L30,62 Z" fill="#888" stroke="#666"/>
+    <!-- EEP -->
+    <circle cx="110" cy="170" r="12" fill="#446" stroke="#223" stroke-width="2"/>
+    <text x="110" y="174" font-size="8" fill="#aab" text-anchor="middle">EEP</text>`;
+  } else if(scenarioIdx === 2){
+    // Absence de solin droit
+    svg += `
+    <rect x="70" y="193" width="500" height="5" fill="#5ab8b8" opacity="0.7"/>
+    <rect x="70" y="172" width="500" height="21" fill="#f5c76a" stroke="#d4a640" stroke-width="0.5"/>
+    <text x="320" y="186" font-size="9" fill="#7a5a20" text-anchor="middle">Isolant</text>
+    <rect x="70" y="165" width="500" height="7" fill="#2a2a2a"/>
+    <rect x="70" y="145" width="500" height="17" fill="url(#gravel)" stroke="#888" stroke-width="0.5"/>
+    <!-- Relevés -->
+    <rect x="68" y="60" width="6" height="105" fill="#2a2a2a"/>
+    <rect x="566" y="60" width="8" height="105" fill="#2a2a2a"/>
+    <!-- Solin gauche OK -->
+    <path d="M30,55 L72,60 L72,66 L30,62 Z" fill="#888" stroke="#666"/>
+    <!-- PAS de solin droit → défaut -->
+    <!-- Flèches eau -->
+    <path d="M630,30 L620,50 L625,48 L618,65" fill="none" stroke="#4488cc" stroke-width="1.5" stroke-dasharray="3,2"/>
+    <text x="645" y="42" font-size="8" fill="#4488cc">Pluie</text>
+    <circle cx="110" cy="170" r="12" fill="#446" stroke="#223" stroke-width="2"/>
+    <text x="110" y="174" font-size="8" fill="#aab" text-anchor="middle">EEP</text>`;
+  } else if(scenarioIdx === 3){
+    // Pente insuffisante — eau stagnante
+    svg += `
+    <rect x="70" y="193" width="500" height="5" fill="#5ab8b8" opacity="0.7"/>
+    <rect x="70" y="172" width="500" height="21" fill="#f5c76a" stroke="#d4a640" stroke-width="0.5"/>
+    <text x="320" y="186" font-size="9" fill="#7a5a20" text-anchor="middle">Isolant</text>
+    <rect x="70" y="165" width="500" height="7" fill="#2a2a2a"/>
+    <!-- Eau stagnante au lieu de gravillons -->
+    <rect x="70" y="148" width="500" height="14" fill="url(#gravel)" stroke="#888" stroke-width="0.5"/>
+    <rect x="120" y="145" width="300" height="10" fill="#6aaad4" opacity="0.5" rx="3"/>
+    <text x="270" y="153" font-size="8" fill="#2266aa" text-anchor="middle">Eau stagnante !</text>
+    <!-- Relevés + solins -->
+    <rect x="68" y="60" width="6" height="105" fill="#2a2a2a"/>
+    <rect x="566" y="60" width="8" height="105" fill="#2a2a2a"/>
+    <path d="M30,55 L72,60 L72,66 L30,62 Z" fill="#888" stroke="#666"/>
+    <path d="M566,60 L610,55 L610,65 L570,65 Z" fill="#888" stroke="#666"/>
+    <circle cx="110" cy="170" r="12" fill="#446" stroke="#223" stroke-width="2"/>
+    <text x="110" y="174" font-size="8" fill="#aab" text-anchor="middle">EEP</text>`;
+  } else {
+    // EEP bouchée
+    svg += `
+    <rect x="70" y="193" width="500" height="5" fill="#5ab8b8" opacity="0.7"/>
+    <rect x="70" y="172" width="500" height="21" fill="#f5c76a" stroke="#d4a640" stroke-width="0.5"/>
+    <text x="320" y="186" font-size="9" fill="#7a5a20" text-anchor="middle">Isolant</text>
+    <rect x="70" y="165" width="500" height="7" fill="#2a2a2a"/>
+    <rect x="70" y="145" width="500" height="17" fill="url(#gravel)" stroke="#888" stroke-width="0.5"/>
+    <!-- Relevés + solins -->
+    <rect x="68" y="60" width="6" height="105" fill="#2a2a2a"/>
+    <rect x="566" y="60" width="8" height="105" fill="#2a2a2a"/>
+    <path d="M30,55 L72,60 L72,66 L30,62 Z" fill="#888" stroke="#666"/>
+    <path d="M566,60 L610,55 L610,65 L570,65 Z" fill="#888" stroke="#666"/>
+    <!-- EEP bouchée -->
+    <circle cx="110" cy="170" r="14" fill="#664433" stroke="#442211" stroke-width="2"/>
+    <text x="110" y="168" font-size="7" fill="#aa8866" text-anchor="middle">EEP</text>
+    <text x="110" y="178" font-size="6" fill="#cc6644" text-anchor="middle">débris</text>
+    <!-- Eau remontant -->
+    <rect x="72" y="150" width="80" height="12" fill="#6aaad4" opacity="0.4" rx="2"/>`;
+  }
+
+  // Labels communs
+  svg += `
+    <!-- Labels acrotères -->
+    <text x="50" y="35" font-size="9" fill="#5a4a3a" text-anchor="middle" font-weight="bold">Acrotère</text>
+    <text x="590" y="35" font-size="9" fill="#5a4a3a" text-anchor="middle" font-weight="bold">Acrotère</text>
+  </svg>`;
+
+  document.getElementById('svg-wrap').innerHTML = svg;
+
+  // Zone cliquable (invisible)
+  const svgEl = document.getElementById('game-svg');
+  svgEl.addEventListener('click', function(e){
+    if(gameState.answered) return;
+    const rect = svgEl.getBoundingClientRect();
+    const scaleX = 700 / rect.width;
+    const scaleY = 280 / rect.height;
+    const cx = (e.clientX - rect.left) * scaleX;
+    const cy = (e.clientY - rect.top) * scaleY;
+
+    const z = SCENARIOS[gameState.current].defautZone;
+    const margin = 25;
+    if(cx >= z.x - margin && cx <= z.x + z.w + margin && cy >= z.y - margin && cy <= z.y + z.h + margin){
+      onCorrect();
+    } else {
+      onIncorrect(cx, cy);
+    }
+  });
+}
+
+function onCorrect(){
+  gameState.answered = true;
+  gameState.score++;
+  document.getElementById('g-score').textContent = gameState.score;
+  const fb = document.getElementById('g-feedback');
+  fb.className = 'feedback-box feedback-ok';
+  fb.innerHTML = '&#10004; Correct ! ' + SCENARIOS[gameState.current].explication;
+  highlightDefaut();
+  showNextBtn();
+}
+
+function onIncorrect(cx, cy){
+  const fb = document.getElementById('g-feedback');
+  fb.className = 'feedback-box feedback-ko';
+  fb.innerHTML = '&#10008; Raté ! Cherchez encore\u2026 Le défaut est ailleurs.';
+  // marquer le clic erroné sur le SVG
+  const svgEl = document.getElementById('game-svg');
+  const cross = document.createElementNS('http://www.w3.org/2000/svg','text');
+  cross.setAttribute('x', cx);
+  cross.setAttribute('y', cy);
+  cross.setAttribute('font-size','18');
+  cross.setAttribute('fill','#e85a5a');
+  cross.setAttribute('text-anchor','middle');
+  cross.setAttribute('dominant-baseline','central');
+  cross.textContent = '\u2716';
+  svgEl.appendChild(cross);
+}
+
+function highlightDefaut(){
+  const z = SCENARIOS[gameState.current].defautZone;
+  const svgEl = document.getElementById('game-svg');
+  const rect = document.createElementNS('http://www.w3.org/2000/svg','rect');
+  rect.setAttribute('x', z.x);
+  rect.setAttribute('y', z.y);
+  rect.setAttribute('width', z.w);
+  rect.setAttribute('height', z.h);
+  rect.setAttribute('fill','none');
+  rect.setAttribute('stroke','#4caf50');
+  rect.setAttribute('stroke-width','3');
+  rect.setAttribute('stroke-dasharray','6,3');
+  rect.setAttribute('rx','4');
+  svgEl.appendChild(rect);
+}
+
+function showNextBtn(){
+  const btn = document.getElementById('g-next-btn');
+  if(gameState.current < SCENARIOS.length - 1){
+    btn.style.display = 'inline-flex';
+    btn.textContent = 'Scénario suivant \u27A2';
+  } else {
+    btn.style.display = 'inline-flex';
+    btn.textContent = 'Voir le résultat final';
+    btn.onclick = showFinalScore;
+  }
+}
+
+function nextScenario(){
+  gameState.current++;
+  gameState.answered = false;
+  document.getElementById('g-num').textContent = gameState.current + 1;
+  document.getElementById('g-progress').style.width = ((gameState.current)/SCENARIOS.length*100) + '%';
+  document.getElementById('g-next-btn').style.display = 'none';
+  loadScenario();
+}
+
+function showFinalScore(){
+  const pct = Math.round(gameState.score / SCENARIOS.length * 100);
+  let msg = '';
+  if(pct === 100) msg = 'Parfait ! Vous maîtrisez l\'inspection des toitures-terrasses.';
+  else if(pct >= 60) msg = 'Bien joué ! Quelques points à revoir sur les pathologies.';
+  else msg = 'Il faut réviser ! L\'étanchéité n\'a pas de secret pour ceux qui observent.';
+  document.getElementById('svg-wrap').innerHTML = `
+    <div style="text-align:center;padding:3rem;color:var(--navy)">
+      <div style="font-size:3rem;margin-bottom:.5rem">${pct === 100 ? '&#127942;' : pct >= 60 ? '&#128077;' : '&#128218;'}</div>
+      <div style="font-size:2rem;font-weight:800;color:var(--orange)">${gameState.score} / ${SCENARIOS.length}</div>
+      <div style="font-size:1.1rem;margin-top:.5rem;color:var(--navy)">${msg}</div>
+    </div>`;
+  document.getElementById('g-feedback').className = 'feedback-box feedback-info';
+  document.getElementById('g-feedback').textContent = 'Partie terminée ! Cliquez sur Recommencer pour rejouer.';
+  document.getElementById('g-next-btn').style.display = 'none';
+  document.getElementById('g-progress').style.width = '100%';
+}
+
+function loadScenario(){
+  const s = SCENARIOS[gameState.current];
+  document.getElementById('g-scenario-title').textContent = s.title + ' — ' + s.desc;
+  document.getElementById('g-feedback').className = 'feedback-box feedback-info';
+  document.getElementById('g-feedback').textContent = 'Cliquez sur la zone du défaut dans le schéma ci-dessus.';
+  drawSVG(gameState.current);
+}
+
+function resetGame(){
+  gameState = {current:0, score:0, answered:false};
+  document.getElementById('g-score').textContent = '0';
+  document.getElementById('g-num').textContent = '1';
+  document.getElementById('g-progress').style.width = '0%';
+  document.getElementById('g-next-btn').style.display = 'none';
+  document.getElementById('g-next-btn').onclick = function(){ nextScenario(); };
+  loadScenario();
+}
+
+// Init jeu au chargement
+loadScenario();
+</script>
+</body>
+</html>
